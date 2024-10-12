@@ -11,7 +11,9 @@ import oms.limit_price_computer.limit_price_computer_using_spread as olpclpcus
 _LOG = logging.getLogger(__name__)
 
 
-class Test_limit_price_computer_using_spread(hunitest.TestCase):
+class Test_limit_price_computer_using_spread(
+    hunitest.TestCase, hunteuti.Obj_to_str_TestCase
+):
     def test1(self) -> None:
         """
         Test limit price calculation using side="buy".
@@ -32,6 +34,8 @@ class Test_limit_price_computer_using_spread(hunitest.TestCase):
             'wave_id': 0}
         """
         self.assert_equal(actual, expected, fuzzy_match=True)
+
+    # #########################################################################
 
     def test2(self) -> None:
         """
@@ -54,9 +58,85 @@ class Test_limit_price_computer_using_spread(hunitest.TestCase):
         """
         self.assert_equal(actual, expected, fuzzy_match=True)
 
+    # #########################################################################
+
     def test_compare_latest_and_average_price(self) -> None:
         """
         Verify that bid_price and ask_price are correctly calculated.
+        """
+        actual_str = self.compare_latest_and_average_price_helper()
+        expected_str = r"""
+        ("({'latest_bid_price': 51, 'latest_ask_price': 61, 'bid_price_mean': 50.5, "
+        "'ask_price_mean': 60.5, 'used_bid_price': 'latest_bid_price', "
+        "'used_ask_price': 'latest_ask_price'}, 51, 61)\n"
+        "({'latest_bid_price': 32, 'latest_ask_price': 42, 'bid_price_mean': 31.0, "
+        "'ask_price_mean': 41.0, 'used_bid_price': 'bid_price_mean', "
+        "'used_ask_price': 'ask_price_mean'}, 31.0, 41.0)")
+        """
+        self.assert_equal(actual_str, expected_str, fuzzy_match=True)
+
+    # #########################################################################
+
+    def test_invalid_side1(self) -> None:
+        """
+        Check that an assertion is raised when a non-existent side value is
+        supplied.
+        """
+        with self.assertRaises(ValueError) as cm:
+            self._calculate_price_helper(
+                "non-existent-side", 0.5, 0.01, 1464553467, 3, 0
+            )
+        act = str(cm.exception)
+        exp = r"Invalid side='non-existent-side'"
+        self.assert_equal(act, exp, fuzzy_match=True)
+
+    # #########################################################################
+
+    def test_repr1(self) -> None:
+        """
+        Check `LimitPriceComputerUsingSpread` `__repr__`.
+        """
+        obj = self.get_object()
+        expected_str = r"""
+        <oms.limit_price_computer.limit_price_computer_using_spread.LimitPriceComputerUsingSpread at 0x>:
+          passivity_factor='0.5' <float>
+          max_deviation='0.01' <float>
+        """
+        self.run_test_repr(obj, expected_str)
+
+    # #########################################################################
+
+    def test_str1(self) -> None:
+        """
+        Check `LimitPriceComputerUsingSpread` `__str__`.
+        """
+        obj = self.get_object()
+        expected_str = r"""
+        LimitPriceComputerUsingSpread at 0x=(passivity_factor=0.5 <float>, max_deviation=0.01 <float>)
+        """
+        self.run_test_str(obj, expected_str)
+
+    # #########################################################################
+    #   Helper Functions used in the Class.
+    # #########################################################################
+
+    @staticmethod
+    def get_object() -> olpclpcus.LimitPriceComputerUsingSpread:
+        """
+        Build `LimitPriceComputerUsingSpread` object for test.
+        """
+        passivity_factor = 0.5
+        max_deviation = 0.01
+        limit_price_computer = olpclpcus.LimitPriceComputerUsingSpread(
+            passivity_factor, max_deviation=max_deviation
+        )
+        return limit_price_computer
+    
+    # ########################################################################
+
+    def compare_latest_and_average_price_helper(self) -> str:
+        """
+        Helper Function to get the actual result.
         """
         bid_price_col = "bid_price_l1"
         ask_price_col = "ask_price_l1"
@@ -76,29 +156,9 @@ class Test_limit_price_computer_using_spread(hunitest.TestCase):
             actual.append(str(output))
         # concatenate all asset_id output for test.
         actual_str = "\n".join(actual)
-        actual_str = pprint.pformat(actual_str)
-        expected_str = r"""
-        ("({'latest_bid_price': 51, 'latest_ask_price': 61, 'bid_price_mean': 50.5, "
-        "'ask_price_mean': 60.5, 'used_bid_price': 'latest_bid_price', "
-        "'used_ask_price': 'latest_ask_price'}, 51, 61)\n"
-        "({'latest_bid_price': 32, 'latest_ask_price': 42, 'bid_price_mean': 31.0, "
-        "'ask_price_mean': 41.0, 'used_bid_price': 'bid_price_mean', "
-        "'used_ask_price': 'ask_price_mean'}, 31.0, 41.0)")
-        """
-        self.assert_equal(actual_str, expected_str, fuzzy_match=True)
+        return pprint.pformat(actual_str)
 
-    def test_invalid_side1(self) -> None:
-        """
-        Check that an assertion is raised when a non-existent side value is
-        supplied.
-        """
-        with self.assertRaises(ValueError) as cm:
-            self._calculate_price_helper(
-                "non-existent-side", 0.5, 0.01, 1464553467, 3, 0
-            )
-        act = str(cm.exception)
-        exp = r"Invalid side='non-existent-side'"
-        self.assert_equal(act, exp, fuzzy_match=True)
+    # #########################################################################
 
     def _calculate_price_helper(
         self,
@@ -133,40 +193,4 @@ class Test_limit_price_computer_using_spread(hunitest.TestCase):
         actual = pprint.pformat(price_dict)
         return actual
 
-
-class Test_LimitPriceComputerUsingSpread_Obj_to_str1(
-    hunitest.TestCase, hunteuti.Obj_to_str_TestCase
-):
-    @staticmethod
-    def get_object() -> olpclpcus.LimitPriceComputerUsingSpread:
-        """
-        Build `LimitPriceComputerUsingSpread` object for test.
-        """
-        passivity_factor = 0.5
-        max_deviation = 0.01
-        limit_price_computer = olpclpcus.LimitPriceComputerUsingSpread(
-            passivity_factor, max_deviation=max_deviation
-        )
-        return limit_price_computer
-
-    def test_repr1(self) -> None:
-        """
-        Check `LimitPriceComputerUsingSpread` `__repr__`.
-        """
-        obj = self.get_object()
-        expected_str = r"""
-        <oms.limit_price_computer.limit_price_computer_using_spread.LimitPriceComputerUsingSpread at 0x>:
-          passivity_factor='0.5' <float>
-          max_deviation='0.01' <float>
-        """
-        self.run_test_repr(obj, expected_str)
-
-    def test_str1(self) -> None:
-        """
-        Check `LimitPriceComputerUsingSpread` `__str__`.
-        """
-        obj = self.get_object()
-        expected_str = r"""
-        LimitPriceComputerUsingSpread at 0x=(passivity_factor=0.5 <float>, max_deviation=0.01 <float>)
-        """
-        self.run_test_str(obj, expected_str)
+    # #########################################################################

@@ -12,7 +12,9 @@ import oms.limit_price_computer.limit_price_computer_using_volatility as olpclpc
 _LOG = logging.getLogger(__name__)
 
 
-class Test_limit_price_computer_using_volatility(hunitest.TestCase):
+class Test_limit_price_computer_using_volatility(
+    hunitest.TestCase, hunteuti.Obj_to_str_TestCase
+):
     def test1(self) -> None:
         """
         Test limit price calculation using side="buy" and constant volatility
@@ -55,6 +57,8 @@ class Test_limit_price_computer_using_volatility(hunitest.TestCase):
         'wave_id': 0}
         """
         self.assert_equal(actual, expected, fuzzy_match=True)
+
+    # #########################################################################
 
     def test2(self) -> None:
         """
@@ -99,6 +103,8 @@ class Test_limit_price_computer_using_volatility(hunitest.TestCase):
         """
         self.assert_equal(actual, expected, fuzzy_match=True)
 
+    # #########################################################################
+
     def test3(self) -> None:
         """
         Test limit price calculation using side="sell" and volatility
@@ -122,7 +128,7 @@ class Test_limit_price_computer_using_volatility(hunitest.TestCase):
                 wave_id,
             )
             actual_results.append(actual_result)
-        # Verify that result for each wave is correct.
+        # Verify that result for a single wave is correct.
         actual_0 = actual_results[0]
         expected_0 = r"""
         {'ask_vol': 7.745966692414834,
@@ -147,102 +153,8 @@ class Test_limit_price_computer_using_volatility(hunitest.TestCase):
         'wave_id': 0}
             """
         self.assert_equal(actual_0, expected_0, fuzzy_match=True)
-        actual_1 = actual_results[1]
-        expected_1 = r"""
-        {'ask_vol': 7.745966692414834,
-        'ask_vol_bps': 1269.8306053139074,
-        'bid_vol': 7.745966692414834,
-        'bid_vol_bps': 1518.8169985127126,
-        'latest_ask_price': 61.0,
-        'latest_ask_size': 41,
-        'latest_bid_price': 51.0,
-        'latest_bid_size': 31,
-        'latest_mid_price': 56.0,
-        'limit_price': 54.873,
-        'num_data_points': 2,
-        'num_data_points_resampled': 11,
-        'scaling_multiplier': 24.49489742783178,
-        'spread': 10.0,
-        'spread_bps': 1785.7142857142858,
-        'total_vol': 7.745966692414834,
-        'total_vol_bps': 1383.2083379312205,
-        'total_vol_to_spread_bps': 0.7745966692414834,
-        'volatility_multiple': 0.5,
-        'wave_id': 1}
-            """
-        self.assert_equal(actual_1, expected_1, fuzzy_match=True)
-        actual_2 = actual_results[2]
-        expected_2 = r"""
-        {'ask_vol': 7.745966692414834,
-        'ask_vol_bps': 1269.8306053139074,
-        'bid_vol': 7.745966692414834,
-        'bid_vol_bps': 1518.8169985127126,
-        'latest_ask_price': 61.0,
-        'latest_ask_size': 41,
-        'latest_bid_price': 51.0,
-        'latest_bid_size': 31,
-        'latest_mid_price': 56.0,
-        'limit_price': 58.746,
-        'num_data_points': 2,
-        'num_data_points_resampled': 11,
-        'scaling_multiplier': 24.49489742783178,
-        'spread': 10.0,
-        'spread_bps': 1785.7142857142858,
-        'total_vol': 7.745966692414834,
-        'total_vol_bps': 1383.2083379312205,
-        'total_vol_to_spread_bps': 0.7745966692414834,
-        'volatility_multiple': 1,
-        'wave_id': 2}
-            """
-        self.assert_equal(actual_2, expected_2, fuzzy_match=True)
-        actual_3 = actual_results[3]
-        expected_3 = r"""
-            {'ask_vol': 7.745966692414834,
-            'ask_vol_bps': 1269.8306053139074,
-            'bid_vol': 7.745966692414834,
-            'bid_vol_bps': 1518.8169985127126,
-            'latest_ask_price': 61.0,
-            'latest_ask_size': 41,
-            'latest_bid_price': 51.0,
-            'latest_bid_size': 31,
-            'latest_mid_price': 56.0,
-            'limit_price': 62.619,
-            'num_data_points': 2,
-            'num_data_points_resampled': 11,
-            'scaling_multiplier': 24.49489742783178,
-            'spread': 10.0,
-            'spread_bps': 1785.7142857142858,
-            'total_vol': 7.745966692414834,
-            'total_vol_bps': 1383.2083379312205,
-            'total_vol_to_spread_bps': 0.7745966692414834,
-            'volatility_multiple': 1.5,
-            'wave_id': 3}
-            """
-        self.assert_equal(actual_3, expected_3, fuzzy_match=True)
-        actual_4 = actual_results[4]
-        expected_4 = r"""
-            {'ask_vol': 7.745966692414834,
-            'ask_vol_bps': 1269.8306053139074,
-            'bid_vol': 7.745966692414834,
-            'bid_vol_bps': 1518.8169985127126,
-            'latest_ask_price': 61.0,
-            'latest_ask_size': 41,
-            'latest_bid_price': 51.0,
-            'latest_bid_size': 31,
-            'latest_mid_price': 56.0,
-            'limit_price': 66.492,
-            'num_data_points': 2,
-            'num_data_points_resampled': 11,
-            'scaling_multiplier': 24.49489742783178,
-            'spread': 10.0,
-            'spread_bps': 1785.7142857142858,
-            'total_vol': 7.745966692414834,
-            'total_vol_bps': 1383.2083379312205,
-            'total_vol_to_spread_bps': 0.7745966692414834,
-            'volatility_multiple': 2,
-            'wave_id': 4}
-            """
-        self.assert_equal(actual_4, expected_4, fuzzy_match=True)
+
+    # #########################################################################
 
     def test4(self) -> None:
         """
@@ -287,6 +199,8 @@ class Test_limit_price_computer_using_volatility(hunitest.TestCase):
         """
         self.assert_equal(actual, expected, fuzzy_match=True)
 
+    # #########################################################################
+
     def test5(self) -> None:
         """
         Test limit price calculation using side="sell", constant volatility
@@ -330,6 +244,8 @@ class Test_limit_price_computer_using_volatility(hunitest.TestCase):
         """
         self.assert_equal(actual, expected, fuzzy_match=True)
 
+    # #########################################################################
+
     def test_invalid_side1(self) -> None:
         """
         Check that an assertion is raised when a non-existent side value is
@@ -343,6 +259,43 @@ class Test_limit_price_computer_using_volatility(hunitest.TestCase):
         exp = r"Invalid side='non-existent-side'"
         self.assert_equal(act, exp, fuzzy_match=True)
 
+    # #########################################################################
+
+    def test_repr1(self) -> None:
+        """
+        Check `LimitPriceComputerUsingVolatility` `__repr__`.
+        """
+        obj = self.get_object()
+        expected_str = r"""
+        <oms.limit_price_computer.limit_price_computer_using_volatility.LimitPriceComputerUsingVolatility at 0x>:
+          _volatility_multiple='0.5' <float>
+        """
+        self.run_test_repr(obj, expected_str)
+
+    # #########################################################################
+
+    def test_str1(self) -> None:
+        """
+        Check `LimitPriceComputerUsingVolatility` `__str__`.
+        """
+        obj = self.get_object()
+        expected_str = r"""
+        LimitPriceComputerUsingVolatility at 0x=(_volatility_multiple=0.5 <float>)
+        """
+        self.run_test_str(obj, expected_str)
+
+    # #########################################################################
+
+    @staticmethod
+    def get_object() -> olpclpcuv.LimitPriceComputerUsingVolatility:
+        """
+        Build `LimitPriceComputerUsingVolatility` object for test.
+        """
+        volatility_multiple = 0.5
+        limit_price_computer = olpclpcuv.LimitPriceComputerUsingVolatility(
+            volatility_multiple
+        )
+        return limit_price_computer
     def _calculate_price_helper(
         self,
         side: str,
@@ -373,39 +326,3 @@ class Test_limit_price_computer_using_volatility(hunitest.TestCase):
             del price_dict[key]
         actual = pprint.pformat(price_dict)
         return actual
-
-
-class Test_LimitPriceComputerUsingVolatility_Obj_to_str1(
-    hunitest.TestCase, hunteuti.Obj_to_str_TestCase
-):
-    @staticmethod
-    def get_object() -> olpclpcuv.LimitPriceComputerUsingVolatility:
-        """
-        Build `LimitPriceComputerUsingVolatility` object for test.
-        """
-        volatility_multiple = 0.5
-        limit_price_computer = olpclpcuv.LimitPriceComputerUsingVolatility(
-            volatility_multiple
-        )
-        return limit_price_computer
-
-    def test_repr1(self) -> None:
-        """
-        Check `LimitPriceComputerUsingVolatility` `__repr__`.
-        """
-        obj = self.get_object()
-        expected_str = r"""
-        <oms.limit_price_computer.limit_price_computer_using_volatility.LimitPriceComputerUsingVolatility at 0x>:
-          _volatility_multiple='0.5' <float>
-        """
-        self.run_test_repr(obj, expected_str)
-
-    def test_str1(self) -> None:
-        """
-        Check `LimitPriceComputerUsingVolatility` `__str__`.
-        """
-        obj = self.get_object()
-        expected_str = r"""
-        LimitPriceComputerUsingVolatility at 0x=(_volatility_multiple=0.5 <float>)
-        """
-        self.run_test_str(obj, expected_str)
