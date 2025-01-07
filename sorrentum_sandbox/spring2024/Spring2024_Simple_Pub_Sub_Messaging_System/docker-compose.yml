@@ -1,0 +1,42 @@
+
+version: '3.7'
+services:
+  rabbitmq:
+    build:
+      context: .
+      dockerfile: Dockerfile-rabbitmq
+    ports:
+      - "5672:5672"  # AMQP port
+      - "15672:15672"  # Management GUI port
+    hostname: my-rabbit
+    networks:
+      - app-network
+
+  publisher:
+    build:
+      context: .
+      dockerfile: Dockerfile-flask
+    depends_on:
+      - rabbitmq
+    ports:
+      - "5000:5000"  # Flask app port
+    environment:
+      - FLASK_APP=publisher_app.py
+      - FLASK_ENV=development
+    command: ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+    networks:
+      - app-network
+
+  subscriber:
+    build:
+      context: .
+      dockerfile: Dockerfile-subscriber
+    depends_on:
+      - rabbitmq
+    command: ["python", "./subscriber.py"]
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

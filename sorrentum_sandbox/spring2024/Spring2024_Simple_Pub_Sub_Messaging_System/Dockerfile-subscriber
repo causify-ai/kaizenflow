@@ -1,0 +1,23 @@
+# Use an official Python runtime as a parent image
+FROM python:3.8-slim
+
+# Set the working directory in the container
+WORKDIR /usr/src/app
+
+# Copy the current directory contents into the container at /usr/src/app
+COPY subscriber.py ./
+
+# Install any needed packages specified in requirements.txt
+RUN pip install pika
+
+# Make port 8001 available to the world outside this container
+EXPOSE 5672 
+EXPOSE 15672
+
+# Define environment variables
+ENV RABBITMQ_HOST my-rabbit
+ENV RABBITMQ_USER user
+ENV RABBITMQ_PASSWORD user
+
+# Run subscriber.py when the container launches
+CMD ["python", "./subscriber.py"]

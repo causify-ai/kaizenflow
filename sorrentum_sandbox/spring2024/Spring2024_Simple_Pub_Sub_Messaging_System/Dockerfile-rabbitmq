@@ -1,0 +1,19 @@
+FROM rabbitmq:3-management
+
+# Define environment variables for default user and password.
+# ENV RABBITMQ_HOST my-rabbit
+ENV RABBITMQ_NODENAME my-rabbit
+ENV RABBITMQ_DEFAULT_USER user
+ENV RABBITMQ_DEFAULT_PASS user
+ENV RABBITMQ_PID_FILE /var/lib/rabbitmq/mnesia/rabbit@my-rabbit.pid
+
+# Copy and grant execution permissions to the initialization script
+COPY init-rabbitmq.sh /init-rabbitmq.sh
+RUN chmod +x /init-rabbitmq.sh
+
+# Expose ports for AMQP protocol and management interface
+EXPOSE 5672 
+EXPOSE 15672
+
+# Run the initialization script when the container starts
+CMD ["/init-rabbitmq.sh"]

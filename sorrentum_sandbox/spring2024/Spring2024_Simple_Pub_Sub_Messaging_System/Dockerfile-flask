@@ -1,0 +1,26 @@
+# Dockerfile-flask
+FROM python:3.8-slim
+
+WORKDIR /usr/src/app
+
+COPY publisher_app.py ./
+
+# Install Flask and Pika
+RUN pip install flask pika
+
+# Check installation
+RUN pip list | grep Flask
+RUN which flask
+
+# Set environment variables
+ENV FLASK_APP=publisher_app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=5000
+ENV RABBITMQ_HOST=my-rabbit
+ENV RABBITMQ_USER=user
+ENV RABBITMQ_PASSWORD=user
+
+EXPOSE 5000
+
+CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
+
