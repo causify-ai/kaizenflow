@@ -1,0 +1,27 @@
+---
+version: "3.8" #choose the version of docker compose
+services: #here contaies all the container it will run
+  jupyterlab:
+    build: ./Jupyterlab # build the jupyterlab dockerfile
+    ports:
+      - 8888:8888 # donnect port 8888 of container to 8888 of local machine
+    volumes:
+      - ./Python Codes:/app # setup the volumn
+  rethinkdb:
+    build: ./Rethinkdb # build the rethinkdb 
+    ports: 
+      - 8080:8080 #connect port 8080 of container to port 8888 of our local machine 
+      - 28015:28015 #connect port 8080 of container to port 8888 of our local machine 
+      - 29015:29015 #connect port 8080 of container to port 8888 of our local machine 
+  mariadb:
+    image: mariadb #import mariadb image
+    environment: #setup mysql enviroment
+      MYSQL_ROOT_PASSWORD: <196900> 
+      MYSQL_USER: <user>
+      MYSQL_PASSWORD: <196900>
+      MYSQL_DATABASE: <data>
+    ports:
+      - "3306:3306" #connect port 3306 of container to port 3306 of our local machine 
+    volumes:
+      - "./:/docker-entrypoint-initdb.d/1.sql"
+

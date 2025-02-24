@@ -1,0 +1,6 @@
+moviepy==1.0.3
+numpy==1.24.4
+opencv_python==4.9.0.80
+pandas==2.0.3
+rethinkdb==2.4.10.post1
+scipy==1.13.0

@@ -1,0 +1,20 @@
+2024-04-16T18:35:28.687191000 0.021608s notice: Recursively removing directory /Users/xukexukexuke/test/testing/Data605Project/Python Codes/rethinkdb_data/tmp
+2024-04-16T18:35:28.692711000 0.027124s notice: Initializing directory /Users/xukexukexuke/test/testing/Data605Project/Python Codes/rethinkdb_data
+2024-04-16T18:35:28.692940000 0.027353s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/Users/xukexukexuke/test/testing/Data605Project/Python Codes/rethinkdb_data' did not already exist or is empty.)
+2024-04-16T18:35:28.693054000 0.027467s notice: Running rethinkdb 2.4.4 (x86_64-apple-darwin19.6.0) (CLANG 12.0.0 (clang-1200.0.32.29))...
+2024-04-16T18:35:28.762418000 0.096831s notice: Running on Darwin 21.6.0 x86_64
+2024-04-16T18:35:28.762529000 0.096941s notice: Loading data from directory /Users/xukexukexuke/test/testing/Data605Project/Python Codes/rethinkdb_data
+2024-04-16T18:35:29.120859000 0.455264s info: Automatically using cache size of 100 MB
+2024-04-16T18:35:29.120872000 0.455276s warn: Cache size does not leave much memory for server and query overhead (available memory: 650 MB).
+2024-04-16T18:35:29.120881000 0.455285s warn: Cache size is very low and may impact performance.
+2024-04-16T18:35:29.122059000 0.456464s notice: Listening for intracluster connections on port 29015
+2024-04-16T18:35:29.123998000 0.458402s notice: Listening for client driver connections on port 28015
+2024-04-16T18:35:29.124077000 0.458481s notice: Listening for administrative HTTP connections on port 8080
+2024-04-16T18:35:29.124087000 0.458491s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2024-04-16T18:35:29.124091000 0.458495s notice: Listening on driver addresses: 127.0.0.1, ::1
+2024-04-16T18:35:29.124095000 0.458500s notice: Listening on http addresses: 127.0.0.1, ::1
+2024-04-16T18:35:29.124099000 0.458504s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2024-04-16T18:35:29.124104000 0.458509s notice: Server ready, "wireless_10_104_115_66_umd_edu_065" 540ed49f-2e62-4ed6-9c39-31734aed2d41
+2024-04-16T18:36:46.652166000 77.985056s info: Table 9daa6ce3-889c-4bab-a064-50650145bdac: Starting a new Raft election for term 1.
+2024-04-16T18:36:46.652909000 77.985799s info: Table 9daa6ce3-889c-4bab-a064-50650145bdac: Added replica on this server.
+2024-04-16T18:36:46.683124000 78.016013s info: Table 9daa6ce3-889c-4bab-a064-50650145bdac: This server is Raft leader for term 1. Latest log index is 0.

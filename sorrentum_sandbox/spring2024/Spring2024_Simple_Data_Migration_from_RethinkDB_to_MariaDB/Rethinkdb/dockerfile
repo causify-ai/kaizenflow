@@ -1,0 +1,16 @@
+#import rethinkdb docker image
+FROM rethinkdb:2.4.3 
+#setup work directory
+WORKDIR /app 
+
+# Define default command.
+CMD ["rethinkdb", "--bind", "all"]
+
+# Expose ports.
+#   - 8080: web UI
+#   - 28015: process
+#   - 29015: cluster
+EXPOSE 8080
+EXPOSE 28015
+EXPOSE 29015
+
