@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  mysql:
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    ports:
+      - "3306:3306"  # Expose MySQL port.
+
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile.J
+    ports:
+      - "8888:8888"  # Expose Jupyter port.
+    volumes:
+      - ./notebooks:/app/notebooks  # Mount notebooks directory to container.
+
+  flask:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"  # Expose Flask port.
+    depends_on:
+      - mysql  # Wait for MySQL service to be ready before starting Flask.
+

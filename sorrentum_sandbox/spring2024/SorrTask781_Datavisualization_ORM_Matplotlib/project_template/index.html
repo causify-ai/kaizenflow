@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Gross Income</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333333;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: calc(50% - 5px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            border-color: #007bff;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        #prediction-result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Predict Gross Income</h1>
+    <form id="prediction-form">
+        <!-- Input fields for prediction -->
+        <label for="branch">Branch:</label>
+        <input type="text" id="branch" name="Branch" value="A"><br><br>
+        
+        <label for="city">City:</label>
+        <input type="text" id="city" name="City" value="City A"><br><br>
+
+        <label for="customer-type">Customer type:</label>
+        <input type="text" id="customer-type" name="Customer type" value="Member"><br><br>
+
+        <label for="gender">Gender:</label>
+        <input type="text" id="gender" name="Gender" value="Male"><br><br>
+
+        <label for="product-line">Product line:</label>
+        <input type="text" id="product-line" name="Product line" value="Health and beauty"><br><br>
+
+        <label for="unit-price">Unit price:</label>
+        <input type="number" id="unit-price" name="Unit price" value="49.70"><br><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="Quantity" value="10"><br><br>
+
+        <label for="tax">Tax 5%:</label>
+        <input type="number" id="tax" name="Tax 5%" value="24.85"><br><br>
+
+        <label for="total">Total:</label>
+        <input type="number" id="total" name="Total" value="522.85"><br><br>
+
+        <label for="date">Date:</label>
+        <input type="text" id="date" name="Date" value="1/1/2019"><br><br>
+
+        <label for="time">Time:</label>
+        <input type="text" id="time" name="Time" value="13:08"><br><br>
+
+        <label for="payment">Payment:</label>
+        <input type="text" id="payment" name="Payment" value="Cash"><br><br>
+
+        <label for="cogs">cogs:</label>
+        <input type="number" id="cogs" name="cogs" value="498.00"><br><br>
+
+        <label for="gross-margin">Gross Margin Percentage:</label>
+        <input type="number" id="gross-margin" name="gross margin percentage" value="4.761904762"><br><br>
+
+        <label for="rating">Rating:</label>
+        <input type="number" id="rating" name="Rating" value="9.1"><br><br>
+
+        <button type="submit">Predict</button>
+    </form>
+    <h2>Prediction Result:</h2>
+    <p id="prediction-result"></p>
+
+    <script>
+        document.getElementById("prediction-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            predictGrossIncome();
+        });
+    
+        function predictGrossIncome() {
+            var form = document.getElementById("prediction-form");
+            var formData = new FormData(form);
+            var jsonData = JSON.stringify(Object.fromEntries(formData));
+    
+            console.log(jsonData); // Log the JSON data to the console for debugging
+    
+            fetch('http://localhost:8082/predict', { // Include the full URL here
+                method: 'POST',
+                body: jsonData,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if ('Predicted Gross Income' in data) {
+                    document.getElementById("prediction-result").innerText = "Predicted Gross Income: " + data['Predicted Gross Income'];
+                } else {
+                    document.getElementById("prediction-result").innerText = "Prediction failed!";
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    
+</body>
+</html>

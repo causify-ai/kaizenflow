@@ -1,0 +1,98 @@
+version: '3'
+
+services:
+  base_app:
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - AM_AWS_ACCESS_KEY_ID=$AM_AWS_ACCESS_KEY_ID
+      - AM_AWS_DEFAULT_REGION=$AM_AWS_DEFAULT_REGION
+      - AM_AWS_PROFILE=$AM_AWS_PROFILE
+      - AM_AWS_S3_BUCKET=$AM_AWS_S3_BUCKET
+      - AM_AWS_SECRET_ACCESS_KEY=$AM_AWS_SECRET_ACCESS_KEY
+      - AM_ECR_BASE_PATH=$AM_ECR_BASE_PATH
+      - AM_ENABLE_DIND=0
+      - AM_FORCE_TEST_FAIL=$AM_FORCE_TEST_FAIL
+      - AM_HOST_NAME=Sumedhas-MacBook-Air.local
+      - AM_HOST_OS_NAME=Darwin
+      - AM_HOST_USER_NAME=sumedhavadlamani
+      - AM_HOST_VERSION=23.4.0
+      - AM_REPO_CONFIG_CHECK=True
+      # Use inferred path for `repo_config.py`.
+      - AM_REPO_CONFIG_PATH=
+      - AM_TELEGRAM_TOKEN=$AM_TELEGRAM_TOKEN
+      - CK_AWS_ACCESS_KEY_ID=$CK_AWS_ACCESS_KEY_ID
+      - CK_AWS_DEFAULT_REGION=$CK_AWS_DEFAULT_REGION
+      - CK_AWS_PROFILE=$CK_AWS_PROFILE
+      - CK_AWS_S3_BUCKET=$CK_AWS_S3_BUCKET
+      - CK_AWS_SECRET_ACCESS_KEY=$CK_AWS_SECRET_ACCESS_KEY
+      - CK_ECR_BASE_PATH=$CK_ECR_BASE_PATH
+      # - CK_ENABLE_DIND=
+      # - CK_FORCE_TEST_FAIL=$CK_FORCE_TEST_FAIL
+      # - CK_HOST_NAME=
+      # - CK_HOST_OS_NAME=
+      # - CK_PUBLISH_NOTEBOOK_LOCAL_PATH=$CK_PUBLISH_NOTEBOOK_LOCAL_PATH
+      - CK_TELEGRAM_TOKEN=$CK_TELEGRAM_TOKEN
+      # TODO(Vlad): consider removing, locally we use our personal tokens from files and
+      # inside GitHub actions we use the `GH_TOKEN` environment variable.
+      - GH_ACTION_ACCESS_TOKEN=$GH_ACTION_ACCESS_TOKEN
+      # Inside GitHub Actions we use `GH_TOKEN` environment variable,
+      # see https://cli.github.com/manual/gh_auth_login.
+      - GH_TOKEN=$GH_ACTION_ACCESS_TOKEN
+      # This env var is used by GH Action to signal that we are inside the CI.
+      - CI=$CI
+    image: ${IMAGE}
+
+    restart: "no"
+    volumes:
+      # TODO(gp): We should pass the value of $HOME from dev.Dockerfile to here.
+      # E.g., we might define $HOME in the env file.
+      - ~/.aws:/home/.aws
+      - ~/.config/gspread_pandas/:/home/.config/gspread_pandas/
+      - ~/.config/gh:/home/.config/gh
+
+  # Mount `amp` when it is used as supermodule.
+  app:
+    extends:
+      base_app
+    volumes:
+      - ../../:/app
+
+  linter:
+    extends:
+      base_app
+    volumes:
+      - /Users/sumedhavadlamani/src/kaizenflow/sorrentum_sandbox/spring2024/Datavisualization_ORM_Matplotlib:/src
+    working_dir: /src
+    environment:
+      - MYPYPATH
+      # Use the `repo_config.py` inside the dev_tools container instead of
+      # the one in the calling repo.
+      - AM_REPO_CONFIG_PATH=/app/repo_config.py
+
+  jupyter_server:
+    command: devops/docker_run/run_jupyter_server.sh
+    environment:
+      - PORT=${PORT}
+    extends:
+      app
+    network_mode: ${NETWORK_MODE:-bridge}
+    ports:
+      # TODO(gp): Rename `AM_PORT`.
+      - "${PORT}:${PORT}"
+
+  # TODO(gp): For some reason the following doesn't work.
+  #  jupyter_server_test:
+  #    command: jupyter notebook -h 2>&1 >/dev/null
+  #    extends:
+  #      jupyter_server
+
+  jupyter_server_test:
+    command: jupyter notebook -h 2>&1 >/dev/null
+    environment:
+      - PORT=${PORT}
+    extends:
+      app
+    network_mode: ${NETWORK_MODE:-bridge}
+    ports:
+      - "${PORT}:${PORT}"

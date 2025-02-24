@@ -1,0 +1,10 @@
+# Use the official MySQL image from the Docker Hub.
+FROM mysql:latest
+
+# Set environment variables.
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=projectdb
+ENV MYSQL_USER=sumedha1024
+ENV MYSQL_PASSWORD=1024
+
+

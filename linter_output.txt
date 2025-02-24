@@ -1,0 +1,10 @@
+time="2024-05-02T00:09:50-04:00" level=warning msg="The \"AM_AWS_ACCESS_KEY_ID\" variable is not set. Defaulting to a blank string."
+time="2024-05-02T00:09:50-04:00" level=warning msg="The \"AM_AWS_DEFAULT_REGION\" variable is not set. Defaulting to a blank string."
+time="2024-05-02T00:09:50-04:00" level=warning msg="The \"AM_AWS_SECRET_ACCESS_KEY\" variable is not set. Defaulting to a blank string."
+time="2024-05-02T00:09:50-04:00" level=warning msg="The \"AM_FORCE_TEST_FAIL\" variable is not set. Defaulting to a blank string."
+time="2024-05-02T00:09:50-04:00" level=warning msg="The \"AM_TELEGRAM_TOKEN\" variable is not set. Defaulting to a blank string."
+time="2024-05-02T00:09:50-04:00" level=warning msg="The \"CK_AWS_ACCESS_KEY_ID\" variable is not set. Defaulting to a blank string."
+time="2024-05-02T00:09:50-04:00" level=warning msg="The \"CK_AWS_DEFAULT_REGION\" variable is not set. Defaulting to a blank string."
+time="2024-05-02T00:09:50-04:00" level=warning msg="The \"CK_AWS_SECRET_ACCESS_KEY\" variable is not set. Defaulting to a blank string."
+time="2024-05-02T00:09:50-04:00" level=warning msg="The \"CK_TELEGRAM_TOKEN\" variable is not set. Defaulting to a blank string."
+Cannot connect to the Docker daemon at unix:///Users/sumedhavadlamani/.docker/run/docker.sock. Is the docker daemon running?
