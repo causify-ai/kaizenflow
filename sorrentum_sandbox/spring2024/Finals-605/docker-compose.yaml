@@ -1,0 +1,8 @@
+version: "3"
+services:
+  Finals-605-uplink:
+    restart: always 
+    container_name: Finals-605-uplink
+    image: finals-605-uplink
+    build: 
+      context: .
