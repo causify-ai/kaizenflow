@@ -1,0 +1,55 @@
+# Mandatory first line to specify API version.
+# Ideally always use the latest version, typically 3 or higher.
+version: "3.8"
+
+# Define the different microservices.
+services:
+  db:
+    image: mariadb:latest
+    container_name: mydb
+    restart: always
+    environment:
+      MYSQL_USER: bot
+      MYSQL_PASSWORD: maria
+      MYSQL_ROOT_PASSWORD: maria
+      MYSQL_DATABASE: db
+      
+    volumes: 
+
+      - user_db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      user_net:
+
+  # Web frontend/app.
+  
+  pythonapp:
+    build: 
+      context: .
+    # Entry point.
+    command: sh -c "sleep 3s ; python3 app.py"
+    # ports:
+    #  - "5001:5000"
+    stdin_open: true
+    tty: true
+    volumes: 
+      - user_db:/var/lib/mysql
+    depends_on:
+      - db
+    networks:
+      - user_net
+    restart: always
+
+
+
+# Creates new networks
+# By default it creates a `bridge` network to connect multiple containers on
+# the same Docker host.
+
+
+volumes:
+  user_db: {}
+
+networks:
+  user_net:
