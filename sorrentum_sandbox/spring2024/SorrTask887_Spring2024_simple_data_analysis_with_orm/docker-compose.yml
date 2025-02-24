@@ -1,0 +1,16 @@
+version: '3'
+#creating configurations for my service named Jupyter
+services:
+  jupyter:
+    #building my docker image within my current directory
+    build: .
+    #the port for Jupyter notebook to my container port
+    ports:
+      - "8888:8888"  
+    volumes:
+    #mounting my current directory in my container
+      - .:/notebooks
+      #mounting database file from the host into my container
+      - ./database.sqlite:/notebooks/database.sqlite  
+
+
