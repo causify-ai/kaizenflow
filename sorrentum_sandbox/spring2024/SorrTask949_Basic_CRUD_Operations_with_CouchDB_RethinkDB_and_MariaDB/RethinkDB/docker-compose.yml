@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  rethinkdb:
+    image: rethinkdb:latest
+    ports:
+      - "28015:28015"
+      - "8080:8080"
+
+  flaskapp:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - rethinkdb
+    environment:
+      RDB_HOST: rethinkdb
+      RDB_PORT: 28015
+      DB_NAME: students_rethinkdb

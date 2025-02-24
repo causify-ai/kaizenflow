@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RethinkDB Student Database</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #404040;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #bbb;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #a52a2a; /* Brown color */
+            color: white;
+        }
+        a {
+            color: #b4865e; /* Soft brown color */
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .actions {
+            min-width: 120px;
+        }
+    </style>
+</head>
+<body>
+    <h1>RethinkDB Student Database</h1>
+    <a href="{{ url_for('add_student_rethinkdb') }}">Add New Student</a>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th class="actions">Actions</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{ student['name'] }}</td>
+            <td>{{ student['age'] }}</td>
+            <td>
+                <a href="{{ url_for('update_rethinkdb', doc_id=student['id']) }}">Update</a>
+                <a href="{{ url_for('delete_rethinkdb', doc_id=student['id']) }}" onclick="return confirm('Are you sure?');">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

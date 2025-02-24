@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student to RethinkDB</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            color: #404040;
+        }
+        h1 {
+            color: #404040;
+        }
+        form {
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #bbb;
+            box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #a52a2a; /* Brown color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #91381b; /* Darker brown */
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #b4865e; /* Soft brown color */
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Add New Student to RethinkDB</h1>
+    <form action="{{ url_for('create_rethinkdb') }}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+        <button type="submit">Add Student</button>
+    </form>
+    <a href="{{ url_for('index_rethinkdb') }}">Back to List</a>
+</body>
+</html>

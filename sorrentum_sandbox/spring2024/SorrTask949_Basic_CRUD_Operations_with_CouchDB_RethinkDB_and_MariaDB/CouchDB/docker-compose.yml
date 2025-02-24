@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  couchdb:
+    image: couchdb:3.1
+    environment:
+      COUCHDB_USER: admin
+      COUCHDB_PASSWORD: 1971
+    volumes:
+      - couchdb_data:/opt/couchdb/data
+    ports:
+      - "5984:5984"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5984"]
+      interval: 10s
+      timeout: 5s
+      retries: 1
+
+  flaskapp:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      couchdb:
+        condition: service_healthy
+    command: ["./wait-for-couchdb.sh", "couchdb:5984", "python", "app.py"]
+    volumes:
+      - .:/app
+
+volumes:
+  couchdb_data:

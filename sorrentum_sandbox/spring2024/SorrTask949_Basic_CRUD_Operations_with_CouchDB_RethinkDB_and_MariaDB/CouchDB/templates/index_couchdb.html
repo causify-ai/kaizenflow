@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CouchDB Student Database</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        a {
+            color: #0175d8;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .actions {
+            min-width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CouchDB Student Database</h1>
+    <a href="{{ url_for('add_student_couchdb') }}">Add New Student</a>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th class="actions">Actions</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{ student.doc.name }}</td>
+            <td>{{ student.doc.age }}</td>
+            <td>
+                <a href="{{ url_for('update_couchdb', doc_id=student.id) }}">Update</a>
+                <a href="{{ url_for('delete_couchdb', doc_id=student.id) }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,3 @@
+This is a Python library for CouchDB. It provides a convenient high level
+interface for the CouchDB server.
+

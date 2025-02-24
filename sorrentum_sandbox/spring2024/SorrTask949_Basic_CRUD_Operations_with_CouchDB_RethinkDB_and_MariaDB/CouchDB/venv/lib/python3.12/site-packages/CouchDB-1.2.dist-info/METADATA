@@ -1,0 +1,25 @@
+Metadata-Version: 2.0
+Name: CouchDB
+Version: 1.2
+Summary: Python library for working with CouchDB
+Home-page: https://github.com/djc/couchdb-python/
+Author: Dirkjan Ochtman
+Author-email: dirkjan@ochtman.nl
+License: BSD
+Description-Content-Type: UNKNOWN
+Platform: UNKNOWN
+Classifier: Development Status :: 6 - Mature
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Topic :: Database :: Front-Ends
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+
+This is a Python library for CouchDB. It provides a convenient high level
+interface for the CouchDB server.
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Student in MariaDB</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            color: #2a2a2a;
+        }
+        h1 {
+            color: #2a2a2a;
+        }
+        form {
+            margin-top: 20px;
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px 0 rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #008080; /* Teal color */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #007070;
+        }
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #5c87b2;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Update Student in MariaDB</h1>
+    <form action="{{ url_for('update_mariadb', student_id=student['id']) }}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ student['name'] }}" required>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" value="{{ student['age'] }}" required>
+        <button type="submit">Update Student</button>
+    </form>
+    <a href="{{ url_for('index_mariadb') }}">Back to List</a>
+</body>
+</html>
