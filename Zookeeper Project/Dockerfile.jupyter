@@ -1,0 +1,17 @@
+# Use an official Python image as a base
+FROM python:3.9
+
+# Install Jupyter and Kazoo
+RUN pip install jupyter kazoo
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the application code into the container
+COPY . /app
+
+# Expose the Jupyter Notebook port
+EXPOSE 8888
+
+# Start Jupyter Notebook
+CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
