@@ -1,0 +1,9 @@
+# Use Jupyter base image from Jupyter Project
+FROM jupyter/base-notebook
+
+# Copy the Jupyter Notebook into the container
+COPY /notebooks/py_Dlock.ipynb /home/jovyan/work/py_Dlock.ipynb
+
+# Set the working directory to the notebook directory
+WORKDIR /home/jovyan/work
+

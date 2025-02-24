@@ -1,0 +1,11 @@
+FROM python:3.8-slim
+
+WORKDIR /app
+
+COPY dl_sci.py /app
+COPY kazoo-*.whl /app
+
+RUN pip install /app/kazoo-*.whl
+
+CMD ["python", "dl_sci.py"]
+

@@ -1,0 +1,65 @@
+version: '3.7'
+
+services:
+  zookeeper1:
+    image: zookeeper
+    container_name: zookeeper1
+    ports:
+      - "2181:2181"
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: "server.1=zookeeper1:2888:3888;2181 server.2=zookeeper2:2888:3888;2181 server.3=zookeeper3:2888:3888;2181"
+    networks:
+      - zookeeper-network
+
+  zookeeper2:
+    image: zookeeper
+    container_name: zookeeper2
+    ports:
+      - "2182:2181"
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_SERVERS: "server.1=zookeeper1:2888:3888;2181 server.2=zookeeper2:2888:3888;2181 server.3=zookeeper3:2888:3888;2181"
+    networks:
+      - zookeeper-network
+
+  zookeeper3:
+    image: zookeeper
+    container_name: zookeeper3
+    ports:
+      - "2183:2181"
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_SERVERS: "server.1=zookeeper1:2888:3888;2181 server.2=zookeeper2:2888:3888;2181 server.3=zookeeper3:2888:3888;2181"
+    networks:
+      - zookeeper-network
+   
+  jupyter-app:
+    build:
+      context: .
+      dockerfile: Dockerfile-jupyter  # Specify the Dockerfile for Jupyter
+    container_name: jupyter-notebook
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work  # Maps the current directory to the work directory in the container
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"
+    networks:
+      - zookeeper-network
+
+  python-app:
+    build:
+      context: .
+      dockerfile: Dockerfile-python  # Specify the Dockerfile for the Python application
+    container_name: python-app
+    depends_on:
+      - zookeeper1
+      - zookeeper2
+      - zookeeper3
+    networks:
+      - zookeeper-network
+
+networks:
+  zookeeper-network:
+    driver: bridge
