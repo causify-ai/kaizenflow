@@ -1,0 +1,57 @@
+ syntax = "proto3";
+
+import "google/protobuf/descriptor.proto";
+
+// Extend EnumValueOptions with custom option
+// This allows us to add custom metadata to enum values
+extend google.protobuf.EnumValueOptions {
+  string custom_enum_value_option = 50000;
+}
+
+message Student {
+    // Unique identifier for the student
+    int32 user_id = 1;
+
+    // Username of the student
+    string username = 2;
+
+    // List of email addresses for the student
+    repeated string emails = 3;
+
+    // Flag indicating if the student has graduated
+    bool graduated = 4;
+
+    // Gender of the student
+    Gender gender = 5;
+
+    // Name of the student
+    Name name = 6;
+
+    // Type of degree the student is pursuing
+    DegreeType degree_type = 7;
+
+    // Enum for student gender
+    enum Gender {
+        MALE = 0 [(custom_enum_value_option) = "Male"];
+        FEMALE = 1 [(custom_enum_value_option) = "Female"];
+    }
+
+    // Message for student name, including first, last, and optional middle name
+    message Name {
+        string first_name = 1;
+        string last_name = 2;
+        string middle_name = 3;
+    }
+
+    // Enum for degree types
+    enum DegreeType {
+        BACHELOR = 0 [(custom_enum_value_option) = "Batchelor"];
+        MASTER = 1 [(custom_enum_value_option) = "Master"];
+        DOCTOR = 2 [(custom_enum_value_option) = "Doctor"];
+    }
+}
+
+// Message for a list of students
+message StudentList {
+    repeated Student students = 1;
+}
