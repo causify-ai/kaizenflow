@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  flink-app:
+    build: .
+    stdin_open: true  # Keep stdin open
+    tty: true         # Allocate a pseudo-TTY
+    ports:
+      - "8081:8081"
+    volumes:
+      - .:/app
+    environment:
+      - flink-1.19.0
+
