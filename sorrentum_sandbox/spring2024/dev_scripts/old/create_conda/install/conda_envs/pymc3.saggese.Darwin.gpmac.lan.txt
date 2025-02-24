@@ -1,0 +1,139 @@
+################################################################################
+System info
+################################################################################
+user name=saggese
+server name=gpmac.lan
+os name=Darwin
+conda path=/Users/saggese/anaconda2/condabin/conda
+conda env root=[u'/Users/saggese/.conda/envs', u'/Users/saggese/anaconda2/envs']
+pandas: 0.24.2
+numpy: 1.16.3
+scipy: 1.2.1
+arrow-cpp: None
+################################################################################
+Package summary
+################################################################################
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+# platform: osx-64
+appnope=0.1.0=py37_1000
+attrs=19.1.0=py_0
+backcall=0.1.0=py_0
+bleach=3.1.0=py_0
+bzip2=1.0.6=h1de35cc_1002
+ca-certificates=2019.3.9=hecc5488_0
+cctools=895=h7512d6f_0
+certifi=2019.3.9=py37_0
+clang=4.0.1=h662ec87_0
+clang_osx-64=4.0.1=h1ce6c1d_16
+clangxx=4.0.1=hc9b4283_0
+clangxx_osx-64=4.0.1=h22b1bf0_16
+compiler-rt=4.0.1=h5487866_0
+cycler=0.10.0=py_1
+decorator=4.4.0=py_0
+defusedxml=0.5.0=py_1
+entrypoints=0.3=py37_1000
+freetype=2.10.0=h24853df_0
+graphviz=2.40.1=ha626266_0
+h5py=2.9.0=nompi_py37h35dc34b_1102
+hdf5=1.10.4=nompi_h0cbb7df_1106
+icu=58.2=h0a44026_1000
+ipykernel=5.1.0=py37h24bf2e0_1002
+ipython=7.5.0=py37h24bf2e0_0
+ipython_genutils=0.2.0=py_1
+ipywidgets=7.4.2=py_0
+jedi=0.13.3=py37_0
+jinja2=2.10.1=py_0
+joblib=0.12.5=py_0
+jpeg=9c=h1de35cc_1001
+jsonschema=3.0.1=py37_0
+jupyter=1.0.0=py_2
+jupyter_client=5.2.4=py_3
+jupyter_console=6.0.0=py_0
+jupyter_contrib_core=0.3.3=py_2
+jupyter_contrib_nbextensions=0.5.1=py37_0
+jupyter_core=4.4.0=py_0
+jupyter_highlight_selected_word=0.2.0=py37_1000
+jupyter_latex_envs=1.4.4=py37_1000
+jupyter_nbextensions_configurator=0.4.1=py37_0
+kiwisolver=1.1.0=py37h770b8ee_0
+ld64=274.2=h7c2db76_0
+libblas=3.8.0=8_openblas
+libcblas=3.8.0=8_openblas
+libcxx=4.0.1=h579ed51_0
+libcxxabi=4.0.1=hebd6815_0
+libffi=3.2.1=h6de7cb9_1006
+libgfortran=3.0.1=0
+libgpuarray=0.7.6=h1de35cc_1003
+libiconv=1.15=h01d97ff_1005
+liblapack=3.8.0=8_openblas
+libpng=1.6.37=h2573ce8_0
+libsodium=1.0.16=h1de35cc_1001
+libtiff=4.0.10=h79f4b77_1001
+libxml2=2.9.9=hd80cff7_0
+libxslt=1.1.32=h33a18ac_1002
+llvm=4.0.1=hc748206_0
+llvm-lto-tapi=4.0.1=h6701bc3_0
+lxml=4.3.3=py37h08abf6f_0
+mako=1.0.7=py_1
+markupsafe=1.1.1=py37h1de35cc_0
+matplotlib=3.0.3=py37_1
+matplotlib-base=3.0.3=py37habd5b94_1
+mistune=0.8.4=py37h1de35cc_1000
+nbconvert=5.5.0=py_0
+nbformat=4.4.0=py_1
+ncurses=6.1=h0a44026_1002
+notebook=5.7.8=py37_0
+numpy=1.16.3=py37hdf140aa_0
+openblas=0.3.6=hd44dcd8_1
+openssl=1.1.1b=h01d97ff_2
+pandas=0.24.2=py37h0a44026_0
+pandoc=2.7.2=0
+pandocfilters=1.4.2=py_1
+parso=0.4.0=py_0
+patsy=0.5.1=py_0
+pexpect=4.7.0=py37_0
+pickleshare=0.7.5=py37_1000
+pip=19.1=py37_0
+prometheus_client=0.6.0=py_0
+prompt_toolkit=2.0.9=py_0
+ptyprocess=0.6.0=py_1001
+pydot=1.4.1=py37_1000
+pygments=2.3.1=py_0
+pygpu=0.7.6=py37h917ab60_1000
+pymc3=3.6=py37_1000
+pyparsing=2.4.0=py_0
+pyqt=5.6.0=py37hc26a216_1008
+pyrsistent=0.15.1=py37h01d97ff_0
+python=3.7.3=h0d93f26_0
+python-dateutil=2.8.0=py_0
+pytz=2019.1=py_0
+pyyaml=5.1=py37h1de35cc_0
+pyzmq=18.0.1=py37h2d07e9b_1
+qt=5.6.2=h822fa55_1013
+qtconsole=4.4.3=py_0
+readline=7.0=hcfe32e1_1001
+scikit-learn=0.20.3=py37hca23c92_1
+scipy=1.2.1=py37hbd7caa9_1
+seaborn=0.9.0=py_1
+send2trash=1.5.0=py_0
+setuptools=41.0.1=py37_0
+sip=4.18.1=py37h0a44026_1000
+six=1.12.0=py37_1000
+sqlite=3.26.0=h1765d9f_1001
+statsmodels=0.9.0=py37h917ab60_1000
+terminado=0.8.2=py37_0
+testpath=0.4.2=py_1001
+theano=1.0.4=py37h0a44026_1000
+tk=8.6.9=ha441bb4_1001
+tornado=6.0.2=py37h01d97ff_0
+tqdm=4.31.1=py_0
+traitlets=4.3.2=py37_1000
+wcwidth=0.1.7=py_1
+webencodings=0.5.1=py_1
+wheel=0.33.1=py37_0
+widgetsnbextension=3.4.2=py37_1000
+xz=5.2.4=h1de35cc_1001
+yaml=0.1.7=h1de35cc_1001
+zeromq=4.3.1=h0a44026_1000
+zlib=1.2.11=h1de35cc_1004

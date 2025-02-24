@@ -1,0 +1,1 @@
+call('gh pr create --repo github.com/alphamatic/amp --draft --title "test" --body ""')

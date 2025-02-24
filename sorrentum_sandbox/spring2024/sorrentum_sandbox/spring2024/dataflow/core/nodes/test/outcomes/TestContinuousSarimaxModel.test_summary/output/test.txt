@@ -1,0 +1,27 @@
+                                              1
+Dep. Variable                             ret_0
+Model             SARIMAX(1, 0, 1)x(1, 0, 1, 3)
+Start Date                           04-30-2010
+End Date                             07-31-2018
+Covariance Type                             opg
+No. Observations                            100
+Log Likelihood                           94.232
+AIC                                    -176.465
+BIC                                    -160.834
+HQIC                                   -170.139
+                            1
+Ljung-Box (L1) (Q)       0.02
+Prob(Q)                  0.90
+Heteroskedasticity (H)   0.82
+Prob(H) (two-sided)      0.57
+Jarque-Bera (JB)         0.60
+Prob(JB)                 0.74
+Skew                    -0.18
+Kurtosis                 2.89
+                coef    std err          z   P>|z|     [0.025     0.975]
+x_bkwd_3      0.3392      0.390      0.870   0.384     -0.425      1.103
+ar.L1        -0.0101      6.183     -0.002   0.999    -12.129     12.109
+ma.L1        -0.0105      6.181     -0.002   0.999    -12.125     12.104
+ar.S.L3      -0.3499      3.578     -0.098   0.922     -7.363      6.663
+ma.S.L3       0.3261      3.605      0.090   0.928     -6.740      7.392
+sigma2        0.0084      0.001      6.502   0.000      0.006      0.011

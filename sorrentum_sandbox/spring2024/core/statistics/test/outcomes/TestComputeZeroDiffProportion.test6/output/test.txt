@@ -1,0 +1,3 @@
+                                test
+prefix_approx_const_count  11.000000
+prefix_approx_const_frac    0.111111

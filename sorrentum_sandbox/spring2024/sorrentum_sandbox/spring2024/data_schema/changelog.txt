@@ -1,0 +1,14 @@
+v3
+- 2023-03-03
+- removed allowed universe versions, a version will be checked with the given vendor
+
+v3
+- 2022-11-30
+- Initial version which support KaizenFlow protocol
+- based on KaizenFlow protocol v0.1
+- prod data stored in s3://cryptokaizen-data/v3
+- values for universe version and dataset versions are hardcoded, will be addressed later
+
+v2
+- Before KaizenFlow protocol was put in place
+- prod data stored in s3://cryptokaizen-data/reorg

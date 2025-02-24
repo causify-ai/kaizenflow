@@ -1,0 +1,2 @@
+call('docker ps -a')
+call('docker rm -f $(docker ps -a -q)')

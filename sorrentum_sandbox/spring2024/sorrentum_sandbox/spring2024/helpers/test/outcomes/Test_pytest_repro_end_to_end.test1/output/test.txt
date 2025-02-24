@@ -1,0 +1,17 @@
+HH:MM:SS - INFO  hdbg.py init_logger:1015                               > cmd='/venv/bin/invoke pytest_repro --file-name=$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test1/input/cache/lastfailed --script-name $GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test1/tmp.scratch/tmp.pytest_repro.sh'
+## pytest_repro:
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                   Reading file_name='$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test1/input/cache/lastfailed'
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                   Reading failed tests from file '$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test1/input/cache/lastfailed'
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                  Found 10 failed pytest 'tests' target(s); to reproduce run:
+pytest dev_scripts/testing/test/test_run_tests.py
+pytest dev_scripts/testing/test/test_run_tests2.py
+pytest documentation/scripts/test/test_all.py
+pytest documentation/scripts/test/test_render_md.py
+pytest helpers/test/helpers/test/test_list.py::Test_list_1
+pytest helpers/test/helpers/test/test_list.py::Test_list_2
+pytest helpers/test/test_cache.py::TestAmpTask1407
+pytest helpers/test/test_printing.py::Test_dedent1::test1
+pytest helpers/test/test_printing.py::Test_dedent1::test2
+pytest helpers/test/test_printing.py::Test_dedent2::test1
+# To run the tests:
+> $GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test1/tmp.scratch/tmp.pytest_repro.sh

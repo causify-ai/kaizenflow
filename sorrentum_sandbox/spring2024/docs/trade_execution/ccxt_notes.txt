@@ -1,0 +1,27 @@
+# To check
+
+https://medium.com/@serg.gulko/rest-ws-vs-fix-for-crypto-trading-7074c135d756
+
+https://xtrd.io/
+- https://xtrd.io/home/product/fix-api/
+
+http://techflare.blog/how-to-get-ohlcv-data-for-your-exchange-with-ccxt-library/
+
+https://github.com/stellar/kelp
+
+https://www.pionex.com/blog/twap-bot/
+
+https://docs.hummingbot.io/
+  https://hummingbot.io/hummingbot.pdf
+  https://github.com/CoinAlpha/hummingbot
+
+https://3commas.io/blog/best-crypto-trading-bot
+
+https://executium.com/twap/
+https://web.stanford.edu/~boyd/papers/pdf/vwap_opt_exec.pdf
+https://github.com/cvxgrp/vwap_opt_exec
+
+https://github.com/cvxgrp/cvxportfolio
+
+
+- Search terms: trading bots, TWAP

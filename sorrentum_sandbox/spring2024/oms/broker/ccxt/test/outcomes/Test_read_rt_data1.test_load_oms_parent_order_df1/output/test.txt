@@ -1,0 +1,4 @@
+                       creation_timestamp    asset_id       type_                  start_timestamp                    end_timestamp  curr_num_shares  diff_num_shares                tz extra_params
+order_id                                                                                                                                                                                            
+0        2023-06-22 08:44:21.852271+00:00  3065029174  price@twap 2023-06-22 08:44:21.852271+00:00 2023-06-22 08:49:21.852271+00:00              0.0           -900.0  America/New_York           {}
+1        2023-06-22 08:44:21.852754+00:00  6051632686       limit 2023-06-22 08:44:21.852754+00:00 2023-06-22 08:49:21.852754+00:00              0.0             33.0  America/New_York           {}

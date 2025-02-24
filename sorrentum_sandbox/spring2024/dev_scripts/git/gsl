@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+# """
+# Print the stash list with:
+# > git stash list
+# """
+
+source helpers.sh
+
+execute "git stash list"

@@ -1,0 +1,47 @@
+{
+   "crypto_chassis": {
+      "binance": [
+        "ETH_USDT",
+        "BTC_USDT",
+        "SAND_USDT",
+        "STORJ_USDT",
+        "GMT_USDT",
+        "AVAX_USDT",
+        "BNB_USDT",
+        "APE_USDT",
+        "MATIC_USDT",
+        "DOT_USDT",
+        "UNFI_USDT",
+        "LINK_USDT",
+        "XRP_USDT",
+        "RUNE_USDT",
+        "NEAR_USDT",
+        "FTM_USDT",
+        "WAVES_USDT",
+        "AXS_USDT",
+        "OGN_USDT",
+        "DOGE_USDT",
+        "SOL_USDT"
+    ],
+    "okx": [
+      "ETH_USDT",
+      "BTC_USDT",
+      "SAND_USDT",
+      "STORJ_USDT",
+      "GMT_USDT",
+      "AVAX_USDT",
+      "BNB_USDT",
+      "APE_USDT",
+      "MATIC_USDT",
+      "DOT_USDT",
+      "LINK_USDT",
+      "XRP_USDT",
+      "NEAR_USDT",
+      "FTM_USDT",
+      "WAVES_USDT",
+      "AXS_USDT",
+      "DOGE_USDT",
+      "SOL_USDT"
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+    "binance": {
+        "binance": [
+            "1000LUNC_USDT",
+            "API3_USDT",
+            "ARB_USDT",
+            "AVAX_USDT",
+            "BCH_USDT",
+            "BNB_USDT",
+            "ENS_USDT",
+            "ETC_USDT",
+            "GRT_USDT",
+            "ICP_USDT",
+            "IMX_USDT",
+            "INJ_USDT",
+            "LDO_USDT",
+            "LINK_USDT",
+            "MINA_USDT",
+            "MKR_USDT",
+            "OP_USDT",
+            "PENDLE_USDT",
+            "RNDR_USDT",
+            "SOL_USDT",
+            "STX_USDT",
+            "SUI_USDT",
+            "TRB_USDT",
+            "WLD_USDT",
+            "XMR_USDT"
+        ]
+    }
+}

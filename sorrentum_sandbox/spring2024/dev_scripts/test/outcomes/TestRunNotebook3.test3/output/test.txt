@@ -1,0 +1,57 @@
+[NbConvertApp] Converting notebook $GIT_ROOT/dev_scripts/test/outcomes/TestRunNotebook3/input/simple_notebook.ipynb to notebook
+Traceback (most recent call last):
+  File "/venv/bin/jupyter-nbconvert", line 8, in <module>
+    sys.exit(main())
+  File "/venv/lib/python3.9/site-packages/jupyter_core/application.py", line 282, in launch_instance
+    super().launch_instance(argv=argv, **kwargs)
+  File "/venv/lib/python3.9/site-packages/traitlets/config/application.py", line 1053, in launch_instance
+    app.start()
+  File "/venv/lib/python3.9/site-packages/nbconvert/nbconvertapp.py", line 412, in start
+    self.convert_notebooks()
+  File "/venv/lib/python3.9/site-packages/nbconvert/nbconvertapp.py", line 590, in convert_notebooks
+    self.convert_single_notebook(notebook_filename)
+  File "/venv/lib/python3.9/site-packages/nbconvert/nbconvertapp.py", line 556, in convert_single_notebook
+    output, resources = self.export_single_notebook(
+  File "/venv/lib/python3.9/site-packages/nbconvert/nbconvertapp.py", line 479, in export_single_notebook
+    output, resources = self.exporter.from_filename(
+  File "/venv/lib/python3.9/site-packages/nbconvert/exporters/exporter.py", line 201, in from_filename
+    return self.from_file(f, resources=resources, **kw)
+  File "/venv/lib/python3.9/site-packages/nbconvert/exporters/exporter.py", line 220, in from_file
+    return self.from_notebook_node(
+  File "/venv/lib/python3.9/site-packages/nbconvert/exporters/notebook.py", line 36, in from_notebook_node
+    nb_copy, resources = super().from_notebook_node(nb, resources, **kw)
+  File "/venv/lib/python3.9/site-packages/nbconvert/exporters/exporter.py", line 154, in from_notebook_node
+    nb_copy, resources = self._preprocess(nb_copy, resources)
+  File "/venv/lib/python3.9/site-packages/nbconvert/exporters/exporter.py", line 352, in _preprocess
+    nbc, resc = preprocessor(nbc, resc)
+  File "/venv/lib/python3.9/site-packages/nbconvert/preprocessors/base.py", line 48, in __call__
+    return self.preprocess(nb, resources)
+  File "/venv/lib/python3.9/site-packages/nbconvert/preprocessors/execute.py", line 102, in preprocess
+    self.preprocess_cell(cell, resources, index)
+  File "/venv/lib/python3.9/site-packages/nbconvert/preprocessors/execute.py", line 123, in preprocess_cell
+    cell = self.execute_cell(cell, index, store_history=True)
+  File "/venv/lib/python3.9/site-packages/jupyter_core/utils/__init__.py", line 168, in wrapped
+    return loop.run_until_complete(inner)
+  File "/usr/lib/python3.9/asyncio/base_events.py", line 642, in run_until_complete
+    return future.result()
+  File "/venv/lib/python3.9/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/venv/lib/python3.9/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+if config["fail"]:
+    raise ValueError("Failure")
+print("Success")
+------------------
+
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mValueError[0m                                Traceback (most recent call last)
+Cell [0;32mIn[4], line 2[0m
+[1;32m      1[0m [38;5;28;01mif[39;00m config[[38;5;124m"[39m[38;5;124mfail[39m[38;5;124m"[39m]:
+[0;32m----> 2[0m     [38;5;28;01mraise[39;00m [38;5;167;01mValueError[39;00m([38;5;124m"[39m[38;5;124mFailure[39m[38;5;124m"[39m)
+[1;32m      3[0m [38;5;28mprint[39m([38;5;124m"[39m[38;5;124mSuccess[39m[38;5;124m"[39m)
+
+[0;31mValueError[0m: Failure
+

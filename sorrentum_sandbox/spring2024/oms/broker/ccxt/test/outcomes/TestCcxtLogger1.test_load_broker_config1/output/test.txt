@@ -1,0 +1,10 @@
+{'bid_ask_lookback': '60S',
+ 'child_order_quantity_computer': {'object_type': 'StaticSchedulingChildOrderQuantityComputer'},
+ 'limit_price_computer': {'max_deviation': 0.01,
+                          'object_type': 'LimitPriceComputerUsingSpread',
+                          'passivity_factor': 0.55},
+ 'log_dir': '/app/system_log_dir',
+ 'raw_data_reader': 'RawDataReader',
+ 'secret_identifier': 'binance.preprod.trading.4',
+ 'stage': 'preprod',
+ 'universe_version': 'v7.4'}

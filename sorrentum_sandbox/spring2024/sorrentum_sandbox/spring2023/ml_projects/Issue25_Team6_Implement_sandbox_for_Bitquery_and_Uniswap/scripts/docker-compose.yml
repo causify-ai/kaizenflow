@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+    data605:
+        container_name: data605_container
+        build:
+            context: .
+            dockerfile: dockerfile
+        ports:
+        - "8080:8080"
+        - "8888:8888"
+    postgres:
+        image: postgres:latest
+        container_name: postgres
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: db
+        ports:
+        - "5432:5432"

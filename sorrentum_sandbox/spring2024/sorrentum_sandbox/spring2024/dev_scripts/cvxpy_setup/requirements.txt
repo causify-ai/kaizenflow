@@ -1,0 +1,8 @@
+cvxpy
+jupyter
+jupyter_contrib_nbextensions
+jupyter_nbextensions_configurator
+jupytext
+matplotlib
+pandas
+seaborn

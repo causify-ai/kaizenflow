@@ -1,0 +1,95 @@
+################################################################################
+system_config
+################################################################################
+dag_config:
+  filter_ath:
+    col_mode: replace_all
+    transformer_kwargs:
+      start_time: 09:30:00
+      end_time: 16:00:00
+  resample:
+    in_col_groups: [('close',), ('volume',)]
+    out_col_group: ()
+    transformer_kwargs:
+      rule: 1S
+      resampling_groups: [({'close': 'close'}, 'last', {}), ({'volume': 'volume'}, 'sum', {}), ({'close': 'twap'}, 'mean', {})]
+      vwap_groups: [('close', 'volume', 'vwap')]
+    reindex_like_input: False
+    join_output_with_input: False
+  compute_feature:
+    in_col_groups: [('close',), ('volume',)]
+    out_col_group: ()
+    transformer_kwargs:
+      term1_col: close
+      term2_col: volume
+      out_col: feature
+      operation: mul
+dag_builder_object: nid_prefix=
+dag_builder_class: Realtime_etl_DataObserver_DagBuilder
+system_class: RealTime_etl_DataObserver_System
+system_log_dir: $GIT_ROOT/dataflow_amp/system/realtime_etl_data_observer/test/outcomes/Test_run_RealTime_etl_DataObserver_System_simulation.test1/tmp.scratch/system_log_dir
+market_data_config:
+  asset_id_col_name: asset_id
+  asset_ids: [101, 201, 301]
+  data:
+    index=[0, 120]
+    columns=start_datetime,end_datetime,timestamp_db,open,high,low,close,volume,asset_id
+    shape=(363, 9)
+                 start_datetime              end_datetime              timestamp_db       open       high        low      close     volume  asset_id
+    0 2023-01-03 09:35:00-05:00 2023-01-03 09:35:01-05:00 2023-01-03 09:35:01-05:00  999.87454  999.87454  999.87454  999.87454  999.87454       101
+    0 2023-01-03 09:35:00-05:00 2023-01-03 09:35:01-05:00 2023-01-03 09:35:01-05:00  999.87454  999.87454  999.87454  999.87454  999.87454       201
+    0 2023-01-03 09:35:00-05:00 2023-01-03 09:35:01-05:00 2023-01-03 09:35:01-05:00  999.87454  999.87454  999.87454  999.87454  999.87454       301
+    ...
+    120 2023-01-03 09:37:00-05:00 2023-01-03 09:37:01-05:00 2023-01-03 09:37:01-05:00  997.56065  997.56065  997.56065  997.56065  997.56065       101
+    120 2023-01-03 09:37:00-05:00 2023-01-03 09:37:01-05:00 2023-01-03 09:37:01-05:00  997.56065  997.56065  997.56065  997.56065  997.56065       201
+    120 2023-01-03 09:37:00-05:00 2023-01-03 09:37:01-05:00 2023-01-03 09:37:01-05:00  997.56065  997.56065  997.56065  997.56065  997.56065       301
+  replayed_delay_in_mins_or_timestamp: 2023-01-03 09:35:02-05:00
+  delay_in_secs: 0
+  history_lookback: 0 days 00:00:01
+dag_property_config:
+  debug_mode_config:
+    save_node_io: df_as_pq
+    save_node_df_out_stats: False
+    profile_execution: False
+    dst_dir: $GIT_ROOT/dataflow_amp/system/realtime_etl_data_observer/test/outcomes/Test_run_RealTime_etl_DataObserver_System_simulation.test1/tmp.scratch/system_log_dir/dag/node_io
+dag_runner_config:
+  bar_duration_in_secs: 1
+  rt_timeout_in_secs_or_time: 10
+  max_distance_in_secs: 30
+  wake_up_timestamp: None
+event_loop_object: <_EventLoop running=False closed=True debug=False>
+market_object: ReplayedMarketData at 0x=(_asset_id_col=asset_id <str>, _asset_ids=[101, 201, 301] <list>, _start_time_col_name=start_datetime <str>, _end_time_col_name=end_datetime <str>, _columns=None <NoneType>, _sleep_in_secs=1.0 <float>, _timezone=America/New_York <str>, _column_remap=None <NoneType>, _filter_data_mode=assert <str>, _max_iterations=120 <int>, _df=pd.df((363, 9) <pandas.core.frame.DataFrame>, _knowledge_datetime_col_name=timestamp_db <str>, _delay_in_secs=0 <int>)
+object.builder_function:
+  market_object: dataflow_amp.system.realtime_etl_data_observer.realtime_etl_data_observer_system._get_market_data
+  dag_object: dataflow_amp.system.realtime_etl_data_observer.realtime_etl_data_observer_system._get_dag
+  dag_runner_object: dataflow_amp.system.realtime_etl_data_observer.realtime_etl_data_observer_system._get_dag_runner
+dag_object: DAG at 0x=(_nx_dag=DiGraph with 4 nodes and 3 edges <networkx.classes.digraph.DiGraph>, _name=None <NoneType>, _mode=strict <str>, _save_node_io=df_as_pq <str>, _save_node_df_out_stats=False <bool>, _profile_execution=False <bool>, _dst_dir=$GIT_ROOT/dataflow_amp/system/realtime_etl_data_observer/test/outcomes/Test_run_RealTime_etl_DataObserver_System_simulation.test1/tmp.scratch/system_log_dir/dag/node_io <str>, force_free_nodes=False <bool>)
+dag_runner_object:
+  RealTimeDagRunner at 0x=(config= <core.config.config_.Config>, _column_to_tags_mapping=None <NoneType>, _result_nid=compute_feature <str>, _execute_rt_loop_kwargs={'get_wall_clock_time': <bound method MarketData.get_wall_clock_time of <market_data.replayed_market_data.ReplayedMarketData at 0x>:
+    _asset_id_col='asset_id' <str>
+    _asset_ids='[101, 201, 301]' <list>
+    _start_time_col_name='start_datetime' <str>
+    _end_time_col_name='end_datetime' <str>
+    _columns='None' <NoneType>
+    _sleep_in_secs='1.0' <float>
+    _timezone='America/New_York' <str>
+    _column_remap='None' <NoneType>
+    _filter_data_mode='assert' <str>
+    _max_iterations='120' <int>
+    _df= <pandas.core.frame.DataFrame>
+                   start_datetime              end_datetime              timestamp_db       open       high        low      close     volume  asset_id
+      0 2023-01-03 09:35:00-05:00 2023-01-03 09:35:01-05:00 2023-01-03 09:35:01-05:00  999.87454  999.87454  999.87454  999.87454  999.87454       101
+      0 2023-01-03 09:35:00-05:00 2023-01-03 09:35:01-05:00 2023-01-03 09:35:01-05:00  999.87454  999.87454  999.87454  999.87454  999.87454       201
+      0 2023-01-03 09:35:00-05:00 2023-01-03 09:35:01-05:00 2023-01-03 09:35:01-05:00  999.87454  999.87454  999.87454  999.87454  999.87454       301
+      ...
+      120 2023-01-03 09:37:00-05:00 2023-01-03 09:37:01-05:00 2023-01-03 09:37:01-05:00  997.56065  997.56065  997.56065  997.56065  997.56065       101
+      120 2023-01-03 09:37:00-05:00 2023-01-03 09:37:01-05:00 2023-01-03 09:37:01-05:00  997.56065  997.56065  997.56065  997.56065  997.56065       201
+      120 2023-01-03 09:37:00-05:00 2023-01-03 09:37:01-05:00 2023-01-03 09:37:01-05:00  997.56065  997.56065  997.56065  997.56065  997.56065       301
+    _knowledge_datetime_col_name='timestamp_db' <str>
+    _delay_in_secs='0' <int>>, 'bar_duration_in_secs': 1, 'rt_timeout_in_secs_or_time': 10} <dict>, _dst_dir=None <NoneType>, _fit_at_beginning=False <bool>, _wake_up_timestamp=None <NoneType>, _bar_duration_in_secs=1 <int>, _set_current_bar_timestamp=True <bool>, _max_distance_in_secs=30 <int>, _events=[Event(num_it=1, current_time=Timestamp('2023-01-03 09:35:02-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=2, current_time=Timestamp('2023-01-03 09:35:03-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=3, current_time=Timestamp('2023-01-03 09:35:04-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=4, current_time=Timestamp('2023-01-03 09:35:05-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=5, current_time=Timestamp('2023-01-03 09:35:06-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=6, current_time=Timestamp('2023-01-03 09:35:07-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=7, current_time=Timestamp('2023-01-03 09:35:08-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=8, current_time=Timestamp('2023-01-03 09:35:09-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=9, current_time=Timestamp('2023-01-03 09:35:10-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=10, current_time=Timestamp('2023-01-03 09:35:11-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York'))] <list>)
+################################################################################
+feature
+################################################################################
+                                   101          201          301
+end_datetime
+2023-01-03 09:35:10-05:00  1000402.775  1000402.775  1000402.775

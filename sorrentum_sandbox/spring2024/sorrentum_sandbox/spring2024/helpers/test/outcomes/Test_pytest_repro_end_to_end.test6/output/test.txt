@@ -1,0 +1,40 @@
+HH:MM:SS - INFO  hdbg.py init_logger:1015                               > cmd='/venv/bin/invoke pytest_repro --file-name=$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test6/input/log.txt --show-stacktrace --script-name $GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test6/tmp.scratch/tmp.pytest_repro.sh'
+## pytest_repro:
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                   Reading file_name='$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test6/input/log.txt'
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                   Reading failed tests from file '$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test6/input/log.txt'
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                  Found 2 failed pytest 'tests' target(s); to reproduce run:
+pytest dataflow_lime/pipelines/E8/test/test_E8d_configs.py::Test_get_configs_from_command_line1::test1
+pytest dataflow_lime/pipelines/E8/test/test_E8d_prod_models.py::Test_TiledBacktest_E8d::test_end_to_end_slow1
+
+# Test_get_configs_from_command_line1.test1
+Traceback (most recent call last):
+  File "$GIT_ROOT/dataflow_lime/pipelines/E8/test/test_E8d_configs.py", line 37, in test1
+    configs = dtfmoexuti.get_configs_from_command_line(args)
+  File "$GIT_ROOT/dataflow/model/experiment_utils.py", line 195, in get_configs_from_command_line
+    configs = cconfig.get_configs_from_builder(config_builder)
+  File "$GIT_ROOT/core/config/builder.py", line 46, in get_configs_from_builder
+    imp = importlib.import_module(import_)
+  File "/usr/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'dataflow_lime.pipelines.E8.8Ed_configs'
+
+# Test_TiledBacktest_E8d.test_end_to_end_slow1
+Traceback (most recent call last):
+  File "$GIT_ROOT/dataflow_lime/pipelines/E8/test/test_E8d_prod_models.py", line 35, in test_end_to_end_slow1
+    self._test(config_builder, experiment_builder, run_model_extra_opts)
+  File "$GIT_ROOT/dataflow/model/run_prod_model_flow.py", line 175, in _test
+    self.check_string(configs_signature, fuzzy_match=True, tag=tag)
+  File "$GIT_ROOT/helpers/hunit_test.py", line 1360, in check_string
+    hdbg.dfatal(msg)
+  File "$GIT_ROOT/helpers/hdbg.py", line 63, in dfatal
+    raise assertion_type(ret)
+AssertionError:
+################################################################################
+The golden outcome doesn't exist: saved the actual output in '$GIT_ROOT/dataflow_lime/pipelines/E8/test/Test_TiledBacktest_E8d.test_end_to_end_slow1/output/configs_signature.txt.tmp'
+################################################################################
+
+# To run the tests:
+> $GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test6/tmp.scratch/tmp.pytest_repro.sh

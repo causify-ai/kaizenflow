@@ -1,0 +1,11 @@
+Total parsed symbols: 219387
+(000001, SEHKSZSE, stocks, None, CNH)
+(000002, SEHKSZSE, stocks, None, CNH)
+(000005, SEHKSZSE, stocks, None, CNH)
+(000006, SEHKSZSE, stocks, None, CNH)
+(000008, SEHKSZSE, stocks, None, CNH)
+(ZZZ, TSE, stocks, None, CAD)
+(ZZZD, ALPHA, stocks, None, CAD)
+(ZZZD, OMEGA, stocks, None, CAD)
+(ZZZD, PURE, stocks, None, CAD)
+(ZZZD, TSE, stocks, None, CAD)

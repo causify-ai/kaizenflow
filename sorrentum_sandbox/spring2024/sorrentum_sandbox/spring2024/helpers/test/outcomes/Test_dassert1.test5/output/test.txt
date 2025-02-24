@@ -1,0 +1,8 @@
+
+################################################################################
+* Failed assertion *
+cond=False
+Caught assertion while formatting message:
+'not all arguments converted during string formatting'
+hello %s world too_many
+################################################################################

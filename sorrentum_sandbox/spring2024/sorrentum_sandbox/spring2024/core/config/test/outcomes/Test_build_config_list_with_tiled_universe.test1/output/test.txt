@@ -1,0 +1,4 @@
+# ConfigList at 0x
+  # 1/1
+    market_data_config:
+      asset_ids: [13684, 10971]

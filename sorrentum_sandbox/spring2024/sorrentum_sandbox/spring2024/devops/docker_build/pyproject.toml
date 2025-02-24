@@ -1,0 +1,71 @@
+[tool.poetry]
+name = "amp"
+version = "0.1.0"
+description = ""
+authors = ["GP Saggese <gp@kaizen-tech.io>"]
+
+[tool.poetry.dependencies]
+async_solipsism = ">= 0.3"
+boto3 = "*"
+bs4 = "*"
+# It is better to up the version manually for CCXT.
+ccxt = "4.2.13"
+# poetry can't install cvxopt so we install it as pip package later in the flow.
+#cvxopt = ">= 1.3.0"
+# poetry can't install cvxpy so we install it as pip package later in the flow.
+# ```
+# ERROR: cvxpy-1.2.2-cp38-cp38-manylinux_2_24_x86_64.whl is not a supported wheel on this platform.
+# ```
+#cvxpy = ">= 1.2.2"
+# This constraint is needed because 3.4.8 seems to fail.
+cryptography = "<= 3.4.7"
+gspread_pandas = "*"
+#ib_insync = "*"
+# This is needed for `jupyter` extensions.
+importlib-resources = "*"
+invoke = "*"
+# From docs: IPython 8.13+ supports Python 3.9 and above.
+ipython = "<= 8.12.0"
+joblib = "*"
+jsonpickle = "*"
+jupyter = "*"
+jupyter_contrib_nbextensions = "*"
+jupyter_nbextensions_configurator = "*"
+# By default we install and enable `Jupytext` plugin in `Jupyter` notebook
+# to get automatically `.py` paired with `.ipynb`.
+jupytext = "*"
+matplotlib = "*"
+moto = "*"
+networkx = "*"
+# See https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator/issues/164.
+notebook = "< 7.0.0"
+numpy = "*"
+pandas = ">= 2.1.1"
+psutil = "*"
+psycopg2-binary = "*"
+pyarrow = ">=15.0.0"
+pygraphviz = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-instafail = "*"
+pytest-rerunfailures = "*"
+pytest-timeout = "*"
+pytest-xdist = "*"
+# TODO(Vlad): The version should be restricted to 3.9.*.
+python = ">=3.9,<3.10.dev0"
+python-dotenv = "*"
+pywavelets = "*"
+requests = "*"
+s3fs = "*"
+seaborn = "*"
+scikit-learn = "*"
+statsmodels = "*"
+# This is needed for `pandas.read_sql()`.
+SQLAlchemy = "*"
+tqdm = "*"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

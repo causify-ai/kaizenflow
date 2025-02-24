@@ -1,0 +1,34 @@
+# info
+OrderedDict([('series_name', None),
+             ('num_elems_before', 9),
+             ('num_nans_before', 0),
+             ('num_infs_before', 0),
+             ('quantiles', (0.2, 0.8)),
+             ('mode', 'winsorize'),
+             ('bounds',
+                 l_bound  u_bound
+0      NaN      NaN
+1      1.2      1.8
+2      1.4      2.6
+3      1.6      3.4
+4      1.8      4.2
+5      2.0      5.0
+6      2.2      5.8
+7      2.4      6.6
+8      2.6      7.4),
+             ('num_elems_removed', 8),
+             ('num_elems_after', 1),
+             ('percentage_removed', 88.88888888888889),
+             ('num_nans_after', 0),
+             ('num_infs_after', 0)])
+# srs_out
+0    1.0
+1    1.8
+2    2.6
+3    3.4
+4    4.2
+5    5.0
+6    5.8
+7    6.6
+8    7.4
+dtype: float64

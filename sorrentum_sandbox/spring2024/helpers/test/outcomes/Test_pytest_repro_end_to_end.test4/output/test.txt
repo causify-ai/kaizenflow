@@ -1,0 +1,61 @@
+HH:MM:SS - INFO  hdbg.py init_logger:1015                               > cmd='/venv/bin/invoke pytest_repro --file-name=$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test4/input/log.txt --show-stacktrace --script-name $GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test4/tmp.scratch/tmp.pytest_repro.sh'
+## pytest_repro:
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                   Reading file_name='$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test4/input/log.txt'
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                   Reading failed tests from file '$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test4/input/log.txt'
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                  Found 3 failed pytest 'tests' target(s); to reproduce run:
+pytest dataflow/core/nodes/test/test_sources.py::TestMultivariateNormalDataSource::test1
+pytest dataflow/core/test/test_builders.py::TestMvnReturnsBuilder::test1
+pytest dataflow/pipelines/real_time/test/test_dataflow_pipelines_real_time_pipeline.py::TestRealTimeMvnReturnsWithOms1::test1
+
+# TestRealTimeMvnReturnsWithOms1.test1
+Traceback (most recent call last):
+  File "$GIT_ROOT/dataflow/pipelines/real_time/test/test_dataflow_pipelines_real_time_pipeline.py", line 388, in test1
+    market_data = self.get_market_data(event_loop)
+  File "$GIT_ROOT/dataflow/pipelines/real_time/test/test_dataflow_pipelines_real_time_pipeline.py", line 325, in get_market_data
+    df = self.get_market_data_df()
+  File "$GIT_ROOT/dataflow/pipelines/real_time/test/test_dataflow_pipelines_real_time_pipeline.py", line 310, in get_market_data_df
+    df = node.fit()["df_out"]
+  File "$GIT_ROOT/dataflow/core/nodes/sources.py", line 334, in fit
+    self._lazy_load(fit=True)
+  File "$GIT_ROOT/dataflow/core/nodes/sources.py", line 361, in _lazy_load
+    rets = self._generate_returns(fit)
+  File "$GIT_ROOT/dataflow/core/nodes/sources.py", line 354, in _generate_returns
+    vol = cofinanc.compute_annualized_volatility(avg_rets)
+NameError: name 'cofinanc' is not defined
+
+# TestMultivariateNormalDataSource.test1
+Traceback (most recent call last):
+  File "$GIT_ROOT/dataflow/core/nodes/test/test_sources.py", line 175, in test1
+    df = node.fit()["df_out"]
+  File "$GIT_ROOT/dataflow/core/nodes/sources.py", line 334, in fit
+    self._lazy_load(fit=True)
+  File "$GIT_ROOT/dataflow/core/nodes/sources.py", line 361, in _lazy_load
+    rets = self._generate_returns(fit)
+  File "$GIT_ROOT/dataflow/core/nodes/sources.py", line 354, in _generate_returns
+    vol = cofinanc.compute_annualized_volatility(avg_rets)
+NameError: name 'cofinanc' is not defined
+
+# TestMvnReturnsBuilder.test1
+Traceback (most recent call last):
+  File "$GIT_ROOT/dataflow/core/test/test_builders.py", line 74, in test1
+    result_bundle = dag_runner.fit()
+  File "$GIT_ROOT/dataflow/core/dag_runner.py", line 170, in fit
+    return self._run_dag(method)
+  File "$GIT_ROOT/dataflow/core/dag_runner.py", line 181, in _run_dag
+    df_out, info = self._run_dag_helper(method)
+  File "$GIT_ROOT/dataflow/core/dag_runner.py", line 110, in _run_dag_helper
+    df_out = self.dag.run_leq_node(nid, method)["df_out"]
+  File "$GIT_ROOT/dataflow/core/dag.py", line 428, in run_leq_node
+    self._run_node(id_, pred_nid, method)
+  File "$GIT_ROOT/dataflow/core/dag.py", line 593, in _run_node
+    output = getattr(node, method)(**kwargs)
+  File "$GIT_ROOT/dataflow/core/nodes/sources.py", line 334, in fit
+    self._lazy_load(fit=True)
+  File "$GIT_ROOT/dataflow/core/nodes/sources.py", line 361, in _lazy_load
+    rets = self._generate_returns(fit)
+  File "$GIT_ROOT/dataflow/core/nodes/sources.py", line 354, in _generate_returns
+    vol = cofinanc.compute_annualized_volatility(avg_rets)
+NameError: name 'cofinanc' is not defined
+
+# To run the tests:
+> $GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test4/tmp.scratch/tmp.pytest_repro.sh

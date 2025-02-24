@@ -1,0 +1,22 @@
+lines.linewidth: 1
+
+axes.spines.left: False
+axes.spines.bottom: False
+axes.spines.top: False
+axes.spines.right: False
+
+axes.facecolor: black
+
+ytick.left: False
+ytick.right: False
+
+xtick.top: False
+xtick.bottom: False
+
+figure.facecolor: black
+
+image.origin: upper
+
+savefig.dpi: 300
+savefig.format: png
+savefig.bbox: tight

@@ -1,0 +1,17 @@
+#
+# Instantiate the dev instance of an IM DB.
+#
+version: '3'
+
+services:
+  app:
+    image: ${IMAGE}
+    container_name: im_app_dev
+    restart: "no"
+    entrypoint: /app/im/devops/docker_build/entrypoints/entrypoint_deploy.sh
+    working_dir: /app
+    env_file:
+      - ../env/dev.postgres.env
+      - ../env/local/general.env
+    volumes:
+      - ../../../:/app

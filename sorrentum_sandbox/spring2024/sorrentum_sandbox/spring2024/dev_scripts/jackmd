@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+# """
+# Search in md files.
+# """
+
+source helpers.sh
+
+parse_jack_cmd_opts "$@"
+
+cmd="find $dir \( -name '*.md' \) -print0 | xargs -0 ack $ACK_OPTS '$regex'"
+execute_with_verbose $cmd

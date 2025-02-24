@@ -1,0 +1,19 @@
+# Test created for helpers.test.test_playback.get_result_check_string.
+
+import helpers.hpandas as hpandas
+import helpers.hunit_test as hunitest
+import jsonpickle
+import pandas as pd
+import core.config as cconfi
+
+
+class TestGetResultCheckString(hunitest.TestCase):
+    def test1(self) -> None:
+        # Define input variables.
+        a = 3
+        b = 2
+        # Call function to test.
+        act = get_result_check_string(a=a, b=b)
+        act = str(act)
+        # Check output.
+        self.check_string(act)

@@ -1,0 +1,9 @@
+
+scikit-learn==0.24.2
+dask
+sqlalchemy
+psycopg2-binary
+yfinance
+pandas
+requests
+tqdm

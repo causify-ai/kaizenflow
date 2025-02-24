@@ -1,0 +1,10 @@
+#!/bin/bash
+clear
+
+file_name="tmp.pytest_script.txt"
+cmd="pytest $* 2>&1 | tee $file_name"
+cmd+='; exit ${PIPESTATUS[0]}'
+echo "> $cmd"
+eval $cmd
+
+echo "# pytest_log: Saved result in '$file_name'"

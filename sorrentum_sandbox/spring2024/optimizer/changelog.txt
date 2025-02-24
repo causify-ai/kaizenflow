@@ -1,0 +1,12 @@
+# opt-0.3.0
+- 2022-03-31
+- Add `invoke` library to run the tests
+- Update `setuptools`, see CmTask #1584
+
+# opt-0.2.0
+- 2022-03-21
+- Add missing packages to run amp and lm
+
+# opt-0.1.0
+- 2022-03-10
+- Initial version

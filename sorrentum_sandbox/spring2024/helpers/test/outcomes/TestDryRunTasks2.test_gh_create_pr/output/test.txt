@@ -1,0 +1,1 @@
+call('gh pr create --repo alphamatic/amp --draft --title "AmpTask1310_Implement_RH1E" --body ""')

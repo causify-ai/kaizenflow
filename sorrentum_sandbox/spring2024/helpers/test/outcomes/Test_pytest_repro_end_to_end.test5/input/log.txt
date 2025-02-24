@@ -1,0 +1,36 @@
+amp/core/event_study/test/test_core.py::TestUnwrapLocalTimeseries::test_minutely1 (0.03 s) PASSED [100%]
+
+=================================== FAILURES ===================================
+__________________________ TestE8c_ModelBuilder.test1 __________________________
+Traceback (most recent call last):
+  File "/app/dataflow/pipelines/E8/test/test_E8c_pipeline.py", line 79, in test1
+    self.check_string(actual)
+  File "/app/amp/helpers/hunit_test.py", line 1360, in check_string
+    hdbg.dfatal(msg)
+  File "/app/amp/helpers/hdbg.py", line 63, in dfatal
+    raise assertion_type(ret)
+AssertionError:
+################################################################################
+The golden outcome doesn't exist: saved the actual output in '/app/dataflow/pipelines/E8/test/TestE8c_ModelBuilder.test1/output/test.txt.tmp'
+################################################################################
+
+__________________________ TestE8a_ModelBuilder.test1 __________________________
+Traceback (most recent call last):
+  File "/app/dataflow/pipelines/E8/test/test_E8a_pipeline.py", line 72, in test1
+    self.check_string(actual)
+  File "/app/amp/helpers/hunit_test.py", line 1360, in check_string
+    hdbg.dfatal(msg)
+  File "/app/amp/helpers/hdbg.py", line 63, in dfatal
+    raise assertion_type(ret)
+AssertionError:
+################################################################################
+The golden outcome doesn't exist: saved the actual output in '/app/dataflow/pipelines/E8/test/TestE8a_ModelBuilder.test1/output/test.txt.tmp'
+################################################################################
+
+============================= slowest 3 durations ==============================
+10.36s call     dataflow/pipelines/E8/test/test_E8c_pipeline.py::TestE8c_ModelBuilder::test1
+7.77s call     dataflow/pipelines/E8/test/test_E8d_pipeline.py::Test_E8d_DagBuilder::test_fit
+7.31s call     dataflow/pipelines/E8/test/test_E8d_pipeline.py::Test_E8d_DagBuilder::test_fit
+=========================== short test summary info ============================
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1119288Z FAILED dataflow/pipelines/E8/test/test_E8a_pipeline.py::TestE8a_ModelBuilder::test1
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1119288Z FAILED dataflow/pipelines/E8/test/test_E8c_pipeline.py::TestE8c_ModelBuilder::test1

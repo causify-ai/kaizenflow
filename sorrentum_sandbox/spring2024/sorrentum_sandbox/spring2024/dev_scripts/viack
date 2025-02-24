@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+# """
+# Run a command, capture its output, and call vic on it.
+# You need to surround the command with '...'
+# > viack 'jackpy "config = cfg.Config.from_env()"'
+# """
+
+source helpers.sh
+
+cmd=$*
+execute "$cmd | tee cfile"
+vic

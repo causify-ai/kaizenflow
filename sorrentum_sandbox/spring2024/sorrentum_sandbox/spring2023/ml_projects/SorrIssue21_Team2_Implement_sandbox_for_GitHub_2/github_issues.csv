@@ -1,0 +1,2104 @@
+id,number,title,created_at,updated_at,closed_at,author_association,comments,body,user_login,user_id,Crypto_Name,Extension
+1661541619,31138,v1.14: doc: typo in geyser plugin doc (backport of #31125),2023-04-10 23:29:19,2023-04-10 23:30:21,,CONTRIBUTOR,0,"This is an automatic backport of pull request #31125 done by [Mergify](https://mergify.com).
+
+
+---
+
+
+<details>
+<summary>Mergify commands and options</summary>
+
+<br />
+
+More conditions and actions can be found in the [documentation](https://docs.mergify.com/).
+
+You can also trigger Mergify actions by commenting on this pull request:
+
+- `@Mergifyio refresh` will re-evaluate the rules
+- `@Mergifyio rebase` will rebase this PR on its base branch
+- `@Mergifyio update` will merge the base branch into this PR
+- `@Mergifyio backport <destination>` will backport this PR on `<destination>` branch
+
+Additionally, on Mergify [dashboard](https://dashboard.mergify.com) you can:
+
+- look at your merge queues
+- generate the Mergify configuration with the config editor.
+
+Finally, you can contact us on https://mergify.com
+</details>",mergify[bot],37929162,solana,/issues
+1661342491,31137,validator: `--tpu-host-addr` -> `--public-tpu-address`,2023-04-10 20:49:31,2023-04-11 00:04:07,,CONTRIBUTOR,1,"#### Problem
+
+`--tpu-host-addr` is not very clear and does not match other similar arguments
+
+See https://github.com/solana-labs/solana/pull/30452#issuecomment-1475316593 and below
+
+#### Summary of Changes
+
+`--tpu-host-addr` arg has been renamed to `--public-tpu-address` (with an added alias)
+
+",diman-io,71597545,solana,/issues
+1661296052,31136,Rename IncrementalSnapshotHashes to SnapshotHashes,2023-04-10 20:10:09,2023-04-11 01:14:45,,CONTRIBUTOR,1,"#### Problem
+
+To handle bootstrap better, we'll be changing how `IncrementalSnapshotHashes` will be used. It will contain hashes for both full and incremental snapshots. The current name could convey that better.
+
+
+#### Summary of Changes
+
+- Rename `IncrementalSnapshotHashes` to `SnapshotHashes`
+- Rename the fields to `full` and `incremental`
+- Update the callers",brooksprumo,840349,solana,/issues
+1661293686,31135,disk index: add more tests,2023-04-10 20:08:25,2023-04-10 22:43:24,,CONTRIBUTOR,1,"#### Problem
+
+#### Summary of Changes
+Add more tests for #31133
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",jeffwashington,75863576,solana,/issues
+1661257166,31134,chore: Update Blockstore::get_slots_since() doc comments,2023-04-10 19:39:33,2023-04-10 21:20:17,,CONTRIBUTOR,1,"#### Summary of Changes
+Add more descriptive doc comment for the function. Additionally, change the function signature to use Slot instead of u64. Slot is defined as an alias of u64 so these are functionally equivalent, but using Slot over u64 is more expressive of the intent.",steviez,5400107,solana,/issues
+1661142003,31132,chore: Variable rename `height` ==> `slot` in blockstore function,2023-04-10 18:04:15,2023-04-10 20:13:07,,CONTRIBUTOR,1,"#### Problem
+Slots refer to time windows where a block could be produced whereas height refers to how many blocks are actually in a fork. This function is operating on a list of slots, so the use of ""height"" is incorrect and misleading.
+
+#### Summary of Changes
+Rename variable",steviez,5400107,solana,/issues
+1661120195,31131,Add remove_incomplete_bank_snapshot_dir,2023-04-10 17:48:05,2023-04-10 17:48:05,,CONTRIBUTOR,0,"#### Problem
+Creating a bank snapshot dir takes multiple steps.  If the process is killed in the middle of the process, the directory is incomplete, not good for constructing a bank. 
+There is already a flag file ""state_complete"" to guard against it, so that a snapshot dir missing that flag does to get selected to construct a BankSnapshotInfo.  But then the new design will purge the bank snaphosts based on the snapshot state, not by the directory.  That could lead to incomplete dir being left on disk forever.
+
+#### Summary of Changes
+Add remove_incomplete_bank_snapshot_dir to ensure the incomplete snapshot dirs are cleared, not causing confusion.
+
+
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",xiangzhu70,59367509,solana,/issues
+1661106152,31130,add test,2023-04-10 17:34:14,2023-04-10 17:34:14,,CONTRIBUTOR,0,"#### Problem
+Add test related to #31094
+
+#### Summary of Changes
+
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",jeffwashington,75863576,solana,/issues
+1661093712,31129,Add secondary vote lockout check,2023-04-10 17:21:49,2023-04-11 02:43:35,,CONTRIBUTOR,6,"#### Problem
+We're seeing frequent (multiple times a day) long root stalls (10s of seconds) on testnet and MNB. Length of these stalls seems to be related to the vote lockout period.
+
+#### Summary of Changes
+This is a first pass at adding a second, earlier vote lockout threshold that has to be passed. The original lockout ensures the 8th deep vote on the tower has 66%. This earlier one would ensure the 4th deep vote has 33%. Note this idea is just exploratory at this phase.
+
+The idea is that instead of blindly voting on a minority fork until we get 8 votes deep (locked out for 256 slots), we will only allow ourselves to get 4 votes deep (16 slots) unless we see positive signs that many others are voting with us.
+
+The code itself is a little funky right now in the way it uses the existing `threshold_depth` and `threshold_size` from `Tower` and merges this with newly added depth/size constants into a vector. If we decide the idea is worth pursuing, we can talk about the right way to do this part.",bw-solana,44715351,solana,/issues
+1661014315,31128,"cargo build-sbf depends on libssl.so.1.1, which is deprecated",2023-04-10 16:10:30,2023-04-10 16:10:30,,NONE,0,"#### Problem
+The solana build toolchain is dynamically links to openssl 1.1.1, which has been deprecated and is nearing EOL, in fact, it isn't provided on Ubuntu 22.04.
+
+#### Proposed Solution
+
+Update the build-sbf toolchain.",ARitz-Cracker,5233816,solana,/issues
+1660506333,31124,Geyser drops finalized notifications ,2023-04-10 09:25:05,2023-04-11 01:12:57,,NONE,3,"#### Problem
+
+It seems that quite often, Geyser will drop the 'Finalized' slot notification. It seems more commonly to happen around skipped slots, but we have found examples where it was not. An example is illustrated below:
+
+```
+$ journalctl --user-unit solana-rpc |grep geyser_pg | grep -E '(18759483[2-5]|187594840)'
+Apr 10 08:41:07 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:07.482695590Z DEBUG geyser_pg::postgres] Message: Account(false 187594832 SysvarS1otHashes111111111111111111111111111 667609360988)
+Apr 10 08:41:08 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:08.140092059Z DEBUG geyser_pg::postgres] Message: Slot(187594832 Processed)
+Apr 10 08:41:08 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:08.140123559Z INFO  geyser_pg::postgres] Processing new slot 187594832, with 60 accounts
+Apr 10 08:41:08 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:08.159428777Z DEBUG geyser_pg::postgres] Message: Account(false 187594833 SysvarS1otHashes111111111111111111111111111 667609370319)
+Apr 10 08:41:08 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:08.490537309Z DEBUG geyser_pg::postgres] Message: Slot(187594833 Processed)
+Apr 10 08:41:08 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:08.490563639Z INFO  geyser_pg::postgres] Processing new slot 187594833, with 38 accounts
+Apr 10 08:41:08 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:08.517442426Z DEBUG geyser_pg::postgres] Message: Account(false 187594834 SysvarS1otHashes111111111111111111111111111 667609374246)
+Apr 10 08:41:08 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:08.537672355Z DEBUG geyser_pg::postgres] Message: Slot(187594832 Confirmed)
+Apr 10 08:41:08 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:08.852584298Z DEBUG geyser_pg::postgres] Message: Slot(187594833 Confirmed)
+Apr 10 08:41:08 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:08.887478755Z DEBUG geyser_pg::postgres] Message: Slot(187594834 Processed)
+Apr 10 08:41:08 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:08.887516387Z INFO  geyser_pg::postgres] Processing new slot 187594834, with 45 accounts
+Apr 10 08:41:08 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:08.911527730Z DEBUG geyser_pg::postgres] Message: Account(false 187594835 SysvarS1otHashes111111111111111111111111111 667609380818)
+Apr 10 08:41:09 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:09.236842372Z DEBUG geyser_pg::postgres] Message: Slot(187594835 Processed)
+Apr 10 08:41:09 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:09.236876858Z INFO  geyser_pg::postgres] Processing new slot 187594835, with 61 accounts
+Apr 10 08:41:10 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:10.667922211Z DEBUG geyser_pg::postgres] Message: Account(false 187594840 SysvarS1otHashes111111111111111111111111111 667609383434)
+Apr 10 08:41:10 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:10.971665249Z DEBUG geyser_pg::postgres] Message: Account(false 187594840 PinYvHqMTZVrRTpwK9x3dB9vL7tsGtGedSz8EqeynuA 667609384855)
+Apr 10 08:41:11 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:11.262569677Z DEBUG geyser_pg::postgres] Message: Account(false 187594840 AuQkCWHMUxPfM3tTGv8JySTaSSqcsN73vu5kYyidoUuh 667609388919)
+Apr 10 08:41:11 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:11.305351858Z DEBUG geyser_pg::postgres] Message: Slot(187594840 Processed)
+Apr 10 08:41:11 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:11.305382768Z INFO  geyser_pg::postgres] Processing new slot 187594840, with 123 accounts
+Apr 10 08:41:11 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:11.389888160Z DEBUG geyser_pg::postgres] Message: Slot(187594834 Confirmed)
+Apr 10 08:41:11 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:11.389904822Z DEBUG geyser_pg::postgres] Message: Slot(187594835 Confirmed)
+Apr 10 08:41:12 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:12.159304081Z DEBUG geyser_pg::postgres] Message: Slot(187594840 Confirmed)
+Apr 10 08:41:23 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:23.822562681Z DEBUG geyser_pg::postgres] Message: Slot(187594832 Finalized)
+Apr 10 08:41:23 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:23.848824468Z DEBUG geyser_pg::postgres] Update finalized to 187594832 in 1.942ms
+Apr 10 08:41:24 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:24.230460632Z DEBUG geyser_pg::postgres] Message: Slot(187594833 Finalized)
+Apr 10 08:41:24 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:24.249380547Z DEBUG geyser_pg::postgres] Update finalized to 187594833 in 1.236ms
+Apr 10 08:41:24 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:24.544539330Z DEBUG geyser_pg::postgres] Message: Slot(187594840 Finalized)
+Apr 10 08:41:24 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:24.590291031Z DEBUG geyser_pg::postgres] Update finalized to 187594834 in 1.541ms
+Apr 10 08:41:24 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:24.591646081Z DEBUG geyser_pg::postgres] Update finalized to 187594835 in 1.337ms
+Apr 10 08:41:24 pit54 solana-rpc.sh[25574]: [2023-04-10T08:41:24.595147365Z DEBUG geyser_pg::postgres] Update finalized to 187594840 in 3.379ms
+```
+
+Slot 187594840 has parent 187594835. However, 187594835 and 187594834 never saw slot notifications for finalization. Only for processed and confirmed. However, slot 187594840 saw the finalized slot notification correctly.
+
+This is different from #28871 since it happens during general runtime, not just at start up.
+
+#### Proposed Solution
+
+This is possible to work around in the geyser plugin (just assume that the 'tree' below the last finalized slot is also finalized), but it leads to delays in ingesting state since we cannot know that the tree is finalized until 187594840 is finalized. Therefore it would be good to identify why geyser doesn't notify the finalized state of the slots in between.
+",linuskendall,5172293,solana,/issues
+1660494189,31123,Bump hashbrown from 0.12.3 to 0.13.2,2023-04-10 09:13:24,2023-04-10 09:13:25,,CONTRIBUTOR,0,"Bumps [hashbrown](https://github.com/rust-lang/hashbrown) from 0.12.3 to 0.13.2.
+<details>
+<summary>Changelog</summary>
+<p><em>Sourced from <a href=""https://github.com/rust-lang/hashbrown/blob/master/CHANGELOG.md"">hashbrown's changelog</a>.</em></p>
+<blockquote>
+<h2>[v0.13.2] - 2023-01-12</h2>
+<h3>Fixed</h3>
+<ul>
+<li>Added <code>#[inline(always)]</code> to <code>find_inner</code>. (<a href=""https://redirect.github.com/rust-lang/hashbrown/issues/375"">#375</a>)</li>
+<li>Fixed <code>RawTable::allocation_info</code> for empty tables. (<a href=""https://redirect.github.com/rust-lang/hashbrown/issues/376"">#376</a>)</li>
+</ul>
+<h2>[v0.13.1] - 2022-11-10</h2>
+<h3>Added</h3>
+<ul>
+<li>Added <code>Equivalent</code> trait to customize key lookups. (<a href=""https://redirect.github.com/rust-lang/hashbrown/issues/350"">#350</a>)</li>
+<li>Added support for 16-bit targets. (<a href=""https://redirect.github.com/rust-lang/hashbrown/issues/368"">#368</a>)</li>
+<li>Added <code>RawTable::allocation_info</code> which provides information about the memory
+usage of a table. (<a href=""https://redirect.github.com/rust-lang/hashbrown/issues/371"">#371</a>)</li>
+</ul>
+<h3>Changed</h3>
+<ul>
+<li>Bumped MSRV to 1.61.0.</li>
+<li>Upgraded to <code>ahash</code> 0.8. (<a href=""https://redirect.github.com/rust-lang/hashbrown/issues/357"">#357</a>)</li>
+<li>Make <code>with_hasher_in</code> const. (<a href=""https://redirect.github.com/rust-lang/hashbrown/issues/355"">#355</a>)</li>
+<li>The following methods have been removed from the <code>RawTable</code> API in favor of
+safer alternatives:
+<ul>
+<li><code>RawTable::erase_no_drop</code> =&gt; Use <code>RawTable::erase</code> or <code>RawTable::remove</code> instead.</li>
+<li><code>Bucket::read</code> =&gt; Use <code>RawTable::remove</code> instead.</li>
+<li><code>Bucket::drop</code> =&gt; Use <code>RawTable::erase</code> instead.</li>
+<li><code>Bucket::write</code> =&gt; Use <code>Bucket::as_mut</code> instead.</li>
+</ul>
+</li>
+</ul>
+<h3>Fixed</h3>
+<ul>
+<li>Ensure that <code>HashMap</code> allocations don't exceed <code>isize::MAX</code>. (<a href=""https://redirect.github.com/rust-lang/hashbrown/issues/362"">#362</a>)</li>
+<li>Fixed issue with field retagging in scopeguard. (<a href=""https://redirect.github.com/rust-lang/hashbrown/issues/359"">#359</a>)</li>
+</ul>
+</blockquote>
+</details>
+<details>
+<summary>Commits</summary>
+<ul>
+<li><a href=""https://github.com/rust-lang/hashbrown/commit/dcb854f861849e9ef23749601497242bdae276b5""><code>dcb854f</code></a> Version 0.13.2</li>
+<li><a href=""https://github.com/rust-lang/hashbrown/commit/55175ca062f121c5ddfe4d978fbf4fc77d846be0""><code>55175ca</code></a> Auto merge of <a href=""https://redirect.github.com/rust-lang/hashbrown/issues/379"">#379</a> - stepancheg:fix-all-info, r=Amanieu</li>
+<li><a href=""https://github.com/rust-lang/hashbrown/commit/471c5a644f129b25da48d12f40be903d276002d2""><code>471c5a6</code></a> Fix RawTable::allocation_info for empty table</li>
+<li><a href=""https://github.com/rust-lang/hashbrown/commit/09dc17e0d686cdeba15920a4f77462c572e7cad1""><code>09dc17e</code></a> Auto merge of <a href=""https://redirect.github.com/rust-lang/hashbrown/issues/381"">#381</a> - stepancheg:clippy, r=Amanieu</li>
+<li><a href=""https://github.com/rust-lang/hashbrown/commit/f18ea5e6192d4258f8f6a3d0d0ed47d94bf76408""><code>f18ea5e</code></a> Merge pull request <a href=""https://redirect.github.com/rust-lang/hashbrown/issues/378"">#378</a> from sno2/patch-1</li>
+<li><a href=""https://github.com/rust-lang/hashbrown/commit/2b03dacdd73bf97cee1b5dd1dd9a45ec344481b0""><code>2b03dac</code></a> Apply clippy suggestions</li>
+<li><a href=""https://github.com/rust-lang/hashbrown/commit/731b3a0e10d1fe92317f8b2f2155ae8ebc6a3193""><code>731b3a0</code></a> chore: update version in README</li>
+<li><a href=""https://github.com/rust-lang/hashbrown/commit/c93ef8f44162d7478e3430d3b650dcd0a7a0b038""><code>c93ef8f</code></a> Auto merge of <a href=""https://redirect.github.com/rust-lang/hashbrown/issues/375"">#375</a> - QuarticCat:feedback, r=Amanieu</li>
+<li><a href=""https://github.com/rust-lang/hashbrown/commit/7d6c2a82f9156067744c7f1f1b900bbc3a379cb4""><code>7d6c2a8</code></a> Add <code>#[inline(always)]</code> to <code>find_inner</code></li>
+<li><a href=""https://github.com/rust-lang/hashbrown/commit/5d4927631bb072c35697d10a6efdb57a6647f0d8""><code>5d49276</code></a> Auto merge of <a href=""https://redirect.github.com/rust-lang/hashbrown/issues/373"">#373</a> - Turbo87:patch-1, r=Amanieu</li>
+<li>Additional commits viewable in <a href=""https://github.com/rust-lang/hashbrown/compare/v0.12.3...v0.13.2"">compare view</a></li>
+</ul>
+</details>
+<br />
+
+
+[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=hashbrown&package-manager=cargo&previous-version=0.12.3&new-version=0.13.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)
+
+Dependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.
+
+[//]: # (dependabot-automerge-start)
+[//]: # (dependabot-automerge-end)
+
+---
+
+<details>
+<summary>Dependabot commands and options</summary>
+<br />
+
+You can trigger Dependabot actions by commenting on this PR:
+- `@dependabot rebase` will rebase this PR
+- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it
+- `@dependabot merge` will merge this PR after your CI passes on it
+- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it
+- `@dependabot cancel merge` will cancel a previously requested merge and block automerging
+- `@dependabot reopen` will reopen this PR if it is closed
+- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually
+- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)
+
+
+</details>",dependabot[bot],49699333,solana,/issues
+1660491938,31122,Bump num_enum from 0.5.9 to 0.6.0,2023-04-10 09:11:34,2023-04-10 09:11:35,,CONTRIBUTOR,0,"Bumps [num_enum](https://github.com/illicitonion/num_enum) from 0.5.9 to 0.6.0.
+<details>
+<summary>Commits</summary>
+<ul>
+<li><a href=""https://github.com/illicitonion/num_enum/commit/d5662e436f3afe700a71351d6e2ebc3fbfe8114b""><code>d5662e4</code></a> Update to edition 2021</li>
+<li><a href=""https://github.com/illicitonion/num_enum/commit/b6fc9f00c6fbee36fba5541f7b1b0ff36c146bf2""><code>b6fc9f0</code></a> Specify MSRV</li>
+<li><a href=""https://github.com/illicitonion/num_enum/commit/df815d982f3d00a4b7bd89c83fff094191fa14d1""><code>df815d9</code></a> Specify exact dep on derive crate</li>
+<li><a href=""https://github.com/illicitonion/num_enum/commit/425277bf57d606f6bf984de05848e76dd1dd22a6""><code>425277b</code></a> Reduce minimum syn version to 2 (<a href=""https://redirect.github.com/illicitonion/num_enum/issues/114"">#114</a>)</li>
+<li><a href=""https://github.com/illicitonion/num_enum/commit/9bc84b1c12537ae3afd3009564e6b38ff82119f6""><code>9bc84b1</code></a> Update syn to v2 (<a href=""https://redirect.github.com/illicitonion/num_enum/issues/113"">#113</a>)</li>
+<li><a href=""https://github.com/illicitonion/num_enum/commit/e02abdcacac7269bffcbd6c93cd847b7b95477c6""><code>e02abdc</code></a> UnsafeFromPrimitive ignores default/alternatives (<a href=""https://redirect.github.com/illicitonion/num_enum/issues/112"">#112</a>)</li>
+<li><a href=""https://github.com/illicitonion/num_enum/commit/9b4642e5a7d59d7902b0402ddc75ca1c25eb48b8""><code>9b4642e</code></a> Make UnsafeFromPrimitive a trait (<a href=""https://redirect.github.com/illicitonion/num_enum/issues/79"">#79</a>)</li>
+<li><a href=""https://github.com/illicitonion/num_enum/commit/c90528c5b96858763fedcf2853d4c605247221ae""><code>c90528c</code></a> Bump to 0.6.0</li>
+<li><a href=""https://github.com/illicitonion/num_enum/commit/0e2d006daaf156fb60d1cc677a52d09186e48b86""><code>0e2d006</code></a> TryFromPrimitive ignores default attributes</li>
+<li><a href=""https://github.com/illicitonion/num_enum/commit/b32c406accb05338cb7c59c3023f804a18271c18""><code>b32c406</code></a> Bump to 0.5.11 (<a href=""https://redirect.github.com/illicitonion/num_enum/issues/109"">#109</a>)</li>
+<li>Additional commits viewable in <a href=""https://github.com/illicitonion/num_enum/compare/0.5.9...0.6.0"">compare view</a></li>
+</ul>
+</details>
+<br />
+
+
+[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=num_enum&package-manager=cargo&previous-version=0.5.9&new-version=0.6.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)
+
+Dependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.
+
+[//]: # (dependabot-automerge-start)
+[//]: # (dependabot-automerge-end)
+
+---
+
+<details>
+<summary>Dependabot commands and options</summary>
+<br />
+
+You can trigger Dependabot actions by commenting on this PR:
+- `@dependabot rebase` will rebase this PR
+- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it
+- `@dependabot merge` will merge this PR after your CI passes on it
+- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it
+- `@dependabot cancel merge` will cancel a previously requested merge and block automerging
+- `@dependabot reopen` will reopen this PR if it is closed
+- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually
+- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)
+
+
+</details>",dependabot[bot],49699333,solana,/issues
+1660482070,31120,Bump chrono from 0.4.23 to 0.4.24,2023-04-10 09:04:20,2023-04-10 09:04:59,,CONTRIBUTOR,0,"Bumps [chrono](https://github.com/chronotope/chrono) from 0.4.23 to 0.4.24.
+<details>
+<summary>Release notes</summary>
+<p><em>Sourced from <a href=""https://github.com/chronotope/chrono/releases"">chrono's releases</a>.</em></p>
+<blockquote>
+<h2>0.4.24</h2>
+<p>This is a small maintenance release with accumulated fixes and improvements.</p>
+<ul>
+<li>Fix doc on <code>Days::new()</code> to refer to days, not months (<a href=""https://redirect.github.com/chronotope/chrono/issues/874"">#874</a>, thanks to <a href=""https://github.com/brotskydotcom""><code>@​brotskydotcom</code></a>)</li>
+<li>Clarify out of range value for <code>from_timestamp_opt()</code> (<a href=""https://redirect.github.com/chronotope/chrono/issues/879"">#879</a>, thanks to <a href=""https://github.com/xmo-odoo""><code>@​xmo-odoo</code></a>)</li>
+<li>Add <code>format_localized()</code> for <code>NaiveDate</code> (<a href=""https://redirect.github.com/chronotope/chrono/issues/881"">#881</a>, thanks to <a href=""https://github.com/mseele""><code>@​mseele</code></a>)</li>
+<li>Fix bug in <code>Add</code>/<code>Sub</code> <code>Days</code>, add tests with DST timezone (<a href=""https://redirect.github.com/chronotope/chrono/issues/878"">#878</a>)</li>
+<li>Make <code>NaiveTime::MIN</code> public (<a href=""https://redirect.github.com/chronotope/chrono/issues/890"">#890</a>)</li>
+<li>Fix <code>from_timestamp_millis()</code> implementation and add more tests (<a href=""https://redirect.github.com/chronotope/chrono/issues/885"">#885</a>)</li>
+<li>Fix typo in docstrings (<a href=""https://redirect.github.com/chronotope/chrono/issues/897"">#897</a>, thanks to <a href=""https://github.com/dandxy89""><code>@​dandxy89</code></a>)</li>
+<li>Add test proving that <a href=""https://redirect.github.com/chronotope/chrono/issues/903"">#903</a> is fixed in 0.4.x head (<a href=""https://redirect.github.com/chronotope/chrono/issues/905"">#905</a>, thanks to <a href=""https://github.com/umanwizard""><code>@​umanwizard</code></a>)</li>
+<li>Add <code>from_timestamp_micros()</code> function (<a href=""https://redirect.github.com/chronotope/chrono/issues/906"">#906</a>, thanks to <a href=""https://github.com/umanwizard""><code>@​umanwizard</code></a>)</li>
+<li>Check cargo-deny in CI (<a href=""https://redirect.github.com/chronotope/chrono/issues/909"">#909</a>)</li>
+<li>Derive <code>Hash</code> for most pub types that also derive <code>PartialEq</code> (<a href=""https://redirect.github.com/chronotope/chrono/issues/938"">#938</a>, thanks to <a href=""https://github.com/bruceg""><code>@​bruceg</code></a>)</li>
+<li>Update deprecated methods in <code>from_utc()</code> example (<a href=""https://redirect.github.com/chronotope/chrono/issues/939"">#939</a>, thanks to <a href=""https://github.com/greg-el""><code>@​greg-el</code></a>)</li>
+<li>Fix panic in <code>DateTime::checked_add_days()</code> (<a href=""https://redirect.github.com/chronotope/chrono/issues/942"">#942</a>, thanks to <a href=""https://github.com/Ekleog""><code>@​Ekleog</code></a>)</li>
+<li>More documentation for dates before 1 BCE or after 9999 CE (<a href=""https://redirect.github.com/chronotope/chrono/issues/950"">#950</a>, thanks to <a href=""https://github.com/cgit""><code>@​cgit</code></a>)</li>
+<li>Improve <code>FixedOffset</code> docs (<a href=""https://redirect.github.com/chronotope/chrono/issues/953"">#953</a>, thanks to <a href=""https://github.com/klnusbaum""><code>@​klnusbaum</code></a>)</li>
+<li>Add chrono-fuzz to CI and update its libfuzzer-sys dependency (<a href=""https://redirect.github.com/chronotope/chrono/issues/968"">#968</a>, thanks to <a href=""https://github.com/LingMan""><code>@​LingMan</code></a>)</li>
+<li>Fixes to parsing and calculation of week numbers (<a href=""https://redirect.github.com/chronotope/chrono/issues/966"">#966</a>, thanks to <a href=""https://github.com/raphaelroosz""><code>@​raphaelroosz</code></a>)</li>
+<li>Make iana-time-zone a target specific dependency (<a href=""https://redirect.github.com/chronotope/chrono/issues/980"">#980</a>, thanks to <a href=""https://github.com/krtab""><code>@​krtab</code></a>)</li>
+<li>Make eligible functions <code>const</code> (<a href=""https://redirect.github.com/chronotope/chrono/issues/984"">#984</a>, thanks to <a href=""https://github.com/tormeh""><code>@​tormeh</code></a>)</li>
+</ul>
+<p>Thanks to all contributors from the chrono team, <a href=""https://github.com/esheppa""><code>@​esheppa</code></a> and <a href=""https://github.com/djc""><code>@​djc</code></a>.</p>
+</blockquote>
+</details>
+<details>
+<summary>Commits</summary>
+<ul>
+<li><a href=""https://github.com/chronotope/chrono/commit/daa86a77d36d74f474913fd3b560a40f1424bd77""><code>daa86a7</code></a> Check benchmarks in CI</li>
+<li><a href=""https://github.com/chronotope/chrono/commit/b1e0963efc9544dee9e5b708e3abfea3e7eaa3d9""><code>b1e0963</code></a> Bump rust-cache action to v2</li>
+<li><a href=""https://github.com/chronotope/chrono/commit/64c5d7793a1a3e6ccbb2acc606b85f95830b7f83""><code>64c5d77</code></a> Bump version to 0.4.24</li>
+<li><a href=""https://github.com/chronotope/chrono/commit/f5c5ac452dc7095c6acec12a7e5278194132bc06""><code>f5c5ac4</code></a> Make eligible functions const.</li>
+<li><a href=""https://github.com/chronotope/chrono/commit/fb2f2596f56b690ddd5fc5e473fc8380418802a8""><code>fb2f259</code></a> Make iana-time-zone a target specific dependency</li>
+<li><a href=""https://github.com/chronotope/chrono/commit/cf2a2f95f7030860b0eda2b78eff968f1d7b4228""><code>cf2a2f9</code></a> factor calculations to weeks_from function and add tests</li>
+<li><a href=""https://github.com/chronotope/chrono/commit/8197700ccdbb77a355e47ef8f4d9720ef41ff564""><code>8197700</code></a> apply same fix to parsing and add failing test cases as per issue <a href=""https://redirect.github.com/chronotope/chrono/issues/961"">#961</a></li>
+<li><a href=""https://github.com/chronotope/chrono/commit/a9b1ec412a6224020a2e9664a45974dcf71fdace""><code>a9b1ec4</code></a> fix ordinal week calculation</li>
+<li><a href=""https://github.com/chronotope/chrono/commit/f9f3c7857d31c1c2341a1ddee0e9447f81a61465""><code>f9f3c78</code></a> Fix panic in DateTime::checked_add_days</li>
+<li><a href=""https://github.com/chronotope/chrono/commit/cd0e3b008c1ea5c6835709ff72a1b76209f3831b""><code>cd0e3b0</code></a> chrono-fuzz: Update libfuzzer-sys dependency from 0.3 to 0.4</li>
+<li>Additional commits viewable in <a href=""https://github.com/chronotope/chrono/compare/v0.4.23...v0.4.24"">compare view</a></li>
+</ul>
+</details>
+<br />
+
+
+[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=chrono&package-manager=cargo&previous-version=0.4.23&new-version=0.4.24)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)
+
+Dependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.
+
+[//]: # (dependabot-automerge-start)
+[//]: # (dependabot-automerge-end)
+
+---
+
+<details>
+<summary>Dependabot commands and options</summary>
+<br />
+
+You can trigger Dependabot actions by commenting on this PR:
+- `@dependabot rebase` will rebase this PR
+- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it
+- `@dependabot merge` will merge this PR after your CI passes on it
+- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it
+- `@dependabot cancel merge` will cancel a previously requested merge and block automerging
+- `@dependabot reopen` will reopen this PR if it is closed
+- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually
+- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)
+
+
+</details>",dependabot[bot],49699333,solana,/issues
+1660246155,31118,Fix finding ancestor during program cache pruning,2023-04-10 05:11:25,2023-04-11 02:50:23,,CONTRIBUTOR,1,"#### Problem
+The program cache pruning fails to find the program deployed in ancestor slot while pruning the cache.
+
+#### Summary of Changes
+
+- Added a unit-test to test the issue
+- Fix prune code to set the flag only if the ancestor slot is found
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",pgarg66,40076733,solana,/issues
+1659139915,31115,bank_from_latest_snapshot_dir,2023-04-07 19:54:45,2023-04-10 18:18:22,,CONTRIBUTOR,3,"#### Problem
+Part of the project https://github.com/orgs/solana-labs/projects/33/ to boot from a snapshot directory.
+This is to get the latest snapshot dir and boot from it.
+
+It is split from https://github.com/solana-labs/solana/pull/30859 as suggested in its review.
+
+#### Summary of Changes
+Add the function bank_from_latest_snapshot_dir
+Add its test function
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",xiangzhu70,59367509,solana,/issues
+1659059820,31113,SECURITY.md: Require exploit PoC for submission consideration,2023-04-07 18:11:09,2023-04-08 07:28:48,,COLLABORATOR,0,"#### Problem
+
+Too many speculative or undeveloped vulnerability submissions.
+
+#### Summary of Changes
+
+Require PoC for consideration",t-nelson,490004,solana,/issues
+1658978535,31112,Quic stream spam test,2023-04-07 16:24:40,2023-04-07 17:56:02,,CONTRIBUTOR,0,"#### Problem
+We're seeing an unexplained spike in mem usage and Quic connections/streams/chunks at the same time.
+
+#### Summary of Changes
+Implements a tool to spam a server with lots of connections sending junk with lots slow streams.
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",ryleung-solana,91908731,solana,/issues
+1658876357,31109,Refactor - Syscalls in RBPF CLI,2023-04-07 14:39:55,2023-04-09 21:23:00,,CONTRIBUTOR,1,"#### Problem
+Currently syscalls are unavailable in the rbpf CLI. Also, this PR is a preparation to have the vm stored in `SyscallContext` so that the `MemoryMapping` can be accessed via `InvokeContext` instead of being passed as a syscall parameter.
+
+#### Summary of Changes
+- Stops caching `InvokeContext::get_check_aligned()` and `InvokeContext::get_check_size()`.
+- Makes members of `SyscallContext` public.
+- Replaces `InvokeContext::set_syscall_context()` in tests with `mock_create_vm!()`.
+- Passes `SyscallContext` directly to `InvokeContext::set_syscall_context()`.
+- Removes `TraceLogStackFrame::consumed_bpf_units`.
+- Merges `TraceLogStackFrame::trace_log` into `SyscallContext`.
+- Removes the `create_vm!()` macro.
+- Moves `BpfAllocator` from bpf_loader into program_runtime.
+- Removes the trait `Alloc`.
+- Frees `BpfAllocator` from `Rc<RefCell<>>`.
+- Removes unused code from `BpfAllocator`.
+- Consume CUs for heap before doing the allocation.
+- Exposes syscalls in rbpf-cli.",Lichtso,309583,solana,/issues
+1658620163,31107,ci: use built-in openssl,2023-04-07 09:58:49,2023-04-07 13:44:58,,MEMBER,0,"#### Problem
+
+our windows build got broken cuz openssl path.
+
+conv: https://discord.com/channels/428295358100013066/560503042458517505/1093768739306094682
+
+#### Summary of Changes
+
+I found the Windows container already have it. I exported the path for openssl pacakge.",yihau,8209234,solana,/issues
+1658592646,31105,fix docs blockstore formatting,2023-04-07 09:31:05,2023-04-10 20:22:09,,CONTRIBUTOR,0,"#### Problem
+
+Some formatting is broken
+
+#### Summary of Changes
+
+Fixed formatting
+",KirillLykov,687962,solana,/issues
+1658452161,31099,"Revert ""Revert Rust 1.68.0 upgrade""",2023-04-07 07:00:40,2023-04-07 15:35:05,,MEMBER,2,"Reverts solana-labs/solana#30897
+
+I want to use https://doc.rust-lang.org/nightly/std/sync/struct.Arc.html#method.into_inner, which is merged upstream after 1 day after our current nightly rustc...
+
+cc: @yihau @ilya-bobyr ",ryoqun,117807,solana,/issues
+1658162143,31097,Add test for transaction has too high prioritization fee,2023-04-06 23:22:48,2023-04-07 16:52:27,,CONTRIBUTOR,1,"#### Problem
+Web3.js has a test started to fail against tip of validator master. The test sends a transaction requesting 2sol as prioritization fee, with payer account has 2sol balance. Test correctly expects the transaction to failed due to `Err(TransactionError::InsufficientFundsForFee)` therefore not landed.
+
+#### Summary of Changes
+- Add tests to confirm the transaction base fee calculation and payer account validation behave correctly.
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",taozhu-chicago,82401714,solana,/issues
+1661601514,27445,Update src/secp256k1 subtree to release v0.3.1,2023-04-11 00:44:35,2023-04-11 00:45:52,,MEMBER,1,"There is no strict need for any of the changes in v0.3.1 (compared to the v0.3.0 that's currently subtreed) for Bitcoin Core release builds, but if anyone may compile Bitcoin Core from source using Clang v14+, this will prevent known timing leaks in the signing/keygen logic.",sipa,548488,bitcoin,/issues
+1657888964,31085,[wip] migrating the docs to a different repo,2023-04-06 18:46:11,2023-04-10 15:36:55,,CONTRIBUTOR,5,"**Note:** This issue is to help track ideas and the conversation around moving Solana docs out of this monorepo. 
+
+### Problem
+
+Several people have expressed different ideas and concerns about the docs being inside this monorepo and migrating them outside of it. Below are some of these collected ideas, in no particular order, on this ""docs migration"".
+
+#### 1. General solana docs vs labs validator client docs
+
+Segmenting some of the pages of the current monorepo docs into two primary categories:
+- general solana information, (""common docs"")
+- and the labs validator specific pages
+
+The end result would have these two groups of docs living in different places, and published on different domains. And would need a review of all the current docs to determine which pages would go where.
+
+#### 2. SPL docs
+
+Note: Not technically part of this monorepo's docs, but related enough I thought worth mentioning here as well.
+
+Migrating some portion (or maybe all?) of the spl docs into the same site that houses the ""common docs"". This would aid people finding all the solana docs in one place. 
+
+### Other things to consider
+
+- other clients, like Firedancer. their design decisions and how they may fit into solana docs
+- searchability and discoverability of the various docs being on separate domains
+",nickfrosty,75431177,solana,/issues
+1657722425,31081,v1.14: Update install-solana-cli-tools.md (backport of #31080),2023-04-06 16:28:15,2023-04-08 05:13:21,,CONTRIBUTOR,1,"This is an automatic backport of pull request #31080 done by [Mergify](https://mergify.com).
+
+
+---
+
+
+<details>
+<summary>Mergify commands and options</summary>
+
+<br />
+
+More conditions and actions can be found in the [documentation](https://docs.mergify.com/).
+
+You can also trigger Mergify actions by commenting on this pull request:
+
+- `@Mergifyio refresh` will re-evaluate the rules
+- `@Mergifyio rebase` will rebase this PR on its base branch
+- `@Mergifyio update` will merge the base branch into this PR
+- `@Mergifyio backport <destination>` will backport this PR on `<destination>` branch
+
+Additionally, on Mergify [dashboard](https://dashboard.mergify.com) you can:
+
+- look at your merge queues
+- generate the Mergify configuration with the config editor.
+
+Finally, you can contact us on https://mergify.com
+</details>",mergify[bot],37929162,solana,/issues
+1657588312,31079,Fatal error didn't kill the validator process,2023-04-06 14:58:41,2023-04-06 19:12:33,,CONTRIBUTOR,4,"#### Problem
+<!--
+  This template should only be used by core contributors. If you
+  are not a core contributor, please use the ""Community Issue"" template
+  to ensure that your issue can be triaged appropriately.
+-->
+
+When `accounts_hash_verifier` throw a Fatal error, the validator process is not killed. It seems that ` send_transaction_service` wasn't shutdown when the Fatal error was thrown. 
+
+```
+[2023-04-06T00:12:37.026785091Z ERROR solana_core::accounts_hash_verifier] Fatal! Exiting! Known validator 31fxZovs3gBKVVTtC2VJUuKeVoq6mQkLjWnicWhErQ4f produced conflicting hashes for slot: 1140483 (EEfMshSC1sy2qRVFxxnbQXtHYc74uVBaVk2cv1DEegnC != 9yGSXjUusH1xyr74gCr3xEqKiqUhLmbJDdFQMcy7aWSD)
+[2023-04-06T00:12:37.041620839Z INFO  solana_core::accounts_hash_verifier] AccountsHashVerifier has stopped
+[2023-04-06T00:12:37.041625438Z INFO  solana_metrics::metrics] datapoint: accounts_hash_verifier num-outstanding-accounts-packages=1i num-re-enqueued-accounts-packages=0i enqueued-time-us=209204i handling-time-us=3515432i
+[2023-04-06T00:12:37.087225896Z INFO  solana_core::snapshot_packager_service] SnapshotPackagerService has stopped
+[2023-04-06T00:12:37.117866188Z WARN  solana_rpc::rpc_subscriptions] RPC Notification thread - already shut down.
+[2023-04-06T00:12:37.159094701Z INFO  solana_metrics::metrics] datapoint: Tpu refresh_ip_to_stake_time_us=0i apply_sender_stakes_time_us=0i send_batches_time_us=0i receive_batches_time_ns=0i total_batches=0i total_packets=0i total_discard_random=0i total_discard_random_time_us=0i
+[2023-04-06T00:12:37.184166140Z INFO  solana_metrics::metrics] datapoint: tpu_receiver packets_count=0i packet_batches_count=0i full_packet_batches_count=0i channel_len=0i
+[2023-04-06T00:12:37.184171791Z INFO  solana_metrics::metrics] datapoint: tpu_vote_receiver packets_count=0i packet_batches_count=0i full_packet_batches_count=0i channel_len=0i
+[2023-04-06T00:12:37.184174095Z INFO  solana_metrics::metrics] datapoint: tpu_forwards_receiver packets_count=0i packet_batches_count=0i full_packet_batches_count=0i channel_len=0i
+[2023-04-06T00:12:37.243945756Z INFO  solana_metrics::metrics] datapoint: rpc_pubsub_total_subscriptions count=0i
+[2023-04-06T00:12:37.326266633Z INFO  solana_runtime::accounts_background_service] AccountsBackgroundService has stopped
+[2023-04-06T00:12:37.952695584Z INFO  solana_metrics::metrics] datapoint: send_transaction_service recv-tx=0i recv-duplicate=0i sent-tx=0i retry-queue-overflow=0i retry-queue-size=0i send-us=0i send-attempt-count=0i send-failure-count=0i nonced-tx=0i rooted-tx=0i expired-tx=0i max-retries-exceeded-tx=0i retries=0i failed-tx=0i
+...
+[2023-04-06T00:12:47.954152185Z INFO  solana_metrics::metrics] datapoint: send_transaction_service recv-tx=0i recv-duplicate=0i sent-tx=0i retry-queue-overflow=0i retry-queue-size=0i send-us=0i send-attempt-count=0i send-failure-count=0i nonced-tx=0i rooted-tx=0i expired-tx=0i max-retries-exceeded-tx=0i retries=0i failed-tx=0i
+[2023-04-06T00:12:52.955799446Z INFO  solana_metrics::metrics] datapoint: send_transaction_service recv-tx=0i recv-duplicate=0i sent-tx=0i retry-queue-overflow=0i retry-queue-size=0i send-us=0i send-attempt-count=0i send-failure-count=0i nonced-tx=0i rooted-tx=0i expired-tx=0i max-retries-exceeded-tx=0i retries=0i failed-tx=0i
+...
+```
+
+#### Proposed Solution
+Debug and fix.
+",HaoranYi,219428,solana,/issues
+1656395357,31073,v1.14: [clap-v3-utils] Define `EncodableKey` and make `keypair_from_path` and `keypair_from_seed` generic functions (backport of #30947),2023-04-05 22:42:39,2023-04-07 18:13:35,,CONTRIBUTOR,4,"This is an automatic backport of pull request #30947 done by [Mergify](https://mergify.com).
+Cherry-pick of d67fa6c47077f9b8f2b7590ef9f222bd09bedb3b has failed:
+```
+On branch mergify/bp/v1.14/pr-30947
+Your branch is up to date with 'origin/v1.14'.
+
+You are currently cherry-picking commit d67fa6c47.
+  (fix conflicts and run ""git cherry-pick --continue"")
+  (use ""git cherry-pick --skip"" to skip this patch)
+  (use ""git cherry-pick --abort"" to cancel the cherry-pick operation)
+
+Changes to be committed:
+	modified:   sdk/src/signer/keypair.rs
+	modified:   sdk/src/signer/mod.rs
+
+Unmerged paths:
+  (use ""git add <file>..."" to mark resolution)
+	both modified:   clap-v3-utils/src/keypair.rs
+
+```
+
+
+To fix up this pull request, you can check it out locally. See documentation: https://docs.github.com/en/github/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/checking-out-pull-requests-locally
+
+---
+
+
+<details>
+<summary>Mergify commands and options</summary>
+
+<br />
+
+More conditions and actions can be found in the [documentation](https://docs.mergify.com/).
+
+You can also trigger Mergify actions by commenting on this pull request:
+
+- `@Mergifyio refresh` will re-evaluate the rules
+- `@Mergifyio rebase` will rebase this PR on its base branch
+- `@Mergifyio update` will merge the base branch into this PR
+- `@Mergifyio backport <destination>` will backport this PR on `<destination>` branch
+
+Additionally, on Mergify [dashboard](https://dashboard.mergify.com) you can:
+
+- look at your merge queues
+- generate the Mergify configuration with the config editor.
+
+Finally, you can contact us on https://mergify.com
+</details>",mergify[bot],37929162,solana,/issues
+1656307997,31072,Test repair using quic without Tokio 1.26.0,2023-04-05 21:17:25,2023-04-06 22:30:53,,CONTRIBUTOR,2,"#### Problem
+Test only -- please ignore
+
+#### Summary of Changes
+
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",lijunwangs,83639177,solana,/issues
+1656170879,31068,disk index: add stats for max search,2023-04-05 19:29:16,2023-04-05 21:24:32,,CONTRIBUTOR,1,"#### Problem
+Add stats giving us indications of the max search length required for the disk index.
+
+#### Summary of Changes
+
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",jeffwashington,75863576,solana,/issues
+1655990309,31064,Add connection error metrics - v1.14 (bp #31049),2023-04-05 17:01:48,2023-04-05 17:02:30,,COLLABORATOR,1,manual backport of #31049 to v1.14 (should pick clean onto v1.13 as well),t-nelson,490004,solana,/issues
+1661656788,27446,Allow configuirng target block time for a signet,2023-04-11 02:06:38,2023-04-11 02:33:52,,CONTRIBUTOR,2,"This pull request introduces the ability to configure the block time of a custom Bitcoin signet network, allowing developers to more easily simulate various network scenarios and test their applications in a controlled environment. The change helps to improve the flexibility of signet, making it more useful for diverse testing purposes. For example, I am trying to setup a signet with a 30 second block time and this caused a bunch of difficulty adjustments to happen making the network inconsistent. Regtest isn't a real viable alternative to me here because we would like defaults to use our custom signet if configured, without hindering of local regtest development.",benthecarman,15256660,bitcoin,/issues
+1661381553,27444,test: build Valgrind (3.20) from source & use Clang 16,2023-04-10 21:17:58,2023-04-10 21:20:11,,MEMBER,1,"I was originally going to update to using Clang-16 & Valgrind 3.19 ([via Ubuntu 23.04](https://packages.ubuntu.com/lunar/valgrind)), however ran into issues with 3.19 & aarch64 (testing on top of #27364). Instead, I decided to switch to building the [latest version](https://valgrind.org/docs/manual/dist.news.html) of Valgrind from source (which takes minimal effort). This seems to have fixed all issues.",fanquake,863730,bitcoin,/issues
+1658927974,27436,test: LLVM/Clang 16 for MSAN jobs,2023-04-07 15:27:28,2023-04-10 09:57:33,,MEMBER,1,"Similar to other CI infra changes we've made recently. Move to LLVM/Clang 16 for the MSAN jobs (which is currently using LLVM 12).
+
+See also: https://releases.llvm.org/16.0.0/tools/clang/docs/ReleaseNotes.html#sanitizers:
+> `-fsanitize-memory-param-retval` is turned on by default. With `-fsanitize=memory`, passing uninitialized variables to functions and returning uninitialized variables from functions is more aggressively reported. `-fno-sanitize-memory-param-retval` restores the previous behavior.",fanquake,863730,bitcoin,/issues
+1658002064,27434,validation: implement MaybeInvalidateFork() and call from rpc getchaintips,2023-04-06 20:25:43,2023-04-08 14:07:18,,MEMBER,1,"Closes https://github.com/bitcoin/bitcoin/issues/8050
+
+If we discover an invalid block on a blockchain branch with otherwise valid headers, all the child headers can be marked as INVALID_CHILD. When invalidating mainchain blocks we can easily mark all the invalid children but on a headers-only branch we just stop on the invalid block and search for the next best tip and branch to validate. On restart, during `LoadBlockIndex()` we iterate through all the headers we know about sorted by height, and that is when we normally mark these child-headers of invalid ancestors with `INVALID_CHILD`.
+
+Issue #8050 illustrates a discrepancy where a headers-only branch is not marked as invalid until the node is restarted. What we do in this PR is check for invalid ancestors while we are scanning the block index for chain tips during `rpc getchaintips` itself.
+
+I had to remove a bunch of `const` qualifiers from `getchaintips` which makes me think that modifying the block index during an RPC is just bad separation of concerns -- but it is a solution! 
+",pinheadmz,2084648,bitcoin,/issues
+1657857428,27433,getblocktemplate improvements for segwit and sigops,2023-04-06 18:18:37,2023-04-10 04:08:38,,MEMBER,2,"**Sigops**
+
+Two recent F2Pool blocks violated the sigops limit. Both by 3.
+
+I suspect they were not using `getblocktemplate`. If you look at the [template](https://miningpool.observer/template-and-block/00000000000000000004e0ec4f27bd3347381e8e19ed98d7f918e8c1c292ae97) right before the valid block at the same height, which was produced two minutes later, you'll see that it matches the block with 3 small transactions difference. In other words, the valid block producer likely did use `getblocktemplate` around the same time and did not experience an issue.
+
+It's also clear by looking at [Mempool.Space](https://mempool.space/block/00000000000000000004e0ec4f27bd3347381e8e19ed98d7f918e8c1c292ae97) that the valid block excluded many large bare multisig transactions. Those transactions paid more than enough in fees to be included, but we would have excluded them due to running out of sigops.
+
+As can be seen in `BlockAssembler::addPackageTxs` and `TestPackage` we simply don't add a package to the block if it doesn't fit the remaining weight or sigops. Custom block construction software might not do that. I initially though they might have forgotten to check SegWit related sigops, but that seems unlikely given that they were only off by 3 in both blocks.
+
+I suspect their mistake was to not count the number of sigops in the coinbase: it pays to legacy P2PKH which uses 4 sigops. Our code reserves 400 sigops for the coinbase, so would not have caused this.
+
+Anyway, while checking our code I added a few extra fields to the block statistics of `getblocktemplate`:
+
+* `sigops`: total sigops for the block excluding the coinbase
+* `coinbase_reserved_sigops`: how many sigops we reserve for the coinbase (400)
+* `weightlimit`
+* `coinbase_reserved_weight`
+
+I added a belt and suspenders check for the sigops limit in the RPC code. Note that we already check it when adding packages to a block _and_ in `TestBlockValidity`.
+
+**Segwit**
+
+I also removed the need to set `{""rules"": ""!segwit""}`, the generation of pre-segwit blocks, and the test code that checks activation. These two commits can easily be dropped if people don't like them.",Sjors,10217,bitcoin,/issues
+1657835564,27432,contrib: add tool to convert compact-serialized UTXO set to SQLite database,2023-04-06 17:59:23,2023-04-07 20:34:01,,CONTRIBUTOR,3,"## Problem description
+
+There is demand from users to get the UTXO set in form of a SQLite database (#24628). Bitcoin Core currently only supports dumping the UTXO set in a binary _compact-serialized_ format, which was crafted specifically for AssumeUTXO snapshots (see PR #16899), with the primary goal of being as compact as possible. Previous PRs tried to extend the `dumptxoutset` RPC with new formats, either in human-readable form (e.g. #18689, #24202), or most recently, directly as SQLite database (#24952). Both are not optimal: due to the huge size of the ever-growing UTXO set with already more than 80 million entries on mainnet, human-readable formats are practically useless, and very likely one of the first steps would be to put them in some form of database anyway. Directly adding SQLite3 dumping support on the other hand introduces an additional dependency to the non-wallet part of bitcoind and the risk of increased maintenance burden (see e.g. https://github.com/bitcoin/bitcoin/pull/24952#issuecomment-1163551060, https://github.com/bitcoin/bitcoin/issues/24628#issuecomment-1108469715).
+
+## Proposed solution
+
+This PR follows the ""external tooling"" route by adding a simple Python script for achieving the same goal in a two-step process (first create compact-serialized UTXO set via `dumptxoutset`, then convert it to SQLite via the new script). Executive summary:
+- single file, no extra dependencies (sqlite3 is included in Python's standard library [1])
+- ~150 LOC, mostly deserialization/decompression routines ported from the Core codebase and (probably the most difficult part) a little elliptic curve / finite field math to decompress pubkeys (essentialy solving the secp256k1 curve equation y^2 = x^3 + 7 for y given x, respecting the proper polarity as indicated by the compression tag)
+- creates a database with only one table `utxos` with the following schema:
+  ```(txid TEXT, vout INT, value INT, coinbase INT, height INT, scriptpubkey TEXT)```
+- the resulting file has roughly 2x the size of the compact-serialized UTXO set (this is mostly due to encoding txids and scriptpubkeys as hex-strings rather than bytes)
+
+[1] note that there are some rare cases of operating systems like FreeBSD though, where the sqlite3 module has to installed explicitly (see #26819)
+
+A functional test is also added that creates UTXO set entries with various output script types (standard and also non-standard, for e.g. large scripts) and verifies that the UTXO sets of both formats match by comparing corresponding MuHashes. One MuHash is supplied by the bitcoind instance via `gettxoutsetinfo muhash`, the other is calculated in the test by reading back the created SQLite database entries and hashing them with the test framework's `MuHash3072` module.
+
+## Manual test instructions
+I'd suggest to do manual tests also by comparing MuHashes. For that, I've written a go tool some time ago which would calculate the MuHash of a sqlite database in the created format (I've tried to do a similar tool in Python, but it's painfully slow).
+```
+$ [run bitcoind instance with -coinstatsindex]
+$ ./src/bitcoin-cli dumptxoutset ~/utxos.dat
+$ ./src/bitcoin-cli gettxoutsetinfo muhash <block height returned in previous call>
+(outputs MuHash calculated from node)
+
+$ ./contrib/utxo-tools/utxo_to_sqlite.py ~/utxos.dat ~/utxos.sqlite
+$ git clone https://github.com/theStack/utxo_dump_tools
+$ cd utxo_dump_tools/calc_utxo_hash
+$ go run calc_utxo_hash.go ~/utxos.sqlite
+(outputs MuHash calculated from the SQLite UTXO set)
+
+=> verify that both MuHashes are equal
+```
+For a demonstration what can be done with the resulting database, see https://github.com/bitcoin/bitcoin/pull/24952#pullrequestreview-956290477 for some example queries. Thanks go to LarryRuane who gave me to the idea of rewriting this script in Python and adding it to `contrib`.",theStack,91535,bitcoin,/issues
+1656345711,27427,validation: Replace MinBIP9WarningHeight with MinBIP9WarningStartTime,2023-04-05 21:56:17,2023-04-10 04:08:53,,NONE,1,"This PR addresses [comment](https://github.com/bitcoin/bitcoin/pull/27357#issuecomment-1497009569). Replaces `CChainParams::MinBIP9WarningHeight` with `CChainParams::MinBIP9WarningStartTime`. It is then used in `WarningBitsConditionChecker::BeginTime` to only check block headers that are newer.
+This helps reduce the block headers that are being scanned for warnings.
+
+cc @ajtowns ",dimitaracev,33068296,bitcoin,/issues
+1656220659,27426,Deprecate and remove BIP35 mempool p2p message,2023-04-05 20:10:31,2023-04-10 21:02:47,,CONTRIBUTOR,5,"The [BIP35](https://github.com/bitcoin/bips/blob/master/bip-0035.mediawiki) `mempool` P2P message can be used to share the txids in a node's mempool (motivation in BIP35). However it is no longer used (?), is bad for privacy, and we can simplify our P2P code by removing it.
+
+It was originally introduced with a protocol version bump from 60001 to 60002 and identification of a node willing to provide this service was based on this new protocol version and the advertisment of `NODE_NETWORK`.
+
+Subsequently the service was gated behind the `NetPermissionFlags::Mempool` flag, meaning that the original BIP identitifcation method is no longer sufficient to determine that a node will offer this service to you (the node operator must whitelist or otherwise elevate your net permissions before they will respond to it). Therefore I think that it is safe to remove *without* any change in protocol version.
+
+At this stage looking for concept ACKs or anybody still actively using this message to find out more about their use-cases. ",willcl-ark,6606587,bitcoin,/issues
+1656067373,27425,test: move remaining rand code from util/setup_common to util/random,2023-04-05 18:05:11,2023-04-10 21:40:11,,CONTRIBUTOR,1,"and drop the `util/random` dependency on `util/setup_common`.  This improves code separation and allows `util/setup_common` to call `util/random` functions without creating a circular dependency, thereby addressing https://github.com/bitcoin/bitcoin/pull/26940#issuecomment-1497266140 by glozow (thanks!)
+
+Also update the remaining rand calls in the tests to use the common `util/random` helpers.",jonatack,2415484,bitcoin,/issues
+1652385998,27409,Make GUI and CLI tools use the same datadir,2023-04-03 16:21:47,2023-04-03 18:17:58,,CONTRIBUTOR,3,"**This is based on #27302.** The non-base commits are:
+
+- [`cb2f82421d5` bitcoin-wallet: make bitcoin-wallet tool load config file](https://github.com/bitcoin/bitcoin/pull/27409/commits/cb2f82421d557cfe835b686a6f25965ee190e329)
+- [`04a7fca01d3` init: Allow bitcoin default datadir to point at an external datadir](https://github.com/bitcoin/bitcoin/pull/27409/commits/04a7fca01d330bd9d6f33bf01dd380a8f0f36604)
+- [`3c2b5edbfbf` Make GUI and CLI tools use the same datadir](https://github.com/bitcoin/bitcoin/pull/27409/commits/3c2b5edbfbf644a62663d356e2da34aab3394915)
+
+---
+
+Currently if your choose a non-default datadir in the GUI intro screen, the datadir is ignored by CLI tools.
+
+This PR makes GUI and CLI tools the same datadir setting by default. It is followup to https://github.com/bitcoin-core/gui/pull/602 which made GUI and CLI tools use the same settings as long as they loaded the same datadir.
+
+The reason GUI and CLI tools use inconsistent datadirs is that GUI stores the datadir path in a `strDataDir` field in `.config/Bitcoin/Bitcoin-Qt.conf`[^1] which CLI tools ignore. This PR changes the GUI to instead store the datadir path at the default datadir location `~/.bitcoin`[^2] as a symlink that CLI tools will already follow, or as a text file if the filesystem does not support symlinks.
+
+If upgrading from a previous version of the GUI and there is only a GUI datadir, the `strDataDir` setting will be automatically migrated to a symlink so CLI tools will start using it as well.
+
+If upgrading and GUI and CLI tools are using different datadirs, the GUI will show a prompt allowing either of the datadirs to be loaded on startup, with an option to set one as the default going forward.
+
+[^1]: `strDataDir` value is stored in `.config/Bitcoin/Bitcoin-Qt.conf` on linux, in property list files on macos, and in registry keys on windows.
+[^2]: The default datadir location is `~/.bitcoin` on linux, `~/Library/Application Support/Bitcoin` on macos, and `%APPDATA%\Bitcoin` on windows",ryanofsky,7133040,bitcoin,/issues
+1655340258,27422,test: add coverage to rpc_scantxoutset.py,2023-04-05 10:18:07,2023-04-08 21:40:17,,CONTRIBUTOR,5,"
+Include a test that checks whether the first argument of scantxoutset RPC call ""start"" is required. 
+The rpc call should fail if the ""start"" argument is not provided.
+
+<!--
+*** Please remove the following help text before submitting: ***
+
+Pull requests without a rationale and clear improvement may be closed
+immediately.
+
+GUI-related pull requests should be opened against
+https://github.com/bitcoin-core/gui
+first. See CONTRIBUTING.md
+-->
+
+<!--
+Please provide clear motivation for your patch and explain how it improves
+Bitcoin Core user experience or Bitcoin Core developer experience
+significantly:
+
+* Any test improvements or new tests that improve coverage are always welcome.
+* All other changes should have accompanying unit tests (see `src/test/`) or
+  functional tests (see `test/`). Contributors should note which tests cover
+  modified code. If no tests exist for a region of modified code, new tests
+  should accompany the change.
+* Bug fixes are most welcome when they come with steps to reproduce or an
+  explanation of the potential issue as well as reasoning for the way the bug
+  was fixed.
+* Features are welcome, but might be rejected due to design or scope issues.
+  If a feature is based on a lot of dependencies, contributors should first
+  consider building the system outside of Bitcoin Core, if possible.
+* Refactoring changes are only accepted if they are required for a feature or
+  bug fix or otherwise improve developer experience significantly. For example,
+  most ""code style"" refactoring changes require a thorough explanation why they
+  are useful, what downsides they have and why they *significantly* improve
+  developer experience or avoid serious programming bugs. Note that code style
+  is often a subjective matter. Unless they are explicitly mentioned to be
+  preferred in the [developer notes](/doc/developer-notes.md), stylistic code
+  changes are usually rejected.
+-->
+
+<!--
+Bitcoin Core has a thorough review process and even the most trivial change
+needs to pass a lot of eyes and requires non-zero or even substantial time
+effort to review. There is a huge lack of active reviewers on the project, so
+patches often sit for a long time.
+-->
+",ismaelsadeeq,48946461,bitcoin,/issues
+1653866076,27419,refactor: Extract common/args from util/system,2023-04-04 13:12:04,2023-04-06 04:35:59,,CONTRIBUTOR,6,"This pull request is part of the `libbitcoinkernel` project https://github.com/bitcoin/bitcoin/issues/24303 https://github.com/bitcoin/bitcoin/projects/18 and more specifically its ""Step 2: Decouple most non-consensus code from libbitcoinkernel"". It is part of a series of patches splitting up the `util/system` files. Its preceding pull request is https://github.com/bitcoin/bitcoin/pull/27254.
+
+The pull request contains an extraction of ArgsManager related functions from util/system into their own common/ file.
+
+The background of this commit is an ongoing effort to decouple the libbitcoinkernel library from the ArgsManager. The ArgsManager belongs into the common library, since the kernel library should not depend on it. See [doc/design/libraries.md](https://github.com/bitcoin/bitcoin/blob/master/doc/design/libraries.md) for more information on this rationale.
+",TheCharlatan,8421793,bitcoin,/issues
+1652986972,27415,-fallbackfee should apply to estimatesmartfee,2023-04-04 00:50:19,2023-04-05 21:49:12,,NONE,1,"### Please describe the feature you'd like to see added.
+
+`-fallback` fee is used by `sendtoaddress` to provide a fallback fee when sending transactions. However, this does not apply to `estimatesmartfee`, which still returns the error.
+
+### Is your feature related to a problem, if so please describe it.
+
+The reason for this is because it's difficult to test client applications on regtest, that would use `estimatesmartfee` on mainnet, but because it requires a lot of transactions before `estimatesmartfee` to work, it's difficult. This related stack exchange question has had a bit of interest:
+https://bitcoin.stackexchange.com/questions/89607/how-can-i-force-estimatesmartfee-to-return-estimates-on-regtest
+
+### Describe the solution you'd like
+
+See above.
+
+### Describe any alternatives you've considered
+
+- A separate flag would also work, like `fallbackestimatefee`
+
+### Please leave any additional context
+
+_No response_",kylezs,8342557,bitcoin,/issues
+1652973161,27414,doc: Add example of how to mix private and public keys in descriptors,2023-04-04 00:31:38,2023-04-10 12:39:02,,NONE,4,"It took me quite a while to understand how to use both xpriv and public keys in a single descriptor. The trick was to use xprv key + derivation path. Also, it was not obvious that Bitcoin Core would figure it out and sign a multisig transaction if the xpriv is present in the descriptor. As a newbie to Bitcoin Core, I had to consult stackexchange to understand that.
+
+Adding an example would make it easier to ""gotcha"" for the reader.",meglio,282177,bitcoin,/issues
+1652733574,27412,"logging, net: add ASN from peers on logs",2023-04-03 20:32:58,2023-04-05 16:29:46,,CONTRIBUTOR,12,"When using `-asmap`, you can check the ASN assigned to the peers only with the RPC command `getpeerinfo` (check `mapped_as` field), however, it's not possible to check it in logs (e.g. see in logs the ASN of the peers when a new outbound peer has been connected). This PR includes the peers' ASN in debug output when using `-asmap`.
+ 
+Obs: Open this primarily to chase some Concept ACK, I've been using this on my node to facilitate to track the peers' ASN especially when reading the logs. 
+
+",brunoerg,19480819,bitcoin,/issues
+1652681372,27411,p2p: Restrict self-advertisements with privacy networks to avoid fingerprinting,2023-04-03 19:56:42,2023-04-05 09:17:35,,CONTRIBUTOR,6,"The current logic for self-advertisements works such that we detect as many local addresses as we can, and then, using the scoring matrix from `CNetAddr::GetReachabilityFrom()`, self-advertise with the address that fits best to our peer.
+It is in general not hard for our peers to distinguish our self-advertisements from other addrs we send them, because we self-advertise every ~24h and because the first addr we send over a connection is likely our self-advertisement. 
+
+`GetReachabilityFrom()` currently only takes into account actual reachability, but not whether we'd _want_ to announce our identity for one network to peers from other networks, which is not straightforward in connection with privacy networks. 
+
+While the general approach is to prefer self-advertising with the address for the network our peer is on, there are several special situations in which we don't have one, and as a result could allow self-advertise other local addresses, for example:
+
+A) We run i2p and clearnet, use `-i2pacceptincoming=0` (so we have no local i2p address), and we have a local ipv4 address. In this case, we'd advertise the ipv4 address to our outbound i2p peers.
+
+B) Our `-discover` logic cannot detect any local clearnet addresses in our network environment, but we are actually reachable over clearnet. If we ran bitcoind clearnet-only, we'd always advertise the address our peer sees us with instead, and could get inbound peers this way. Now, if we also have an onion service running (but aren't using tor as a proxy for clearnet connections), we could advertise our onion address to clearnet peers, so that they would be able to connect our clearnet and onion identities. 
+
+This PR tries to avoid these situations by 
+1.) never advertising our local Tor or I2P address to peers from other networks.
+2.) never advertising local addresses from non-anonymity networks to peers from Tor or I2P
+
+Note that this affects only our own self-advertisements, the rules to forward other people's addrs are not changed.
+
+I'll leave this in draft for a bit for initial feedback, and because I'm not 100% sure about the expectations around fingerprinting:
+While there is a conflict between better propagation of local addresses and not being fingerprinted, my thinking is that at least for i2p and tor, the latter should probably take precedence.
+Also, I am not sure if cjdns should be handled similarly to Tor / I2P or not, given that it is non anonymous.",mzumsande,48763452,bitcoin,/issues
+1652089479,27407,"net, refactor: Privatise CNode send queue",2023-04-03 13:36:50,2023-04-05 19:19:26,,MEMBER,1,"The send queue members on `CNode` should not be part of the public interface. This PR makes all of them private and creates a clear interface for the send queue.
+
+The interface after this PR consists of:
+* `CNode::PushMessage` for appending a message onto the send queue
+* `CNode::SocketSendData` for pushing as many messages from the send queue as possible onto the wire
+* `CNode::IsSendQueueEmpty` for checking if the send queue is empty
+* (`CNode::TestOnlyClearSendQueue` a test-only utility for clearing the send queue)",dergoegge,8077169,bitcoin,/issues
+1652003926,27405,util: Use steady clock instead of system clock to measure durations,2023-04-03 12:47:41,2023-04-04 10:35:14,,MEMBER,3,"`GetTimeMillis` has multiple issues:
+
+* It doesn't denote the underlying clock type
+* It isn't type-safe
+* It is used incorrectly in places that should use a steady clock
+
+Fix all issues here.",MarcoFalke,6399679,bitcoin,/issues
+1651362026,27401,tracepoints: Disables `-Wgnu-zero-variadic-macro-arguments` to compile without warnings,2023-04-03 05:28:46,2023-04-04 18:24:10,,CONTRIBUTOR,3,"Fixes #26916 by disabling the warning `-Wgnu-zero-variadic-macro-arguments` when clang is used as the compiler.
+
+Also see the comments 
+* Proposed changes in the bug  https://github.com/bitcoin/bitcoin/issues/26916#issuecomment-1480997053 
+* Proposed changes when moving to a variadic maro: https://github.com/bitcoin/bitcoin/pull/26593#discussion_r1155488768
+",martinus,14386,bitcoin,/issues
+1650591840,27391,rpc: show P2(W)SH redeemScript in getrawtransaction (and friends),2023-04-01 18:26:57,2023-04-01 18:26:57,,MEMBER,0,"### Please describe the feature you'd like to see added.
+
+I'd like to be able to get the (decompiled) P2SH `redeemScript` and P2WSH `witnessScript` when calling `getrawtransaction` and `getblock … 2`.
+
+### Is your feature related to a problem, if so please describe it.
+
+I found myself having a hard time counting sigops in the recently invalid block. For scriptPubKey it's easy:
+
+```
+# Raw OP_CHECKMULTISIG: 20 x 4 sigops each
+bitcoin-cli getblock 00000000000000000002ec935e245f8ae70fc68cc828f05bf4cfa002668599e4 2 | jq -r '.tx[].vout[].scriptPubKey.asm' | grep OP_CHECKMULTISIG | wc -l
+# Raw OP_CHECKSIG(VERIFY): 4 sigops each
+bitcoin-cli getblock 00000000000000000002ec935e245f8ae70fc68cc828f05bf4cfa002668599e4 2 | jq -r '.tx[].vout[].scriptPubKey.asm' | grep OP_CHECKSIG | wc -l
+```
+
+Ideally something like this should work:
+
+```
+# TODO: OP_CHECK(MULTI)SIG in redeemScript:
+…  jq -r '.tx[].vin[].redeemScript.asm …
+…  jq -r '.tx[].vin[].witnesScript.asm …
+```
+
+https://twitter.com/provoost/status/1642165984629780481
+
+### Describe the solution you'd like
+
+An attempt was made in #8849.
+
+### Describe any alternatives you've considered
+
+Inferred miniscript would catch many common P2WSH scripts, but not regular P2SH.
+
+### Please leave any additional context
+
+_No response_",Sjors,10217,bitcoin,/issues
+1650313244,27386,#24049 Issue: Update nScore datatype,2023-04-01 05:50:57,2023-04-01 14:10:20,,NONE,3,I had just changed the datatype of nScore from int to int64_t as the issue suggest.,DevAgrawal1112,77338386,bitcoin,/issues
+1650131834,27385,"net, refactor: extract Network and BIP155Network logic to node/network",2023-03-31 22:40:50,2023-04-06 21:17:33,,CONTRIBUTOR,1,"This extracts the `Network` and `BIP155Network` logic to `node/network`.  The code has been living between `netaddress` and `netbase` and some compilation units include these large files when they only need a `Network` enum or related method.  Separating the code to a standalone unit in `node` improves code separation and helps with using only what is needed, which may reduce build size and speed up build times.
+
+I verified the `include` headers with https://cirrus-ci.com/task/6749578737745920 generated by https://github.com/bitcoin/bitcoin/pull/27385/commits/8f647a65d3484c7acd2d97f4b055c582d7734b6f while this was in draft and carefully narrowed them down to the most relevant ones.
+
+Possible todos for a follow-up: upgrade `Network` to an `enum class`, e.g. `NET_I2P` becomes `Network::I2P` and https://github.com/bitcoin/bitcoin/pull/27385/commits/5cfa3fb8b5815aaf96483a63526e5f0bf3c0a06b.",jonatack,2415484,bitcoin,/issues
+1649259762,27380,Intermittent failures in interface_usdt_mempool.py,2023-03-31 12:18:52,2023-04-01 12:24:39,,MEMBER,3,"https://cirrus-ci.com/task/5779522121891840
+
+```
+[0;34m node0 2023-03-31T11:45:58.812384Z (mocktime: 2023-04-14T11:46:01Z) [http] [httpserver.cpp:257] [http_request_cb] [http] Received a POST request for / from 127.0.0.1:38238 [0m
+[0;34m node0 2023-03-31T11:45:58.812543Z (mocktime: 2023-04-14T11:46:01Z) [httpworker.2] [rpc/request.cpp:179] [parse] [rpc] ThreadRPCServer method=getpeerinfo user=__cookie__ [0m
+[0;36m test  2023-03-31T11:45:58.814000Z TestFramework (INFO): Hooking into mempool:rejected tracepoint... [0m
+[0;36m test  2023-03-31T11:45:59.798000Z TestFramework (INFO): Sending invalid transaction... [0m
+[0;36m test  2023-03-31T11:45:59.799000Z TestFramework.p2p (DEBUG): Send message to 127.0.0.1:15944: msg_tx(tx=CTransaction(nVersion=2 vin=[CTxIn(prevout=COutPoint(hash=76b2ca9a8c3ffa3c454db9591dfaf5c4979926154e33a5bef67412ea0eaa16c5 n=0) scriptSig= nSequence=0)] vout=[CTxOut(nValue=49.99968800 scriptPubKey=51202913b252fe537830f843bfdc5fa7d20ba48639a87c86ff837b92d083c55ad7c1)] wit=CTxWitness(CScriptWitness(51,c00000000000000000000000000000000000000000000000000000000000000001)) nLockTime=0)) [0m
+[0;36m test  2023-03-31T11:45:59.799000Z TestFramework.p2p (DEBUG): Send message to 127.0.0.1:15944: msg_ping(nonce=00000002) [0m
+[0;34m node0 2023-03-31T11:45:59.799697Z (mocktime: 2023-04-14T11:46:01Z) [msghand] [net_processing.cpp:3169] [ProcessMessage] [net] received: tx (133 bytes) peer=0 [0m
+[0;34m node0 2023-03-31T11:45:59.800472Z (mocktime: 2023-04-14T11:46:01Z) [msghand] [txmempool.cpp:658] [check] [mempool] Checking mempool with 2 transactions and 2 inputs [0m
+[0;34m node0 2023-03-31T11:45:59.800746Z (mocktime: 2023-04-14T11:46:01Z) [msghand] [net_processing.cpp:4174] [ProcessMessage] [mempoolrej] c917a71e43b825756c1d45985fcc87f8c245db0654f5eeb000a92dc2cccb1d6c from peer=0 was not accepted: min relay fee not met, 0 < 104 [0m
+[0;34m node0 2023-03-31T11:45:59.800913Z (mocktime: 2023-04-14T11:46:01Z) [msghand] [net_processing.cpp:3169] [ProcessMessage] [net] received: ping (8 bytes) peer=0 [0m
+[0;34m node0 2023-03-31T11:45:59.800953Z (mocktime: 2023-04-14T11:46:01Z) [msghand] [net.cpp:2841] [PushMessage] [net] sending pong (8 bytes) peer=0 [0m
+[0;36m test  2023-03-31T11:45:59.801000Z TestFramework.p2p (DEBUG): Received message from 127.0.0.1:15944: msg_pong(nonce=00000002) [0m
+[0;34m node0 2023-03-31T11:45:59.849969Z (mocktime: 2023-04-14T11:46:01Z) [http] [httpserver.cpp:257] [http_request_cb] [http] Received a POST request for / from 127.0.0.1:38238 [0m
+[0;36m test  2023-03-31T11:45:59.850000Z TestFramework (INFO): Polling buffer... [0m
+[0;34m node0 2023-03-31T11:45:59.850174Z (mocktime: 2023-04-14T11:46:01Z) [httpworker.3] [rpc/request.cpp:179] [parse] [rpc] ThreadRPCServer method=getrawmempool user=__cookie__ [0m
+[0;36m test  2023-03-31T11:45:59.898000Z TestFramework (INFO): Ensuring mempool:rejected event was handled successfully... [0m
+[0;36m test  2023-03-31T11:45:59.898000Z TestFramework (ERROR): Assertion failed [0m
+[0;36m                                   Traceback (most recent call last):[0m
+[0;36m                                     File ""/tmp/cirrus-ci-build/ci/scratch/build/bitcoin-x86_64-pc-linux-gnu/test/functional/test_framework/test_framework.py"", line 132, in main[0m
+[0;36m                                       self.run_test()[0m
+[0;36m                                     File ""/tmp/cirrus-ci-build/ci/scratch/build/bitcoin-x86_64-pc-linux-gnu/test/functional/interface_usdt_mempool.py"", line 339, in run_test[0m
+[0;36m                                       self.rejected_test()[0m
+[0;36m                                     File ""/tmp/cirrus-ci-build/ci/scratch/build/bitcoin-x86_64-pc-linux-gnu/test/functional/interface_usdt_mempool.py"", line 323, in rejected_test[0m
+[0;36m                                       assert_equal(EXPECTED_REJECTED_EVENTS, handled_rejected_events)[0m
+[0;36m                                     File ""/tmp/cirrus-ci-build/ci/scratch/build/bitcoin-x86_64-pc-linux-gnu/test/functional/test_framework/util.py"", line 56, in assert_equal[0m
+[0;36m                                       raise AssertionError(""not(%s)"" % "" == "".join(str(arg) for arg in (thing1, thing2) + args))[0m
+[0;36m                                   AssertionError: not(1 == 0)[0m
+[0;36m test  2023-03-31T11:45:59.899000Z TestFramework (DEBUG): Closing down network thread [0m
+[0;36m test  2023-03-31T11:45:59.949000Z TestFramework (INFO): Stopping nodes [0m
+[0;36m test  2023-03-31T11:45:59.950000Z TestFramework.node0 (DEBUG): Stopping node [0m
+```",dergoegge,8077169,bitcoin,/issues
+1648191920,27375,net: support unix domain sockets for -proxy and -onion,2023-03-30 19:29:32,2023-04-04 17:51:36,,MEMBER,1,"Closes https://github.com/bitcoin/bitcoin/issues/27252
+
+UNIX domain sockets are a mechanism for inter-process communication that are faster than local TCP ports (because there is no need for TCP overhead) and potentially more secure because access is managed by the filesystem instead of serving an open port on the system.
+
+There has been work on [unix domain sockets before](https://github.com/bitcoin/bitcoin/pull/9979) but for now I just wanted to start on this single use-case which is enabling unix sockets from the client side, specifically connecting to a local Tor proxy (Tor can listen on unix sockets and even enforces strict curent-user-only access permission before binding) configured by `-onion=` or `-proxy=`
+
+This is accomplished by adding `NET_UNIX` as another network type for `CNetAddr` which means we can create a `Proxy` instance with it and create a socket in `GetSockAddr()` to bind to. Unix sockets are not available on all platforms (although they are available even on recent versions of Windows) and support is detected during configure.
+
+I copied the prefix `unix:` usage from Tor. With this patch built locally you can test with your own filesystem path (example):
+
+`tor --SocksPort unix:/Users/matthewzipkin/torsocket/x`
+
+`bitcoind -proxy=unix:/Users/matthewzipkin/torsocket/x`
+
+Future work can extend use of unix sockets to the RPC server as attempted in #9979. Since that PR was originally opened and closed, we have updated libevent which has better support for unix sockets and I think that will make this task a bit easier.",pinheadmz,2084648,bitcoin,/issues
+1647804131,27374,p2p: skip netgroup diversity of new connections for tor/i2p/cjdns,2023-03-30 14:59:39,2023-04-07 17:50:13,,CONTRIBUTOR,10,"Follow up for #27264.
+
+In order to make sure that our persistent outbound slots belong to different netgroups, distinct net groups of our peers are added to `setConnected`. We’d only open a persistent outbound connection to peers which have a different netgroup compared to those netgroups present in `setConnected`.
+
+Current `GetGroup()` logic assumes route-based diversification behaviour for tor/i2p/cjdns addresses (addresses are public key based and not route-based). Distinct netgroups possible (according to the current `GetGroup()` logic) for:
+1. tor => 030f, 031f, .. 03ff (16 possibilities)
+2. i2p => 040f, 041f, .. 04ff (16 possibilities)
+3. cjdns => 05fc0f, 05fc1f, ... 05fcff (16 possibilities)
+
+`setConnected` is used in `ThreadOpenConnections()` before making [outbound](https://github.com/bitcoin/bitcoin/blob/84f4ac39fda7ffa5dc84e92d92dd1eeeb5e20f8c/src/net.cpp#L1846) and [anchor](https://github.com/bitcoin/bitcoin/blob/84f4ac39fda7ffa5dc84e92d92dd1eeeb5e20f8c/src/net.cpp#L1805) connections to new peers so that they belong to distinct netgroups.
+
+**behaviour on master**
+
+- if we run a node only on tor/i2p/cjdns
+	- we wouldn't be able to open more than 16 outbound connections(manual, block-relay-only anchor, outbound full relay, block-relay-only connections) because we run out of possible netgroups.
+	- see https://github.com/bitcoin/bitcoin/pull/27264#issuecomment-1481322628
+	- tested by changing `MAX_OUTBOUND_FULL_RELAY_CONNECTIONS` to 17 with `onlynet=onion` and observed how node wouldn't make more than 16 outbound connections.
+
+**behaviour on PR**
+
+- netgroup diversity checks are skipped for tor/i2p/cjdns addresses. 
+- we don't insert tor/i2p/cjdns address in `setConnected` and `GetGroup` doesn't get called on tor/i2p/cjdns(see #27369)
+",stratospher,44024636,bitcoin,/issues
+1647446127,27369,Fix net grouping of non-IP networks,2023-03-30 11:39:20,2023-03-30 15:02:32,,CONTRIBUTOR,4,"### Current behaviour
+
+`NetGroupManager::GetGroup()` was designed with IP networks in mind, where for example `10.20.30.40` and `10.20.30.45` are ""close"" and likely to belong to the same entity, while `100.20.30.40` is ""distant"" from them. This does not apply however for Tor, I2P and CJDNS where the address is ""random"" bytes. Actually, Tor, I2P and CJDNS addresses that have common prefix are _harder_ to obtain than ones that don't have a common prefix (the opposite compared to IP).
+
+Currently `NetGroupManager::GetGroup()` is doing prefixing on Tor, I2P and CJDNS addresses and assumes same properties apply as for IP addresses. This magically ""works"" to some extent but has drawbacks. Some serious changes are needed to remove that assumption from the code.
+
+See
+https://github.com/bitcoin/bitcoin/pull/22563
+https://github.com/bitcoin/bitcoin/pull/27264#issuecomment-1481322628
+
+### Expected behaviour
+
+* Don't do prefixing on Tor, I2P and CJDNS and don't assume proximity based on that.
+* Treat all addresses from Tor as one group (because it is very easy to obtain huge amount of them). Same for I2P and CJDNS.
+* Make sure addrman can still store enough addresses from those networks.
+* Make sure a single source from Tor, I2P and CJDNS cannot flood addrman with junk due to the previous point.
+",vasild,266751,bitcoin,/issues
+1646129414,27364,ci: set docker run --ulimit to workaround Valgrind assertion,2023-03-29 16:15:33,2023-03-31 07:10:17,,MEMBER,3,"Running the `native_fuzz_with_valgrind_job`, on aarch64 (Fedora 37), I've seen the following:
+```bash
+Run addr_info_deserialize with args ['valgrind', '--quiet', '--error-exitcode=1', '/home/fedora/ci_scratch/ci/scratch/build/bitcoin-aarch64-unknown-linux-gnu/src/test/fuzz/fuzz', '-runs=1', '/home/fedora/ci_scratch/ci/scratch/qa-assets/fuzz_seed_corpus/addr_info_deserialize']
+valgrind: m_libcfile.c:66 (vgPlain_safe_fd): Assertion 'newfd >= VG_(fd_hard_limit)' failed.
+
+
+valgrind: m_libcfile.c:66 (vgPlain_safe_fd): Assertion 'newfd >= VG_(fd_hard_limit)' failed.
+
+Target ""valgrind --quiet --error-exitcode=1 /home/fedora/ci_scratch/ci/scratch/build/bitcoin-aarch64-unknown-linux-gnu/src/test/fuzz/fuzz -runs=1 /home/fedora/ci_scratch/ci/scratch/qa-assets/fuzz_seed_corpus/addr_info_deserialize"" failed with exit code -11
+./ci/test/04_install.sh: line 98: pop_var_context: head of shell_variables not a function context
+```
+
+This was first reported as a Valgrind bug, https://bugs.kde.org/show_bug.cgi?id=465435, however:
+>  [I really think that the problem is with Docker](https://bugs.kde.org/show_bug.cgi?id=465435#c10). It's advertising some ridiculously high value for ulimit -n like 1048576. Valgrind wants to put its own files in the top 12 of those slots, and is trying to to a fcntl(oldfd, F_DUPFD, 1048576-12) - note that 1048576-12 matches the 1048564 that you get from the patch message. Then Docker fails to honour its promised file descriptor limit and the fcntl fails.
+
+So the easiest thing to do here might just be to set some sane ulimit values (during docker run), that still work for all other jobs, and avoid the Valgrind assertion (which should become a more useful error message at some point?).
+
+Opening a PR for discussion/brainstorming. The changes in this PR (from the bug report) ""fix"" this particular issue, but I haven't yet tested all jobs etc. Maybe we'd rather only do this on the affected test.",fanquake,863730,bitcoin,/issues
+1645744553,27360,ci: use LLVM/clang-16 in native_asan job,2023-03-29 12:49:36,2023-04-06 09:16:13,,MEMBER,6,"Similar to #27298. Working for me on `x86_64` and solves the issue I currently see with TSAN on `aarch64` with master (68828288e5d35c17848ab3da8cd231d1b69651c0):
+```bash
+crc32c/src/crc32c_arm64.cc:101:26: runtime error: load of misaligned address 0xffff84400406 for type 'uint64_t' (aka 'unsigned long'), which requires 8 byte alignment
+0xffff84400406: note: pointer points here
+ b9 c5 22 00 01 01  1a 6c 65 76 65 6c 64 62  2e 42 79 74 65 77 69 73  65 43 6f 6d 70 61 72 61  74 6f
+             ^ 
+    #0 0xaaaaaddaf0b4 in crc32c::ExtendArm64(unsigned int, unsigned char const*, unsigned long) src/./src/crc32c/src/crc32c_arm64.cc:101:26
+    #1 0xaaaaadd2c838 in leveldb::crc32c::Value(char const*, unsigned long) src/./leveldb/util/crc32c.h:20:60
+    #2 0xaaaaadd2c838 in leveldb::log::Reader::ReadPhysicalRecord(leveldb::Slice*) src/./src/leveldb/db/log_reader.cc:246:29
+    #3 0xaaaaadd2ba9c in leveldb::log::Reader::ReadRecord(leveldb::Slice*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*) src/./src/leveldb/db/log_reader.cc:72:38
+    #4 0xaaaaadd41710 in leveldb::VersionSet::Recover(bool*) src/./src/leveldb/db/version_set.cc:910:19
+    #5 0xaaaaadcf9fec in leveldb::DBImpl::Recover(leveldb::VersionEdit*, bool*) src/./src/leveldb/db/db_impl.cc:320:18
+    #6 0xaaaaadd12068 in leveldb::DB::Open(leveldb::Options const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, leveldb::DB**) src/./src/leveldb/db/db_impl.cc:1487:20
+    #7 0xaaaaad314e80 in CDBWrapper::CDBWrapper(DBParams const&) src/./src/dbwrapper.cpp:156:30
+    #8 0xaaaaace94880 in CBlockTreeDB::CBlockTreeDB(DBParams const&) src/./txdb.h:89:23
+    #9 0xaaaaace94880 in std::_MakeUniq<CBlockTreeDB>::__single_object std::make_unique<CBlockTreeDB, DBParams>(DBParams&&) /usr/bin/../lib/gcc/aarch64-linux-gnu/11/../../../../include/c++/11/bits/unique_ptr.h:962:34
+    #10 0xaaaaace94880 in ChainTestingSetup::ChainTestingSetup(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::vector<char const*, std::allocator<char const*> > const&) src/./src/test/util/setup_common.cpp:188:51
+    #11 0xaaaaace95da0 in TestingSetup::TestingSetup(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::vector<char const*, std::allocator<char const*> > const&, bool, bool) src/./src/test/util/setup_common.cpp:243:7
+    #12 0xaaaaace96730 in TestChain100Setup::TestChain100Setup(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::vector<char const*, std::allocator<char const*> > const&, bool, bool) src/./src/test/util/setup_common.cpp:274:7
+    #13 0xaaaaac1ddbc8 in blockfilter_index_tests::BuildChainTestingSetup::BuildChainTestingSetup() src/./src/test/blockfilter_index_tests.cpp:26:8
+    #14 0xaaaaac1ddbc8 in blockfilter_index_tests::blockfilter_index_initial_sync::blockfilter_index_initial_sync() src/./src/test/blockfilter_index_tests.cpp:112:1
+    #15 0xaaaaac1ddbc8 in blockfilter_index_tests::blockfilter_index_initial_sync_invoker() src/./src/test/blockfilter_index_tests.cpp:112:1
+    #16 0xaaaaabf08f7c in boost::function0<void>::operator()() const /usr/include/boost/function/function_template.hpp:763:14
+    #17 0xaaaaabf95468 in boost::detail::forward::operator()() /usr/include/boost/test/impl/execution_monitor.ipp:1388:32
+    #18 0xaaaaabf95468 in boost::detail::function::function_obj_invoker0<boost::detail::forward, int>::invoke(boost::detail::function::function_buffer&) /usr/include/boost/function/function_template.hpp:137:18
+    #19 0xaaaaabf8e12c in boost::function0<int>::operator()() const /usr/include/boost/function/function_template.hpp:763:14
+    #20 0xaaaaabe7be14 in boost::execution_monitor::catch_signals(boost::function<int ()> const&) /usr/include/boost/test/impl/execution_monitor.ipp:903:16
+    #21 0xaaaaabe7c1c0 in boost::execution_monitor::execute(boost::function<int ()> const&) /usr/include/boost/test/impl/execution_monitor.ipp:1301:16
+    #22 0xaaaaabe6f47c in boost::execution_monitor::vexecute(boost::function<void ()> const&) /usr/include/boost/test/impl/execution_monitor.ipp:1397:5
+    #23 0xaaaaabe75124 in boost::unit_test::unit_test_monitor_t::execute_and_translate(boost::function<void ()> const&, unsigned long) /usr/include/boost/test/impl/unit_test_monitor.ipp:49:9
+    #24 0xaaaaabed19fc in boost::unit_test::framework::state::execute_test_tree(unsigned long, unsigned long, boost::unit_test::framework::state::random_generator_helper const*) /usr/include/boost/test/impl/framework.ipp:815:44
+    #25 0xaaaaabed0f6c in boost::unit_test::framework::state::execute_test_tree(unsigned long, unsigned long, boost::unit_test::framework::state::random_generator_helper const*) /usr/include/boost/test/impl/framework.ipp:784:58
+    #26 0xaaaaabed0f6c in boost::unit_test::framework::state::execute_test_tree(unsigned long, unsigned long, boost::unit_test::framework::state::random_generator_helper const*) /usr/include/boost/test/impl/framework.ipp:784:58
+    #27 0xaaaaabe73878 in boost::unit_test::framework::run(unsigned long, bool) /usr/include/boost/test/impl/framework.ipp:1721:29
+    #28 0xaaaaabe9d244 in boost::unit_test::unit_test_main(boost::unit_test::test_suite* (*)(int, char**), int, char**) /usr/include/boost/test/impl/unit_test_main.ipp:250:9
+    #29 0xffff8f0773f8  (/lib/aarch64-linux-gnu/libc.so.6+0x273f8) (BuildId: f37f3aa07c797e333fd106472898d361f71798f5)
+    #30 0xffff8f0774c8 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x274c8) (BuildId: f37f3aa07c797e333fd106472898d361f71798f5)
+    #31 0xaaaaabda55ac in _start (/home/fedora/ci_scratch/ci/scratch/build/bitcoin-aarch64-unknown-linux-gnu/src/test/test_bitcoin+0x10e55ac) (BuildId: b7909adaefd9db6cd6a7c4d3d40207cf6bdaf4b3)
+
+SUMMARY: UndefinedBehaviorSanitizer: misaligned-pointer-use crc32c/src/crc32c_arm64.cc:101:26 in
+```",fanquake,863730,bitcoin,/issues
+1644651433,27357,validation: Move warningcache to ChainstateManager and rename to m_warningcache,2023-03-28 21:01:36,2023-04-06 10:59:17,,NONE,9,Removes `warningcache`  and moves it to `ChainstateManager`. Also removes the respective `TODO`  completely.,dimitaracev,33068296,bitcoin,/issues
+1662751084,27448,ci: build libc++ in DEBUG mode in MSAN jobs,2023-04-11 15:28:23,2023-04-11 16:31:32,,MEMBER,1,"Based on #27447.
+
+See https://releases.llvm.org/16.0.0/projects/libcxx/docs/DesignDocs/DebugMode.html:
+> Libc++ provides a debug mode that enables special debugging checks meant to detect incorrect usage of the standard library. These checks are disabled by default, but they can be enabled by vendors when building the library by using LIBCXX_ENABLE_DEBUG_MODE.",fanquake,863730,bitcoin,/issues
+1662595004,27447,depends: Remove `_LIBCPP_DEBUG` from depends DEBUG mode,2023-04-11 14:17:14,2023-04-11 16:29:14,,MEMBER,2,"It was deprecated in LLVM 15, turned into compile-time error in LLVM 16:
+```bash
+In file included from /usr/lib/llvm-16/bin/../include/c++/v1/cassert:19:
+/usr/lib/llvm-16/bin/../include/c++/v1/__assert:22:5: error: ""Defining _LIBCPP_DEBUG is not supported anymore.
+Please use _LIBCPP_ENABLE_DEBUG_MODE instead.""
+    ^
+1 error generated.
+```
+
+and has been removed entirely in LLVM 17 (main): https://github.com/llvm/llvm-project/commit/ff573a42cd1f1d05508f165dc3e645a0ec17edb5.
+
+[Building libc++ in debug mode](https://releases.llvm.org/16.0.0/projects/libcxx/docs/DesignDocs/DebugMode.html), will also automatically set
+`_LIBCPP_ENABLE_DEBUG_MODE` (the new define), so adding it to depends
+doesn't seem useful, and would just result in redefinition errors.
+
+I'm wondering if as a followup, we could enable a DEBUG build of libc++
+in our MSAN CI job? i.e https://github.com/fanquake/bitcoin/tree/msan_with_enable_debug_mode.
+
+Somewhat related to https://github.com/google/oss-fuzz/pull/9828, where
+it looks like we'll have to sort out getting a DEBUG build of LLVM, and can drop the commentary about re-enabling DEBUG=1.",fanquake,863730,bitcoin,/issues
+1663112361,31153,ledger-tool verify cli for final hash calc,2023-04-11 19:53:42,2023-04-11 19:53:46,,CONTRIBUTOR,0,"#### Problem
+#31150
+
+#### Summary of Changes
+Move final hash calc to cli arg.
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",jeffwashington,75863576,solana,/issues
+1663092933,31152,v1.14: [docs] added google analytics to docs (backport of #31141),2023-04-11 19:36:20,2023-04-11 19:36:22,,CONTRIBUTOR,0,"This is an automatic backport of pull request #31141 done by [Mergify](https://mergify.com).
+
+
+---
+
+
+<details>
+<summary>Mergify commands and options</summary>
+
+<br />
+
+More conditions and actions can be found in the [documentation](https://docs.mergify.com/).
+
+You can also trigger Mergify actions by commenting on this pull request:
+
+- `@Mergifyio refresh` will re-evaluate the rules
+- `@Mergifyio rebase` will rebase this PR on its base branch
+- `@Mergifyio update` will merge the base branch into this PR
+- `@Mergifyio backport <destination>` will backport this PR on `<destination>` branch
+
+Additionally, on Mergify [dashboard](https://dashboard.mergify.com) you can:
+
+- look at your merge queues
+- generate the Mergify configuration with the config editor.
+
+Finally, you can contact us on https://mergify.com
+</details>",mergify[bot],37929162,solana,/issues
+1663020155,31151,ci: run stable tests partially,2023-04-11 18:36:43,2023-04-11 18:56:15,,MEMBER,0,"#### Problem
+
+
+#### Summary of Changes
+
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",yihau,8209234,solana,/issues
+1663329636,31159,Refactor reward payout code - part 4,2023-04-11 22:56:37,2023-04-11 22:56:37,,CONTRIBUTOR,0,"
+#### Problem
+
+break up of #31143
+
+break up reward payout code into separate fns so that it can be used for
+reward calculation and reward distribution separately .
+
+(prepare for epoch v2 works)
+
+Also, this change fixes a potential subtle bug. When stake cache is inconsistent with accounts_db, loading stake_history from the cache, before actual loading vote/stake accounts from accounts db (which will pruning invalid cache keys), can lead to invalid stake/vote accounts to participate into later rewarding code. This is incorrect. With this change, stake_history are loaded correctly after pruning invalid cache keys.
+
+
+#### Summary of Changes
+
+Part 4: extract redeem_reward fn
+
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",HaoranYi,219428,solana,/issues
+1662996766,31150,ledger-tool asserts running verify command,2023-04-11 18:16:53,2023-04-11 19:37:52,,CONTRIBUTOR,1,"#### Problem
+<!--
+  This template should only be used by core contributors. If you
+  are not a core contributor, please use the ""Community Issue"" template
+  to ensure that your issue can be triaged appropriately.
+-->
+Running near the tip of master (ce21a58b6578ffa291b0bcf743014ecbf121a3c0), I encountered the following assertion running `verify` command.
+https://github.com/solana-labs/solana/blob/fb6e02c46cb2ec1903175cc1f78e8e3aeccd09eb/runtime/src/account_storage.rs#L71-L73
+
+Here is the relevant portion of the backtrace
+```
+...
+  15:     0x56422d868d09 - solana_runtime::account_storage::AccountStorage::assert_no_shrink_in_progress::h3bb4f64925fa0556
+                               at /home/sol/src/solana/runtime/src/account_storage.rs:73:13
+  16:     0x56422d868d09 - solana_runtime::account_storage::AccountStorage::get_slot_storage_entry::h8d2ff3e97c14d075
+                               at /home/sol/src/solana/runtime/src/account_storage.rs:82:9
+  17:     0x56422d9ba023 - solana_runtime::accounts_db::AccountsDb::purge_slot_cache_pubkeys::h34319ff2aea66a8f
+                               at /home/sol/src/solana/runtime/src/accounts_db.rs:5899:17
+  18:     0x56422d9bde38 - solana_runtime::accounts_db::AccountsDb::do_flush_slot_cache::ha13d380960eb6890
+                               at /home/sol/src/solana/runtime/src/accounts_db.rs:6494:9
+  19:     0x56422d9bde38 - solana_runtime::accounts_db::AccountsDb::flush_slot_cache_with_clean::{{closure}}::ha7eb5e66d6a2eed9
+                               at /home/sol/src/solana/runtime/src/accounts_db.rs:6634:17
+  20:     0x56422d9bde38 - core::option::Option<T>::map::h2712643d7d44f363
+                               at /rustc/d5a82bbd26e1ad8b7401f6a718a9c57c96905483/library/core/src/option.rs:925:29
+  21:     0x56422d9bde38 - solana_runtime::accounts_db::AccountsDb::flush_slot_cache_with_clean::h995c1ef64439d711
+                               at /home/sol/src/solana/runtime/src/accounts_db.rs:6624:31
+  22:     0x56422d9bde38 - solana_runtime::accounts_db::AccountsDb::flush_rooted_accounts_cache::h34f7055201ca9f6d
+                               at /home/sol/src/solana/runtime/src/accounts_db.rs:6394:16
+  23:     0x56422d9bc093 - solana_runtime::accounts_db::AccountsDb::flush_accounts_cache::hf4d03de170307c91
+                               at /home/sol/src/solana/runtime/src/accounts_db.rs:6280:68
+  24:     0x56422d2706d0 - solana_ledger::blockstore_processor::run_final_hash_calc::h519cf8246916087b
+                               at /home/sol/src/solana/ledger/src/blockstore_processor.rs:1579:5
+  25:     0x56422d2706d0 - solana_ledger::blockstore_processor::load_frozen_forks::h75d2b95063685b2a
+                               at /home/sol/src/solana/ledger/src/blockstore_processor.rs:1554:21
+  26:     0x56422d2706d0 - solana_ledger::blockstore_processor::process_blockstore_from_root::h8d1183485d3bcec7
+                               at /home/sol/src/solana/ledger/src/blockstore_processor.rs:786:31
+  27:     0x56422cf690a4 - solana_ledger_tool::load_bank_forks::hcade061463b3b438
+                               at /home/sol/src/solana/ledger-tool/src/main.rs:1313:18
+  28:     0x56422cf7a6ed - solana_ledger_tool::main::h6c2bb50c2a6c2e07
+                               at /home/sol/src/solana/ledger-tool/src/main.rs:2962:40
+ ...
+```
+So, the final hash calculation that occurs as part of `verify` is executing while a shrink is in progress. So, seemingly a lack of proper synchronization to let the shrink finish before kicking off the hash calc.
+
+#### Proposed Solution
+Debug and fix - for now, I want to make progress on my original task so I'm just disabling the final accounts hash and moving on.",steviez,5400107,solana,/issues
+1662883421,31148,Multi-Iterator Scheduler,2023-04-11 16:47:32,2023-04-11 18:53:57,,CONTRIBUTOR,0,"#### Problem
+Current BankingStage still faces performance issues when many transactions conflict due to inter-thread locking conflicts.
+Want a central scheduler that is aware of threads, such that transactions will be scheduled onto threads without conflicting with other transactions**.
+
+** Current implementation only schedules for non-vote transactions, and it is still possible that they conflict with the transactions being processed by voting threads.
+
+#### Summary of Changes
+Implement/test scheduler using a multi-iterator approach.
+
+Blocked by #30976
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",apfitzge,13732359,solana,/issues
+1662816337,31146,WIP: Updates SnapshotGossipManager with new SnapshotHashes,2023-04-11 16:01:58,2023-04-11 17:51:41,,CONTRIBUTOR,1,This is a WIP! The PR is only meant to run through CI.,brooksprumo,840349,solana,/issues
+1662765560,31144,packed ancient: parallel write to append vecs,2023-04-11 15:36:09,2023-04-11 15:36:09,,CONTRIBUTOR,0,"#### Problem
+When packing ancient append vecs, writing the append vecs can take a long time and there can be many of them.
+Packing these ancient append vecs runs in accounts background service, and can block cache flushing, clean, and shrink.
+
+#### Summary of Changes
+Parallelize the write to the ancient append vecs, using account_db's `clean` thread pool.
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",jeffwashington,75863576,solana,/issues
+1662751491,31143,Refactor reward payout code,2023-04-11 15:28:35,2023-04-11 20:02:03,,CONTRIBUTOR,1,"#### Problem
+
+break up reward payout code into separate `fns` so that it can be used for 
+reward calculation and reward distribution separately . 
+
+(prepare for epoch v2 works)
+
+Also, this change fixes a potential subtle bug. When stake cache is inconsistent with accounts_db, loading `stake_history` from the cache, before actual loading vote/stake accounts from accounts db (which will pruning invalid cache keys), can lead to invalid stake/vote accounts to participate into later rewarding code. This is incorrect. With this change, `stake_history` are loaded correctly after pruning invalid cache keys.  
+
+
+#### Summary of Changes
+- refactor reward payout code
+
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",HaoranYi,219428,solana,/issues
+1662056614,31140,Bump syn from 1.0.107 to 2.0.5,2023-04-11 09:03:25,2023-04-11 09:03:26,,CONTRIBUTOR,0,"Bumps [syn](https://github.com/dtolnay/syn) from 1.0.107 to 2.0.5.
+<details>
+<summary>Release notes</summary>
+<p><em>Sourced from <a href=""https://github.com/dtolnay/syn/releases"">syn's releases</a>.</em></p>
+<blockquote>
+<h2>2.0.5</h2>
+<ul>
+<li>Expose <code>ExprMacro</code> data structure even when <code>features=&quot;full&quot;</code> is not used (<a href=""https://redirect.github.com/dtolnay/syn/issues/1417"">#1417</a>)</li>
+</ul>
+<h2>2.0.4</h2>
+<ul>
+<li>Improve error reporting when parsing identifiers and paths (<a href=""https://redirect.github.com/dtolnay/syn/issues/1415"">#1415</a>, <a href=""https://redirect.github.com/dtolnay/syn/issues/1416"">#1416</a>)</li>
+</ul>
+<h2>2.0.3</h2>
+<ul>
+<li>Expose <code>ExprGroup</code> data structure even when <code>features=&quot;full&quot;</code> is not used (<a href=""https://redirect.github.com/dtolnay/syn/issues/1412"">#1412</a>)</li>
+</ul>
+<h2>2.0.2</h2>
+<ul>
+<li>Documentation improvements</li>
+</ul>
+<h2>2.0.1</h2>
+<ul>
+<li>Add methods on syn::Meta for reporting error on an incorrect kind of attribute (<a href=""https://redirect.github.com/dtolnay/syn/issues/1409"">#1409</a>)</li>
+</ul>
+<h2>2.0.0</h2>
+<p>This release contains a batch of syntax tree improvements to incorporate ongoing Rust language development from the past 3.5 years since syn 1.</p>
+<p>It never seems like an ideal time to finalize a syntax tree design, considering the frankly alarming number of syntax-disrupting language features currently in flight: keyword generics, restrictions, capabilities and contexts, conditional constness, new varieties of literals, dyn revamp such as explicitly dyn-safe traits and dyn-star, expression syntax in various phases of being added or being torn out (const blocks, try blocks, raw references), auto traits and negative impls, generalizations to higher rank trait bounds, async closures and static async trait methods, postfix keywords, pattern types, return type notation, unsafe attributes, …</p>
+<p>The plan continues to be the same as laid out originally in the 1.0.0 release announcement:</p>
+<blockquote>
+<p>Be aware that the underlying Rust language will continue to evolve. Syn is able to accommodate most kinds of Rust grammar changes via the nonexhaustive enums and <code>Verbatim</code> variants in the syntax tree, but we will plan to put out new major versions on a 12 to 24 month cadence to incorporate ongoing language changes as needed.</p>
+</blockquote>
+<p>If anything, the takeaway from the 3.5 year longevity of syn 1 is that this period was tamer from a language development perspective than anticipated, but that is unlikely to last and I think around 24 months is still the correct cadence to expect between releases going forward.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h1>Breaking changes</h1>
+<ul>
+<li>Minimum required Rust version is raised from rustc 1.31 to 1.56.</li>
+</ul>
+<h3>Expressions</h3>
+<ul>
+<li>
+<p>Support for <code>box expr</code> syntax has been deleted, as it has been deleted recently from rustc.</p>
+</li>
+<li>
+<p>Support for type ascription syntax <code>expr: Type</code> in expression position has been deleted.</p>
+</li>
+<li>
+<p>Support for unstable <code>&amp;raw const expr</code> raw-pointer reference syntax has been deleted.</p>
+</li>
+<li>
+<p>The representation of generic arguments has been unified between method calls and non-method paths into a single <code>GenericArgument</code> type, which supersedes the previous <code>GenericMethodArgument</code> and <code>MethodTurbofish</code>.</p>
+</li>
+<li>
+<p>Generic arguments now distinguish between associated types (<code>AssocType</code>) and associated constant values (<code>AssocConst</code>). Previously these would be parsed ambiguously as <code>Binding</code>.</p>
+</li>
+<li>
+<p>The binary assignment operators in <code>BinOp</code> have been renamed to align with the naming used by the standard library's <code>core::ops</code> module's traits. For example <code>BinOp::AddEq</code> is now called <code>BinOp::AddAssign</code>.</p>
+</li>
+<li>
+<p><code>Expr::Struct</code> struct construction expressions now support structs which are a variant of an enum associated type of a trait, as in <code>&lt;Type as Trait&gt;::Assoc::Variant { ... }</code>, which has recently been added to Rust.</p>
+</li>
+</ul>
+<!-- raw HTML omitted -->
+</blockquote>
+<p>... (truncated)</p>
+</details>
+<details>
+<summary>Commits</summary>
+<ul>
+<li><a href=""https://github.com/dtolnay/syn/commit/fd1825461d8e6378f1408c1f45dca2ea7a751765""><code>fd18254</code></a> Release 2.0.5</li>
+<li><a href=""https://github.com/dtolnay/syn/commit/4df4c4eaac9fc2dfea7c1b20a4287ef03d12f69e""><code>4df4c4e</code></a> Merge pull request <a href=""https://redirect.github.com/dtolnay/syn/issues/1417"">#1417</a> from dtolnay/exprmacro</li>
+<li><a href=""https://github.com/dtolnay/syn/commit/f591c4012d478adb8e472769e09c5a79a9b67271""><code>f591c40</code></a> Provide Expr::Macro even with features=&quot;full&quot; off</li>
+<li><a href=""https://github.com/dtolnay/syn/commit/fb1062fb234b3852e95d13b352de554edb356549""><code>fb1062f</code></a> Eliminate allow_struct args in non-full mode</li>
+<li><a href=""https://github.com/dtolnay/syn/commit/99de683c3f9ecf1279560cc44f3696c6660f01f4""><code>99de683</code></a> Factor out Path::is_mod_style private method</li>
+<li><a href=""https://github.com/dtolnay/syn/commit/736d479086d848a939b32feaf69c4ff50f7d59c0""><code>736d479</code></a> Use PathArguments::is_none more places where possible</li>
+<li><a href=""https://github.com/dtolnay/syn/commit/91ca7c0655d36d75f832f29505bea1556d0111ad""><code>91ca7c0</code></a> Release 2.0.4</li>
+<li><a href=""https://github.com/dtolnay/syn/commit/e7bb2381c47e35c7ee542ea1008752d43fe87f67""><code>e7bb238</code></a> Merge pull request <a href=""https://redirect.github.com/dtolnay/syn/issues/1416"">#1416</a> from dtolnay/patherrors</li>
+<li><a href=""https://github.com/dtolnay/syn/commit/7bb31b100a58112314bd940c21960e22e5103f1a""><code>7bb31b1</code></a> Improve error reporting in path parser</li>
+<li><a href=""https://github.com/dtolnay/syn/commit/eaf62159a13371f1b009ce81b12a05570ec1ef1d""><code>eaf6215</code></a> Merge pull request <a href=""https://redirect.github.com/dtolnay/syn/issues/1415"">#1415</a> from dtolnay/identkeyword</li>
+<li>Additional commits viewable in <a href=""https://github.com/dtolnay/syn/compare/1.0.107...2.0.5"">compare view</a></li>
+</ul>
+</details>
+<br />
+
+
+[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=syn&package-manager=cargo&previous-version=1.0.107&new-version=2.0.5)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)
+
+Dependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.
+
+[//]: # (dependabot-automerge-start)
+[//]: # (dependabot-automerge-end)
+
+---
+
+<details>
+<summary>Dependabot commands and options</summary>
+<br />
+
+You can trigger Dependabot actions by commenting on this PR:
+- `@dependabot rebase` will rebase this PR
+- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it
+- `@dependabot merge` will merge this PR after your CI passes on it
+- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it
+- `@dependabot cancel merge` will cancel a previously requested merge and block automerging
+- `@dependabot reopen` will reopen this PR if it is closed
+- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually
+- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)
+
+
+</details>",dependabot[bot],49699333,solana,/issues
+1662050423,31139,Bump quinn-proto from 0.9.2 to 0.9.3,2023-04-11 08:59:41,2023-04-11 10:40:40,,CONTRIBUTOR,1,"Bumps [quinn-proto](https://github.com/quinn-rs/quinn) from 0.9.2 to 0.9.3.
+<details>
+<summary>Commits</summary>
+<ul>
+<li><a href=""https://github.com/quinn-rs/quinn/commit/7d1b280f550ac3a494fe3c2d92a539cec6d0b3b8""><code>7d1b280</code></a> Bump versions</li>
+<li><a href=""https://github.com/quinn-rs/quinn/commit/c794cc91380a222a2d63b7b372316eeda28569aa""><code>c794cc9</code></a> Respect max_udp_payload_size transport parameter</li>
+<li><a href=""https://github.com/quinn-rs/quinn/commit/fd845b0c64c5ae6fdf9080ec11c263d23912c33f""><code>fd845b0</code></a> udp: add safe wrapper for setsockopt()</li>
+<li><a href=""https://github.com/quinn-rs/quinn/commit/166e0fb60a64b10da9b4aeec5bce9c3c39a057d5""><code>166e0fb</code></a> Fix build on FreeBSD, add CI test for FreeBSD, set IPV6_RECVPKTINFO on FreeBS...</li>
+<li><a href=""https://github.com/quinn-rs/quinn/commit/9f503194218fe796a486767f7881dc47c793e3e2""><code>9f50319</code></a> send-stream: rely on cleaning up waker for Stopped in SendStream Drop impl</li>
+<li><a href=""https://github.com/quinn-rs/quinn/commit/70ef5039e9ddba659e69801e1b4740333ea61189""><code>70ef503</code></a> recv-stream: clean up any previously register wakers when RecvStream is dropped</li>
+<li><a href=""https://github.com/quinn-rs/quinn/commit/f6ae67e2faa88a833a2b323f5d13f79ef5d2a052""><code>f6ae67e</code></a> send-stream: clean up any previously register wakers when SendStream is dropped</li>
+<li><a href=""https://github.com/quinn-rs/quinn/commit/7ba0acb8da407fbd6a6910a73252381d847c704f""><code>7ba0acb</code></a> send-stream: unregister waker when Stopped is dropped</li>
+<li><a href=""https://github.com/quinn-rs/quinn/commit/1122c627c35241eda2e87a9637d3bd5ea19f290c""><code>1122c62</code></a> connection: wake 'stopped' streams on stream finish events</li>
+<li>See full diff in <a href=""https://github.com/quinn-rs/quinn/compare/0.9.2...0.9.3"">compare view</a></li>
+</ul>
+</details>
+<br />
+
+
+[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=quinn-proto&package-manager=cargo&previous-version=0.9.2&new-version=0.9.3)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)
+
+Dependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.
+
+[//]: # (dependabot-automerge-start)
+[//]: # (dependabot-automerge-end)
+
+---
+
+<details>
+<summary>Dependabot commands and options</summary>
+<br />
+
+You can trigger Dependabot actions by commenting on this PR:
+- `@dependabot rebase` will rebase this PR
+- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it
+- `@dependabot merge` will merge this PR after your CI passes on it
+- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it
+- `@dependabot cancel merge` will cancel a previously requested merge and block automerging
+- `@dependabot reopen` will reopen this PR if it is closed
+- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually
+- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)
+- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)
+
+
+</details>",dependabot[bot],49699333,solana,/issues
+1663332635,31160,Refactor reward payout code - part 5,2023-04-11 22:59:56,2023-04-12 00:29:30,,CONTRIBUTOR,1,"#### Problem
+
+break up of #31143
+
+break up reward payout code into separate fns so that it can be used for
+reward calculation and reward distribution separately .
+
+(prepare for epoch v2 works)
+
+Also, this change fixes a potential subtle bug. When stake cache is inconsistent with accounts_db, loading stake_history from the cache, before actual loading vote/stake accounts from accounts db (which will pruning invalid cache keys), can lead to invalid stake/vote accounts to participate into later rewarding code. This is incorrect. With this change, stake_history are loaded correctly after pruning invalid cache keys.
+
+
+#### Summary of Changes
+
+part 5: bug fix for stake_history
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",HaoranYi,219428,solana,/issues
+1663320500,31157,Refactor reward payout code - part 3,2023-04-11 22:45:44,2023-04-11 22:55:34,,CONTRIBUTOR,0,"
+#### Problem
+
+break up of #31143
+
+break up reward payout code into separate fns so that it can be used for
+reward calculation and reward distribution separately .
+
+(prepare for epoch v2 works)
+
+Also, this change fixes a potential subtle bug. When stake cache is inconsistent with accounts_db, loading stake_history from the cache, before actual loading vote/stake accounts from accounts db (which will pruning invalid cache keys), can lead to invalid stake/vote accounts to participate into later rewarding code. This is incorrect. With this change, stake_history are loaded correctly after pruning invalid cache keys.
+
+#### Summary of Changes
+
+Part 3: extract calculate points fn 
+
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",HaoranYi,219428,solana,/issues
+1663256588,31156,Refactor reward payout code - part 2,2023-04-11 21:40:33,2023-04-11 23:21:36,,CONTRIBUTOR,1,"#### Problem
+
+break up of #31143
+
+break up reward payout code into separate fns so that it can be used for
+reward calculation and reward distribution separately .
+
+(prepare for epoch v2 works)
+
+Also, this change fixes a potential subtle bug. When stake cache is inconsistent with accounts_db, loading stake_history from the cache, before actual loading vote/stake accounts from accounts db (which will pruning invalid cache keys), can lead to invalid stake/vote accounts to participate into later rewarding code. This is incorrect. With this change, stake_history are loaded correctly after pruning invalid cache keys.
+
+
+#### Summary of Changes
+Part 2: extract load_vote_stake_accounts fn
+
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",HaoranYi,219428,solana,/issues
+1663171628,31154,Only push latest snapshot hashes in SnapshotGossipManager,2023-04-11 20:32:57,2023-04-12 01:56:20,,CONTRIBUTOR,1,"#### Problem
+
+*Discovery* of snapshots in bootstrap is hard (see https://github.com/solana-labs/solana/issues/30759). The main reason is that full snapshots and incremental snapshots are gossiped out on *different* CRDS values.
+
+Going forward, we can (read: will) use CRDS `SnapshotHashes` to gossip out the full and incremental snapshots together at the same time.
+
+We also need to maintain compatibility with the existing behavior that expects to get full snapshots via `LegacySnapshotHashes`, and incremental snapshots via `SnapshotHashes` (formerly called `IncrementalSnapshotHashes`).
+
+Luckily, that's basically what the current code already does!
+
+The bootstrap code requires that the full snapshot info from `LegacySnapshotHashes` and the base snapshot info from `SnapshotHashes` are the same, which is an invariant we will maintain. And here in SnapshotPackagerService we always use the latest full snapshot to populate the incremental snapshot information anyway.
+
+Also, bootstrap only cares about the latest snapshots. This is the meat of this change: we only need to push the latest snapshot hashes to the cluster.
+
+
+#### Summary of Changes
+
+Refactor the SnapshotGossipManager to only push the latest snapshot hashes (for `SnapshotHashes`). We retain the legacy behavior of keeping *all* the full snapshots for `LegacySnapshotHashes` too.
+
+Note: Due to the repurposing of *how* `SnapshotHashes` is now used, the diff is not the most helpful as the design of SGM has changed. I'll try to point out any tricky and/or big changes.
+
+Note 2: It is important that nodes running a version older (i.e. `beta`) are compatible. Specifically, this means that *bootstrap* with *v1.14* must still operate basically the same if its other nodes in the cluster are running with this change.",brooksprumo,840349,solana,/issues
+1663321727,31158,JSON RPC returns corrupt `id` value in JSON RPC response,2023-04-11 09:41:59,2023-04-12 01:00:06,,NONE,4,"<!-- Please fill in each section completely. Thank you! -->
+
+## Overview
+Calling the Connection.getAccountInfo function throws an error because the RPC returns a badly formatted JSON.
+I have encountered this bug while trying to load a serum market. It used to work properly but all of a sudden it was throwing an error while trying to get the market account info. 
+
+## Steps to reproduce
+1. create a connection to the solana mainnet
+```
+const connection = await new Connection(""https://solana-mainnet.rpc.extrnode.com/"");
+```
+2.  try to use the getAccountInfo with the following address:
+````
+ const accInfo = await connection.getAccountInfo(
+    new PublicKey(""ArqoQnUYNWuc6XQwdyZy1TTrrAzGhKvhfB3tGAtL3kSh"")
+  );
+````
+3. The function should throw an error: 
+````
+Error: failed to get info about account ArqoQnUYNWuc6XQwdyZy1TTrrAzGhKvhfB3tGAtL3kSh: SyntaxError: Expected ',' or '}' after property value in JSON at position 603
+````
+
+If you open the network tab and look at the endpoints made to the solana RPC, you will see that one of them returns the following JSON:
+`````
+{
+    ""jsonrpc"": ""2.0"",
+    ""result"": {
+        ""context"": {
+            ""apiVersion"": ""1.15.0"",
+            ""slot"": 187789813
+        },
+        ""value"": {
+            ""data"": [
+                ""AQAAAAAAAABYFJAGT8g8lsVLaNKeVw7mPlE8Dyue9Jn114BZxXv5tMb6evO+2606PWXzaqvJdDGxu+TC0vbg5HymAgNFL11hr/lvt9zLKR2tb9UnqCQq+P/hYDwB3UAnHivCEBj1UTOR0hguoQYM7ktKQuDh1ZWdGuKN7VUkAUWrkepVTHOZR3ArUfHOA1tRfwMNpDAEfYTOmtG07zSFm1Gxoaok4rU1Dmy/vPwpFD064syo/70mkLoYE33hlYE30ocIlmFyYgrkvgBkAAAAAHUAAAAAAAAAIN5BBgAAAACKogAAAAAAAAEAAAAAAAAA6AMAAAAAAABA0J4AAAAAAAEAAAAAAAAAECcAAAAAAAD+AAAAAAAAAA=="",
+                ""base64""
+            ],
+            ""executable"": false,
+            ""lamports"": 2839680,
+            ""owner"": ""94nRXYTWa5fwAF8pZze6p6qczqZ9sqaTcu72EeSty3xy"",
+            ""rentEpoch"": 0
+        }
+    },
+    ""id"": 836 b393f-b18a-4 fad-aeb4-16 bbabb1c492
+}
+`````
+Notice how the id (last field in the json) does not have the value as a string, the quotation marks are missing.
+
+## Description of bug
+The Connection.getAccountInfo function does not work, instead throwing the following error:
+````
+Error: failed to get info about account ArqoQnUYNWuc6XQwdyZy1TTrrAzGhKvhfB3tGAtL3kSh: SyntaxError: Expected ',' or '}' after property value in JSON at position 603
+````
+This might occur while being used by other packages, for example my case was the @bonfida/dex-v4 package.
+
+",petrucioinica99,73494516,solana,/issues
+1663210594,27449,doc: update OpenBSD build docs for 7.3 (external signer support available),2023-04-11 21:03:02,2023-04-11 21:03:07,,CONTRIBUTOR,1,"With OpenBSD 7.3, the waitid(2) system call is implemented (see https://github.com/openbsd/src/commit/8112871f19bbd25e86c93d0f901071ca2335a352, first mentioned kernel improvement at https://www.openbsd.org/73.html).
+
+This means Boost.Process finally doesn't fail to compile anymore and we can remove the build hint about missing external signer support. Tested on my amd64 machine by reconfiguring / rebuilding master branch and successfully running the functional test wallet_signer.py. :heavy_check_mark: ",theStack,91535,bitcoin,/issues
+1664710321,27452,test: cover addrv2 anchors by adding TorV3 to CAddress in messages.py,2023-04-12 14:44:24,2023-04-12 15:11:26,,MEMBER,3,"Adds test coverage for https://github.com/bitcoin/bitcoin/pull/20516 to ensure that https://github.com/bitcoin/bitcoin/issues/20511 is completed and may be closed.
+
+This PR adds a test case to `feature_anchors.py` where an onion v3 address is set as a blocks-only relay peer and then shutdown, ensuring that the address is saved to anchors.dat in addrv2 format. We then ensure that bitcoin attempts to reconnect to that anchor address on restart.
+
+To compute the addrv2 serialization of the onion v3 address, I added logic to `CAddress` in `messages.py`. This new logic is covered by extending `p2p_addrv2_relay.py` to include an onion v3 address. Future work will be adding coverage for ipv6, torv2 and cjdns in these modules and also `feature_proxy.py`",pinheadmz,2084648,bitcoin,/issues
+1664836322,31172,removes duplicate connection-table arguments,2023-04-12 15:59:03,2023-04-12 15:59:43,,CONTRIBUTOR,0,"
+#### Problem
+`prune_unstaked_connections_and_add_new_connection` receives both `MutexGuard<ConnectionTable>` and `Arc<Mutex<ConnectionTable>>`.
+
+
+#### Summary of Changes
+Removed redundant `MutextGuard<ConnectionTable>`.",behzadnouri,1288998,solana,/issues
+1664761278,31171,Add comment in SolanaGossipMananger::update_latest_full_snapshot_hash(),2023-04-12 15:12:59,2023-04-12 15:15:11,,CONTRIBUTOR,0,"#### Problem
+
+In a previous PR, I had added a github comment about some of the code. It was requested to put the comment into the code too. Original comment: https://github.com/solana-labs/solana/pull/31154#discussion_r1164248681.
+
+#### Summary of Changes
+
+Add the comment.",brooksprumo,840349,solana,/issues
+1664748901,31170,Clear the account paths before constructing a bank from a snapshot dir,2023-04-12 15:05:37,2023-04-12 15:10:44,,CONTRIBUTOR,0,"#### Problem
+
+bank_from_snapshot_dir requires cleaning the <account_path>.  It is cleaner to put this necessary cleaning into the function to avoid duplicate the cleaning code before each call.
+This addresses the review comment.  https://github.com/solana-labs/solana/pull/31115#discussion_r1161915681
+
+
+#### Summary of Changes
+Added the cleaning code in the function bank_from_snapshot_dir
+Removed the cleaning code in the test.
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",xiangzhu70,59367509,solana,/issues
+1664747137,31169,Removes unused arg from SnapshotGossipManager::new(),2023-04-12 15:04:39,2023-04-12 15:44:56,,CONTRIBUTOR,0,"#### Problem
+
+The `_max_incremental_snapshot_hashes` parameter to `SnapshotGossipManager::new()` is unused and can be removed.
+
+#### Summary of Changes
+
+Remove it.",brooksprumo,840349,solana,/issues
+1664745199,31168,passes through concrete QUIC connection errors up the call stack,2023-04-12 15:03:34,2023-04-12 15:16:53,,CONTRIBUTOR,0,"#### Problem
+Current code is obscuring errors which can make debugging harder.
+
+#### Summary of Changes
+The commit passes through concrete QUIC connection errors up the call stack.",behzadnouri,1288998,solana,/issues
+1664724365,31167,Fix incorrect ExecuteAccessoryTimings,2023-04-12 14:52:26,2023-04-12 14:53:01,,NONE,0,"#### Problem
+Looks like `feature_set_clone_us` is never getting accumulated
+
+#### Summary of Changes
+
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",esemeniuc,3838856,solana,/issues
+1664197659,31166,Repair filter update,2023-04-12 09:32:42,2023-04-12 11:02:28,,CONTRIBUTOR,1,"#### Problem
+
+
+#### Summary of Changes
+
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",jbiseda,1054614,solana,/issues
+1664059614,31165,bpf_loader: move heap cost calculation inside create_vm! macro,2023-04-12 08:05:13,2023-04-12 08:05:13,,CONTRIBUTOR,0,"Move heap cost calculation inside create_ebpf_vm macro, so that it happens before the heap is allocated",alessandrod,62002,solana,/issues
+1664054960,31164,Unexplained segfault during upgrade to 1.13.7,2023-04-12 08:02:50,2023-04-12 15:16:30,,CONTRIBUTOR,1,"#### Problem
+Was running jito-solana 1.13.5 uninterrupted since last restart. Hardware is an Equinix server in Frankfurt with an Epyc 7502p with 8 cores disabled and 256G RAM. Swap is enabled with 225G.
+
+While attempting to upgrade to jito-solana 1.13.7 (compiled on another machine with a similar processor (Epyc 7443) after completing the loading of the ledger the validator restarted. The logs exhibited no related panic or assert (an unrelated panic was discovered which was triggered by the admin_rpc exit command and is a bug in the jito code triggered during shutdown, this was shared with the jito team and was mistakenly first assumed to be related).
+
+The restart happens with an existing rocksdb and shortly after the ""Validator initialized"" log entry. A second restart attempt resulted in the same behaviour. Thereafter I rolled back to 1.13.5 after deleting the rocksdb folder and getting new snapshots, therefore it is unclear if the same behaviour may have persisted on 1.13.5 with rocksdb intact (one suggestion from the jito team is a blockstore related issue).
+
+RocksDB shred compaction mode is set to FIFO. Issue was discussed with @steviez in DM, recording here for his further review.
+
+Start args:
+```
+--identity [path/to/identity/keypair] \
+        --vote-account GE6atKoWiQ2pt3zL7N13pjNHjdLVys8LinG8qeJLcAiL \
+        --authorized-voter [path/to/identity/keypair] \
+        --rpc-port 8099 \
+        --entrypoint 184.105.146.35:8000 \
+        --entrypoint se1.laine.co.za:8001 \
+        --entrypoint entrypoint2.mainnet-beta.solana.com:8001 \
+        --entrypoint entrypoint3.mainnet-beta.solana.com:8001 \
+        --entrypoint entrypoint4.mainnet-beta.solana.com:8001 \
+        --log /home/solana/solana-validator.log \
+        --ledger /mnt/ledger \
+        --accounts /mnt/validator/accounts \
+        --dynamic-port-range 8001-8050 \
+        --no-port-check \
+        --private-rpc \
+        --rpc-bind-address 0.0.0.0 \
+        --tower  /mnt/validator/tower \
+        --snapshots /mnt/validator/snapshots \
+        --no-check-vote-account \
+        --expected-shred-version 56177 \
+        --known-validator PUmpKiNnSVAZ3w4KaFX6jKSjXUNHFShGkXbERo54xjb \
+        --known-validator SerGoB2ZUyi9A1uBFTRpGxxaaMtrFwbwBpRytHefSWZ \
+        --known-validator FLVgaCPvSGFguumN9ao188izB4K4rxSWzkHneQMtkwQJ \
+        --known-validator qZMH9GWnnBkx7aM1h98iKSv2Lz5N78nwNSocAxDQrbP \
+        --known-validator GiYSnFRrXrmkJMC54A1j3K4xT6ZMfx1NSThEe5X2WpDe \
+        --only-known-rpc \
+        --limit-ledger-size \
+        --wal-recovery-mode skip_any_corrupted_record \
+        --incremental-snapshots \
+        --no-snapshot-fetch \
+        --no-genesis-fetch \
+        --contact-debug-interval 1000000 \
+        --minimal-snapshot-download-speed 30000000 \
+        --rocksdb-shred-compaction fifo \
+        --tip-payment-program-pubkey T1pyyaTNZsKv2WcRAB8oVnk93mLJw2XzjtVYqCsaHqt \
+        --tip-distribution-program-pubkey 4R3gSG8BpU4t19KYj8CfnbtRpnT8gtk4dvTHxVRwc2r7 \
+        --merkle-root-upload-authority GZctHpWXmsZC1YHACTGGcHhYxjdRqQvTpYkb9LMvxDib \
+        --commission-bps 750 \
+        --relayer-auth-service-address http://relayer-1.mainnet.frankfurt.jito.wtf:8100 \
+        --relayer-address http://relayer-1.mainnet.frankfurt.jito.wtf:8100 \
+        --block-engine-address https://block-engine.mainnet.frankfurt.jito.wtf:1003 \
+        --block-engine-auth-service-address https://block-engine.mainnet.frankfurt.jito.wtf:1005 \
+        --tip-distribution-account-payer [path/to/identity/keypair] \
+        --shred-receiver-address 145.40.93.84:1002 \
+```
+
+Entries in dmesg:
+```
+[Tue Apr 11 08:40:12 2023] traps: solana-window-i[738739] trap invalid opcode ip:55bcf9ab26d7 sp:7efbfda3a4b8 error:0 in solana-validator[55bcf8be6000+1f0a000]
+[Tue Apr 11 09:01:37 2023] traps: solana-window-i[746620] trap invalid opcode ip:56198e6e66d7 sp:7ed023c514b8 error:0 in solana-validator[56198d81a000+1f0a000]
+```
+Logs for 08:00 - 08:59 and 09:00 - 09:59 below:
+https://laine.one/jito-0800-0859.log
+https://laine.one/jito-0900-0959.log ",michaelh-laine,68944931,solana,/issues
+1663975445,31163,ci: move coverage to the last block,2023-04-12 07:06:42,2023-04-12 08:16:47,,MEMBER,1,"#### Problem
+
+- we need to wait coverage test for 30mins and no one is running with it in the same time. it wastes lots of idle agents.
+- I think we should test coverage after we passed the stable test. if stable test is failed, I don't think we care about the coverage.
+
+#### Summary of Changes
+
+move coverage test to the last block
+
+",yihau,8209234,solana,/issues
+1663944408,31162,ci: export channel info in buildkite pre-command,2023-04-12 06:47:34,2023-04-12 07:07:39,,MEMBER,0,"#### Problem
+
+We need to do `eval ""$(ci/channel-info.sh)""` everywhere to get the channel info. I think we can get rid of this in Buildkite by exporting them in the pre-command
+
+#### Summary of Changes
+
+export channel info in Buildkite's pre-command
+",yihau,8209234,solana,/issues
+1663641075,31161,Implementation of the footer for tiered account storage,2023-04-12 03:18:39,2023-04-12 04:41:35,,CONTRIBUTOR,0,"#### Summary of Changes
+This PR includes the implementation of the footer for the tiered account storage.
+
+Tiered account storage proposal: #30551
+The prototype implementation of the tiered account storage: #30626.",yhchiang-sol,93241502,solana,/issues
+1664836598,27453,test: added coverage to rpc_scantxoutset.py,2023-04-12 15:59:14,2023-04-12 16:00:06,,NONE,1,"Included a test that checks if an invalid first argument is entered we receive a rpc error. The rpc should fail if ""start"", ""status"" or ""abort"" is not the first command.
+
+Relavant: mentioned in https://github.com/bitcoin/bitcoin/pull/27422
+",kevkevinpal,15950706,bitcoin,/issues
+1664982711,31175,Purge snapshot accountvec references,2023-04-12 17:43:34,2023-04-12 17:44:42,,CONTRIBUTOR,0,"#### Problem
+
+
+#### Summary of Changes
+
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",xiangzhu70,59367509,solana,/issues
+1664978799,31174,Implementation of the account meta of the tiered account storage,2023-04-12 17:40:38,2023-04-12 17:40:44,,CONTRIBUTOR,0,"#### Summary of Changes
+Implementation of the account meta of the tiered account storage.
+
+This PR depends on #31161.
+
+The complete prototype: #30626
+Proposal: #30551",yhchiang-sol,93241502,solana,/issues
+1664906086,31173,Push starting snapshot hashes in SnapshotGossipManager::new(),2023-04-12 16:49:23,2023-04-12 17:25:10,,CONTRIBUTOR,0,"#### Problem
+
+Pushing the starting snapshot hashes is a bit clunky inside of SnapshotPackagerService. Instead, `SnapshotGossipManager::new()` could handle this.
+
+
+#### Summary of Changes
+
+Push starting snapshot hashes in SnapshotGossipManager::new()",brooksprumo,840349,solana,/issues
+1665396029,27457,Muhammedhamid23 patch 1,2023-04-12 23:16:36,2023-04-12 23:56:46,,NONE,1,"<!--
+*** Please remove the following help text before submitting: ***
+
+Pull requests without a rationale and clear improvement may be closed
+immediately.
+
+GUI-related pull requests should be opened against
+https://github.com/bitcoin-core/gui
+first. See CONTRIBUTING.md
+-->
+
+<!--
+Please provide clear motivation for your patch and explain how it improves
+Bitcoin Core user experience or Bitcoin Core developer experience
+significantly:
+
+* Any test improvements or new tests that improve coverage are always welcome.
+* All other changes should have accompanying unit tests (see `src/test/`) or
+  functional tests (see `test/`). Contributors should note which tests cover
+  modified code. If no tests exist for a region of modified code, new tests
+  should accompany the change.
+* Bug fixes are most welcome when they come with steps to reproduce or an
+  explanation of the potential issue as well as reasoning for the way the bug
+  was fixed.
+* Features are welcome, but might be rejected due to design or scope issues.
+  If a feature is based on a lot of dependencies, contributors should first
+  consider building the system outside of Bitcoin Core, if possible.
+* Refactoring changes are only accepted if they are required for a feature or
+  bug fix or otherwise improve developer experience significantly. For example,
+  most ""code style"" refactoring changes require a thorough explanation why they
+  are useful, what downsides they have and why they *significantly* improve
+  developer experience or avoid serious programming bugs. Note that code style
+  is often a subjective matter. Unless they are explicitly mentioned to be
+  preferred in the [developer notes](/doc/developer-notes.md), stylistic code
+  changes are usually rejected.
+-->
+
+<!--
+Bitcoin Core has a thorough review process and even the most trivial change
+needs to pass a lot of eyes and requires non-zero or even substantial time
+effort to review. There is a huge lack of active reviewers on the project, so
+patches often sit for a long time.
+-->
+",Muhammedhamid23,88670686,bitcoin,/issues
+1665016384,27454,doc: remove incorrect line from example,2023-04-12 18:08:03,2023-04-12 22:05:00,,CONTRIBUTOR,1,Inputs are always present when using `walletcreatefundedpsbt`,1440000bytes,94559964,bitcoin,/issues
+1665440942,31179,Prevent process_blockstore_from_root() from holding Bank for too long,2023-04-13 00:11:28,2023-04-13 00:11:28,,CONTRIBUTOR,0,"#### Problem
+blockstore_processor::process_blockstore_from_root() starts with a BankForks that contains exactly one Bank. The function grabs an Arc of this initial Bank, and does some logging and initial setup before processing more slots in load_frozen_forks().
+
+process_blockstore_from_root() holds that Arc until it returns. This increases the ref count and prevents the initial Bank from getting cleaned up in a timely manner if load_frozen_forks() prunes that initial Bank from BankForks.
+
+#### Summary of Changes
+This change extracts the needed information from the Arc<Bank>, and drops the Arc so that the Bank can be dropped in a timely manner.
+
+I noticed this issue while digging into elevated memory usage by `solana-ledger-tool` across epoch boundaries (while trying to debug the same phenomenon with `solana-validator`). Unfortunately, this doesn't explain things for `solana-validator`, but it seems like a worthwhile change regardless.
+
+Adding a log statement to see when Banks are dropped, I see the initial bank dropped shortly after getting pruned from `BankForks` whereas with the tip of master, the initial bank is one of the last dropped banks.",steviez,5400107,solana,/issues
+1665363395,31178,ledger-tool: Add deprecation warning for --no-compaction,2023-04-12 22:42:44,2023-04-13 00:22:45,,CONTRIBUTOR,1,"#### Problem
+There was an oversight in https://github.com/solana-labs/solana/pull/30891 to provide a warning about the arg now being deprecated.
+
+#### Summary of Changes
+Warn about deprecated argument
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",steviez,5400107,solana,/issues
+1666222511,27460,rpc: Add importmempool RPC,2023-04-13 11:19:15,2023-04-13 12:36:11,,MEMBER,1,"Currently it is possible to import a mempool by placing it in the datadir and starting the node. However this has many issues:
+
+* Users aren't expected to fiddle with the datadir, possibly corrupting it
+* An existing mempool file in the datadir may be overwritten
+* The node needs to be restarted
+* Importing an untrusted file this way is dangerous, because it can corrupt the mempool
+
+Fix all issues by adding a new RPC.",MarcoFalke,6399679,bitcoin,/issues
+1665990520,27458,build: Fix USDT detection on FreeBSD,2023-04-13 08:47:16,2023-04-13 11:12:15,,MEMBER,5,"From https://github.com/hebasto/bitcoin/pull/13#pullrequestreview-1381000080:
+> [On FreeBSD] Tracepoints (USDT) are not detected even though `sys/sdt.h` is available in `/usr/include`, this is the same as with autotools (unrelated to the cmake effort).
+
+The suggested commit fixes USDT detection, but compiling _fails_ because the `/usr/include/sys/sdt.h` header does not define `DTRACE_PROBE{6,7,8,9,10,11,12}` macros.",hebasto,32963518,bitcoin,/issues
+1666752683,31187,Bump h2 to v0.3.17,2023-04-13 16:35:00,2023-04-13 16:57:49,,CONTRIBUTOR,0,"#### Problem
+[Dependabot alert](https://github.com/solana-labs/solana/security/dependabot?q=is%3Aopen+manifest%3ACargo.lock+package%3Ah2)
+
+#### Summary of Changes
+Bump h2 dependency (hyper)
+",CriesofCarrots,3030561,solana,/issues
+1666740271,31186,Refactors the Full/Incremental SnapshotHash types,2023-04-13 16:26:33,2023-04-13 17:51:15,,CONTRIBUTOR,1,"#### Problem
+
+In previous refactoring PRs, SnapshotGossipManager went from using strong types (`FullSnapshotHash` and `IncrementalSnapshotHash`) for everything, to only using it for the legacy snapshot hashes. Lets get back to those strong types to make it impossible to mix up sending full and incremental snapshot hashes around.
+
+
+#### Summary of Changes
+
+* Refactor `FullSnapshotHash` and `IncrementalSnapshotHash` to be tuple-structs
+* Use these new types within SGM for the (non-legacy) SnapshotHashes
+* Remove the no-longer-used `FullSnapshotHashes` and `IncrementalSnapshotHashes` (note the plural in the name)
+
+I really wanted to split this PR up into smaller pieces, but they kind of all intermix. Since there's no behavior change (just refactoring), I'm hoping that's OK. Happy to answer any comments/questions too!
+
+(This it the last refactoring PR for SGM too, yay!)",brooksprumo,840349,solana,/issues
+1666235996,31184,Add Solidity compiler to solana installer,2023-04-13 11:29:02,2023-04-13 17:00:44,,CONTRIBUTOR,2,"#### Problem
+
+We would like Solidity to be language which is easy to use, and easy to set up. [Anchor](https://github.com/coral-xyz/anchor/pull/2421) now has support for Solidity in the master branch. However, this support depends on the `solang` binary being available in the path.
+
+I've noticed that asking some developers to download a binary, make it executable and it put somewhere in the path is a big ask. This requires too much shell knowledge. We need an automated way of doing this.
+
+#### Summary of Changes
+
+This adds the solang binary to the solana installer. The binary is about 58M (depending on the plaform) and compresses down to 17M with bz2. So, the installer is not much larger.
+
+This has been tested on Linux and build is running on my Mac right now. I am not sure how I can test Windows, I can setup a VM but I don't quite understand how this shell script gets executed on Windows.",seanyoung,816900,solana,/issues
+1665779903,31182,`solana-metrics` can't be compiled for wasm,2023-04-13 06:12:00,2023-04-13 17:47:03,,NONE,1,"#### Problem
+
+`solana-metrics` depends on `gethostname` https://github.com/solana-labs/solana/blob/master/metrics/Cargo.toml#L14.
+This causes issues when compiling for wasm32 targets if some other crate relies on solana-metrics.
+
+In my instance, the address lookup program includes solana-metrics via the below dependency tree:
+
+```
+gethostname v0.2.3
+└── solana-metrics v1.14.13
+    └── solana-program-runtime v1.14.13
+        └── solana-address-lookup-table-program v1.14.13
+```
+
+I'm building a crate which relies on the lookup program as it imports a program that uses the lookup program, and compiling it for wasm causes the below issue.
+
+```
+@jet-lab/margin:build: error[E0425]: cannot find function `gethostname_impl` in this scope
+@jet-lab/margin:build:   --> /home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/gethostname-0.2.3/src/lib.rs:58:5
+@jet-lab/margin:build:    |
+@jet-lab/margin:build: 58 |     gethostname_impl()
+@jet-lab/margin:build:    |     ^^^^^^^^^^^^^^^^ not found in this scope
+@jet-lab/margin:build: 
+```
+
+I first checked with the author of gethostname if they would be willing to accept a contribution that creates a stub for `gethostname_impl()` above, however their position is that it's not the best place to fix this https://github.com/swsnr/gethostname.rs/issues/9.
+
+#### Proposed Solution
+
+I see 2 potential solutions:
+
+1. Expand the feature gate at https://github.com/solana-labs/solana/blob/c847236147f5b2e7db57ef4e65fe0f0766091567/programs/address-lookup-table/Cargo.toml#L24 to also exclude wasm targets. I can do the work here and submit a PR.
+
+2. Add a feature flag that allows us to opt in to the `processor` module on the lookup table program. The program-runtime crate is only used here https://github.com/solana-labs/solana/blob/c847236147f5b2e7db57ef4e65fe0f0766091567/programs/address-lookup-table/src/processor.rs#L9, and I'd imagine that most users of the lookup program wouldn't be interested in the processor (I think we'd be if running tests)
+
+Option 2 is probably the easiest one
+
+",nevi-me,1876878,solana,/issues
+1665741466,31181,v1.14: add curve25519 multiscalar multiplication syscall (backport of #28216),2023-04-13 05:35:38,2023-04-13 05:35:40,,CONTRIBUTOR,0,"This is an automatic backport of pull request #28216 done by [Mergify](https://mergify.com).
+Cherry-pick of 3f63283edaeb2a879b482521a0335886210df98c has failed:
+```
+On branch mergify/bp/v1.14/pr-28216
+Your branch is up to date with 'origin/v1.14'.
+
+You are currently cherry-picking commit 3f63283ed.
+  (fix conflicts and run ""git cherry-pick --continue"")
+  (use ""git cherry-pick --skip"" to skip this patch)
+  (use ""git cherry-pick --abort"" to cancel the cherry-pick operation)
+
+Changes to be committed:
+	modified:   program-runtime/src/compute_budget.rs
+	modified:   programs/bpf/rust/curve25519/src/lib.rs
+	modified:   programs/bpf_loader/src/syscalls/mod.rs
+	modified:   zk-token-sdk/src/curve25519/edwards.rs
+	modified:   zk-token-sdk/src/curve25519/ristretto.rs
+
+Unmerged paths:
+  (use ""git add <file>..."" to mark resolution)
+	both modified:   sdk/program/src/syscalls/definitions.rs
+
+```
+
+
+To fix up this pull request, you can check it out locally. See documentation: https://docs.github.com/en/github/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/checking-out-pull-requests-locally
+
+---
+
+
+<details>
+<summary>Mergify commands and options</summary>
+
+<br />
+
+More conditions and actions can be found in the [documentation](https://docs.mergify.com/).
+
+You can also trigger Mergify actions by commenting on this pull request:
+
+- `@Mergifyio refresh` will re-evaluate the rules
+- `@Mergifyio rebase` will rebase this PR on its base branch
+- `@Mergifyio update` will merge the base branch into this PR
+- `@Mergifyio backport <destination>` will backport this PR on `<destination>` branch
+
+Additionally, on Mergify [dashboard](https://dashboard.mergify.com) you can:
+
+- look at your merge queues
+- generate the Mergify configuration with the config editor.
+
+Finally, you can contact us on https://mergify.com
+</details>",mergify[bot],37929162,solana,/issues
+1665471648,31180,Fixed missing Root notifications via geyser plugin framework,2023-04-13 00:44:56,2023-04-13 00:45:50,,CONTRIBUTOR,0,"#### Problem
+
+It is reported that Geyser is missing some Root notifications for slots. https://github.com/solana-labs/solana/issues/31124
+The Root notification is sent from replay_stage's code in handle_votable_bank.  https://github.com/solana-labs/solana/blob/master/core/src/replay_stage.rs#L1981. However, the validator does not necessarily vote on every slot on the rooted chain. From @carllin 
+
+For instance if the rooted chain is 1->2->3->4
+
+You might only vote on 1 and 4
+But when 4 is rooted, 2 is also rooted
+But handle_votavle_bank is not called on 2
+
+As result of this, we may miss notifications for slot 2 and 3.
+
+#### Summary of Changes
+In the OptimisticallyConfirmedBankTracker notify parents of a new root if these parents were not notified.
+Modified and added unit test cases to verify the logic.
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",lijunwangs,83639177,solana,/issues
+1668556205,31204,Move rent debit out of bank,2023-04-14 16:23:57,2023-04-14 18:00:32,,CONTRIBUTOR,0,"#### Problem
+`bank.rs` is huge. Booting things out to make it more manageable is a win. See #29400
+
+#### Summary of Changes
+
+- Move `RentDebit` and `RentDebits` into separate file (file actually already existed somehow)
+- Change visibility/privacy for functions as necessary
+- Add `fn len` for `RentDebits` so that we don't need to access the inner type from outside `rent_debit.rs`",bw-solana,44715351,solana,/issues
+1668491707,31203,solana program deploy randomly fails with Error: Custom: Invalid blockhash,2023-04-14 15:43:36,2023-04-14 15:44:40,,CONTRIBUTOR,0,"#### Problem
+
+Randomly, `solana program deploy` fails on mainnet with Error: Custom: Invalid blockhash. The deploy cli has retries enabled, but fails when it is attempting a retry with an expired blockhash. 
+
+#### Proposed Solution
+
+This error should be caught, a new blockhash fetched, and then transactions retried. Up until some configurable amount of retries. 
+
+Currently I'm getting around this with a hacky script:
+
+```
+#!/bin/bash
+
+# Define the Solana program source code file
+PROGRAM_SOURCE_FILE=$1
+KEYPAIR=$2
+
+# Generate a buffer signer keypair
+solana-keygen new --force --no-bip39-passphrase -o buffer.json
+
+# Set the maximum number of retries to 5
+MAX_RETRIES=5
+CURRENT_RETRY=0
+
+# Deploy the program with the buffer signer keypair
+while [[ $CURRENT_RETRY -lt $MAX_RETRIES ]]; do
+  echo ""Deploying program (retry $((CURRENT_RETRY+1)))...""
+  solana program deploy $PROGRAM_SOURCE_FILE --buffer buffer.json -u $SOLANA_URL --program-id $KEYPAIR
+
+  # Check if the deploy command succeeded
+  if [[ $? -eq 0 ]]; then
+    echo ""Program deployed successfully.""
+    break
+  fi
+
+  CURRENT_RETRY=$((CURRENT_RETRY+1))
+  echo ""Deploy failed. Retrying in 5 seconds...""
+  sleep 5
+done
+
+# Clean up the buffer signer keypair if it was generated in this script
+if [[ $BUFFER_SIGNER_KEYPAIR != """" ]]; then
+  rm $BUFFER_SIGNER_KEYPAIR
+fi
+```",ChewingGlass,83885631,solana,/issues
+1668436965,31202,clean up delegation errors,2023-04-14 15:08:39,2023-04-14 17:49:04,,CONTRIBUTOR,1,"#### Problem
+when `split` violates the minimum delegation, sometimes it returns `InstructionError::InsufficientFunds`, and other times it returns `StakeError::InsufficientStake`. the description for the second error is ""split amount is more than is staked,"" which isnt really whats happening
+
+#### Summary of Changes
+this changes it to use `StakeError::InsufficientDelegation` in all cases, the correct error for this condition
+",2501babe,81144685,solana,/issues
+1668068484,31201,Add ability to manage public TPU Forwards address,2023-04-14 11:23:59,2023-04-14 15:42:49,,CONTRIBUTOR,1,"This PR is a continuation of the work on issue #30451
+
+#### Problem
+
+A node operator can manage a public `TPU` address (at node startup and while it's running), but doesn't have the ability to manage the `TPU Forwards` address as well.
+
+This PR adds that functionality.
+
+#### Summary of Changes
+
+1) Added the start argument `--public-tpu-forwards-address`
+2) Reworked the `set-public-tpu-address` subcommand into the `set-public-address` subcommand
+
+",diman-io,71597545,solana,/issues
+1667625761,31196,ci: cleanup,2023-04-14 06:56:38,2023-04-14 15:22:47,,MEMBER,1,"some cleanup logic split from #31151 
+
+#### Summary of Changes
+
+- extract the thread limit feature into a single script, `ci/common/limit-threads.sh`
+- extract common functions into `ci/common/shared-functions.sh`",yihau,8209234,solana,/issues
+1667406320,31195,v1.14: Fix keygen usb panic (debug only) (backport of #31194),2023-04-14 02:21:41,2023-04-14 15:14:30,,CONTRIBUTOR,1,"This is an automatic backport of pull request #31194 done by [Mergify](https://mergify.com).
+Cherry-pick of 2147f0d0568510bff1f37b99df708189cecfb731 has failed:
+```
+On branch mergify/bp/v1.14/pr-31194
+Your branch is up to date with 'origin/v1.14'.
+
+You are currently cherry-picking commit 2147f0d05.
+  (fix conflicts and run ""git cherry-pick --continue"")
+  (use ""git cherry-pick --skip"" to skip this patch)
+  (use ""git cherry-pick --abort"" to cancel the cherry-pick operation)
+
+Changes to be committed:
+	modified:   clap-v3-utils/src/keypair.rs
+
+Unmerged paths:
+  (use ""git add <file>..."" to mark resolution)
+	both modified:   Cargo.lock
+	both modified:   clap-v3-utils/Cargo.toml
+
+```
+
+
+To fix up this pull request, you can check it out locally. See documentation: https://docs.github.com/en/github/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/checking-out-pull-requests-locally
+
+---
+
+
+<details>
+<summary>Mergify commands and options</summary>
+
+<br />
+
+More conditions and actions can be found in the [documentation](https://docs.mergify.com/).
+
+You can also trigger Mergify actions by commenting on this pull request:
+
+- `@Mergifyio refresh` will re-evaluate the rules
+- `@Mergifyio rebase` will rebase this PR on its base branch
+- `@Mergifyio update` will merge the base branch into this PR
+- `@Mergifyio backport <destination>` will backport this PR on `<destination>` branch
+
+Additionally, on Mergify [dashboard](https://dashboard.mergify.com) you can:
+
+- look at your merge queues
+- generate the Mergify configuration with the config editor.
+
+Finally, you can contact us on https://mergify.com
+</details>",mergify[bot],37929162,solana,/issues
+1667185168,31193,Optimize Epoch Reward Compute Code,2023-04-13 21:57:18,2023-04-14 17:41:21,,CONTRIBUTOR,0,"#### Problem
+
+Joining vote accounts with stake accounts during reward computation is very
+expensive and slow down the reward computation.  
+
+It turns out that avoid this join can speed up the rewards computation
+significantly. 
+
+For 550K stake accounts reward, total reward time reduced from `32s` to `17s`. 
+
+- **master**
+```
+[2023-04-14T15:21:20.659978453Z INFO  solana_metrics::metrics] datapoint: bank-new_from_parent-new_epoch_timings epoch=15i slot=956256i parent_slot=956255i thread_pool_creation_us=1761i apply_feature_activations=59i activate_epoch_us=217260i update_epoch_stakes_us=153i update_rewards_with_thread_pool_us=32151627i load_vote_and_stake_accounts_us=8553544i calculate_points_us=7363i calculate_points2_us=0i redeem_rewards_us=10933382i redeem_rewards2_us=0i store_stake_accounts_us=12089500i store_vote_accounts_us=371i invalid_cached_vote_accounts=0i invalid_cached_stake_accounts=0i invalid_cached_stake_accounts_rent_epoch=0i vote_accounts_cache_miss_count=0i
+```
+
+- **this change**
+```
+[2023-04-14T15:31:03.744990323Z INFO  solana_metrics::metrics] datapoint: bank-new_from_parent-new_epoch_timings epoch=15i slot=956256i parent_slot=956255i thread_pool_creation_us=1851i apply_feature_activations=42i activate_epoch_us=218923i update_epoch_stakes_us=152i update_rewards_with_thread_pool_us=17197966i load_vote_and_stake_accounts_us=0i calculate_points_us=0i calculate_points2_us=64380i redeem_rewards_us=0i redeem_rewards2_us=3517505i store_stake_accounts_us=12510452i store_vote_accounts_us=390i invalid_cached_vote_accounts=0i invalid_cached_stake_accounts=0i invalid_cached_stake_accounts_rent_epoch=0i vote_accounts_cache_miss_count=0
+```
+
+
+#### Summary of Changes
+
+- optimize reward avoid expensive joining
+
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",HaoranYi,219428,solana,/issues
+1667021699,31191,Add a type_select param for purge_old_bank_snapshots,2023-04-13 19:34:56,2023-04-14 17:51:12,,CONTRIBUTOR,2,"#### Problem
+In https://github.com/solana-labs/solana/pull/30978, we need more refined control of the snapshot dir purging behavior.
+Before booting, we want to purge all PRE snapshot dirs.
+During run time, we should purge only the POST snapshot dirs, letting AHV to process PRE snapshot dirs into POST.
+
+#### Summary of Changes
+Add the type_select param.  Call purging by type.
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",xiangzhu70,59367509,solana,/issues
+1666969820,31190,store slot on BlockBatchUpdate,2023-04-13 18:53:37,2023-04-14 17:35:11,,CONTRIBUTOR,1,"#### Problem
+We don't need to pass the entire bank, just the slot.
+
+Context: Looking around for places an `Arc<Bank>` could get stuck.
+
+#### Summary of Changes
+`BlockBatchUpdate` wraps a `Slot` instead of `Arc<Bank>`.
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",apfitzge,13732359,solana,/issues
+1666936602,31189,RootBankCache: only cache weak reference to avoid keeping a bank alive,2023-04-13 18:33:01,2023-04-13 23:01:37,,CONTRIBUTOR,3,"#### Problem
+If `root_bank` is not called, the `Arc<Bank>` is kept around indefinitely, which will keep the bank alive.
+
+This struct is not used until #31148, so it shouldn't be causing the issue observed on discord (@steviez https://discord.com/channels/428295358100013066/1069667675443314849/1096122129726066839), but it should be fixed prior to being used.
+
+
+#### Summary of Changes
+Only store the `Weak` reference inside the struct, and try upgrading on call to `root_bank`.
+
+Fixes #
+<!-- OPTIONAL: Feature Gate Issue: # -->
+<!-- Don't forget to add the ""feature-gate"" label -->
+",apfitzge,13732359,solana,/issues

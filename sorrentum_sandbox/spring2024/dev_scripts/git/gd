@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+# """
+# > git difftool $*
+# """
+
+source helpers.sh
+
+execute "git difftool $*"

@@ -1,0 +1,10 @@
+is_positive_realized_pnl        False     combined
+fill_count                  22.000000    22.000000
+traded_volume_dollars     1389.933860  1389.933860
+fill_fees_dollars            0.293847     0.293847
+fill_fees_bps                2.114104     2.114104
+realized_pnl_dollars        -0.266110    -0.266110
+realized_pnl_bps            -1.914552    -1.914552
+is_buy                       8.000000     8.000000
+is_maker                    21.000000    21.000000
+is_positive_realized_pnl     0.000000     0.000000

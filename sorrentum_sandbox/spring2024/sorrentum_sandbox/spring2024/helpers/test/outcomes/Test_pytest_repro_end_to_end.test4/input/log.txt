@@ -1,0 +1,61 @@
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0521158Z core/event_study/test/test_core.py::TestUnwrapLocalTimeseries::test_daily1 (0.03 s) ^[[32mPASSED^[[0m^[[31m [ 99%]^[[0m
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0932903Z core/event_study/test/test_core.py::TestUnwrapLocalTimeseries::test_minutely1 (0.03 s) ^[[32mPASSED^[[0m^[[31m [100%]^[[0m
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0933619Z
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0933865Z =================================== FAILURES ===================================
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0934800Z ^[[31m^[[1m_____________________ TestRealTimeMvnReturnsWithOms1.test1 _____________________^[[0m
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0935555Z Traceback (most recent call last):
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0936347Z   File "/app/dataflow/pipelines/real_time/test/test_dataflow_pipelines_real_time_pipeline.py", line 388, in test1
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0937188Z     market_data = self.get_market_data(event_loop)
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0938027Z   File "/app/dataflow/pipelines/real_time/test/test_dataflow_pipelines_real_time_pipeline.py", line 325, in get_market_data
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0939155Z     df = self.get_market_data_df()
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0939988Z   File "/app/dataflow/pipelines/real_time/test/test_dataflow_pipelines_real_time_pipeline.py", line 310, in get_market_data_df
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0940754Z     df = node.fit()["df_out"]
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0941392Z   File "/app/dataflow/core/nodes/sources.py", line 334, in fit
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0941905Z     self._lazy_load(fit=True)
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0942562Z   File "/app/dataflow/core/nodes/sources.py", line 361, in _lazy_load
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0943252Z     rets = self._generate_returns(fit)
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0943957Z   File "/app/dataflow/core/nodes/sources.py", line 354, in _generate_returns
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0944732Z     vol = cofinanc.compute_annualized_volatility(avg_rets)
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0945561Z NameError: name 'cofinanc' is not defined
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0959832Z ^[[31m^[[1m____________________ TestMultivariateNormalDataSource.test1 ____________________^[[0m
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0961700Z Traceback (most recent call last):
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0968475Z   File "/app/dataflow/core/nodes/test/test_sources.py", line 175, in test1
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0970838Z     df = node.fit()["df_out"]
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0972952Z   File "/app/dataflow/core/nodes/sources.py", line 334, in fit
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0973577Z     self._lazy_load(fit=True)
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0974176Z   File "/app/dataflow/core/nodes/sources.py", line 361, in _lazy_load
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0976810Z     rets = self._generate_returns(fit)
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0977529Z   File "/app/dataflow/core/nodes/sources.py", line 354, in _generate_returns
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0978880Z     vol = cofinanc.compute_annualized_volatility(avg_rets)
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0981739Z NameError: name 'cofinanc' is not defined
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0982702Z ^[[31m^[[1m_________________________ TestMvnReturnsBuilder.test1 __________________________^[[0m
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0985191Z Traceback (most recent call last):
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0985837Z   File "/app/dataflow/core/test/test_builders.py", line 74, in test1
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0986469Z     result_bundle = dag_runner.fit()
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0987113Z   File "/app/dataflow/core/dag_runner.py", line 170, in fit
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0987711Z     return self._run_dag(method)
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0988321Z   File "/app/dataflow/core/dag_runner.py", line 181, in _run_dag
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0988936Z     df_out, info = self._run_dag_helper(method)
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0989566Z   File "/app/dataflow/core/dag_runner.py", line 110, in _run_dag_helper
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0990221Z     df_out = self.dag.run_leq_node(nid, method)["df_out"]
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0991397Z   File "/app/dataflow/core/dag.py", line 428, in run_leq_node
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0992521Z     self._run_node(id_, pred_nid, method)
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0993298Z   File "/app/dataflow/core/dag.py", line 593, in _run_node
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0993800Z     output = getattr(node, method)(**kwargs)
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0994361Z   File "/app/dataflow/core/nodes/sources.py", line 334, in fit
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0994834Z     self._lazy_load(fit=True)
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0995336Z   File "/app/dataflow/core/nodes/sources.py", line 361, in _lazy_load
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0995859Z     rets = self._generate_returns(fit)
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0996779Z   File "/app/dataflow/core/nodes/sources.py", line 354, in _generate_returns
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0997405Z     vol = cofinanc.compute_annualized_volatility(avg_rets)
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.0998205Z NameError: name 'cofinanc' is not defined
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1048290Z ============================= slowest 3 durations ==============================
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1048893Z 26.48s setup    oms/test/test_order_processor.py::TestOrderProcessor1::test_submit_order1
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1049478Z 8.44s call     helpers/test/test_git.py::Test_git_modified_files1::test_get_modified_files1
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1050189Z 5.32s setup    dataflow/pipelines/real_time/test/test_dataflow_pipelines_real_time_pipeline.py::TestRealTimeMvnReturnsWithOms1::test1
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1116212Z =========================== short test summary info ============================
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1119288Z SKIPPED [1] test/test_tasks.py:68: Test needs to be run outside Docker
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1119804Z SKIPPED [1] test/test_tasks.py:60: Test needs to be run outside Docker
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1119288Z FAILED dataflow/pipelines/real_time/test/test_dataflow_pipelines_real_time_pipeline.py::TestRealTimeMvnReturnsWithOms1::test1
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1119288Z FAILED dataflow/core/nodes/test/test_sources.py::TestMultivariateNormalDataSource::test1
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1119288Z FAILED dataflow/core/test/test_builders.py::TestMvnReturnsBuilder::test1

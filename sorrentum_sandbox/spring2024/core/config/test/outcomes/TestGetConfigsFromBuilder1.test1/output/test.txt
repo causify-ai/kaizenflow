@@ -1,0 +1,6 @@
+# ConfigList at 0x
+  # 1/1
+    read_data:
+      symbol: H He O C Bk
+    resample:
+      rule: None

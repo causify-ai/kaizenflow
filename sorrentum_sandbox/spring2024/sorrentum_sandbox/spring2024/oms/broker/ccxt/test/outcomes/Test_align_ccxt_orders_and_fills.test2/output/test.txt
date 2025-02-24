@@ -1,0 +1,20 @@
+                    order_type time_in_force  post_only  reduce_only  side  order_price stop_price  order_amount order_update_timestamp            order_update_datetime
+order                                                                                                                                                                   
+7188124212               limit           GTC      False        False   buy       1.0805       None        63.000          1702907404419 2023-12-18 13:50:04.419000+00:00
+13021166876              limit           GTC      False        False  sell       0.2394       None       213.000          1702907342912 2023-12-18 13:49:02.912000+00:00
+13021175764              limit           GTC      False        False   buy       0.2391       None       212.000          1702907404422 2023-12-18 13:50:04.422000+00:00
+13362669791              limit           GTC      False        False  sell       1.6040       None        33.000          1702907342922 2023-12-18 13:49:02.922000+00:00
+13362679106              limit           GTC      False        False   buy       1.6010       None        41.000          1702907404431 2023-12-18 13:50:04.431000+00:00
+13362692498              limit           GTC      False        False   buy       1.6040       None        41.000          1702907461633 2023-12-18 13:51:01.633000+00:00
+13362701843              limit           GTC      False        False   buy       1.6040       None        41.000          1702907521575 2023-12-18 13:52:01.575000+00:00
+13362710691              limit           GTC      False        False   buy       1.6030       None        41.000          1702907581507 2023-12-18 13:53:01.507000+00:00
+13362723943              limit           GTC      False        False   buy       1.6050       None        41.000          1702907641423 2023-12-18 13:54:01.423000+00:00
+14883423040              limit           GTC      False        False  sell       0.4750       None       180.000          1702907342908 2023-12-18 13:49:02.908000+00:00
+14883431421              limit           GTC      False        False   buy       0.4740       None       139.000          1702907404415 2023-12-18 13:50:04.415000+00:00
+17508343546              limit           GTC      False        False   buy      38.9760       None         1.000          1702907404425 2023-12-18 13:50:04.425000+00:00
+21326188647              limit           GTC      False        False   buy       6.5760       None         9.600          1702907104893 2023-12-18 13:45:04.893000+00:00
+21326227762              limit           GTC      False        False   buy       6.5670       None         9.600          1702907342927 2023-12-18 13:49:02.927000+00:00
+29932018578              limit           GTC      False        False   buy       0.7789       None       104.000          1702907104885 2023-12-18 13:45:04.885000+00:00
+29932083323              limit           GTC      False        False   buy       0.7772       None       104.000          1702907342924 2023-12-18 13:49:02.924000+00:00
+51165487717              limit           GTC      False        False   buy     236.5400       None         0.220          1702907404429 2023-12-18 13:50:04.429000+00:00
+8389765635959891600      limit           GTC      False        False   buy    2151.1200       None         0.033          1702907404410 2023-12-18 13:50:04.410000+00:00

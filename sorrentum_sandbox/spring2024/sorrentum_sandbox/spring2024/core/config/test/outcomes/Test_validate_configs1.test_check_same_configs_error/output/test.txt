@@ -1,0 +1,39 @@
+
+################################################################################
+* Failed assertion *
+val1=
+['build_model:\n'
+ '  activation: sigmoid\n'
+ 'build_targets:\n'
+ '  target_asset: Crude Oil\n'
+ '  preprocessing:\n'
+ '    preprocessor: tokenizer\n'
+ 'meta:\n'
+ '  experiment_result_dir: results.pkl',
+ 'build_model:\n'
+ '  activation: sigmoid\n'
+ 'build_targets:\n'
+ '  target_asset: Crude Oil\n'
+ '  preprocessing:\n'
+ '    preprocessor: tokenizer\n'
+ 'meta:\n'
+ '  experiment_result_dir: results.pkl',
+ 'build_model:\n'
+ '  activation: sigmoid\n'
+ 'build_targets:\n'
+ '  target_asset: Gold\n'
+ '  preprocessing:\n'
+ '    preprocessor: tokenizer\n'
+ 'meta:\n'
+ '  experiment_result_dir: results.pkl']
+has duplicates
+build_model:
+  activation: sigmoid
+build_targets:
+  target_asset: Crude Oil
+  preprocessing:
+    preprocessor: tokenizer
+meta:
+  experiment_result_dir: results.pkl
+There are duplicate configs in passed list
+################################################################################

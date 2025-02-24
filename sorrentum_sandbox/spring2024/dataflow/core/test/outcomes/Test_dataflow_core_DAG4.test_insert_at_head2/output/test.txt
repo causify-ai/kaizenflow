@@ -1,0 +1,41 @@
+################################################################################
+# str
+################################################################################
+DAG at 0x=(_nx_dag=DiGraph with 2 nodes and 1 edges <networkx.classes.digraph.DiGraph>, _name=None <NoneType>, _mode=strict <str>, _save_node_io= <str>, _save_node_df_out_stats=False <bool>, _profile_execution=False <bool>, _dst_dir=None <NoneType>, force_free_nodes=False <bool>)
+################################################################################
+# repr
+################################################################################
+<dataflow.core.dag.DAG at 0x>:
+  _nx_dag='DiGraph with 2 nodes and 1 edges' <networkx.classes.digraph.DiGraph>
+  _name='None' <NoneType>
+  _mode='strict' <str>
+  _save_node_io='' <str>
+  _save_node_df_out_stats='False' <bool>
+  _profile_execution='False' <bool>
+  _dst_dir='None' <NoneType>
+  force_free_nodes='False' <bool>
+  nodes=[('n1', {'stage': <dataflow.core.node.Node object at 0x>}), ('n2', {'stage': <dataflow.core.node.Node object at 0x>})]
+  edges=[('n2', 'n1', {'in1': 'out1'})]
+  json=
+  {
+      "directed": true,
+      "graph": {},
+      "links": [
+          {
+              "in1": "out1",
+              "source": "n2",
+              "target": "n1"
+          }
+      ],
+      "multigraph": false,
+      "nodes": [
+          {
+              "id": "n1",
+              "stage": "Node"
+          },
+          {
+              "id": "n2",
+              "stage": "Node"
+          }
+      ]
+  }

@@ -1,0 +1,101 @@
+################################################################################
+system_config.forecast_system
+################################################################################
+dag_config:
+  filter_weekends:
+    in_col_groups: [('close',), ('high',), ('low',), ('open',), ('volume',)]
+    out_col_group: ()
+    join_output_with_input: False
+  filter_ath:
+    in_col_groups: [('close',), ('high',), ('low',), ('open',), ('volume',)]
+    out_col_group: ()
+    transformer_kwargs:
+      start_time: 09:30:00
+      end_time: 16:00:00
+    join_output_with_input: False
+  resample:
+    in_col_groups: [('open',), ('high',), ('low',), ('close',), ('volume',)]
+    out_col_group: ()
+    transformer_kwargs:
+      rule: 5T
+      resampling_groups: [({'close': 'close'}, 'last', {}), ({'high': 'high'}, 'max', {}), ({'low': 'low'}, 'min', {}), ({'open': 'open'}, 'first', {}), ({'volume': 'volume'}, 'sum', {'min_count': 1}), ({'close': 'twap'}, 'mean', {})]
+      vwap_groups: [('close', 'volume', 'vwap')]
+    reindex_like_input: False
+    join_output_with_input: False
+  compute_ret_0:
+    in_col_groups: [('close',), ('vwap',), ('twap',)]
+    out_col_group: ()
+    transformer_kwargs:
+      mode: pct_change
+    col_mapping:
+      close: close.ret_0
+      vwap: vwap.ret_0
+      twap: twap.ret_0
+  compute_vol:
+    in_col_groups: [('vwap.ret_0',)]
+    out_col_group: ()
+    transformer_kwargs:
+      tau: 32
+    col_mapping:
+      vwap.ret_0: vwap.ret_0.vol
+  adjust_rets:
+    in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]
+    out_col_group: ()
+    transformer_kwargs:
+      term1_col: vwap.ret_0
+      term2_col: vwap.ret_0.vol
+      out_col: vwap.ret_0.vol_adj
+      term2_delay: 2
+      operation: div
+    drop_nans: True
+  clip:
+    in_col_groups: [('vwap.ret_0.vol_adj',)]
+    out_col_group: ()
+    col_mapping:
+      vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c
+dag_builder_object: nid_prefix=
+dag_builder_class: Mock2_DagBuilder
+system_class: Mock2_NonTime_ForecastSystem
+backtest_config:
+  universe_str: bloomberg_v1-top1
+  trading_period_str: 5T
+  time_interval_str: 2023-08-10_2023-08-31
+  freq_as_pd_str: M
+  lookback_as_pd_str: 1D
+  start_timestamp_with_lookback: 2023-08-09 00:00:00+00:00
+  end_timestamp: 2023-08-31 00:00:00+00:00
+market_data_config:
+  im_client_ctor: <class 'im_v2.common.data.client.historical_pq_clients.HistoricalPqByCurrencyPairTileClient'>
+  im_client_config:
+    vendor: bloomberg
+    universe_version: v1
+    root_dir: s3://cryptokaizen-unit-test/v3/bulk
+    partition_mode: by_year_month
+    dataset: ohlcv
+    contract_type: spot
+    data_snapshot:
+    download_mode: manual
+    downloading_entity:
+    aws_profile: ck
+    resample_1min: False
+    version: v1_0_0
+    download_universe_version: v1
+    tag: resampled_1min
+  asset_ids: [1343146433]
+  asset_id_col_name: asset_id
+research_forecast_evaluator_from_prices:
+  style: cross_sectional
+  init:
+    price_col: vwap
+    volatility_col: vwap.ret_0.vol
+    prediction_col: vwap.ret_0.vol_adj.c
+  kwargs:
+    target_gmv: 100000.0
+    liquidate_at_end_of_day: False
+market_object: ImClientMarketData at 0x=(_asset_id_col=asset_id <str>, _asset_ids=[1343146433] <list>, _start_time_col_name=start_ts <str>, _end_time_col_name=end_ts <str>, _columns=None <NoneType>, _sleep_in_secs=1.0 <float>, _timezone=America/New_York <str>, _column_remap=None <NoneType>, _filter_data_mode=assert <str>, _max_iterations=120 <int>, _im_client=HistoricalPqByCurrencyPairTileClient at 0x=(_vendor=bloomberg <str>, _universe_version=v1 <str>, _resample_1min=False <bool>, _timestamp_col_name=timestamp <str>, _full_symbol_col_name=None <NoneType>, _asset_id_to_full_symbol_mapping={1343146433: 'us_market::MSFT'} <dict>, _root_dir=s3://cryptokaizen-unit-test/v3/bulk <str>, _infer_exchange_id=True <bool>, _partition_mode=by_year_month <str>, _aws_profile=ck <str>, _dataset=ohlcv <str>, _contract_type=spot <str>, _data_snapshot= <str>, _download_mode=manual <str>, _downloading_entity= <str>, _version=v1_0_0 <str>, _download_universe_version=v1 <str>, _tag=resampled_1min <str>, _data_format=parquet <str>) <im_v2.common.data.client.historical_pq_clients.HistoricalPqByCurrencyPairTileClient>)
+object.builder_function:
+  market_object: dataflow_amp.system.mock2.mock2_forecast_system._get_market_data
+  dag_object: dataflow_amp.system.mock2.mock2_forecast_system._get_dag
+  dag_runner_object: dataflow_amp.system.mock2.mock2_forecast_system._get_dag_runner
+dag_object: DAG at 0x=(_nx_dag=DiGraph with 8 nodes and 7 edges <networkx.classes.digraph.DiGraph>, _name=None <NoneType>, _mode=strict <str>, _save_node_io= <str>, _save_node_df_out_stats=False <bool>, _profile_execution=False <bool>, _dst_dir=None <NoneType>, force_free_nodes=False <bool>)
+dag_runner_object: FitPredictDagRunner at 0x=(config= <core.config.config_.Config>, _column_to_tags_mapping=None <NoneType>, _result_nid=clip <str>)

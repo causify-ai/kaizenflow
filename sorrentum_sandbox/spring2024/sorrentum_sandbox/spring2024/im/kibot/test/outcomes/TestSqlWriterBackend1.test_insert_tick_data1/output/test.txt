@@ -1,0 +1,2 @@
+ trade_symbol_id            datetime  price  size
+              30 2021-02-10 13:50:00   10.0    15

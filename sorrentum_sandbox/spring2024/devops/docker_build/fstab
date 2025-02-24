@@ -1,0 +1,2 @@
+default00-bucket  /s3/default00-bucket  fuse.s3fs  _netdev,allow_other,passwd_file=/etc/passwd-s3fs-default00-bucket,umask=000  0  0
+//172.31.17.18/share /fsx/research cifs user=admin,password=XXXXXXXXXXXXXXXX,file_mode=0777,dir_mode=0777,vers=2.0 0 0

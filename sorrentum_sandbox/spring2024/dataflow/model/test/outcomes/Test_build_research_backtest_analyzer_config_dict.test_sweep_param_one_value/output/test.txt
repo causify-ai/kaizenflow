@@ -1,0 +1,16 @@
+{'annotate_forecasts_kwargs:target_dollar_risk_per_name = 0.7': asset_id_col (marked_as_used=False, writer=None, val_type=str): asset_id
+pnl_resampling_frequency (marked_as_used=False, writer=None, val_type=str): D
+rule (marked_as_used=False, writer=None, val_type=str): 6T
+annotate_forecasts_kwargs (marked_as_used=False, writer=None, val_type=core.config.config_.Config):
+  style (marked_as_used=False, writer=None, val_type=str): longitudinal
+  quantization (marked_as_used=False, writer=None, val_type=int): 30
+  liquidate_at_end_of_day (marked_as_used=False, writer=None, val_type=bool): False
+  initialize_beginning_of_day_trades_to_zero (marked_as_used=False, writer=None, val_type=bool): False
+  burn_in_bars (marked_as_used=False, writer=None, val_type=int): 3
+  compute_extended_stats (marked_as_used=False, writer=None, val_type=bool): True
+  target_dollar_risk_per_name (marked_as_used=False, writer=None, val_type=float): 0.7
+  modulate_using_prediction_magnitude (marked_as_used=False, writer=None, val_type=bool): False
+  prediction_abs_threshold (marked_as_used=False, writer=None, val_type=float): 0.3
+sweep_param (marked_as_used=False, writer=None, val_type=core.config.config_.Config):
+  keys (marked_as_used=False, writer=None, val_type=tuple): ('annotate_forecasts_kwargs', 'target_dollar_risk_per_name')
+  values (marked_as_used=False, writer=None, val_type=list): [0.7]}

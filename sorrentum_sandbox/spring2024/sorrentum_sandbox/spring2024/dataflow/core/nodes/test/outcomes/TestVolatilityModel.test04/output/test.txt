@@ -1,0 +1,107 @@
+################################################################################
+config
+################################################################################
+cols: ['ret_0']
+steps_ahead: 2
+nan_mode: leave_unchanged
+################################################################################
+info
+################################################################################
+ret_0:
+  ret_0:
+    load_data:
+      fit:
+        fit_df_info:
+          <class 'pandas.core.frame.DataFrame'>
+          DatetimeIndex: 29 entries, 2000-01-03 to 2000-02-10
+          Freq: B
+          Data columns (total 1 columns):
+           #   Column  Non-Null Count  Dtype
+          ---  ------  --------------  -----
+           0   ret_0   29 non-null     float64
+          dtypes: float64(1)
+    calculate_vol_pth_power:
+      fit:
+        df_transformed_info:
+          <class 'pandas.core.frame.DataFrame'>
+          DatetimeIndex: 29 entries, 2000-01-03 to 2000-02-10
+          Freq: B
+          Data columns (total 2 columns):
+           #   Column     Non-Null Count  Dtype
+          ---  ------     --------------  -----
+           0   ret_0      29 non-null     float64
+           1   ret_0_vol  29 non-null     float64
+          dtypes: float64(2)
+    compute_smooth_moving_average:
+      fit:
+        tau: 4.74999424577988
+        min_periods: 9
+        df_out_info:
+          <class 'pandas.core.frame.DataFrame'>
+          DatetimeIndex: 29 entries, 2000-01-03 to 2000-02-10
+          Freq: B
+          Data columns (total 4 columns):
+           #   Column           Non-Null Count  Dtype
+          ---  ------           --------------  -----
+           0   ret_0            29 non-null     float64
+           1   ret_0_vol        29 non-null     float64
+           2   ret_0_vol.shift_-2      27 non-null     float64
+           3   ret_0_vol.shift_-2_hat  19 non-null     float64
+          dtypes: float64(4)
+    calculate_vol_pth_root:
+      fit:
+        df_transformed_info:
+          <class 'pandas.core.frame.DataFrame'>
+          DatetimeIndex: 29 entries, 2000-01-03 to 2000-02-10
+          Freq: B
+          Data columns (total 4 columns):
+           #   Column           Non-Null Count  Dtype
+          ---  ------           --------------  -----
+           0   ret_0            29 non-null     float64
+           1   ret_0_vol        29 non-null     float64
+           2   ret_0_vol.shift_-2      27 non-null     float64
+           3   ret_0_vol.shift_-2_hat  19 non-null     float64
+          dtypes: float64(4)
+    demodulate_using_vol_pred:
+      fit:
+        df_out_info:
+          <class 'pandas.core.frame.DataFrame'>
+          DatetimeIndex: 29 entries, 2000-01-03 to 2000-02-10
+          Freq: B
+          Data columns (total 4 columns):
+           #   Column           Non-Null Count  Dtype
+          ---  ------           --------------  -----
+           0   ret_0_vol        29 non-null     float64
+           1   ret_0_vol.shift_-2      27 non-null     float64
+           2   ret_0_vol.shift_-2_hat  19 non-null     float64
+           3   ret_0_vol_adj    19 non-null     float64
+          dtypes: float64(4)
+################################################################################
+df_out
+################################################################################
+               ret_0  ret_0_vol  ret_0_vol.shift_-2  ret_0_vol.shift_-2_hat  ret_0_vol_adj  ret_0_inverted
+2000-01-20  0.789749   0.789749     0.693337              NaN            NaN             NaN
+2000-01-21  0.799250   0.799250     1.806081              NaN            NaN             NaN
+2000-01-24  0.693337   0.693337     0.607578              NaN            NaN             NaN
+2000-01-25  1.806081   1.806081     0.586478              NaN            NaN             NaN
+2000-01-26  0.607578   0.607578     0.590181              NaN            NaN             NaN
+2000-01-27  0.586478   0.586478     2.818571              NaN            NaN             NaN
+2000-01-28 -0.590181   0.590181     0.614738              NaN            NaN             NaN
+2000-01-31 -2.818571   2.818571     0.587804              NaN            NaN             NaN
+2000-02-01 -0.614738   0.614738     0.477653         1.411848            NaN             NaN
+2000-02-02  0.587804   0.587804     2.054811         1.279492            NaN             NaN
+2000-02-03 -0.477653   0.477653     0.529701         1.157729      -0.338318       -0.477653
+2000-02-04  2.054811   2.054811     0.192607         1.391039       1.605958        2.054811
+2000-02-07 -0.529701   0.529701     0.273857         1.264579      -0.457535       -0.529701
+2000-02-08 -0.192607   0.192607     1.409544         1.134103      -0.138463       -0.192607
+2000-02-09 -0.273857   0.273857     2.103653         1.022763      -0.216560       -0.273857
+2000-02-10  1.409544   1.409544     1.101591         1.109510       1.242871        1.409544
+2000-02-11  2.103653   2.103653     0.873879         1.361926       2.056834        2.103653
+2000-02-14  1.101591   1.101591     0.494540         1.315399       0.992863        1.101591
+2000-02-15  0.873879   0.873879     2.203340         1.242315       0.641649        0.873879
+2000-02-16 -0.494540   0.494540     1.339415         1.137132      -0.375962       -0.494540
+2000-02-17 -2.203340   2.203340     0.446388         1.406217      -1.773576       -2.203340
+2000-02-18 -1.339415   1.339415     1.029416         1.393659      -1.177888       -1.339415
+2000-02-21 -0.446388   0.446388     1.665617         1.268366      -0.317439       -0.446388
+2000-02-22  1.029416   1.029416          NaN         1.226315       0.738643        1.029416
+2000-02-23  1.665617   1.665617          NaN         1.321471       1.313199        1.665617

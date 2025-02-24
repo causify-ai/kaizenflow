@@ -1,0 +1,5 @@
+                     arma(2,2)
+avg_turnover_(%)        65.694
+turnover_frequency       <Day>
+avg_holding_period       1.522
+holding_period_units     <Day>

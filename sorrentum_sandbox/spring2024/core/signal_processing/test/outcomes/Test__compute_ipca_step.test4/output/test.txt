@@ -1,0 +1,48 @@
+u:
+   2000-01-04
+0         NaN
+1         NaN
+2         NaN
+3         NaN
+4         NaN
+5         NaN
+6         NaN
+7         NaN
+8         NaN
+9         NaN
+v:
+   2000-01-05
+0         NaN
+1         NaN
+2         NaN
+3         NaN
+4         NaN
+5         NaN
+6         NaN
+7         NaN
+8         NaN
+9         NaN
+u_next:
+    0
+0 NaN
+1 NaN
+2 NaN
+3 NaN
+4 NaN
+5 NaN
+6 NaN
+7 NaN
+8 NaN
+9 NaN
+v_next:
+    0
+0 NaN
+1 NaN
+2 NaN
+3 NaN
+4 NaN
+5 NaN
+6 NaN
+7 NaN
+8 NaN
+9 NaN

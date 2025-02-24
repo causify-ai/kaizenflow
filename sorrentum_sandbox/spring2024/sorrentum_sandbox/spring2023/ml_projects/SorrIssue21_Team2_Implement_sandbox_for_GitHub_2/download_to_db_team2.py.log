@@ -1,0 +1,15 @@
+20:38:08 - [36mINFO [0m download_team2.py downloader:171                       20:38:08 - [36mINFO [0m download_team2.py downloader:171                       
+Inserting GitHub Yearly Commits data: 
+	    total        week                       days Crypto_Name  \
+0     40  1651363200    [5, 12, 5, 2, 2, 12, 2]     bitcoin   
+1     40  1651968000     [0, 12, 7, 5, 9, 7, 0]     bitcoin   
+2     72  1652572800  [10, 15, 8, 14, 8, 13, 4]     bitcoin   
+3     44  1653177600    [1, 2, 10, 20, 5, 4, 2]     bitcoin   
+4     36  1653782400     [4, 11, 8, 4, 4, 2, 3]     bitcoin   
+
+                Extension  Sun  Mon  Tue  Wed  Thur  Fri  Sat  
+0  /stats/commit_activity    5   12    5    2     2   12    2  
+1  /stats/commit_activity    0   12    7    5     9    7    0  
+2  /stats/commit_activity   10   15    8   14     8   13    4  
+3  /stats/commit_activity    1    2   10   20     5    4    2  
+4  /stats/commit_activity    4   11    8    4     4    2    3  

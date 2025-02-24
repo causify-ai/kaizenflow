@@ -1,0 +1,73 @@
+{
+    "containerDefinitions": [
+        {
+            "name": "name-placeholder",
+            "image": "623860924167.dkr.ecr.region-placeholder.amazonaws.com/cmamp:prod-juraj-0bfc20d14-4fy",
+            "cpu": 0,
+            "portMappings": [],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "CK_ECR_BASE_PATH",
+                    "value": "623860924167.dkr.ecr.eu-north-1.amazonaws.com"
+                },
+                {
+                    "name": "CK_AWS_DEFAULT_REGION",
+                    "value": "region-placeholder"
+                },
+                {
+                    "name": "AM_AWS_S3_BUCKET",
+                    "value": "alphamatic-data"
+                },
+                {
+                    "name": "AM_ENABLE_DIND",
+                    "value": "0"
+                }
+            ],
+            "mountPoints": [
+                {
+                    "sourceVolume": "efs",
+                    "containerPath": "/data/shared/ecs_tokyo"
+                }
+            ],
+            "volumesFrom": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/name-placeholder",
+                    "awslogs-region": "region-placeholder",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            },
+            "systemControls": []
+        }
+    ],
+    "family": "name-placeholder",
+    "taskRoleArn": "arn:aws:iam::623860924167:role/ecsTaskInstanceRole",
+    "executionRoleArn": "arn:aws:iam::623860924167:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "volumes": [
+        {
+            "name": "efs",
+            "efsVolumeConfiguration": {
+                "fileSystemId": "fs-0a37fe19d8c3843f3",
+                "rootDirectory": "/",
+                "transitEncryption": "ENABLED",
+                "authorizationConfig": {
+                    "accessPointId": "fsap-04759ab2a130965bb",
+                    "iam": "DISABLED"
+                }
+            }
+        }
+    ],
+    "placementConstraints": [],
+    "requiresCompatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "cpu": "256",
+    "memory": "512",
+    "tags": []
+}

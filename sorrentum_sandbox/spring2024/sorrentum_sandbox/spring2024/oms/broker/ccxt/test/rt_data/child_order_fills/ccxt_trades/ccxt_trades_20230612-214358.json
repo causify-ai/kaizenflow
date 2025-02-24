@@ -1,0 +1,84 @@
+[
+    {
+        "info": {
+            "symbol": "DOGEUSDT",
+            "id": "1276665255",
+            "orderId": "29807919427",
+            "side": "SELL",
+            "price": "0.061500",
+            "qty": "225",
+            "realizedPnl": "0",
+            "marginAsset": "USDT",
+            "quoteQty": "13.837500",
+            "commission": "0.00553500",
+            "commissionAsset": "USDT",
+            "time": "1686606175520",
+            "positionSide": "BOTH",
+            "buyer": false,
+            "maker": false
+        },
+        "timestamp": 1686606175520,
+        "datetime": "2023-06-12T21:42:55.520Z",
+        "symbol": "DOGE/USDT",
+        "asset_id": 3065029174,
+        "id": "1276665255",
+        "order": "29807919427",
+        "type": null,
+        "side": "sell",
+        "takerOrMaker": "taker",
+        "price": 0.0615,
+        "amount": 225.0,
+        "cost": 13.8375,
+        "fee": {
+            "cost": 0.005535,
+            "currency": "USDT"
+        },
+        "fees": [
+            {
+                "currency": "USDT",
+                "cost": 0.005535
+            }
+        ]
+    },
+    {
+        "info": {
+            "symbol": "APEUSDT",
+            "id": "382724240",
+            "orderId": "8875983387",
+            "side": "SELL",
+            "price": "2.2480",
+            "qty": "8",
+            "realizedPnl": "0",
+            "marginAsset": "USDT",
+            "quoteQty": "17.9840",
+            "commission": "0.00719360",
+            "commissionAsset": "USDT",
+            "time": "1686606176033",
+            "positionSide": "BOTH",
+            "buyer": false,
+            "maker": false
+        },
+        "timestamp": 1686606176033,
+        "datetime": "2023-06-12T21:42:56.033Z",
+        "symbol": "APE/USDT",
+        "asset_id": 6051632686,
+        "id": "382724240",
+        "order": "8875983387",
+        "type": null,
+        "side": "sell",
+        "takerOrMaker": "taker",
+        "price": 2.248,
+        "amount": 8.0,
+        "cost": 17.984,
+        "fee": {
+            "cost": 0.0071936,
+            "currency": "USDT"
+        },
+        "fees": [
+            {
+                "currency": "USDT",
+                "cost": 0.0071936
+            }
+        ]
+    }
+]

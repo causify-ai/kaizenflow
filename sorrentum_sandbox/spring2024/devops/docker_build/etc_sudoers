@@ -1,0 +1,84 @@
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults        env_reset
+Defaults        mail_badpass
+Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
+
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
+
+# Allow members of group sudo to execute any command
+%sudo   ALL=(ALL:ALL) ALL
+
+# See sudoers(5) for more information on "#include" directives:
+# Mac user.
+user_501 ALL=(ALL) NOPASSWD:ALL
+# Linux users.
+user_1000 ALL=(ALL) NOPASSWD:ALL
+user_1001 ALL=(ALL) NOPASSWD:ALL
+user_1002 ALL=(ALL) NOPASSWD:ALL
+user_1003 ALL=(ALL) NOPASSWD:ALL
+user_1004 ALL=(ALL) NOPASSWD:ALL
+user_1005 ALL=(ALL) NOPASSWD:ALL
+user_1006 ALL=(ALL) NOPASSWD:ALL
+user_1007 ALL=(ALL) NOPASSWD:ALL
+user_1008 ALL=(ALL) NOPASSWD:ALL
+user_1009 ALL=(ALL) NOPASSWD:ALL
+user_1010 ALL=(ALL) NOPASSWD:ALL
+user_1011 ALL=(ALL) NOPASSWD:ALL
+user_1012 ALL=(ALL) NOPASSWD:ALL
+user_1013 ALL=(ALL) NOPASSWD:ALL
+user_1014 ALL=(ALL) NOPASSWD:ALL
+user_1015 ALL=(ALL) NOPASSWD:ALL
+user_1016 ALL=(ALL) NOPASSWD:ALL
+user_1017 ALL=(ALL) NOPASSWD:ALL
+user_1018 ALL=(ALL) NOPASSWD:ALL
+user_1019 ALL=(ALL) NOPASSWD:ALL
+user_1020 ALL=(ALL) NOPASSWD:ALL
+user_1021 ALL=(ALL) NOPASSWD:ALL
+user_1022 ALL=(ALL) NOPASSWD:ALL
+user_1023 ALL=(ALL) NOPASSWD:ALL
+user_1024 ALL=(ALL) NOPASSWD:ALL
+user_1025 ALL=(ALL) NOPASSWD:ALL
+user_1026 ALL=(ALL) NOPASSWD:ALL
+user_1027 ALL=(ALL) NOPASSWD:ALL
+user_1028 ALL=(ALL) NOPASSWD:ALL
+user_1029 ALL=(ALL) NOPASSWD:ALL
+user_1030 ALL=(ALL) NOPASSWD:ALL
+user_1031 ALL=(ALL) NOPASSWD:ALL
+user_1032 ALL=(ALL) NOPASSWD:ALL
+user_1033 ALL=(ALL) NOPASSWD:ALL
+user_1034 ALL=(ALL) NOPASSWD:ALL
+user_1035 ALL=(ALL) NOPASSWD:ALL
+user_1036 ALL=(ALL) NOPASSWD:ALL
+user_1037 ALL=(ALL) NOPASSWD:ALL
+user_1038 ALL=(ALL) NOPASSWD:ALL
+user_1039 ALL=(ALL) NOPASSWD:ALL
+user_1040 ALL=(ALL) NOPASSWD:ALL
+user_1041 ALL=(ALL) NOPASSWD:ALL
+user_1042 ALL=(ALL) NOPASSWD:ALL
+user_1043 ALL=(ALL) NOPASSWD:ALL
+user_1044 ALL=(ALL) NOPASSWD:ALL
+user_1045 ALL=(ALL) NOPASSWD:ALL
+user_1046 ALL=(ALL) NOPASSWD:ALL
+user_1047 ALL=(ALL) NOPASSWD:ALL
+user_1048 ALL=(ALL) NOPASSWD:ALL
+user_1049 ALL=(ALL) NOPASSWD:ALL
+user_1050 ALL=(ALL) NOPASSWD:ALL
+
+#includedir /etc/sudoers.d

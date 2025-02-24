@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+# """
+# Search in all files.
+# > jack -r unit test -d hello
+# """
+
+source helpers.sh
+
+parse_jack_cmd_opts "$@"
+
+cmd="ack $ACK_OPTS --ignore-file=is:tags --ignore-file=is:cscope.out --ignore-file=is:cscope.files '$regex' $dir"
+execute_with_verbose $cmd

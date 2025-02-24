@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # Cache prediction service configuration.
+  cache_prediction:
+    build: .
+    ports:
+      - "8888:8888"
+    volumes:
+      # Mounts the current directory as a volume in the container.
+      - .:/app
+    environment:
+      # Sets an environment variable for Python buffering.
+      - PYTHONUNBUFFERED=1
+    # Command to run when starting the container.
+    command: ["jupyter", "notebook", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]
+    networks:
+      - my_network
+
+  # MongoDB service configuration.
+  mongodb:
+    image: mongo
+    ports:
+      - "27018:27017"
+    volumes:
+      # Mounts a volume for MongoDB data storage.
+      - mongodb_data:/data/db
+    networks:
+      - my_network
+
+  # Redis service configuration.
+  redis:
+    image: redis
+    ports:
+      - "6378:6379"
+    networks:
+      - my_network
+
+# Definition of custom Docker networks.
+networks:
+  my_network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+

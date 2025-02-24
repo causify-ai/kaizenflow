@@ -1,0 +1,58 @@
+#
+# Instantiate the app and a local PostgreSQL DB.
+#
+
+version: '3'
+
+services:
+  app:
+    image: ${IMAGE}
+    restart: "no"
+    depends_on:
+      - im_postgres_local
+    volumes:
+      - ../../../:/app
+      - ~/.aws:/root/.aws
+    env_file:
+      - ../env/local/im_postgres_config.env
+      - ../env/local/general.env
+    working_dir: /app
+    entrypoint: /app/im/devops/docker_build/entrypoints/entrypoint_deploy.sh
+
+  im_postgres_local:
+    image: postgres:13
+    restart: "no"
+    volumes:
+      - im_postgres_data_local:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    env_file:
+      - ../env/local/im_postgres_config.env
+
+volumes:
+  im_postgres_data_local: {}
+
+# OLD
+
+#  app:
+#    image: ${IMAGE}
+#    restart: "no"
+#    depends_on:
+#      - im_postgres_local
+#    volumes:
+#      - ../../../:/app
+#      - ~/.aws:/root/.aws
+#    env_file:
+#      - ../env/local/im_postgres_config.env
+#    working_dir: /app
+#    entrypoint: /app/im/devops/docker_build/entrypoints/entrypoint_deploy.sh
+#
+#  im_postgres_local:
+#    image: postgres:13
+#    restart: "no"
+#    volumes:
+#      - im_postgres_data_local:/var/lib/postgresql/data
+#    ports:
+#      - 5432:5450
+#    env_file:
+#      - ../env/local/im_postgres_config.env

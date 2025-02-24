@@ -1,0 +1,14 @@
+#!/bin/bash -e
+
+# """
+# Sync client and then push local commits.
+# """
+
+source helpers.sh
+
+echo "==================== git pull ===================="
+execute "git pull --autostash"
+
+echo
+echo "==================== git push ===================="
+execute "git push"

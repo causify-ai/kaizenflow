@@ -1,0 +1,8 @@
+# compute_metadata_stats_by_asset_id
+            n_years  n_unique_months  n_files
+asset_id
+1343146433        1                1        1
+# compute_universe_size_by_time
+            n_asset_ids
+year month
+2023 8                1

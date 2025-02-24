@@ -1,0 +1,30 @@
+v4
+- 2023-04-18
+- Rename okex -> okx
+- The name is adjusted inside the extractor code to fit the API
+
+v4
+- 2023-02-15
+- expand binance data
+- add okex data
+
+v3.1
+- 2022-12-21
+- Expanded to get all available trades data
+
+v3
+- 2022-10-19
+- Expanded to get the best intersection with CCXT universe `v7`
+
+top30_20220706
+- 2022-07-07
+- Universe with coinmarketcap's top 30 perpetual futures contracts
+
+v2
+- 2022-05-20
+- Universe up to date with CCXT v5 universe
+- Coinbase is added CMTask #1875
+
+v1
+- 2022-05-10
+- Universe up to date with CCXT v4 universe

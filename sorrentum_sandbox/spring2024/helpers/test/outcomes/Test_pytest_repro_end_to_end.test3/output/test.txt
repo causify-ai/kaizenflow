@@ -1,0 +1,10 @@
+HH:MM:SS - INFO  hdbg.py init_logger:1015                               > cmd='/venv/bin/invoke pytest_repro --file-name=$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test3/input/log.txt --script-name $GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test3/tmp.scratch/tmp.pytest_repro.sh'
+## pytest_repro:
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                   Reading file_name='$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test3/input/log.txt'
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                   Reading failed tests from file '$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test3/input/log.txt'
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                  Found 3 failed pytest 'tests' target(s); to reproduce run:
+pytest dataflow/core/nodes/test/test_sources.py::TestMultivariateNormalDataSource::test1
+pytest dataflow/core/test/test_builders.py::TestMvnReturnsBuilder::test1
+pytest dataflow/pipelines/real_time/test/test_dataflow_pipelines_real_time_pipeline.py::TestRealTimeMvnReturnsWithOms1::test1
+# To run the tests:
+> $GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test3/tmp.scratch/tmp.pytest_repro.sh

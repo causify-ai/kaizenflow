@@ -1,0 +1,3 @@
+call('git clean -fd >/dev/null 2>&1')
+call("git submodule foreach 'git clean -fd >/dev/null 2>&1'")
+call("find . -name '*\\.pyc' -o -name '*\\.pyo' -o -name '.coverage' -o -name '.ipynb_checkpoints' -o -name '.mypy_cache' -o -name '.pytest_cache' -o -name '__pycache__' -o -name 'cfile' -o -name 'tmp.*' -o -name '*.tmp' | sort | xargs rm -rf")

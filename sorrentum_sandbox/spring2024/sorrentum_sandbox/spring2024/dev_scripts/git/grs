@@ -1,0 +1,7 @@
+#!/bin/bash -e
+
+# """
+# git rebase --skip
+# """
+
+git rebase --skip

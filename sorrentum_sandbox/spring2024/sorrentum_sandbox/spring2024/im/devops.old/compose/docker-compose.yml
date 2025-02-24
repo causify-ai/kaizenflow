@@ -1,0 +1,19 @@
+#
+# Base compose for all the stages.
+#
+version: '3'
+
+services:
+  app:
+    image: ${IMAGE}
+    restart: "no"
+    volumes:
+      - ../../../:/app
+      # TODO(gp): Remove the stuff below?
+      - ../../../devops/docker_build/fstab:/etc/fstab
+      - ~/.aws:/root/.aws
+      - ~/.config/gspread_pandas/:/root/.config/gspread_pandas/
+    working_dir: /app
+    privileged: true
+    cap_add:
+      - SYS_ADMIN

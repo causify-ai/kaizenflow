@@ -1,0 +1,1 @@
+func(args=(4, 4) kwargs={}): trying to execute

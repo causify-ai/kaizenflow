@@ -1,0 +1,13 @@
+{
+  "mock1": {
+    "binance": [
+      "ADA_USDT"
+    ],
+    "kucoin": [
+      "ETH_USDT"
+    ],
+    "gateio": [
+      "XRP_USDT"
+    ]
+  }
+}

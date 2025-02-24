@@ -1,0 +1,146 @@
+################################################################################
+system_config
+################################################################################
+dag_config:
+  filter_ath:
+    col_mode: replace_all
+    transformer_kwargs:
+      start_time: 09:30:00
+      end_time: 16:00:00
+  resample:
+    in_col_groups: [('close',), ('volume',), ('feature1',)]
+    out_col_group: ()
+    transformer_kwargs:
+      rule: 5T
+      resampling_groups: [({'close': 'close'}, 'last', {}), ({'close': 'twap', 'feature1': 'feature1'}, 'mean', {})]
+      vwap_groups: [('close', 'volume', 'vwap')]
+    reindex_like_input: False
+    join_output_with_input: False
+  compute_ret_0:
+    in_col_groups: [('close',), ('vwap',), ('twap',)]
+    out_col_group: ()
+    transformer_kwargs:
+      mode: log_rets
+    col_mapping:
+      close: close.ret_0
+      vwap: vwap.ret_0
+      twap: twap.ret_0
+  compute_vol:
+    in_col_group: ('vwap.ret_0',)
+    out_col_group: ('vwap.ret_0.vol',)
+    drop_nans: True
+    permitted_exceptions: (<class 'ValueError'>,)
+  adjust_rets:
+    in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]
+    out_col_group: ()
+    transformer_kwargs:
+      term1_col: vwap.ret_0
+      term2_col: vwap.ret_0.vol
+      out_col: vwap.ret_0.vol_adj
+      term2_delay: 2
+      operation: div
+    drop_nans: True
+  compress_rets:
+    in_col_groups: [('vwap.ret_0.vol_adj',)]
+    out_col_group: ()
+    col_mapping:
+      vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c
+  add_lags:
+    in_col_groups: [('vwap.ret_0.vol_adj.c',)]
+    out_col_group: ()
+    transformer_kwargs:
+      lag_delay: 0
+      num_lags: 4
+      first_lag: 0
+      separator: .
+    drop_nans: True
+  predict:
+    in_col_groups: [('vwap.ret_0.vol_adj.c.lag0',), ('vwap.ret_0.vol_adj.c.lag1',), ('vwap.ret_0.vol_adj.c.lag2',), ('vwap.ret_0.vol_adj.c.lag3',)]
+    out_col_group: ()
+    transformer_kwargs:
+      weights:
+        index=[vwap.ret_0.vol_adj.c.lag0, vwap.ret_0.vol_adj.c.lag3]
+        columns=prediction
+        shape=(4, 1)
+                                   prediction
+        vwap.ret_0.vol_adj.c.lag0      -0.209
+        vwap.ret_0.vol_adj.c.lag1      -0.223
+        vwap.ret_0.vol_adj.c.lag2       0.304
+        vwap.ret_0.vol_adj.c.lag3      -0.264
+      convert_to_dataframe: True
+    drop_nans: True
+dag_builder_object: nid_prefix=
+dag_builder_class: Mock1_DagBuilder
+system_class: Mock1_NonTime_ForecastSystem
+system_log_dir: $GIT_ROOT/dataflow_amp/system/mock1/test/outcomes/Test_Mock1_NonTime_ForecastSystem_FitPredict.test_fit_over_backtest_period1/tmp.scratch/system_log_dir
+backtest_config:
+  universe_str: mock1_v1-top2
+  trading_period_str: 5T
+  time_interval_str: Jan2000
+  freq_as_pd_str: M
+  lookback_as_pd_str: 10D
+  start_timestamp_with_lookback: 2000-01-01 00:00:00+00:00
+  end_timestamp: 2000-01-31 00:00:00+00:00
+market_data_config:
+  im_client_ctor: <function get_DataFrameImClient_example1>
+  im_client_config:
+    df:
+      index=[2000-01-01 14:31:00+00:00, 2000-01-01 17:10:00+00:00]
+      columns=full_symbol,open,high,low,close,volume,feature1
+      shape=(320, 7)
+                                       full_symbol  open  high  low  close  volume  feature1
+      timestamp
+      2000-01-01 14:31:00+00:00  binance::ADA_USDT   100   101   99  101.0       0       1.0
+      2000-01-01 14:31:00+00:00  binance::BTC_USDT   100   101   99  101.0       0       1.0
+      2000-01-01 14:32:00+00:00  binance::ADA_USDT   100   101   99  101.0       1       1.0
+      ...
+      2000-01-01 17:09:00+00:00  binance::BTC_USDT   100   101   99  100.0     158      -1.0
+      2000-01-01 17:10:00+00:00  binance::ADA_USDT   100   101   99  100.0     159      -1.0
+      2000-01-01 17:10:00+00:00  binance::BTC_USDT   100   101   99  100.0     159      -1.0
+  asset_ids: [3303714233, 1467591036]
+  asset_id_col_name: asset_id
+research_forecast_evaluator_from_prices:
+  style: cross_sectional
+  init:
+    price_col: vwap
+    volatility_col: vwap.ret_0.vol
+    prediction_col: prediction
+  kwargs:
+    target_gmv: 100000.0
+    liquidate_at_end_of_day: False
+market_object: ImClientMarketData at 0x=(_asset_id_col=asset_id <str>, _asset_ids=[3303714233, 1467591036] <list>, _start_time_col_name=start_ts <str>, _end_time_col_name=end_ts <str>, _columns=None <NoneType>, _sleep_in_secs=1.0 <float>, _timezone=America/New_York <str>, _column_remap=None <NoneType>, _filter_data_mode=assert <str>, _max_iterations=120 <int>, _im_client=DataFrameImClient at 0x=(_universe=['binance::ADA_USDT', 'binance::BTC_USDT'] <list>, _vendor=data_frame <str>, _universe_version=None <NoneType>, _resample_1min=False <bool>, _timestamp_col_name=timestamp <str>, _full_symbol_col_name=None <NoneType>, _asset_id_to_full_symbol_mapping={3303714233: 'binance::ADA_USDT', 1467591036: 'binance::BTC_USDT'} <dict>, _df=pd.df((320, 7) <pandas.core.frame.DataFrame>) <im_v2.common.data.client.data_frame_im_clients.DataFrameImClient>)
+object.builder_function:
+  market_object: dataflow_amp.system.mock1.mock1_forecast_system._get_market_data
+  dag_object: dataflow_amp.system.mock1.mock1_forecast_system._get_dag
+  dag_runner_object: dataflow_amp.system.mock1.mock1_forecast_system._get_dag_runner
+dag_object: DAG at 0x=(_nx_dag=DiGraph with 9 nodes and 8 edges <networkx.classes.digraph.DiGraph>, _name=None <NoneType>, _mode=strict <str>, _save_node_io= <str>, _save_node_df_out_stats=False <bool>, _profile_execution=False <bool>, _dst_dir=None <NoneType>, force_free_nodes=False <bool>)
+dag_runner_object: FitPredictDagRunner at 0x=(config= <core.config.config_.Config>, _column_to_tags_mapping=None <NoneType>, _result_nid=predict <str>)
+################################################################################
+prediction
+################################################################################
+                           1467591036  3303714233
+end_ts
+2000-01-01 10:15:00-05:00        0.57        0.57
+2000-01-01 10:20:00-05:00       -0.57       -0.57
+2000-01-01 10:25:00-05:00        0.57        0.57
+2000-01-01 10:30:00-05:00       -0.57       -0.57
+2000-01-01 10:35:00-05:00        0.57        0.57
+2000-01-01 10:40:00-05:00       -0.57       -0.57
+2000-01-01 10:45:00-05:00        0.57        0.57
+2000-01-01 10:50:00-05:00       -0.57       -0.57
+2000-01-01 10:55:00-05:00        0.57        0.57
+2000-01-01 11:00:00-05:00       -0.57       -0.57
+2000-01-01 11:05:00-05:00        0.57        0.57
+2000-01-01 11:10:00-05:00       -0.57       -0.57
+2000-01-01 11:15:00-05:00        0.57        0.57
+2000-01-01 11:20:00-05:00       -0.57       -0.57
+2000-01-01 11:25:00-05:00        0.57        0.57
+2000-01-01 11:30:00-05:00       -0.57       -0.57
+2000-01-01 11:35:00-05:00        0.57        0.57
+2000-01-01 11:40:00-05:00       -0.57       -0.57
+2000-01-01 11:45:00-05:00        0.57        0.57
+2000-01-01 11:50:00-05:00       -0.57       -0.57
+2000-01-01 11:55:00-05:00        0.57        0.57
+2000-01-01 12:00:00-05:00       -0.57       -0.57
+2000-01-01 12:05:00-05:00        0.57        0.57
+2000-01-01 12:10:00-05:00       -0.57       -0.57

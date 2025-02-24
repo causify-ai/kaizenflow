@@ -1,0 +1,8 @@
+date        datetime64[ns]
+open               float64
+high               float64
+low                float64
+close              float64
+volume               int64
+average            float64
+barCount             int64

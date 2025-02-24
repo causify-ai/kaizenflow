@@ -1,0 +1,8 @@
+
+################################################################################
+* Failed assertion *
+'None'
+!=
+'None'
+Cannot parse `universe_version` from the Config stored at=$GIT_ROOT/reconciliation/test/outcomes/Test_extract_universe_version_from_pkl_config.test3/tmp.scratch/system_config.output.values_as_strings.pkl
+################################################################################

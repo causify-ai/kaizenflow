@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+
+  app:
+    build: ../
+    image: deliverable2_2:download_to_db
+    depends_on:
+      - postgres_db
+    volumes:
+      - app_volume_2_2:/var/lib/app/data/
+
+  postgres_db:
+    image: postgres:14
+    container_name: postgres_container
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=google_trends
+      - POSTGRES_PORT=5432
+    volumes:
+      - db_volume_2_2:/var/lib/postgresql/data/
+    ports:
+      - '5432:5432'
+
+    # command: ["postgres", "-c", "log_statement=all"]
+
+volumes:
+  app_volume_2_2:
+  db_volume_2_2:

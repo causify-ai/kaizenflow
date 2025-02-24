@@ -1,0 +1,1 @@
+call('pre-commit.sh run  --files /app/amp/helpers/test/test_lib_tasks.py 2>&1 | tee linter_warnings.txt')

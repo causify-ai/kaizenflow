@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  redis:
+    container_name: redis-server
+    image: redis:latest
+    ports:
+      - "6378:6379"
+    restart: always
+
+  notebook:
+    image: redis-image
+    container_name: notebook-server
+    ports:
+      - "8888:8888"
+    environment:
+      - REDIS_HOST=redis
+    depends_on:
+      - redis
+    volumes:
+      - .:/app

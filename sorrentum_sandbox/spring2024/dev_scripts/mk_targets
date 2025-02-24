@@ -1,0 +1,2 @@
+#!/bin/bash
+find . -name "*.mk" -o -name "Makefile" | xargs grep -H -n "^.*:$"

@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+# """
+# Open with vim all the files modified in previous commits.
+# """
+
+FILES=$(git_previous_commit_files.sh $*)
+echo "FILES=$FILES"
+vim $FILES

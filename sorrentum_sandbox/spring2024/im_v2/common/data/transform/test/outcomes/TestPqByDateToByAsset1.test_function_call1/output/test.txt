@@ -1,0 +1,159 @@
+# by_date=
+# Dir structure
+$GIT_ROOT/im_v2/common/data/transform/test/TestPqByDateToByAsset1.test_function_call1/tmp.scratch/by_date
+$GIT_ROOT/im_v2/common/data/transform/test/TestPqByDateToByAsset1.test_function_call1/tmp.scratch/by_date/date=20211230
+$GIT_ROOT/im_v2/common/data/transform/test/TestPqByDateToByAsset1.test_function_call1/tmp.scratch/by_date/date=20211230/data.parquet
+$GIT_ROOT/im_v2/common/data/transform/test/TestPqByDateToByAsset1.test_function_call1/tmp.scratch/by_date/date=20211231
+$GIT_ROOT/im_v2/common/data/transform/test/TestPqByDateToByAsset1.test_function_call1/tmp.scratch/by_date/date=20211231/data.parquet
+$GIT_ROOT/im_v2/common/data/transform/test/TestPqByDateToByAsset1.test_function_call1/tmp.scratch/by_date/date=20220101
+$GIT_ROOT/im_v2/common/data/transform/test/TestPqByDateToByAsset1.test_function_call1/tmp.scratch/by_date/date=20220101/data.parquet
+# File signatures
+len(file_names)=3
+file_names=$GIT_ROOT/im_v2/common/data/transform/test/TestPqByDateToByAsset1.test_function_call1/tmp.scratch/by_date/date=20211230/data.parquet, $GIT_ROOT/im_v2/common/data/transform/test/TestPqByDateToByAsset1.test_function_call1/tmp.scratch/by_date/date=20211231/data.parquet, $GIT_ROOT/im_v2/common/data/transform/test/TestPqByDateToByAsset1.test_function_call1/tmp.scratch/by_date/date=20220101/data.parquet
+# $GIT_ROOT/im_v2/common/data/transform/test/TestPqByDateToByAsset1.test_function_call1/tmp.scratch/by_date/date=20211230/data.parquet
+num_lines=43
+'''
+original shape=(72, 4)
+Head:
+{
+    "2021-12-30T00:00:00Z":{
+        "idx":0,
+        "asset":"A",
+        "val1":0,
+        "val2":0
+    },
+    "2021-12-30T01:00:00Z":{
+        "idx":0,
+        "asset":"A",
+        "val1":1,
+        "val2":1
+    },
+    "2021-12-30T02:00:00Z":{
+        "idx":0,
+        "asset":"A",
+        "val1":2,
+        "val2":2
+    }
+}
+Tail:
+{
+    "2021-12-30T21:00:00Z":{
+        "idx":2,
+        "asset":"C",
+        "val1":21,
+        "val2":21
+    },
+    "2021-12-30T22:00:00Z":{
+        "idx":2,
+        "asset":"C",
+        "val1":22,
+        "val2":22
+    },
+    "2021-12-30T23:00:00Z":{
+        "idx":2,
+        "asset":"C",
+        "val1":23,
+        "val2":23
+    }
+}
+'''
+# $GIT_ROOT/im_v2/common/data/transform/test/TestPqByDateToByAsset1.test_function_call1/tmp.scratch/by_date/date=20211231/data.parquet
+num_lines=43
+'''
+original shape=(72, 4)
+Head:
+{
+    "2021-12-31T00:00:00Z":{
+        "idx":0,
+        "asset":"A",
+        "val1":24,
+        "val2":24
+    },
+    "2021-12-31T01:00:00Z":{
+        "idx":0,
+        "asset":"A",
+        "val1":25,
+        "val2":25
+    },
+    "2021-12-31T02:00:00Z":{
+        "idx":0,
+        "asset":"A",
+        "val1":26,
+        "val2":26
+    }
+}
+Tail:
+{
+    "2021-12-31T21:00:00Z":{
+        "idx":2,
+        "asset":"C",
+        "val1":45,
+        "val2":45
+    },
+    "2021-12-31T22:00:00Z":{
+        "idx":2,
+        "asset":"C",
+        "val1":46,
+        "val2":46
+    },
+    "2021-12-31T23:00:00Z":{
+        "idx":2,
+        "asset":"C",
+        "val1":47,
+        "val2":47
+    }
+}
+'''
+# $GIT_ROOT/im_v2/common/data/transform/test/TestPqByDateToByAsset1.test_function_call1/tmp.scratch/by_date/date=20220101/data.parquet
+num_lines=43
+'''
+original shape=(72, 4)
+Head:
+{
+    "2022-01-01T00:00:00Z":{
+        "idx":0,
+        "asset":"A",
+        "val1":48,
+        "val2":48
+    },
+    "2022-01-01T01:00:00Z":{
+        "idx":0,
+        "asset":"A",
+        "val1":49,
+        "val2":49
+    },
+    "2022-01-01T02:00:00Z":{
+        "idx":0,
+        "asset":"A",
+        "val1":50,
+        "val2":50
+    }
+}
+Tail:
+{
+    "2022-01-01T21:00:00Z":{
+        "idx":2,
+        "asset":"C",
+        "val1":69,
+        "val2":69
+    },
+    "2022-01-01T22:00:00Z":{
+        "idx":2,
+        "asset":"C",
+        "val1":70,
+        "val2":70
+    },
+    "2022-01-01T23:00:00Z":{
+        "idx":2,
+        "asset":"C",
+        "val1":71,
+        "val2":71
+    }
+}
+'''
+# by_asset=
+# Dir structure
+$GIT_ROOT/im_v2/common/data/transform/test/TestPqByDateToByAsset1.test_function_call1/tmp.scratch/by_asset
+# File signatures
+len(file_names)=0
+file_names=

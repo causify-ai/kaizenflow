@@ -1,0 +1,325 @@
+============================= test session starts ==============================
+platform linux -- Python 3.8.10, pytest-6.2.5, py-1.11.0, pluggy-1.0.0 -- /venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /app, configfile: pytest.ini
+plugins: flaky-3.7.0, timeout-2.0.2, rerunfailures-10.2, cov-3.0.0, instafail-0.4.2, xdist-2.5.0, forked-1.4.0
+collecting ... >>ENV<<: is_inside_container=True: code_version=1.0.6, container_version=1.0.6, is_inside_docker=True, is_inside_ci=False, CI_defined=True, CI=''
+>>ENV<<: AM_AWS_PROFILE=True AM_ECR_BASE_PATH=True AM_S3_BUCKET=True AM_TELEGRAM_TOKEN=True AWS_ACCESS_KEY_ID=False AWS_DEFAULT_REGION=False AWS_SECRET_ACCESS_KEY=False GH_ACTION_ACCESS_TOKEN=True
+# Git
+    branch_name='CmTask695_Unify_pytest_outputs_for_run_fast_slow_tests'
+    hash='ca2dbf510'
+    # Last commits:
+      *   ca2dbf510 Sonya Nikiforova Merge branch 'master' into CmTask695_Unify_pytest_outputs_for_run_fast_slow_tests (   2 hours ago) Mon Feb 14 16:25:29 2022  (HEAD -> CmTask695_Unify_pytest_outputs_for_run_fast_slow_tests, origin/CmTask695_Unify_pytest_outputs_for_run_fast_slow_tests)
+      |\
+      * | 63a471cca sonniki  CmTask695: Update for reproducibility                             (   2 hours ago) Mon Feb 14 16:15:14 2022
+      | * 0d236ad57 Nikola Jašek CMTask1103: Add tests for HistoricalPqByTileClient (#1176)        (   2 hours ago) Mon Feb 14 16:01:56 2022  (origin/master, origin/HEAD)
+# Machine info
+    system=Linux
+    node name=61ceebd0998a
+    release=5.11.0-1028-aws
+    version=#31~20.04.1-Ubuntu SMP Fri Jan 14 14:37:50 UTC 2022
+    machine=x86_64
+    processor=x86_64
+    cpu count=8
+    cpu freq=scpufreq(current=2499.998, min=0.0, max=0.0)
+    memory=svmem(total=33295769600, available=23499386880, percent=29.4, used=9048117248, free=17212899328, active=2693218304, inactive=12081451008, buffers=651313152, cached=6383439872, shared=286130176, slab=934486016)
+    disk usage=sdiskusage(total=104021790720, used=40223850496, free=63781163008, percent=38.7)
+# Packages
+    python: 3.8.10
+    gluonnlp: ?
+    gluonts: 0.6.7
+    joblib: 1.1.0
+    mxnet: 1.9.0
+    numpy: 1.22.0
+    pandas: 1.3.5
+    pyarrow: 6.0.1
+    scipy: 1.6.1
+    seaborn: 0.11.2
+    sklearn: 1.0.2
+    statsmodels: 0.13.1
+[0m[36mINFO[0m: > cmd='/venv/bin/pytest im_v2/common/data/client/test/test_historical_pq_clients.py'
+[36mINFO[0m: Saving log to file 'tmp.pytest.log'
+collected 9 items
+
+im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_get_end_ts_for_symbol1 (1.14 s) PASSED [ 11%]
+im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_get_start_ts_for_symbol1 (1.05 s) PASSED [ 22%]
+im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_get_universe1 (0.00 s) PASSED [ 33%]
+im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_read_data1 (1.26 s) FAILED [ 44%]
+im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_read_data2 (1.44 s) FAILED [ 55%]
+im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_read_data3 (1.09 s) FAILED [ 66%]
+im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_read_data4 (0.95 s) FAILED [ 77%]
+im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_read_data5 (0.86 s) FAILED [ 88%]
+im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_read_data6 (1.05 s) PASSED [100%]
+
+=================================== FAILURES ===================================
+________________ TestHistoricalPqByTileClient1.test_read_data1 _________________
+Traceback (most recent call last):
+  File "/app/im_v2/common/data/client/test/test_historical_pq_clients.py", line 89, in test_read_data1
+    self._test_read_data1(
+  File "/app/im_v2/common/data/client/test/im_client_test_case.py", line 44, in _test_read_data1
+    self.check_df_output(actual_df, *args, **kwargs)
+  File "/app/helpers/hunit_test.py", line 1516, in check_df_output
+    self.assert_equal(
+  File "/app/helpers/hunit_test.py", line 1230, in assert_equal
+    is_equal = assert_equal(
+  File "/app/helpers/hunit_test.py", line 957, in assert_equal
+    diff_files(
+  File "/app/helpers/hunit_test.py", line 666, in diff_files
+    raise RuntimeError(msg_as_str)
+RuntimeError:
+--------------------------------------------------------------------------------
+FUZZY ACTUAL vs EXPECTED: TestHistoricalPqByTileClient1.test_read_data1
+--------------------------------------------------------------------------------
+
+# df=                                                                     (
+index=[2021-12-30 00:00:00+00:00, 2022-01-01 23:59:00+00:00]              |  df.index in [2021-12-30 00:00:00+00:00, 2022-01-01 23:59:00+00:00]
+columns=full_symbol,close,year,month                                      |  df.columns=full_symbol,close,year,month
+shape=(4320, 4)                                                           |  df.shape=(4320, 4)
+full_symbol close year month                                              (
+timestamp                                                                 (
+2021-12-30 00:00:00+00:00 1467591036 0 2021 12                            (
+2021-12-30 00:01:00+00:00 1467591036 1 2021 12                            (
+2021-12-30 00:02:00+00:00 1467591036 2 2021 12                            (
+...                                                                       (
+2022-01-01 23:57:00+00:00 1467591036 4317 2022 1                          (
+2022-01-01 23:58:00+00:00 1467591036 4318 2022 1                          (
+2022-01-01 23:59:00+00:00 1467591036 4319 2022 1                          (
+Diff with:
+> vimdiff im_v2/common/data/client/test/TestHistoricalPqByTileClient1.test_read_data1/tmp.actual.txt im_v2/common/data/client/test/TestHistoricalPqByTileClient1.test_read_data1/tmp.expected.txt
+or running:
+> ./tmp_diff.sh
+--------------------------------------------------------------------------------
+EXPECTED VARIABLE: TestHistoricalPqByTileClient1.test_read_data1
+--------------------------------------------------------------------------------
+exp = r"""# df=
+index=[2021-12-30 00:00:00+00:00, 2022-01-01 23:59:00+00:00]
+columns=full_symbol,close,year,month
+shape=(4320, 4)
+                           full_symbol  close  year month
+timestamp
+2021-12-30 00:00:00+00:00   1467591036      0  2021    12
+2021-12-30 00:01:00+00:00   1467591036      1  2021    12
+2021-12-30 00:02:00+00:00   1467591036      2  2021    12
+...
+2022-01-01 23:57:00+00:00   1467591036   4317  2022     1
+2022-01-01 23:58:00+00:00   1467591036   4318  2022     1
+2022-01-01 23:59:00+00:00   1467591036   4319  2022     1"""
+________________ TestHistoricalPqByTileClient1.test_read_data2 _________________
+Traceback (most recent call last):
+  File "/app/im_v2/common/data/client/test/test_historical_pq_clients.py", line 132, in test_read_data2
+    self._test_read_data2(
+  File "/app/im_v2/common/data/client/test/im_client_test_case.py", line 61, in _test_read_data2
+    self.check_df_output(actual_df, *args, **kwargs)
+  File "/app/helpers/hunit_test.py", line 1516, in check_df_output
+    self.assert_equal(
+  File "/app/helpers/hunit_test.py", line 1230, in assert_equal
+    is_equal = assert_equal(
+  File "/app/helpers/hunit_test.py", line 957, in assert_equal
+    diff_files(
+  File "/app/helpers/hunit_test.py", line 666, in diff_files
+    raise RuntimeError(msg_as_str)
+RuntimeError:
+--------------------------------------------------------------------------------
+FUZZY ACTUAL vs EXPECTED: TestHistoricalPqByTileClient1.test_read_data2
+--------------------------------------------------------------------------------
+
+# df=                                                                     (
+index=[2021-12-30 00:00:00+00:00, 2022-01-01 23:59:00+00:00]              |  df.index in [2021-12-30 00:00:00+00:00, 2022-01-01 23:59:00+00:00]
+columns=full_symbol,close,year,month                                      |  df.columns=full_symbol,close,year,month
+shape=(8640, 4)                                                           |  df.shape=(8640, 4)
+full_symbol close year month                                              (
+timestamp                                                                 (
+2021-12-30 00:00:00+00:00 1467591036 0 2021 12                            (
+2021-12-30 00:00:00+00:00 1508924190 0 2021 12                            (
+2021-12-30 00:01:00+00:00 1467591036 1 2021 12                            (
+...                                                                       (
+2022-01-01 23:58:00+00:00 1508924190 4318 2022 1                          (
+2022-01-01 23:59:00+00:00 1467591036 4319 2022 1                          (
+2022-01-01 23:59:00+00:00 1508924190 4319 2022 1                          (
+Diff with:
+> vimdiff im_v2/common/data/client/test/TestHistoricalPqByTileClient1.test_read_data2/tmp.actual.txt im_v2/common/data/client/test/TestHistoricalPqByTileClient1.test_read_data2/tmp.expected.txt
+or running:
+> ./tmp_diff.sh
+--------------------------------------------------------------------------------
+EXPECTED VARIABLE: TestHistoricalPqByTileClient1.test_read_data2
+--------------------------------------------------------------------------------
+exp = r"""# df=
+index=[2021-12-30 00:00:00+00:00, 2022-01-01 23:59:00+00:00]
+columns=full_symbol,close,year,month
+shape=(8640, 4)
+                           full_symbol  close  year month
+timestamp
+2021-12-30 00:00:00+00:00   1467591036      0  2021    12
+2021-12-30 00:00:00+00:00   1508924190      0  2021    12
+2021-12-30 00:01:00+00:00   1467591036      1  2021    12
+...
+2022-01-01 23:58:00+00:00   1508924190   4318  2022     1
+2022-01-01 23:59:00+00:00   1467591036   4319  2022     1
+2022-01-01 23:59:00+00:00   1508924190   4319  2022     1"""
+________________ TestHistoricalPqByTileClient1.test_read_data3 _________________
+Traceback (most recent call last):
+  File "/app/im_v2/common/data/client/test/test_historical_pq_clients.py", line 176, in test_read_data3
+    self._test_read_data3(
+  File "/app/im_v2/common/data/client/test/im_client_test_case.py", line 79, in _test_read_data3
+    self.check_df_output(actual_df, *args, **kwargs)
+  File "/app/helpers/hunit_test.py", line 1516, in check_df_output
+    self.assert_equal(
+  File "/app/helpers/hunit_test.py", line 1230, in assert_equal
+    is_equal = assert_equal(
+  File "/app/helpers/hunit_test.py", line 957, in assert_equal
+    diff_files(
+  File "/app/helpers/hunit_test.py", line 666, in diff_files
+    raise RuntimeError(msg_as_str)
+RuntimeError:
+--------------------------------------------------------------------------------
+FUZZY ACTUAL vs EXPECTED: TestHistoricalPqByTileClient1.test_read_data3
+--------------------------------------------------------------------------------
+
+# df=                                                                     (
+index=[2022-01-01 02:00:00+00:00, 2022-01-01 23:59:00+00:00]              |  df.index in [2022-01-01 02:00:00+00:00, 2022-01-01 23:59:00+00:00]
+columns=full_symbol,close,year,month                                      |  df.columns=full_symbol,close,year,month
+shape=(2640, 4)                                                           |  df.shape=(2640, 4)
+full_symbol close year month                                              (
+timestamp                                                                 (
+2022-01-01 02:00:00+00:00 1467591036 3000 2022 1                          (
+2022-01-01 02:00:00+00:00 1508924190 3000 2022 1                          (
+2022-01-01 02:01:00+00:00 1467591036 3001 2022 1                          (
+...                                                                       (
+2022-01-01 23:58:00+00:00 1508924190 4318 2022 1                          (
+2022-01-01 23:59:00+00:00 1467591036 4319 2022 1                          (
+2022-01-01 23:59:00+00:00 1508924190 4319 2022 1                          (
+Diff with:
+> vimdiff im_v2/common/data/client/test/TestHistoricalPqByTileClient1.test_read_data3/tmp.actual.txt im_v2/common/data/client/test/TestHistoricalPqByTileClient1.test_read_data3/tmp.expected.txt
+or running:
+> ./tmp_diff.sh
+--------------------------------------------------------------------------------
+EXPECTED VARIABLE: TestHistoricalPqByTileClient1.test_read_data3
+--------------------------------------------------------------------------------
+exp = r"""# df=
+index=[2022-01-01 02:00:00+00:00, 2022-01-01 23:59:00+00:00]
+columns=full_symbol,close,year,month
+shape=(2640, 4)
+                           full_symbol  close  year month
+timestamp
+2022-01-01 02:00:00+00:00   1467591036   3000  2022     1
+2022-01-01 02:00:00+00:00   1508924190   3000  2022     1
+2022-01-01 02:01:00+00:00   1467591036   3001  2022     1
+...
+2022-01-01 23:58:00+00:00   1508924190   4318  2022     1
+2022-01-01 23:59:00+00:00   1467591036   4319  2022     1
+2022-01-01 23:59:00+00:00   1508924190   4319  2022     1"""
+________________ TestHistoricalPqByTileClient1.test_read_data4 _________________
+Traceback (most recent call last):
+  File "/app/im_v2/common/data/client/test/test_historical_pq_clients.py", line 221, in test_read_data4
+    self._test_read_data4(
+  File "/app/im_v2/common/data/client/test/im_client_test_case.py", line 97, in _test_read_data4
+    self.check_df_output(actual_df, *args, **kwargs)
+  File "/app/helpers/hunit_test.py", line 1516, in check_df_output
+    self.assert_equal(
+  File "/app/helpers/hunit_test.py", line 1230, in assert_equal
+    is_equal = assert_equal(
+  File "/app/helpers/hunit_test.py", line 957, in assert_equal
+    diff_files(
+  File "/app/helpers/hunit_test.py", line 666, in diff_files
+    raise RuntimeError(msg_as_str)
+RuntimeError:
+--------------------------------------------------------------------------------
+FUZZY ACTUAL vs EXPECTED: TestHistoricalPqByTileClient1.test_read_data4
+--------------------------------------------------------------------------------
+
+# df=                                                                     (
+index=[2021-12-30 00:00:00+00:00, 2022-01-01 02:00:00+00:00]              |  df.index in [2021-12-30 00:00:00+00:00, 2022-01-01 02:00:00+00:00]
+columns=full_symbol,close,year,month                                      |  df.columns=full_symbol,close,year,month
+shape=(6002, 4)                                                           |  df.shape=(6002, 4)
+full_symbol close year month                                              (
+timestamp                                                                 (
+2021-12-30 00:00:00+00:00 1467591036 0 2021 12                            (
+2021-12-30 00:00:00+00:00 1508924190 0 2021 12                            (
+2021-12-30 00:01:00+00:00 1467591036 1 2021 12                            (
+...                                                                       (
+2022-01-01 01:59:00+00:00 1508924190 2999 2022 1                          (
+2022-01-01 02:00:00+00:00 1467591036 3000 2022 1                          (
+2022-01-01 02:00:00+00:00 1508924190 3000 2022 1                          (
+Diff with:
+> vimdiff im_v2/common/data/client/test/TestHistoricalPqByTileClient1.test_read_data4/tmp.actual.txt im_v2/common/data/client/test/TestHistoricalPqByTileClient1.test_read_data4/tmp.expected.txt
+or running:
+> ./tmp_diff.sh
+--------------------------------------------------------------------------------
+EXPECTED VARIABLE: TestHistoricalPqByTileClient1.test_read_data4
+--------------------------------------------------------------------------------
+exp = r"""# df=
+index=[2021-12-30 00:00:00+00:00, 2022-01-01 02:00:00+00:00]
+columns=full_symbol,close,year,month
+shape=(6002, 4)
+                           full_symbol  close  year month
+timestamp
+2021-12-30 00:00:00+00:00   1467591036      0  2021    12
+2021-12-30 00:00:00+00:00   1508924190      0  2021    12
+2021-12-30 00:01:00+00:00   1467591036      1  2021    12
+...
+2022-01-01 01:59:00+00:00   1508924190   2999  2022     1
+2022-01-01 02:00:00+00:00   1467591036   3000  2022     1
+2022-01-01 02:00:00+00:00   1508924190   3000  2022     1"""
+________________ TestHistoricalPqByTileClient1.test_read_data5 _________________
+Traceback (most recent call last):
+  File "/app/im_v2/common/data/client/test/test_historical_pq_clients.py", line 267, in test_read_data5
+    self._test_read_data5(
+  File "/app/im_v2/common/data/client/test/im_client_test_case.py", line 114, in _test_read_data5
+    self.check_df_output(actual_df, *args, **kwargs)
+  File "/app/helpers/hunit_test.py", line 1516, in check_df_output
+    self.assert_equal(
+  File "/app/helpers/hunit_test.py", line 1230, in assert_equal
+    is_equal = assert_equal(
+  File "/app/helpers/hunit_test.py", line 957, in assert_equal
+    diff_files(
+  File "/app/helpers/hunit_test.py", line 666, in diff_files
+    raise RuntimeError(msg_as_str)
+RuntimeError:
+--------------------------------------------------------------------------------
+FUZZY ACTUAL vs EXPECTED: TestHistoricalPqByTileClient1.test_read_data5
+--------------------------------------------------------------------------------
+
+# df=                                                                     (
+index=[2021-12-31 23:00:00+00:00, 2022-01-01 01:00:00+00:00]              |  df.index in [2021-12-31 23:00:00+00:00, 2022-01-01 01:00:00+00:00]
+columns=full_symbol,close,year,month                                      |  df.columns=full_symbol,close,year,month
+shape=(242, 4)                                                            |  df.shape=(242, 4)
+full_symbol close year month                                              (
+timestamp                                                                 (
+2021-12-31 23:00:00+00:00 1467591036 2820 2021 12                         (
+2021-12-31 23:00:00+00:00 1508924190 2820 2021 12                         (
+2021-12-31 23:01:00+00:00 1467591036 2821 2021 12                         (
+...                                                                       (
+2022-01-01 00:59:00+00:00 1508924190 2939 2022 1                          (
+2022-01-01 01:00:00+00:00 1467591036 2940 2022 1                          (
+2022-01-01 01:00:00+00:00 1508924190 2940 2022 1                          (
+Diff with:
+> vimdiff im_v2/common/data/client/test/TestHistoricalPqByTileClient1.test_read_data5/tmp.actual.txt im_v2/common/data/client/test/TestHistoricalPqByTileClient1.test_read_data5/tmp.expected.txt
+or running:
+> ./tmp_diff.sh
+--------------------------------------------------------------------------------
+EXPECTED VARIABLE: TestHistoricalPqByTileClient1.test_read_data5
+--------------------------------------------------------------------------------
+exp = r"""# df=
+index=[2021-12-31 23:00:00+00:00, 2022-01-01 01:00:00+00:00]
+columns=full_symbol,close,year,month
+shape=(242, 4)
+                           full_symbol  close  year month
+timestamp
+2021-12-31 23:00:00+00:00   1467591036   2820  2021    12
+2021-12-31 23:00:00+00:00   1508924190   2820  2021    12
+2021-12-31 23:01:00+00:00   1467591036   2821  2021    12
+...
+2022-01-01 00:59:00+00:00   1508924190   2939  2022     1
+2022-01-01 01:00:00+00:00   1467591036   2940  2022     1
+2022-01-01 01:00:00+00:00   1508924190   2940  2022     1"""
+============================= slowest 3 durations ==============================
+1.44s call     im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_read_data2
+1.26s call     im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_read_data1
+1.14s call     im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_get_end_ts_for_symbol1
+=========================== short test summary info ============================
+FAILED im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_read_data1
+FAILED im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_read_data2
+FAILED im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_read_data3
+FAILED im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_read_data4
+FAILED im_v2/common/data/client/test/test_historical_pq_clients.py::TestHistoricalPqByTileClient1::test_read_data5
+========================= 5 failed, 4 passed in 10.94s =========================

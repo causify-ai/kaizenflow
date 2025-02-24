@@ -1,0 +1,8 @@
+google_search_results
+pandas
+psycopg2_binary
+python-dotenv
+dask
+matplotlib
+pmdarima
+statsmodels

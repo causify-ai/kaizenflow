@@ -1,0 +1,6 @@
+#!/bin/bash -xe
+
+file=$1.$(timestamp)
+echo "Saving to $file"
+cp -a $1 $file
+chmod -w $file

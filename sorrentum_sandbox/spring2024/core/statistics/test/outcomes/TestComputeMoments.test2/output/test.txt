@@ -1,0 +1,5 @@
+                  arma(2,2)
+moments_mean      -0.487324
+moments_std        1.608697
+moments_skew       0.596852
+moments_kurtosis  -0.515455

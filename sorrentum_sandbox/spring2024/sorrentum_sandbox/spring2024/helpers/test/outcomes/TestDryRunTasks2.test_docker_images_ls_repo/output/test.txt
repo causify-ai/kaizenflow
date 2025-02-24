@@ -1,0 +1,2 @@
+call('eval $(aws ecr get-login --no-include-email --region us-east-1)')
+call('docker image ls 665840871993.dkr.ecr.us-east-1.amazonaws.com')

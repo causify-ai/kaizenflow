@@ -1,0 +1,29 @@
+################################################################################
+rets_pos
+################################################################################
+            pos  rets  bet_rets
+2010-12-29    1     1       NaN
+2010-12-30    2     2       5.0
+2010-12-31    0     3       NaN
+2011-01-01    1     5       5.0
+2011-01-02   -3     7       NaN
+2011-01-03   -2    11     -43.0
+2011-01-04    0   -13       NaN
+2011-01-05   -1    -5       5.0
+################################################################################
+stats
+################################################################################
+                                             0
+num_positions                                6
+num_bets                                     4
+long_bets_frac                             0.5
+mean_num_bets_per_year                 182.625
+mean_bet_length                            1.5
+bet_length_units                           Day
+bet_hit_rate_point_est_(%)                75.0
+bet_hit_rate_97.50%CI_lower_bound_(%)   28.375
+bet_hit_rate_97.50%CI_upper_bound_(%)   97.153
+mean_return_winning_bets                   5.0
+mean_return_losing_bets                  -43.0
+mean_return_long_bet                       5.0
+mean_return_short_bet                    -19.0

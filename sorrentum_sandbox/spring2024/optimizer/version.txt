@@ -1,0 +1,6 @@
+amp-1.1.1
+
+# 1.1.0, 2021-05-07
+# - Add ib_insync to poetry
+# 1.1.1, 2021-05-10
+# - Minor fixes

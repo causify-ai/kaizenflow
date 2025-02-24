@@ -1,0 +1,11 @@
+#
+# Mount as supermodule.
+#
+version: '3'
+
+services:
+  app:
+    volumes:
+      # TODO(gp): Some of the volumes that are not common to `lm` and `amp`
+      # should be factored out so we can use links.
+      - ../..:/app

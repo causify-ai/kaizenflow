@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+# """
+# Accept our changes in case of a conflict.
+# """
+
+source helpers.sh
+
+FILES=$*
+echo "Accepting our version of $FILES"
+#cp $* $*.$(timestamp)
+execute "git checkout --ours $FILES"
+execute "git add $FILES"

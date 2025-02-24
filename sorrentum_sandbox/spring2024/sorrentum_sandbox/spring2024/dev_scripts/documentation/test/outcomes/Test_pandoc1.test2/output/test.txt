@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>tmp.pandoc.no_spaces.txt</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {  background-color: #f8f8f8; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ef2929; } /* Alert */
+    code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #c4a000; } /* Attribute */
+    code span.bn { color: #0000cf; } /* BaseN */
+    code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4e9a06; } /* Char */
+    code span.cn { color: #000000; } /* Constant */
+    code span.co { color: #8f5902; font-style: italic; } /* Comment */
+    code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+    code span.dt { color: #204a87; } /* DataType */
+    code span.dv { color: #0000cf; } /* DecVal */
+    code span.er { color: #a40000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #0000cf; } /* Float */
+    code span.fu { color: #000000; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+    code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+    code span.ot { color: #8f5902; } /* Other */
+    code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+    code span.sc { color: #000000; } /* SpecialChar */
+    code span.ss { color: #4e9a06; } /* SpecialString */
+    code span.st { color: #4e9a06; } /* String */
+    code span.va { color: #000000; } /* Variable */
+    code span.vs { color: #4e9a06; } /* VerbatimString */
+    code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#style-guide-references"><span class="toc-section-number">1</span> Style guide references</a>
+<ul>
+<li><a href="#reference"><span class="toc-section-number">1.1</span> Reference</a></li>
+</ul></li>
+<li><a href="#comments"><span class="toc-section-number">2</span> Comments</a>
+<ul>
+<li><a href="#docstring-conventions"><span class="toc-section-number">2.1</span> Docstring conventions</a></li>
+<li><a href="#rest-style"><span class="toc-section-number">2.2</span> reST style</a></li>
+<li><a href="#descriptive-vs-imperative-style"><span class="toc-section-number">2.3</span> Descriptive vs imperative style</a></li>
+</ul></li>
+<li><a href="#logging"><span class="toc-section-number">3</span> Logging</a>
+<ul>
+<li><a href="#always-use-logging-instead-of-prints"><span class="toc-section-number">3.1</span> Always use logging instead of prints</a></li>
+<li><a href="#our-logging-idiom"><span class="toc-section-number">3.2</span> Our logging idiom</a></li>
+<li><a href="#logging-level"><span class="toc-section-number">3.3</span> Logging level</a></li>
+<li><a href="#use-positional-args-when-logging"><span class="toc-section-number">3.4</span> Use positional args when logging</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 data-number="1" id="style-guide-references"><span class="header-section-number">1</span> Style guide references</h1>
+<ul>
+<li>We care about at consistency rather than arguing about which approach is better
+<ul>
+<li>E.g., see “tab vs space” flame-war from the 90s</li>
+</ul></li>
+<li>Unless explicitly noted we prefer to follow the style guide below</li>
+<li>As a rule of thumb we default to Google style unless Python community (in the form of PEP) or tools we rely favor another style</li>
+</ul>
+<h2 data-number="1.1" id="reference"><span class="header-section-number">1.1</span> Reference</h2>
+<ul>
+<li>Google Python Style Guide (GPSG)
+<ul>
+<li><code>https://google.github.io/styleguide/pyguide.html</code></li>
+</ul></li>
+<li>Commenting style
+<ul>
+<li><code>http://www.sphinx-doc.org/en/master/</code></li>
+<li><code>https://thomas-cokelaer.info/tutorials/sphinx/docstring_python.html</code></li>
+</ul></li>
+<li>Code convention PEP8
+<ul>
+<li><code>https://www.python.org/dev/peps/pep-0008/</code></li>
+</ul></li>
+<li>Documentation best practices
+<ul>
+<li><code>https://github.com/google/styleguide/blob/gh-pages/docguide/best_practices.md</code></li>
+</ul></li>
+<li>Philosophical stuff
+<ul>
+<li><code>https://github.com/google/styleguide/blob/gh-pages/docguide/philosophy.md</code></li>
+</ul></li>
+<li>Unix rules (although a bit cryptic sometimes)
+<ul>
+<li><code>https://en.wikipedia.org/wiki/Unix_philosophy#Eric_Raymond%E2%80%99s_17_Unix_Rules</code></li>
+</ul></li>
+</ul>
+<h1 data-number="2" id="comments"><span class="header-section-number">2</span> Comments</h1>
+<h2 data-number="2.1" id="docstring-conventions"><span class="header-section-number">2.1</span> Docstring conventions</h2>
+<ul>
+<li>Code needs to be properly commented</li>
+<li>We follow python standard <a href="https://www.python.org/dev/peps/pep-0257/">PEP257</a> for commenting
+<ul>
+<li>PEP257 standardizes what and how comments should be expressed (e.g., use a triple quotes for commenting a function), but it does not specify what markup syntax should be used to describe comments</li>
+</ul></li>
+<li>Different conventions have been developed for documenting interfaces
+<ul>
+<li>reST</li>
+<li>Google (which is cross-language, e.g., C++, python, …)</li>
+<li>epytext</li>
+<li>numpydoc</li>
+</ul></li>
+</ul>
+<h2 data-number="2.2" id="rest-style"><span class="header-section-number">2.2</span> reST style</h2>
+<ul>
+<li>reST (aka re-Structured Text) style is:
+<ul>
+<li>the most widely supported in the python commpunity</li>
+<li>supported by all doc generation tools (e.g., epydoc, sphinx)</li>
+<li>default in pycharm</li>
+<li>default in pyment</li>
+<li>supported by pydocstyle (which does not support Google style as explained <a href="https://github.com/PyCQA/pydocstyle/issues/275">here</a>)</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">This is a reST style.</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">:param param1: this is a first param</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="co">:type param1: str</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">:param param2: this is a second param</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="co">:type param2: int</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a><span class="co">:returns: this is a description of what is returned</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co">:rtype: bool</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a><span class="co">:raises keyError: raises an exception</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">&quot;&quot;&quot;</span></span></code></pre></div></li>
+</ul>
+<h2 data-number="2.3" id="descriptive-vs-imperative-style"><span class="header-section-number">2.3</span> Descriptive vs imperative style</h2>
+<ul>
+<li><p>GPSG suggests to use descriptive style of comments, e.g., “This function does this and that”, instead than imperative style “Do this and that”</p></li>
+<li><p><a href="https://www.python.org/dev/peps/pep-0257/">PEP-257</a></p>
+<pre><code>```
+The docstring is a phrase ending in a period. It prescribes the function or
+method&#39;s effect as a command (&quot;Do this&quot;, &quot;Return that&quot;), not as a description;
+e.g. don&#39;t write &quot;Returns the pathname ...&quot;.
+```</code></pre>
+<ul>
+<li>pylint and other python QA tools favor an imperative style</li>
+<li>Since we prefer to rely on automatic checks, we decided to use an imperative style of comments</li>
+</ul></li>
+</ul>
+<h3 data-number="2.3.1" id="alternate-parameter-description-and-type"><span class="header-section-number">2.3.1</span> Alternate parameter description and type</h3>
+<ul>
+<li><p>We prefer to alternate param description and its type so the docstring below, although good, does not follow our convention *Bad**</p>
+<pre><code>```python
+:param data: CB data
+:param metrics: CB metrics
+:param fill_na_w_zero: If True, fill NaN values with zeros.
+
+:type data: pd.DataFrame
+:type metrics: list of str
+:type fill_na_w_zero: bool
+
+:returns data_merged: Data with two metrics added together.
+:rtype data_merged: pd.DataFrame
+```</code></pre></li>
+<li><p>The code should be changed into: <strong>Good</strong></p>
+<pre><code>```python
+:param data: CB data
+:type data: pd.DataFrame
+:param metrics: CB metrics
+:type metrics: list of str
+:param fill_na_w_zero: If True, fill NaN values with zeros.
+:type fill_na_w_zero: bool
+
+:returns data_merged: Data with two metrics added together.
+:rtype data_merged: pd.DataFrame
+```</code></pre></li>
+<li><p>We pick lowercase after <code>:param XYZ: ...</code> unless the first word is a proper noun or type</p></li>
+<li><p>Examples are <a href="https://stackoverflow.com/questions/3898572">here</a></p></li>
+</ul>
+<h3 data-number="2.3.2" id="avoid-empty-lines-in-code"><span class="header-section-number">2.3.2</span> Avoid empty lines in code</h3>
+<ul>
+<li><p>If you feel that you need an empty line in the code, it probably means that a specific chunk of code is a logical piece of code performing a cohesive function.</p>
+<pre><code>```python
+...
+end_y = end_dt.year
+# Generate list of file paths for ParquetDataset.
+paths = list()
+...
+```</code></pre></li>
+<li><p>Instead of putting an empty line, you should put a comment describing at high level what the code does.</p>
+<pre><code>```python
+...
+end_y = end_dt.year
+# Generate list of file paths for ParquetDataset.
+paths = list()
+...
+```</code></pre></li>
+<li><p>If you don’t want to add just use an empty comment.</p>
+<pre><code>```python
+...
+end_y = end_dt.year
+#
+paths = list()
+...
+```</code></pre></li>
+<li><p>The problem with empty lines is that they are visually confusing since one empty line is used also to separate functions. For this reason we suggest to use an empty comment.</p></li>
+</ul>
+<h3 data-number="2.3.3" id="avoid-distracting-comments"><span class="header-section-number">2.3.3</span> Avoid distracting comments</h3>
+<ul>
+<li>Use comments to explain the high level logic / goal of a piece of code and not the details
+<ul>
+<li><p>E.g., do not comment things that are obvious, e.g.,</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Print results.</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>log.info(<span class="st">&quot;Results are </span><span class="sc">%s</span><span class="st">&quot;</span>, ...)</span></code></pre></div></li>
+</ul></li>
+</ul>
+<h3 data-number="2.3.4" id="if-you-find-a-bug-obsolete-docstring-in-the-code"><span class="header-section-number">2.3.4</span> If you find a bug, obsolete docstring in the code</h3>
+<ul>
+<li>The process is:
+<ul>
+<li>do a <code>git blame</code> to find who wrote the code</li>
+<li>if it’s an easy bug, you can fix it and ask for a review to the author</li>
+<li>you can file a comment on Upsource</li>
+<li>you can file a bug on Github with
+<ul>
+<li>clear info on the problem</li>
+<li>how to reproduce it, ideally a unit test</li>
+<li>stacktrace</li>
+<li>you can use the tag “BUG: …”</li>
+</ul></li>
+</ul></li>
+</ul>
+<h1 data-number="3" id="logging"><span class="header-section-number">3</span> Logging</h1>
+<h2 data-number="3.1" id="always-use-logging-instead-of-prints"><span class="header-section-number">3.1</span> Always use logging instead of prints</h2>
+<ul>
+<li>Always use logging and never <code>print()</code> to report debug, info, warning</li>
+</ul>
+<h2 data-number="3.2" id="our-logging-idiom"><span class="header-section-number">3.2</span> Our logging idiom</h2>
+<pre><code>```python
+import helpers.dbg as dbg
+
+_LOG = logging.getLogger(__name__)
+
+dbg.init_logger(verbosity=logging.DEBUG)
+
+_LOG.debug(&quot;I am a debug function about %s&quot;, a)
+```</code></pre>
+<ul>
+<li>In this way one can decide how much debug info are needed (see Unix rule of silence)
+<ul>
+<li>E.g., when there is a bug one can run with <code>-v DEBUG</code> and see what’s happening right before the bug</li>
+</ul></li>
+</ul>
+<h2 data-number="3.3" id="logging-level"><span class="header-section-number">3.3</span> Logging level</h2>
+<ul>
+<li>Use <code>_LOG.info</code> when you want to communicate to the final user, e.g.,
+<ul>
+<li>when the script is started</li>
+<li>where the script is saving its results</li>
+<li>a progress bar indicating the amount of work completed</li>
+</ul></li>
+<li>Information related to the internal behavior of code should go at the DEBUG level
+<ul>
+<li>Do not pollute the output with information a regular user does not care about.</li>
+</ul></li>
+<li>Make sure the script prints when the work is terminated, e.g., “DONE” or “Results written in …”
+<ul>
+<li>This is useful to indicate that the script did not die in the middle: sometimes this happens silently and it is reported only from the OS return code</li>
+</ul></li>
+</ul>
+<h2 data-number="3.4" id="use-positional-args-when-logging"><span class="header-section-number">3.4</span> Use positional args when logging</h2>
+<ul>
+<li><p>Instead of doing this: <strong>Bad</strong></p>
+<pre><code>```python
+_LOG.debug(&#39;cmd=%s %s %s&#39; % (cmd1, cmd2, cmd3))
+_LOG.debug(&#39;cmd=%s %s %s&#39;.format(cmd1, cmd2, cmd3))
+_LOG.debug(&#39;cmd={cmd1} {cmd2} {cmd3}&#39;)</code></pre>
+<p>do this <strong>Good</strong> ```</p>
+<p>_LOG.debug(‘cmd=%s %s %s’, cmd1, cmd2, cmd3)</p>
+<pre><code>```</code></pre>
+<ul>
+<li>The two statements are equivalent from the functional point of view</li>
+<li>The reason is that in the second case the string is not built unless the logging is actually performed, which limits time overhead from logging</li>
+</ul>
+<h2 id="report-warnings">Report warnings</h2>
+<ul>
+<li>If there is a something that is suspicious but you don’t feel like it’s worthwhile to assert, report a warning with: ```</li>
+</ul></li>
+</ul>
+<p>_LOG.warning(…)</p>
+<pre><code>```
+
+- If you know that if there is a warning then there are going to be many many warnings
+    - print the first warning
+    - send the rest to warnings.log
+    - at the end of the run, reports &quot;there are warnings in warnings.log&quot;
+
+# Assertion
+
+## Use positional args when asserting
+- `dassert_*` is modeled after logging so for the same reasons one should use
+  positional args
+    **Bad**
+    ```
+
+  dbg.dassert_eq(a, 1, &quot;No info for %s&quot; % method)
+
+    ```
+    **Good**
+    ```
+
+  dbg.dassert_eq(a, 1, &quot;No info for %s&quot;, method)
+
+    ```</code></pre>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "CCXT": {
+    "binance": [
+      "ADA_USDT",
+      "AVAX_USDT",
+      "BNB_USDT",
+      "BTC_USDT",
+      "EOS_USDT",
+      "ETH_USDT",
+      "LINK_USDT",
+      "SOL_USDT"
+    ],
+    "ftx": [
+      "BNB_USDT",
+      "BTC_USDT",
+      "DOGE_USDT",
+      "ETH_USDT",
+      "LINK_USDT",
+      "XRP_USDT"
+    ]
+  }
+}

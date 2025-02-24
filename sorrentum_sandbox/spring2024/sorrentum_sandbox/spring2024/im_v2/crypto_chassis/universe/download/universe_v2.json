@@ -1,0 +1,47 @@
+{
+  "crypto_chassis": {
+    "binance": [
+      "ADA_USDT",
+      "BNB_USDT",
+      "BTC_USDT",
+      "DOGE_USDT",
+      "EOS_USDT",
+      "ETH_USDT",
+      "SOL_USDT"
+    ],
+    "coinbase": [
+      "BTC_USDT",
+      "DOGE_USDT",
+      "ETH_USDT",
+      "SOL_USDT"
+    ],
+    "ftx": [
+      "BNB_USDT",
+      "BTC_USDT",
+      "DOGE_USDT",
+      "ETH_USDT",
+      "SOL_USDT",
+      "XRP_USDT"
+    ],
+    "gateio": [
+      "ADA_USDT",
+      "BNB_USDT",
+      "BTC_USDT",
+      "DOGE_USDT",
+      "EOS_USDT",
+      "ETH_USDT",
+      "SOL_USDT",
+      "XRP_USDT"
+    ],
+    "kucoin": [
+      "ADA_USDT",
+      "BNB_USDT",
+      "BTC_USDT",
+      "DOGE_USDT",
+      "EOS_USDT",
+      "ETH_USDT",
+      "SOL_USDT",
+      "XRP_USDT"
+    ]
+  }
+  }

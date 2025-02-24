@@ -1,0 +1,252 @@
+{
+    "1467591036": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "BTC/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "1464553467": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "ETH/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "5118394986": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "XRP/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "2601760471": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "LINK/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "8968126878": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "BNB/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "3065029174": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "DOGE/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "2384892553": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "WAVES/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "1891737434": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "DOT/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "2476706208": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "CRV/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "2099673105": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "RUNE/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "2237530510": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "SOL/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "2425308589": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "STORJ/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "8717633868": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "AVAX/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "1966583502": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "FTM/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "9872743573": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "NEAR/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "2683705052": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "MATIC/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "5115052901": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "CTK/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "2540896331": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "AXS/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "4516629366": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "SAND/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "1776791608": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "UNFI/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "2484635488": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "OGN/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "1528092593": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "BAKE/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "3401245610": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "DYDX/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "1030828978": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "GMT/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    },
+    "6051632686": {
+        "info": {
+            "feeTier": 0
+        },
+        "symbol": "APE/USDT",
+        "maker": 0.0002,
+        "taker": 0.0004,
+        "fee_side": "quote",
+        "percentage": true
+    }
+}

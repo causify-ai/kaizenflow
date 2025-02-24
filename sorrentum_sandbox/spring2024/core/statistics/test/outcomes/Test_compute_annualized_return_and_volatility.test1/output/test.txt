@@ -1,0 +1,3 @@
+                        arma(1,1)
+annualized_mean_return  -0.107518
+annualized_volatility    0.338404

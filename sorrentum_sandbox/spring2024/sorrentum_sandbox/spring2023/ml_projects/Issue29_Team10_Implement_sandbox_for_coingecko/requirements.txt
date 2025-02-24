@@ -1,0 +1,17 @@
+pandas
+psycopg2
+ipython 
+pycoingecko 
+ipython-sql 
+jupyter 
+jupyter-contrib-core 
+jupyter-contrib-nbextensions 
+praw 
+postgres 
+pymongo 
+s3fs 
+seaborn
+tqdm 
+yapf 
+apache-airflow
+requests

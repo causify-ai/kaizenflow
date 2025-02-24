@@ -1,0 +1,3 @@
+call('eval $(aws ecr get-login --no-include-email --region us-east-1)')
+call('docker pull 665840871993.dkr.ecr.us-east-1.amazonaws.com/amp_test:dev', pty=True)
+call('docker pull 665840871993.dkr.ecr.us-east-1.amazonaws.com/dev_tools:prod', pty=True)

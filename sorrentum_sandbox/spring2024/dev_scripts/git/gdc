@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+# """
+# > git difftool --cached $*
+# """
+
+source helpers.sh
+
+execute "git difftool --cached $*"

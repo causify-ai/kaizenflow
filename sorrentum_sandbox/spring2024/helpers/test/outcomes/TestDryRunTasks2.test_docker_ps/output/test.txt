@@ -1,0 +1,1 @@
+call('docker ps --format=\'table {{.ID}}\\t{{.Label "user"}}\\t{{.Image}}\\t{{.Command}}\\t{{.RunningFor}}\\t{{.Status}}\\t{{.Ports}}\\t{{.Label "com.docker.compose.service"}}\'')

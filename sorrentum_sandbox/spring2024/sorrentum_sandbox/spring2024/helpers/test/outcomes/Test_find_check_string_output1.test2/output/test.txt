@@ -1,0 +1,1 @@
+A fake check_string output to use for test2

@@ -1,0 +1,65 @@
+#
+# Basic setup to run as user and GitHub action.
+#
+version: '3'
+
+services:
+  base_app:
+    cap_add:
+      - SYS_ADMIN
+    # TODO(gp): @Grisha add these vars.
+    environment:
+    #   - AM_AWS_PROFILE=$AM_AWS_PROFILE
+      - AM_ECR_BASE_PATH=$AM_ECR_BASE_PATH
+    #   - AM_S3_BUCKET=$AM_S3_BUCKET
+    #   - AM_TELEGRAM_TOKEN=$AM_TELEGRAM_TOKEN
+    #   - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+    #   - AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+    #   - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+    #   - AM_FORCE_TEST_FAIL=$AM_FORCE_TEST_FAIL
+    #   - AM_ENABLE_DIND=$AM_ENABLE_DIND
+    #   - GH_ACTION_ACCESS_TOKEN=$GH_ACTION_ACCESS_TOKEN
+    #   # This env var is used by GH Action to signal that we are inside the CI.
+    #   - CI=$CI
+    image: ${IMAGE}
+    # `privileged` mode is needed:
+    # - for dind (Docker-in-docker)
+    # - to mount fstabs.
+    privileged: false
+    restart: "no"
+    volumes:
+      # TODO(gp): We should pass the value of $HOME from dev.Dockerfile to here.
+      # E.g., we might define $HOME in the env file.
+      - ~/.aws:/home/.aws
+      - ~/.config/gspread_pandas/:/home/.config/gspread_pandas/
+      - ~/.config/gh:/home/.config/gh
+    # No need to mount file systems.
+    # - ../docker_build/fstab:/etc/fstab
+    # deploy:
+    #   resources:
+    #     limits:
+    #       # This should be passed from command line depending on how much
+    #       # memory is available.
+    #       memory: 60G
+
+  app:
+    extends:
+      base_app
+    # Default network mode set to host so we can reach e.g.
+    # a database container pointing to localhost:5432.
+    # In tests we use dind so we need set back to the default "bridge".
+    # See CmTask988 and https://stackoverflow.com/questions/24319662
+    #network_mode: ${NETWORK_MODE:-host}
+    volumes:
+      - ../../../:/app
+
+  jupyter_server:
+    command: devops/docker_run/run_jupyter_server.sh
+    environment:
+      - PORT=${PORT}
+    extends:
+      app
+    network_mode: ${NETWORK_MODE:-bridge}
+    ports:
+      # TODO(gp): Rename `AM_PORT`.
+      - "${PORT}:${PORT}"

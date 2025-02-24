@@ -1,0 +1,13 @@
+{
+  "CCXT": {
+    "gateio": [
+      "XRP_USDT"
+    ],
+    "kucoin": [
+      "ETH_USDT"
+    ],
+    "binance": [
+      "BTC_USDT"
+    ]
+  }
+}

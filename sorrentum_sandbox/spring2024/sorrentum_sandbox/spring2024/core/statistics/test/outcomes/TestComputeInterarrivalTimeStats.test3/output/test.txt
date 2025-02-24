@@ -1,0 +1,6 @@
+                           arma(2,2)
+n_unique                           5
+mean      34 days 20:28:14.117647059
+std       26 days 04:37:47.577686638
+min                 28 days 00:00:00
+max                183 days 00:00:00

@@ -1,0 +1,2 @@
+                        0
+forecastability  0.017544

@@ -1,0 +1,1 @@
+func(args=(1, 2) kwargs={})

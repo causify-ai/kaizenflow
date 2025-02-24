@@ -1,0 +1,7 @@
+min index=2019-01-07 09:01:00-05:00
+max index=2019-01-08 16:59:00-05:00
+num unique index=958
+df.shape=(958, 3)
+asset_ids=[13684]
+found asset_ids=1
+requested asset_ids=1

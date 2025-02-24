@@ -1,0 +1,60 @@
+# <core.config.config_list.ConfigList object at 0x>
+  # 1/1
+    dag_config:
+      filter_ath:
+        col_mode: replace_all
+        transformer_kwargs:
+          start_time: 09:30:00
+          end_time: 16:00:00
+      resample:
+        in_col_groups: [('close',), ('volume',), ('feature1',)]
+        out_col_group: ()
+        transformer_kwargs:
+          rule: 5T
+          resampling_groups: [({'close': 'close'}, 'last', {}), ({'close': 'twap', 'feature1': 'feature1'}, 'mean', {})]
+          vwap_groups: [('close', 'volume', 'vwap')]
+        reindex_like_input: False
+        join_output_with_input: False
+      compute_ret_0:
+        in_col_groups: [('close',), ('vwap',), ('twap',)]
+        out_col_group: ()
+        transformer_kwargs:
+          mode: log_rets
+        col_mapping:
+          close: close.ret_0
+          vwap: vwap.ret_0
+          twap: twap.ret_0
+      compute_vol:
+        in_col_group: ('vwap.ret_0',)
+        out_col_group: ('vwap.ret_0.vol',)
+        drop_nans: True
+        permitted_exceptions: (<class 'ValueError'>,)
+      adjust_rets:
+        in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]
+        out_col_group: ()
+        transformer_kwargs:
+          term1_col: vwap.ret_0
+          term2_col: vwap.ret_0.vol
+          out_col: vwap.ret_0.vol_adj
+          term2_delay: 2
+          operation: div
+        drop_nans: True
+      compress_rets:
+        in_col_groups: [('vwap.ret_0.vol_adj',)]
+        out_col_group: ()
+        col_mapping:
+          vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c
+    dag_builder_object: nid_prefix=
+    dag_runner_builder: <function get_dag_runner>
+    market_data_config:
+      asset_id_name: asset_id
+      asset_ids: [13684, 10971]
+    backtest_config:
+      start_timestamp_with_lookback: 2019-12-22 00:00:00+00:00
+      start_timestamp: 2020-01-01 00:00:00+00:00
+      end_timestamp: 2020-01-31 23:59:59+00:00
+      id: 0
+      config_builder: dataflow.model.test.test_experiment_utils.build_tile_configs("universe_v2_0-top2.5T.JanFeb2020")
+      dst_dir: ./dst_dir
+      experiment_builder: dataflow.model.master_experiment.run_in_sample_tiled_backtest
+      experiment_result_dir: ./dst_dir/result_0

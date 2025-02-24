@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  my_project:
+    build:
+      context: .
+    ports:
+      - "6379:6379"  # Map Redis port
+    volumes:
+      - ./app.py:/app/app.py 

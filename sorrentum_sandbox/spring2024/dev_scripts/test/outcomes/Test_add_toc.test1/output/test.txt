@@ -1,0 +1,14 @@
+{
+    "cell_type": "markdown",
+    "metadata": {},
+    "source": [
+        "CONTENTS:\n",
+        "- [Regular heading](#regular-heading)\n",
+        "  - [Second-level heading](#second-level-heading)\n",
+        "    - [And third-level in the same cell](#and-third-level-in-the-same-cell)\n",
+        "      - [Heading after some regular text in the same cell](#heading-after-some-regular-text-in-the-same-cell)\n",
+        "- [Heading with several whitespaces on the left](#heading-with-several-whitespaces-on-the-left)\n",
+        "  - [Heading with regular text after it in the same cell](#heading-with-regular-text-after-it-in-the-same-cell)\n",
+        "- [Heading with hash signs # inside](#heading-with-hash-signs-#-inside)"
+    ]
+}

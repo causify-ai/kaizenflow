@@ -1,0 +1,10 @@
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1175206Z SKIPPED [1] core/statistics/test/test_requires_statsmodels.py:315: cmamp #654.
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1175722Z SKIPPED [1] core/config/test/test_config.py:325: See AmpTask1573
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1176275Z XFAIL core/statistics/test/test_requires_statsmodels.py::TestMultipleTests::test2
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1176859Z XFAIL core/statistics/test/test_requires_statsmodels.py::TestMultiTTest::test7
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1177550Z FAILED dataflow/pipelines/real_time/test/test_dataflow_pipelines_real_time_pipeline.py::TestRealTimeMvnReturnsWithOms1::test1
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1178650Z FAILED dataflow/core/nodes/test/test_sources.py::TestMultivariateNormalDataSource::test1
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1179474Z FAILED dataflow/core/test/test_builders.py::TestMvnReturnsBuilder::test1 - Na...
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1180384Z ^[[31m= ^[[31m^[[1m3 failed^[[0m, ^[[32m1511 passed^[[0m, ^[[33m155 skipped^[[0m, ^[[33m60 deselected^[[0m, ^[[33m2 xfailed^[[0m, ^[[33m1 rerun^[[0m^[[31m in 211.15s (0:03:31)^[[0m^[[31m =^[[0m
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1367972Z 11:53:07 @ 2022-02-19 06:51:34 - ^[[36mINFO ^[[0m hcache.py clear_global_cache:293 Before clear_global_cache: 'global mem' cache: path='/mnt/tmpfs/tmp.cache.mem', size=28.0 KB
+Run_fast_tests  Run fast tests  2022-02-19T16:53:07.1381857Z 11:53:07 @ 2022-02-19 06:51:34 - ^[[33mWARN ^[[0m hcache.py clear_global_cache:294 Resetting 'global mem' cache '/mnt/tmpfs/tmp.cache.mem'

@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+# """
+# Open with vi the result of `which command`.
+# """
+
+
+FILE=$(which $1)
+echo $FILE
+vim $FILE

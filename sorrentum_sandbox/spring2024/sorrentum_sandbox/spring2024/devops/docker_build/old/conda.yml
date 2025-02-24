@@ -1,0 +1,102 @@
+channels:
+  #- quantopian             # Needed by trading-calendars.
+  - conda-forge
+dependencies:
+  # ############################################################################
+  # python dev
+  # ############################################################################
+  #- certifi
+  #- pytables
+  #- six
+  #- xlrd
+  #- xmltodict
+  - pytest
+  - flaky
+  - pytest-cov
+  - pytest-instafail
+  - pytest-xdist
+  - python-dateutil
+  - pytz
+  - tqdm
+  # ############################################################################
+  # Data
+  # ############################################################################
+  - matplotlib
+  - networkx
+  # TODO(gp): Remove this.
+  - numba
+  - numpy
+  - pandas >= 1.1.0
+  - pandas-datareader >= 0.9.0
+  - pyarrow
+  - pywavelets
+  - scikit-learn
+  - scipy
+  - seaborn
+  - statsmodels
+  # ############################################################################
+  # jupyter
+  # ############################################################################
+  - ipykernel
+  - jupyter
+  - jupyter_contrib_nbextensions
+  - jupyter_nbextensions_configurator
+  - jupytext
+  - nb_conda
+  - nb_conda_kernels
+  - ipympl
+  # ############################################################################
+  # Latex
+  # ############################################################################
+  #- graphviz                # Also for dataflow graph visualization.
+  #- pandoc
+  #- pandocfilters
+  # ############################################################################
+  # AWS
+  # ############################################################################
+  - awscli
+  - boto3
+  - s3fs
+  # ############################################################################
+  # pymc3
+  # ############################################################################
+  #- pydot
+  #- python-graphviz        # To plot pymc3 graphical models.
+  #- arviz                   # Needed by pymc3 for some plotting functionality.
+  #- mkl-service             # pymc3 expects it; not sure why conda doesn't solve for it.
+  #- pymc3
+  # ############################################################################
+  # Misc
+  # ############################################################################
+  #- csvkit                 # To process csv.
+  #- gdrive                 # To interact with Google Drive.
+  #- jq                     # To process json.
+  #- mxnet                  # Required by gluon (e.g., gluon-ts, gluon-nlp).
+  #- pymongo
+  #- rclone                 # To back up Google Drive (conda install -c hcc rclone)
+  #- ruby
+  - beautifulsoup4
+  - joblib
+  - jsonpickle
+  - pygraphviz              # For dataflow graph visualization.
+  - invoke
+  # ############################################################################
+  # Profiling
+  # ############################################################################
+  #- memory_profiler
+  #- gprof2dot
+  # ############################################################################
+  # Pip
+  # ############################################################################
+  - pip
+  - pip:
+    #- pyannotate           # Enable this to automatically infer types.
+    #- ta                   # Technical analysis package.
+    #- trading-calendars
+    - psycopg2-binary
+    # ##########################################################################
+    # Keep the following section unchanged in order, since we need to install
+    # mxnet first.
+    - mxnet >= 1.6.0
+    - gluonnlp              # gluon* and mxnet need to be installed through pip
+    - gluonts               # since conda doesn't support / has old packages.

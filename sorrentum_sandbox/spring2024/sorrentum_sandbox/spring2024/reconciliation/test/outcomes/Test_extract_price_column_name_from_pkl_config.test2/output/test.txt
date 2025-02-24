@@ -1,0 +1,8 @@
+
+################################################################################
+* Failed assertion *
+'None'
+!=
+'None'
+Cannot parse `mark_to_market_col` from the Config stored at=$GIT_ROOT/reconciliation/test/outcomes/Test_extract_price_column_name_from_pkl_config.test2/tmp.scratch/system_config.output.values_as_strings.pkl
+################################################################################

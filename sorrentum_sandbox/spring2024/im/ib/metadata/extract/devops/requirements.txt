@@ -1,0 +1,3 @@
+Scrapy==2.1.0
+Twisted==20.3.0
+environs==9.3.1

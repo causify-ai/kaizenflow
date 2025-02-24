@@ -1,0 +1,124 @@
+################################################################################
+system_config.forecast_system
+################################################################################
+dag_config:
+  filter_ath:
+    col_mode: replace_all
+    transformer_kwargs:
+      start_time: 09:30:00
+      end_time: 16:00:00
+  resample:
+    in_col_groups: [('close',), ('volume',), ('feature1',)]
+    out_col_group: ()
+    transformer_kwargs:
+      rule: 5T
+      resampling_groups: [({'close': 'close'}, 'last', {}), ({'close': 'twap', 'feature1': 'feature1'}, 'mean', {})]
+      vwap_groups: [('close', 'volume', 'vwap')]
+    reindex_like_input: False
+    join_output_with_input: False
+  compute_ret_0:
+    in_col_groups: [('close',), ('vwap',), ('twap',)]
+    out_col_group: ()
+    transformer_kwargs:
+      mode: log_rets
+    col_mapping:
+      close: close.ret_0
+      vwap: vwap.ret_0
+      twap: twap.ret_0
+  compute_vol:
+    in_col_group: ('vwap.ret_0',)
+    out_col_group: ('vwap.ret_0.vol',)
+    drop_nans: True
+    permitted_exceptions: (<class 'ValueError'>,)
+  adjust_rets:
+    in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]
+    out_col_group: ()
+    transformer_kwargs:
+      term1_col: vwap.ret_0
+      term2_col: vwap.ret_0.vol
+      out_col: vwap.ret_0.vol_adj
+      term2_delay: 2
+      operation: div
+    drop_nans: True
+  compress_rets:
+    in_col_groups: [('vwap.ret_0.vol_adj',)]
+    out_col_group: ()
+    col_mapping:
+      vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c
+  add_lags:
+    in_col_groups: [('vwap.ret_0.vol_adj.c',)]
+    out_col_group: ()
+    transformer_kwargs:
+      lag_delay: 0
+      num_lags: 4
+      first_lag: 0
+      separator: .
+    drop_nans: True
+  predict:
+    in_col_groups: [('vwap.ret_0.vol_adj.c.lag0',), ('vwap.ret_0.vol_adj.c.lag1',), ('vwap.ret_0.vol_adj.c.lag2',), ('vwap.ret_0.vol_adj.c.lag3',)]
+    out_col_group: ()
+    transformer_kwargs:
+      weights:
+        index=[vwap.ret_0.vol_adj.c.lag0, vwap.ret_0.vol_adj.c.lag3]
+        columns=prediction
+        shape=(4, 1)
+                                   prediction
+        vwap.ret_0.vol_adj.c.lag0      -0.209
+        vwap.ret_0.vol_adj.c.lag1      -0.223
+        vwap.ret_0.vol_adj.c.lag2       0.304
+        vwap.ret_0.vol_adj.c.lag3      -0.264
+      convert_to_dataframe: True
+    drop_nans: True
+dag_builder_object: nid_prefix=
+dag_builder_class: Mock1_DagBuilder
+system_class: Mock1_Time_ForecastSystem
+market_data_config:
+  delay_in_secs: 0
+  data:
+    index=[2000-01-01 09:31:00-05:00, 2000-01-01 10:30:00-05:00]
+    columns=start_datetime,end_datetime,timestamp_db,close,asset_id,volume,feature1
+    shape=(60, 7)
+                                         start_datetime              end_datetime              timestamp_db  close  asset_id  volume  feature1
+    2000-01-01 09:31:00-05:00 2000-01-01 09:30:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:31:00-05:00  101.0       101     100       1.0
+    2000-01-01 09:32:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:32:00-05:00  101.0       101     100       1.0
+    2000-01-01 09:33:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:33:00-05:00 2000-01-01 09:33:00-05:00  101.0       101     100       1.0
+    ...
+    2000-01-01 10:28:00-05:00 2000-01-01 10:27:00-05:00 2000-01-01 10:28:00-05:00 2000-01-01 10:28:00-05:00  100.0       101     100      -1.0
+    2000-01-01 10:29:00-05:00 2000-01-01 10:28:00-05:00 2000-01-01 10:29:00-05:00 2000-01-01 10:29:00-05:00  100.0       101     100      -1.0
+    2000-01-01 10:30:00-05:00 2000-01-01 10:29:00-05:00 2000-01-01 10:30:00-05:00 2000-01-01 10:30:00-05:00  100.0       101     100      -1.0
+  replayed_delay_in_mins_or_timestamp: 2000-01-01 10:05:00-05:00
+  days: 1
+  history_lookback: 1 days 00:00:00
+dag_runner_config:
+  rt_timeout_in_secs_or_time: 900
+  bar_duration_in_secs: 300
+event_loop_object: <_EventLoop running=False closed=False debug=False>
+market_object: ReplayedMarketData at 0x=(_asset_id_col=asset_id <str>, _asset_ids=[101] <list>, _start_time_col_name=start_datetime <str>, _end_time_col_name=end_datetime <str>, _columns=None <NoneType>, _sleep_in_secs=1.0 <float>, _timezone=America/New_York <str>, _column_remap=None <NoneType>, _filter_data_mode=assert <str>, _max_iterations=120 <int>, _df=pd.df((60, 7) <pandas.core.frame.DataFrame>, _knowledge_datetime_col_name=timestamp_db <str>, _delay_in_secs=0 <int>)
+object.builder_function:
+  market_object: dataflow_amp.system.mock1.mock1_forecast_system._get_market_data
+  dag_object: dataflow_amp.system.mock1.mock1_forecast_system._get_dag
+  dag_runner_object: dataflow_amp.system.mock1.mock1_forecast_system._get_dag_runner
+dag_object: DAG at 0x=(_nx_dag=DiGraph with 9 nodes and 8 edges <networkx.classes.digraph.DiGraph>, _name=None <NoneType>, _mode=strict <str>, _save_node_io= <str>, _save_node_df_out_stats=False <bool>, _profile_execution=False <bool>, _dst_dir=None <NoneType>, force_free_nodes=False <bool>)
+dag_runner_object:
+  RealTimeDagRunner at 0x=(config= <core.config.config_.Config>, _column_to_tags_mapping=None <NoneType>, _result_nid=predict <str>, _execute_rt_loop_kwargs={'get_wall_clock_time': <bound method MarketData.get_wall_clock_time of <market_data.replayed_market_data.ReplayedMarketData at 0x>:
+    _asset_id_col='asset_id' <str>
+    _asset_ids='[101]' <list>
+    _start_time_col_name='start_datetime' <str>
+    _end_time_col_name='end_datetime' <str>
+    _columns='None' <NoneType>
+    _sleep_in_secs='1.0' <float>
+    _timezone='America/New_York' <str>
+    _column_remap='None' <NoneType>
+    _filter_data_mode='assert' <str>
+    _max_iterations='120' <int>
+    _df= <pandas.core.frame.DataFrame>
+                                           start_datetime              end_datetime              timestamp_db  close  asset_id  volume  feature1
+      2000-01-01 09:31:00-05:00 2000-01-01 09:30:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:31:00-05:00  101.0       101     100       1.0
+      2000-01-01 09:32:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:32:00-05:00  101.0       101     100       1.0
+      2000-01-01 09:33:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:33:00-05:00 2000-01-01 09:33:00-05:00  101.0       101     100       1.0
+      ...
+      2000-01-01 10:28:00-05:00 2000-01-01 10:27:00-05:00 2000-01-01 10:28:00-05:00 2000-01-01 10:28:00-05:00  100.0       101     100      -1.0
+      2000-01-01 10:29:00-05:00 2000-01-01 10:28:00-05:00 2000-01-01 10:29:00-05:00 2000-01-01 10:29:00-05:00  100.0       101     100      -1.0
+      2000-01-01 10:30:00-05:00 2000-01-01 10:29:00-05:00 2000-01-01 10:30:00-05:00 2000-01-01 10:30:00-05:00  100.0       101     100      -1.0
+    _knowledge_datetime_col_name='timestamp_db' <str>
+    _delay_in_secs='0' <int>>, 'bar_duration_in_secs': 300, 'rt_timeout_in_secs_or_time': 900} <dict>, _dst_dir=None <NoneType>, _fit_at_beginning=False <bool>, _wake_up_timestamp=None <NoneType>, _bar_duration_in_secs=300 <int>, _set_current_bar_timestamp=True <bool>, _max_distance_in_secs=30 <int>, _events=[] <list>)

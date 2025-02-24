@@ -1,0 +1,9 @@
+                         arma(2,2)
+adf_stat                 -3.442319
+adf_pval                  0.009598
+adf_used_lag              1.000000
+adf_nobs                 38.000000
+adf_critical_values_1%   -3.615509
+adf_critical_values_5%   -2.941262
+adf_critical_values_10%  -2.609200
+adf_ic_best              78.834266

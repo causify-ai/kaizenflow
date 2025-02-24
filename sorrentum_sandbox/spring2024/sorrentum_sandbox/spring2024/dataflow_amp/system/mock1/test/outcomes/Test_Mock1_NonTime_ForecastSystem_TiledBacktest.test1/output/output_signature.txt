@@ -1,0 +1,16 @@
+# Dir structure
+.
+result_0
+result_0/config.pkl
+result_0/config.txt
+result_0/run_config_list.0.log
+result_0/success.txt
+tiled_results
+tiled_results/asset_id=1467591036
+tiled_results/asset_id=1467591036/year=2000
+tiled_results/asset_id=1467591036/year=2000/month=1
+tiled_results/asset_id=1467591036/year=2000/month=1/data.parquet
+tiled_results/asset_id=3303714233
+tiled_results/asset_id=3303714233/year=2000
+tiled_results/asset_id=3303714233/year=2000/month=1
+tiled_results/asset_id=3303714233/year=2000/month=1/data.parquet

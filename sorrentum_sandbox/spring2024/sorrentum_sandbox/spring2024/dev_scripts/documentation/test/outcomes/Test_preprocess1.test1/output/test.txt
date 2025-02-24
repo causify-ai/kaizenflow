@@ -1,0 +1,45 @@
+\let\emph\textit
+\let\uline\underline
+\let\ul\underline
+  - Many trees are possible for a set of keys, with different heights
+
+
+    ```graphviz
+    digraph G {Hello->World}
+    ```
+
+
+  \begin{tikzpicture}
+    \tikzstyle{every node}=[fill=white!60,circle,draw,inner sep=1pt]
+    \tikzstyle{level 1}=[sibling distance=20mm, set style={{every node}+=[fill=white!45]}]
+    \tikzstyle{level 2}=[sibling distance=10mm, set style={{every node}+=[fill=white!30]}]
+    \tikzstyle{level 3}=[sibling distance=5mm, set style={{every node}+=[fill=white!15]}]
+    \node {3}
+       child {node {1}
+         child[fill=none] {edge from parent[draw=none]}
+         child {node {2}}
+       }
+       child {node {5}
+         child {node {4}}
+         child[fill=none] {edge from parent[draw=none]}
+       };
+  \end{tikzpicture}
+  \hspace{3cm}
+  \begin{tikzpicture}
+    \tikzstyle{every node}=[fill=white!60,circle,draw,inner sep=1pt]
+    \tikzstyle{level 1}=[sibling distance=20mm, set style={{every node}+=[fill=white!45]}]
+    \tikzstyle{level 2}=[sibling distance=10mm, set style={{every node}+=[fill=white!30]}]
+    \tikzstyle{level 3}=[sibling distance=5mm, set style={{every node}+=[fill=white!15]}]
+    \node {5}
+       child {node {4}
+         child {node {3}
+           child {node {2}
+             child {node {1}}
+             child[fill=none] {edge from parent[draw=none]}
+           }
+           child[fill=none] {edge from parent[draw=none]}
+         }
+         child[fill=none] {edge from parent[draw=none]}
+       }
+       child[fill=none] {edge from parent[draw=none]};
+  \end{tikzpicture}

@@ -1,0 +1,100 @@
+[Order:
+order_id=0
+creation_timestamp=2022-08-05 10:36:00-04:00
+asset_id=1464553467
+type_=limit
+start_timestamp=2022-08-05 10:36:00-04:00
+end_timestamp=2022-08-05 10:37:00-04:00
+curr_num_shares=2500.0
+diff_num_shares=5.0
+tz=America/New_York
+extra_params={'ccxt_id': [0],
+ 'oms_parent_order_id': 0,
+ 'stats': {'_submit_single_order_to_ccxt::all_attempts_end.timestamp': Timestamp('2022-08-05 10:36:02-0400', tz='America/New_York'),
+           '_submit_single_order_to_ccxt::attempt_num': 1,
+           '_submit_single_order_to_ccxt::start.timestamp': Timestamp('2022-08-05 10:36:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::bid_ask_market_data.done': Timestamp('2022-08-05 10:36:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::bid_ask_market_data.start': Timestamp('2022-08-05 10:36:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.created': Timestamp('2022-08-05 10:36:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.limit_price_calculated': Timestamp('2022-08-05 10:36:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.logged': Timestamp('2022-08-05 10:36:02-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.submission_started': Timestamp('2022-08-05 10:36:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.submitted': Timestamp('2022-08-05 10:36:02-0400', tz='America/New_York'),
+           '_submit_twap_child_order::get_open_positions.done': Timestamp('2022-08-05 10:36:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::wave_id': 0,
+           '_submit_twap_orders::aligned_with_next_wave.end': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York')}},
+ Order:
+order_id=1
+creation_timestamp=2022-08-05 10:36:00-04:00
+asset_id=1467591036
+type_=limit
+start_timestamp=2022-08-05 10:36:00-04:00
+end_timestamp=2022-08-05 10:37:00-04:00
+curr_num_shares=1000.0
+diff_num_shares=-10.0
+tz=America/New_York
+extra_params={'ccxt_id': [1],
+ 'oms_parent_order_id': 1,
+ 'stats': {'_submit_single_order_to_ccxt::all_attempts_end.timestamp': Timestamp('2022-08-05 10:36:02-0400', tz='America/New_York'),
+           '_submit_single_order_to_ccxt::attempt_num': 1,
+           '_submit_single_order_to_ccxt::start.timestamp': Timestamp('2022-08-05 10:36:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::bid_ask_market_data.done': Timestamp('2022-08-05 10:36:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::bid_ask_market_data.start': Timestamp('2022-08-05 10:36:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.created': Timestamp('2022-08-05 10:36:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.limit_price_calculated': Timestamp('2022-08-05 10:36:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.logged': Timestamp('2022-08-05 10:36:02-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.submission_started': Timestamp('2022-08-05 10:36:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.submitted': Timestamp('2022-08-05 10:36:02-0400', tz='America/New_York'),
+           '_submit_twap_child_order::get_open_positions.done': Timestamp('2022-08-05 10:36:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::wave_id': 0,
+           '_submit_twap_orders::aligned_with_next_wave.end': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York')}},
+ Order:
+order_id=2
+creation_timestamp=2022-08-05 10:37:00-04:00
+asset_id=1464553467
+type_=limit
+start_timestamp=2022-08-05 10:37:00-04:00
+end_timestamp=2022-08-05 10:38:00-04:00
+curr_num_shares=2505.0
+diff_num_shares=5.0
+tz=America/New_York
+extra_params={'ccxt_id': [2],
+ 'oms_parent_order_id': 0,
+ 'stats': {'_submit_single_order_to_ccxt::all_attempts_end.timestamp': Timestamp('2022-08-05 10:37:02-0400', tz='America/New_York'),
+           '_submit_single_order_to_ccxt::attempt_num': 1,
+           '_submit_single_order_to_ccxt::start.timestamp': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::bid_ask_market_data.done': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::bid_ask_market_data.start': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.created': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.limit_price_calculated': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.logged': Timestamp('2022-08-05 10:37:02-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.submission_started': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.submitted': Timestamp('2022-08-05 10:37:02-0400', tz='America/New_York'),
+           '_submit_twap_child_order::get_open_positions.done': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::wave_id': 1,
+           '_submit_twap_orders::aligned_with_next_wave.end': Timestamp('2022-08-05 10:37:55-0400', tz='America/New_York')}},
+ Order:
+order_id=3
+creation_timestamp=2022-08-05 10:37:00-04:00
+asset_id=1467591036
+type_=limit
+start_timestamp=2022-08-05 10:37:00-04:00
+end_timestamp=2022-08-05 10:38:00-04:00
+curr_num_shares=990.0
+diff_num_shares=-10.0
+tz=America/New_York
+extra_params={'ccxt_id': [3],
+ 'oms_parent_order_id': 1,
+ 'stats': {'_submit_single_order_to_ccxt::all_attempts_end.timestamp': Timestamp('2022-08-05 10:37:02-0400', tz='America/New_York'),
+           '_submit_single_order_to_ccxt::attempt_num': 1,
+           '_submit_single_order_to_ccxt::start.timestamp': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::bid_ask_market_data.done': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::bid_ask_market_data.start': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.created': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.limit_price_calculated': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.logged': Timestamp('2022-08-05 10:37:02-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.submission_started': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::child_order.submitted': Timestamp('2022-08-05 10:37:02-0400', tz='America/New_York'),
+           '_submit_twap_child_order::get_open_positions.done': Timestamp('2022-08-05 10:37:00-0400', tz='America/New_York'),
+           '_submit_twap_child_order::wave_id': 1,
+           '_submit_twap_orders::aligned_with_next_wave.end': Timestamp('2022-08-05 10:37:55-0400', tz='America/New_York')}}]

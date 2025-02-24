@@ -1,0 +1,24 @@
+#
+# Create an app to run the IM tests and a local PostgreSQL DB.
+#
+version: '3'
+
+services:
+  app:
+    image: ${IMAGE}
+    depends_on:
+      - im_postgres_test
+    env_file:
+      - ../env/test.env
+    entrypoint: /app/im/devops/docker_build/entrypoints/entrypoint_deploy.sh
+
+  im_postgres_test:
+    image: postgres:13
+    # TODO(gp): Not needed, remove.
+    container_name: im_postgres_test
+    restart: "no"
+    env_file:
+      - ../env/test.env
+    ports:
+      - "5551:5551"
+    command: "-p 5551"

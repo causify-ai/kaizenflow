@@ -1,0 +1,12 @@
+################################################################################
+dag_builder
+################################################################################
+  nid_prefix=
+################################################################################
+initial dag
+################################################################################
+  DAG at 0x=(_nx_dag=DiGraph with 6 nodes and 5 edges <networkx.classes.digraph.DiGraph>, _name=None <NoneType>, _mode=strict <str>, _save_node_io= <str>, _save_node_df_out_stats=False <bool>, _profile_execution=False <bool>, _dst_dir=None <NoneType>, force_free_nodes=False <bool>)
+################################################################################
+final dag
+################################################################################
+DAG at 0x=(_nx_dag=DiGraph with 8 nodes and 7 edges <networkx.classes.digraph.DiGraph>, _name=None <NoneType>, _mode=strict <str>, _save_node_io= <str>, _save_node_df_out_stats=False <bool>, _profile_execution=False <bool>, _dst_dir=None <NoneType>, force_free_nodes=False <bool>)

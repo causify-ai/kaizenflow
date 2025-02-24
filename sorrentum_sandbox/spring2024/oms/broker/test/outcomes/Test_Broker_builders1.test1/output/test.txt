@@ -1,0 +1,41 @@
+################################################################################
+str:
+################################################################################
+DataFrameBroker at 0x=(stage=preprod <str>, _strategy_id=SAU1 <str>, _account=candidate <str>, _universe_version=v7.4 <str>, market_data=ReplayedMarketData at 0x=(_asset_id_col=asset_id <str>, _asset_ids=[101, 202] <list>, _start_time_col_name=start_datetime <str>, _end_time_col_name=end_datetime <str>, _columns=None <NoneType>, _sleep_in_secs=30 <int>, _timezone=America/New_York <str>, _column_remap=None <NoneType>, _filter_data_mode=assert <str>, _max_iterations=10 <int>, _df=pd.df((122, 5) <pandas.core.frame.DataFrame>, _knowledge_datetime_col_name=timestamp_db <str>, _delay_in_secs=0 <int>) <market_data.replayed_market_data.ReplayedMarketData>, _timestamp_col=end_datetime <str>, _column_remap=None <NoneType>, _log_dir=None <NoneType>, _fills=[] <list>, _limit_price_computer=None <NoneType>, _child_order_quantity_computer=None <NoneType>)
+################################################################################
+repr:
+################################################################################
+<oms.broker.dataframe_broker.DataFrameBroker at 0x>:
+  stage='preprod' <str>
+  _strategy_id='SAU1' <str>
+  _account='candidate' <str>
+  _universe_version='v7.4' <str>
+  market_data= <market_data.replayed_market_data.ReplayedMarketData>
+    <market_data.replayed_market_data.ReplayedMarketData at 0x>:
+      _asset_id_col='asset_id' <str>
+      _asset_ids='[101, 202]' <list>
+      _start_time_col_name='start_datetime' <str>
+      _end_time_col_name='end_datetime' <str>
+      _columns='None' <NoneType>
+      _sleep_in_secs='30' <int>
+      _timezone='America/New_York' <str>
+      _column_remap='None' <NoneType>
+      _filter_data_mode='assert' <str>
+      _max_iterations='10' <int>
+      _df= <pandas.core.frame.DataFrame>
+                     start_datetime              end_datetime              timestamp_db        price  asset_id
+        0 2000-01-01 09:30:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:31:00-05:00   999.874540       101
+        0 2000-01-01 09:30:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:31:00-05:00   999.874540       202
+        1 2000-01-01 09:31:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:32:00-05:00  1000.325254       101
+        ...
+        59 2000-01-01 10:29:00-05:00 2000-01-01 10:30:00-05:00 2000-01-01 10:30:00-05:00  998.050046       202
+        60 2000-01-01 10:30:00-05:00 2000-01-01 10:31:00-05:00 2000-01-01 10:31:00-05:00  997.938723       101
+        60 2000-01-01 10:30:00-05:00 2000-01-01 10:31:00-05:00 2000-01-01 10:31:00-05:00  997.938723       202
+      _knowledge_datetime_col_name='timestamp_db' <str>
+      _delay_in_secs='0' <int>
+  _timestamp_col='end_datetime' <str>
+  _column_remap='None' <NoneType>
+  _log_dir='None' <NoneType>
+  _fills='[]' <list>
+  _limit_price_computer='None' <NoneType>
+  _child_order_quantity_computer='None' <NoneType>

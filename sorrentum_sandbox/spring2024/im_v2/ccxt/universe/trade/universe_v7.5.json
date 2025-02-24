@@ -1,0 +1,8 @@
+{
+  "CCXT": {
+    "binance": [
+      "BTC_USDT",
+      "ETH_USDT"
+    ]
+  }
+}

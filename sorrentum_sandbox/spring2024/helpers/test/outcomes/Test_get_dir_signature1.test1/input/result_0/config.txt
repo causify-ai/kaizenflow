@@ -1,0 +1,7 @@
+fail: False
+id: 0
+meta:
+  id: 0
+  config_builder: dev_scripts.test.test_run_notebook.build_configs1()
+  dst_dir: /app/amp/dev_scripts/test/outcomes/TestRunNotebook1.test1/tmp.scratch
+  experiment_result_dir: /app/amp/dev_scripts/test/outcomes/TestRunNotebook1.test1/tmp.scratch/result_0

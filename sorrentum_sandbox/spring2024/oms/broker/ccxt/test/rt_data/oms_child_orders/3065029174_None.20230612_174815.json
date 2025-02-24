@@ -1,0 +1,222 @@
+{
+    "py/reduce": [
+        {
+            "py/type": "collections.OrderedDict"
+        },
+        {
+            "py/tuple": []
+        },
+        null,
+        null,
+        {
+            "py/tuple": [
+                {
+                    "py/tuple": [
+                        "order_id",
+                        8
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "creation_timestamp",
+                        {
+                            "py/reduce": [
+                                {
+                                    "py/function": "pandas._libs.tslibs.timestamps._unpickle_timestamp"
+                                },
+                                {
+                                    "py/tuple": [
+                                        1686606435306294000,
+                                        null,
+                                        {
+                                            "py/reduce": [
+                                                {
+                                                    "py/function": "pytz._p"
+                                                },
+                                                {
+                                                    "py/tuple": [
+                                                        "America/New_York",
+                                                        -14400,
+                                                        3600,
+                                                        "EDT"
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        10
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "asset_id",
+                        3065029174
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "type_",
+                        "limit"
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "start_timestamp",
+                        {
+                            "py/id": 1
+                        }
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "end_timestamp",
+                        {
+                            "py/reduce": [
+                                {
+                                    "py/function": "pandas._libs.tslibs.timestamps._unpickle_timestamp"
+                                },
+                                {
+                                    "py/tuple": [
+                                        1686606495306294000,
+                                        null,
+                                        {
+                                            "py/id": 2
+                                        },
+                                        10
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "curr_num_shares",
+                        -675.0
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "diff_num_shares",
+                        -225.0
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "tz",
+                        {
+                            "py/id": 2
+                        }
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "extra_params",
+                        {
+                            "stats": {
+                                "child_order_created": "20230612_214715",
+                                "child_order_limit_price_calculated": "20230612_214715",
+                                "child_order_submitted": "20230612_214715",
+                                "aligned_with_next_child_order_start_timestamp": "20230612_214815"
+                            },
+                            "max_leverage": 50,
+                            "submit_single_order_to_ccxt.start.timestamp": {
+                                "py/reduce": [
+                                    {
+                                        "py/function": "pandas._libs.tslibs.timestamps._unpickle_timestamp"
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            1686606435313654000,
+                                            null,
+                                            {
+                                                "py/id": 2
+                                            },
+                                            10
+                                        ]
+                                    }
+                                ]
+                            },
+                            "ccxt_id": 29807985281,
+                            "submit_single_order_to_ccxt.num_attempts": 0,
+                            "submit_single_order_to_ccxt.end.timestamp": {
+                                "py/reduce": [
+                                    {
+                                        "py/function": "pandas._libs.tslibs.timestamps._unpickle_timestamp"
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            1686606435818253000,
+                                            null,
+                                            {
+                                                "py/id": 2
+                                            },
+                                            10
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "passivity_factor",
+                        0.55
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "latest_bid_price",
+                        0.06151
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "latest_ask_price",
+                        0.06152
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "bid_price_mean",
+                        0.06151000000000001
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "ask_price_mean",
+                        0.061519999999999984
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "used_bid_price",
+                        "latest_bid_price"
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "used_ask_price",
+                        "latest_ask_price"
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "limit_price",
+                        0.0615155
+                    ]
+                },
+                {
+                    "py/tuple": [
+                        "ccxt_id",
+                        29807985281
+                    ]
+                }
+            ]
+        }
+    ]
+}

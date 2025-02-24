@@ -1,0 +1,65 @@
+################################################################################
+str:
+################################################################################
+<oms.portfolio.dataframe_portfolio.DataFramePortfolio at 0x>
+  # holdings_shares=
+  Empty DataFrame
+  Columns: []
+  Index: []
+  # holdings_notional=
+  Empty DataFrame
+  Columns: []
+  Index: []
+  # executed_trades_shares=
+  Empty DataFrame
+  Columns: []
+  Index: []
+  # executed_trades_notional=
+  Empty DataFrame
+  Columns: []
+  Index: []
+  # pnl=
+  Empty DataFrame
+  Columns: []
+  Index: []
+  # statistics=
+  Empty DataFrame
+  Columns: [pnl]
+  Index: []
+################################################################################
+repr:
+################################################################################
+<oms.portfolio.dataframe_portfolio.DataFramePortfolio at 0x>
+  # holdings_shares=
+  Empty DataFrame
+  Columns: []
+  Index: []
+  # holdings_notional=
+  Empty DataFrame
+  Columns: []
+  Index: []
+  # executed_trades_shares=
+  Empty DataFrame
+  Columns: []
+  Index: []
+  # executed_trades_notional=
+  Empty DataFrame
+  Columns: []
+  Index: []
+  # pnl=
+  Empty DataFrame
+  Columns: []
+  Index: []
+  # statistics=
+  Empty DataFrame
+  Columns: [pnl]
+  Index: []
+  broker=<oms.broker.dataframe_broker.DataFrameBroker at 0x>
+  market_data=<market_data.replayed_market_data.ReplayedMarketData at 0x>
+  _account=candidate
+  _timestamp_col=end_datetime
+  _asset_id_col=asset_id
+  _mark_to_market_col=price
+  _pricing_type=last
+  _bar_duration_as_pd_str=None
+  _max_num_bars=100

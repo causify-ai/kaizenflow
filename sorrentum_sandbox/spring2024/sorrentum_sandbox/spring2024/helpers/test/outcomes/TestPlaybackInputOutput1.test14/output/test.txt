@@ -1,0 +1,23 @@
+# Test created for helpers.test.test_playback.get_result_assert_equal.
+
+import helpers.hpandas as hpandas
+import helpers.hunit_test as hunitest
+import jsonpickle
+import pandas as pd
+import core.config as cconfi
+
+
+class TestGetResultAssertEqual(hunitest.TestCase):
+    def test1(self) -> None:
+        # Define input variables.
+        a = pd.Series(data=[10, 20, 15], index=RangeIndex(start=0, stop=3, step=1), name="N Numbers", dtype=int64)
+        b = pd.Series(data=[10.0, 0.0, 5.5], index=RangeIndex(start=0, stop=3, step=1), name="Z Numbers", dtype=float64)
+        # Call function to test.
+        act = get_result_assert_equal(a=a, b=b)
+        # Define expected output.
+        exp = pd.Series(data=[20.0, 20.0, 20.5], index=RangeIndex(start=0, stop=3, step=1), name="None", dtype=float64)
+        exp = jsonpickle.decode(exp)
+        act = hpandas.df_to_str(act, num_rows=None)
+        exp = hpandas.df_to_str(exp, num_rows=None)
+        # Compare actual and expected output.
+        self.assertEqual(act, exp)

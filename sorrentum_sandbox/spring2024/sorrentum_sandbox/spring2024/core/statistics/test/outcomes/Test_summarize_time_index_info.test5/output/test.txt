@@ -1,0 +1,7 @@
+                                                 0
+test_start_time                2010-01-31 00:00:00
+test_end_time                  2013-04-30 00:00:00
+test_n_sampling_points                          40
+test_frequency                          <MonthEnd>
+test_sampling_points_per_year                 12.0
+test_time_span_in_years                      3.333

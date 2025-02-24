@@ -1,0 +1,264 @@
+# Style guide references
+
+- We care about at consistency rather than arguing about which approach is better
+  - E.g., see "tab vs space" flame-war from the 90s
+- Unless explicitly noted we prefer to follow the style guide below
+
+- As a rule of thumb we default to Google style unless Python community (in the
+  form of PEP) or tools we rely favor another style
+
+## Reference
+
+- Google Python Style Guide (GPSG)
+  - `https://google.github.io/styleguide/pyguide.html`
+
+- Commenting style
+  - `http://www.sphinx-doc.org/en/master/`
+  - `https://thomas-cokelaer.info/tutorials/sphinx/docstring_python.html`
+
+- Code convention PEP8
+    - `https://www.python.org/dev/peps/pep-0008/`
+
+- Documentation best practices
+    - `https://github.com/google/styleguide/blob/gh-pages/docguide/best_practices.md`
+
+- Philosophical stuff
+    - `https://github.com/google/styleguide/blob/gh-pages/docguide/philosophy.md`
+
+- Unix rules (although a bit cryptic sometimes)
+    - `https://en.wikipedia.org/wiki/Unix_philosophy#Eric_Raymond%E2%80%99s_17_Unix_Rules`
+
+# Comments
+
+## Docstring conventions
+
+- Code needs to be properly commented
+
+- We follow python standard [PEP257](https://www.python.org/dev/peps/pep-0257/)
+  for commenting
+    - PEP257 standardizes what and how comments should be expressed (e.g., use a
+      triple quotes for commenting a function), but it does not specify what
+      markup syntax should be used to describe comments
+
+- Different conventions have been developed for documenting interfaces
+    - reST
+    - Google (which is cross-language, e.g., C++, python, …)
+    - epytext
+    - numpydoc
+
+## reST style
+
+- reST (aka re-Structured Text) style is:
+    - the most widely supported in the python commpunity
+    - supported by all doc generation tools (e.g., epydoc, sphinx)
+    - default in pycharm
+    - default in pyment
+    - supported by pydocstyle (which does not support Google style as explained
+      [here](https://github.com/PyCQA/pydocstyle/issues/275))
+
+```python
+"""
+This is a reST style.
+
+:param param1: this is a first param
+:type param1: str
+:param param2: this is a second param
+:type param2: int
+:returns: this is a description of what is returned
+:rtype: bool
+:raises keyError: raises an exception
+"""
+```
+
+## Descriptive vs imperative style
+
+- GPSG suggests to use descriptive style of comments, e.g., "This function does
+  this and that", instead than imperative style "Do this and that"
+
+- [PEP-257](https://www.python.org/dev/peps/pep-0257/)
+    ```
+    The docstring is a phrase ending in a period. It prescribes the function or
+    method's effect as a command ("Do this", "Return that"), not as a description;
+    e.g. don't write "Returns the pathname ...".
+    ```
+    - pylint and other python QA tools favor an imperative style
+    - Since we prefer to rely on automatic checks, we decided to use an imperative
+      style of comments
+
+### Alternate parameter description and type
+
+- We prefer to alternate param description and its type so the docstring below,
+  although good, does not follow our convention
+    *Bad**
+    ```python
+    :param data: CB data
+    :param metrics: CB metrics
+    :param fill_na_w_zero: If True, fill NaN values with zeros.
+
+    :type data: pd.DataFrame
+    :type metrics: list of str
+    :type fill_na_w_zero: bool
+
+    :returns data_merged: Data with two metrics added together.
+    :rtype data_merged: pd.DataFrame
+    ```
+
+- The code should be changed into:
+    **Good**
+    ```python
+    :param data: CB data
+    :type data: pd.DataFrame
+    :param metrics: CB metrics
+    :type metrics: list of str
+    :param fill_na_w_zero: If True, fill NaN values with zeros.
+    :type fill_na_w_zero: bool
+
+    :returns data_merged: Data with two metrics added together.
+    :rtype data_merged: pd.DataFrame
+    ```
+
+- We pick lowercase after `:param XYZ: ...` unless the first word is a proper
+  noun or type
+
+- Examples are [here](https://stackoverflow.com/questions/3898572)
+
+### Avoid empty lines in code
+
+- If you feel that you need an empty line in the code, it probably means that a
+  specific chunk of code is a logical piece of code performing a cohesive
+  function.
+    ```python
+    ...
+    end_y = end_dt.year
+    # Generate list of file paths for ParquetDataset.
+    paths = list()
+    ...
+    ```
+
+- Instead of putting an empty line, you should put a comment describing at high
+  level what the code does.
+    ```python
+    ...
+    end_y = end_dt.year
+    # Generate list of file paths for ParquetDataset.
+    paths = list()
+    ...
+    ```
+
+- If you don't want to add just use an empty comment.
+    ```python
+    ...
+    end_y = end_dt.year
+    #
+    paths = list()
+    ...
+    ```
+
+- The problem with empty lines is that they are visually confusing since one
+  empty line is used also to separate functions. For this reason we suggest to
+  use an empty comment.
+
+### Avoid distracting comments
+
+- Use comments to explain the high level logic / goal of a piece of code and not
+  the details
+    - E.g., do not comment things that are obvious, e.g.,
+    ```python
+    # Print results.
+    log.info("Results are %s", ...)
+    ```
+
+### If you find a bug, obsolete docstring in the code
+- The process is:
+    - do a `git blame` to find who wrote the code
+    - if it's an easy bug, you can fix it and ask for a review to the author
+    - you can file a comment on Upsource
+    - you can file a bug on Github with
+        - clear info on the problem
+        - how to reproduce it, ideally a unit test
+        - stacktrace
+        - you can use the tag “BUG: ..."
+
+# Logging
+
+## Always use logging instead of prints
+- Always use logging and never `print()` to report debug, info, warning 
+
+## Our logging idiom
+```python
+import helpers.dbg as dbg
+
+_LOG = logging.getLogger(__name__)
+
+dbg.init_logger(verbosity=logging.DEBUG)
+
+_LOG.debug("I am a debug function about %s", a)
+```
+
+- In this way one can decide how much debug info are needed (see Unix rule of
+  silence)
+    - E.g., when there is a bug one can run with `-v DEBUG` and see what's
+      happening right before the bug
+
+## Logging level
+
+- Use `_LOG.info` when you want to communicate to the final user, e.g.,
+    - when the script is started
+    - where the script is saving its results
+    - a progress bar indicating the amount of work completed
+
+- Information related to the internal behavior of code should go at the DEBUG
+  level
+    - Do not pollute the output with information a regular user does not care
+      about.
+
+- Make sure the script prints when the work is terminated, e.g., "DONE" or
+  "Results written in ..."
+    - This is useful to indicate that the script did not die in the middle:
+      sometimes this happens silently and it is reported only from the OS return
+      code
+
+## Use positional args when logging
+
+- Instead of doing this:
+    **Bad**
+    ```python
+    _LOG.debug('cmd=%s %s %s' % (cmd1, cmd2, cmd3))
+    _LOG.debug('cmd=%s %s %s'.format(cmd1, cmd2, cmd3))
+    _LOG.debug('cmd={cmd1} {cmd2} {cmd3}')
+  do this
+    **Good**
+    ```
+     _LOG.debug('cmd=%s %s %s', cmd1, cmd2, cmd3)
+    ```
+
+- The two statements are equivalent from the functional point of view
+- The reason is that in the second case the string is not built unless the
+  logging is actually performed, which limits time overhead from logging
+
+## Report warnings
+
+- If there is a something that is suspicious but you don't feel like it's
+  worthwhile to assert, report a warning with:
+```
+_LOG.warning(...)
+```
+
+- If you know that if there is a warning then there are going to be many many warnings
+    - print the first warning
+    - send the rest to warnings.log
+    - at the end of the run, reports "there are warnings in warnings.log"
+
+# Assertion
+
+## Use positional args when asserting
+- `dassert_*` is modeled after logging so for the same reasons one should use
+  positional args
+    **Bad**
+    ```
+    dbg.dassert_eq(a, 1, "No info for %s" % method)
+    ```
+    **Good**
+    ```
+    dbg.dassert_eq(a, 1, "No info for %s", method)
+    ```

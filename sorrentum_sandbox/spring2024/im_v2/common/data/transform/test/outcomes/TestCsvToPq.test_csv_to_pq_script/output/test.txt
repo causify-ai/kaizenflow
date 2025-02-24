@@ -1,0 +1,275 @@
+# Dir structure
+.
+date=20211204
+date=20211204/data.parquet
+date=20211205
+date=20211205/data.parquet
+test1.parquet
+test2.parquet
+# File signatures
+len(file_names)=4
+file_names=date=20211204/data.parquet, date=20211205/data.parquet, test1.parquet, test2.parquet
+# date=20211204/data.parquet
+num_lines=73
+'''
+original shape=(5, 9)
+Head:
+{
+    "2021-12-04T19:40:00Z":{
+        "timestamp":1638646800000,
+        "open":49317.68,
+        "high":49346.95,
+        "volume":23.13681,
+        "low":49315.45,
+        "close":49330.63,
+        "currency_pair":"BTC_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    },
+    "2021-12-04T19:41:00Z":{
+        "timestamp":1638646860000,
+        "open":49330.63,
+        "high":49400.98,
+        "volume":61.99752,
+        "low":49322.78,
+        "close":49325.23,
+        "currency_pair":"ETH_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    },
+    "2021-12-04T19:42:40Z":{
+        "timestamp":1638646960000,
+        "open":49320.31,
+        "high":49500.75,
+        "volume":79.92761,
+        "low":49325.23,
+        "close":49328.23,
+        "currency_pair":"BTC_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    }
+}
+Tail:
+{
+    "2021-12-04T19:42:40Z":{
+        "timestamp":1638646960000,
+        "open":49320.31,
+        "high":49500.75,
+        "volume":79.92761,
+        "low":49325.23,
+        "close":49328.23,
+        "currency_pair":"BTC_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    },
+    "2021-12-04T22:26:40Z":{
+        "timestamp":1638656800000,
+        "open":49318.68,
+        "high":49446.95,
+        "volume":24.13681,
+        "low":49325.45,
+        "close":49340.63,
+        "currency_pair":"BTC_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    },
+    "2021-12-04T22:29:20Z":{
+        "timestamp":1638656960000,
+        "open":49321.31,
+        "high":49600.75,
+        "volume":80.92761,
+        "low":49326.23,
+        "close":49428.23,
+        "currency_pair":"BTC_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    }
+}
+'''
+# date=20211205/data.parquet
+num_lines=29
+'''
+original shape=(1, 9)
+Head:
+{
+    "2021-12-05T04:01:00Z":{
+        "timestamp":1638676860000,
+        "open":49331.63,
+        "high":49500.98,
+        "volume":62.99752,
+        "low":49323.78,
+        "close":49335.23,
+        "currency_pair":"ETH_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    }
+}
+Tail:
+{
+    "2021-12-05T04:01:00Z":{
+        "timestamp":1638676860000,
+        "open":49331.63,
+        "high":49500.98,
+        "volume":62.99752,
+        "low":49323.78,
+        "close":49335.23,
+        "currency_pair":"ETH_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    }
+}
+'''
+# test1.parquet
+num_lines=73
+'''
+original shape=(3, 9)
+Head:
+{
+    "0":{
+        "timestamp":1638646800000,
+        "open":49317.68,
+        "high":49346.95,
+        "volume":23.13681,
+        "low":49315.45,
+        "close":49330.63,
+        "currency_pair":"BTC_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    },
+    "1":{
+        "timestamp":1638646860000,
+        "open":49330.63,
+        "high":49400.98,
+        "volume":61.99752,
+        "low":49322.78,
+        "close":49325.23,
+        "currency_pair":"ETH_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    },
+    "2":{
+        "timestamp":1638646960000,
+        "open":49320.31,
+        "high":49500.75,
+        "volume":79.92761,
+        "low":49325.23,
+        "close":49328.23,
+        "currency_pair":"BTC_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    }
+}
+Tail:
+{
+    "0":{
+        "timestamp":1638646800000,
+        "open":49317.68,
+        "high":49346.95,
+        "volume":23.13681,
+        "low":49315.45,
+        "close":49330.63,
+        "currency_pair":"BTC_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    },
+    "1":{
+        "timestamp":1638646860000,
+        "open":49330.63,
+        "high":49400.98,
+        "volume":61.99752,
+        "low":49322.78,
+        "close":49325.23,
+        "currency_pair":"ETH_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    },
+    "2":{
+        "timestamp":1638646960000,
+        "open":49320.31,
+        "high":49500.75,
+        "volume":79.92761,
+        "low":49325.23,
+        "close":49328.23,
+        "currency_pair":"BTC_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    }
+}
+'''
+# test2.parquet
+num_lines=73
+'''
+original shape=(3, 9)
+Head:
+{
+    "0":{
+        "timestamp":1638656800000,
+        "open":49318.68,
+        "high":49446.95,
+        "volume":24.13681,
+        "low":49325.45,
+        "close":49340.63,
+        "currency_pair":"BTC_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    },
+    "1":{
+        "timestamp":1638676860000,
+        "open":49331.63,
+        "high":49500.98,
+        "volume":62.99752,
+        "low":49323.78,
+        "close":49335.23,
+        "currency_pair":"ETH_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    },
+    "2":{
+        "timestamp":1638656960000,
+        "open":49321.31,
+        "high":49600.75,
+        "volume":80.92761,
+        "low":49326.23,
+        "close":49428.23,
+        "currency_pair":"BTC_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    }
+}
+Tail:
+{
+    "0":{
+        "timestamp":1638656800000,
+        "open":49318.68,
+        "high":49446.95,
+        "volume":24.13681,
+        "low":49325.45,
+        "close":49340.63,
+        "currency_pair":"BTC_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    },
+    "1":{
+        "timestamp":1638676860000,
+        "open":49331.63,
+        "high":49500.98,
+        "volume":62.99752,
+        "low":49323.78,
+        "close":49335.23,
+        "currency_pair":"ETH_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    },
+    "2":{
+        "timestamp":1638656960000,
+        "open":49321.31,
+        "high":49600.75,
+        "volume":80.92761,
+        "low":49326.23,
+        "close":49428.23,
+        "currency_pair":"BTC_USDT",
+        "end_download_timestamp":"2021-12-07 13:01:20.183463+00:00",
+        "exchange_id":"binance"
+    }
+}
+'''

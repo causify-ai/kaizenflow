@@ -1,0 +1,8 @@
+
+################################################################################
+* Failed assertion *
+cond=False
+Caught assertion while formatting message:
+'not enough arguments for format string'
+hello %s
+################################################################################

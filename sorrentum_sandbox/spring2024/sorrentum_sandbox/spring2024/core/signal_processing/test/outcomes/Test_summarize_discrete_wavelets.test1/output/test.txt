@@ -1,0 +1,107 @@
+                            family_name short_family_name family_number     name number orthogonal biorthogonal        symmetry vanishing_moments_phi vanishing_moments_psi width
+0                          Biorthogonal              bior            11  bior1.1     11      False         True       symmetric                     1                     1     2
+1                          Biorthogonal              bior            13  bior1.3     13      False         True       symmetric                     3                     1     6
+2                          Biorthogonal              bior            15  bior1.5     15      False         True       symmetric                     5                     1    10
+3                          Biorthogonal              bior            22  bior2.2     22      False         True       symmetric                     2                     2     6
+4                          Biorthogonal              bior            24  bior2.4     24      False         True       symmetric                     4                     2    10
+5                          Biorthogonal              bior            26  bior2.6     26      False         True       symmetric                     6                     2    14
+6                          Biorthogonal              bior            28  bior2.8     28      False         True       symmetric                     8                     2    18
+7                          Biorthogonal              bior            31  bior3.1     31      False         True       symmetric                     1                     3     4
+8                          Biorthogonal              bior            33  bior3.3     33      False         True       symmetric                     3                     3     8
+9                          Biorthogonal              bior            35  bior3.5     35      False         True       symmetric                     5                     3    12
+10                         Biorthogonal              bior            37  bior3.7     37      False         True       symmetric                     7                     3    16
+11                         Biorthogonal              bior            39  bior3.9     39      False         True       symmetric                     9                     3    20
+12                         Biorthogonal              bior            44  bior4.4     44      False         True       symmetric                     4                     4    10
+13                         Biorthogonal              bior            55  bior5.5     55      False         True       symmetric                     5                     5    12
+14                         Biorthogonal              bior            68  bior6.8     68      False         True       symmetric                     8                     6    18
+15                             Coiflets              coif             1    coif1      1       True         True  near symmetric                     1                     2     6
+16                             Coiflets              coif             2    coif2      2       True         True  near symmetric                     3                     4    12
+17                             Coiflets              coif             3    coif3      3       True         True  near symmetric                     5                     6    18
+18                             Coiflets              coif             4    coif4      4       True         True  near symmetric                     7                     8    24
+19                             Coiflets              coif             5    coif5      5       True         True  near symmetric                     9                    10    30
+20                             Coiflets              coif             6    coif6      6       True         True  near symmetric                    11                    12    36
+21                             Coiflets              coif             7    coif7      7       True         True  near symmetric                    13                    14    42
+22                             Coiflets              coif             8    coif8      8       True         True  near symmetric                    15                    16    48
+23                             Coiflets              coif             9    coif9      9       True         True  near symmetric                    17                    18    54
+24                             Coiflets              coif            10   coif10     10       True         True  near symmetric                    19                    20    60
+25                             Coiflets              coif            11   coif11     11       True         True  near symmetric                    21                    22    66
+26                             Coiflets              coif            12   coif12     12       True         True  near symmetric                    23                    24    72
+27                             Coiflets              coif            13   coif13     13       True         True  near symmetric                    25                    26    78
+28                             Coiflets              coif            14   coif14     14       True         True  near symmetric                    27                    28    84
+29                             Coiflets              coif            15   coif15     15       True         True  near symmetric                    29                    30    90
+30                             Coiflets              coif            16   coif16     16       True         True  near symmetric                    31                    32    96
+31                             Coiflets              coif            17   coif17     17       True         True  near symmetric                    33                    34   102
+32                           Daubechies                db             1      db1      1       True         True      asymmetric                     0                     1     2
+33                           Daubechies                db             2      db2      2       True         True      asymmetric                     0                     2     4
+34                           Daubechies                db             3      db3      3       True         True      asymmetric                     0                     3     6
+35                           Daubechies                db             4      db4      4       True         True      asymmetric                     0                     4     8
+36                           Daubechies                db             5      db5      5       True         True      asymmetric                     0                     5    10
+37                           Daubechies                db             6      db6      6       True         True      asymmetric                     0                     6    12
+38                           Daubechies                db             7      db7      7       True         True      asymmetric                     0                     7    14
+39                           Daubechies                db             8      db8      8       True         True      asymmetric                     0                     8    16
+40                           Daubechies                db             9      db9      9       True         True      asymmetric                     0                     9    18
+41                           Daubechies                db            10     db10     10       True         True      asymmetric                     0                    10    20
+42                           Daubechies                db            11     db11     11       True         True      asymmetric                     0                    11    22
+43                           Daubechies                db            12     db12     12       True         True      asymmetric                     0                    12    24
+44                           Daubechies                db            13     db13     13       True         True      asymmetric                     0                    13    26
+45                           Daubechies                db            14     db14     14       True         True      asymmetric                     0                    14    28
+46                           Daubechies                db            15     db15     15       True         True      asymmetric                     0                    15    30
+47                           Daubechies                db            16     db16     16       True         True      asymmetric                     0                    16    32
+48                           Daubechies                db            17     db17     17       True         True      asymmetric                     0                    17    34
+49                           Daubechies                db            18     db18     18       True         True      asymmetric                     0                    18    36
+50                           Daubechies                db            19     db19     19       True         True      asymmetric                     0                    19    38
+51                           Daubechies                db            20     db20     20       True         True      asymmetric                     0                    20    40
+52                           Daubechies                db            21     db21     21       True         True      asymmetric                     0                    21    42
+53                           Daubechies                db            22     db22     22       True         True      asymmetric                     0                    22    44
+54                           Daubechies                db            23     db23     23       True         True      asymmetric                     0                    23    46
+55                           Daubechies                db            24     db24     24       True         True      asymmetric                     0                    24    48
+56                           Daubechies                db            25     db25     25       True         True      asymmetric                     0                    25    50
+57                           Daubechies                db            26     db26     26       True         True      asymmetric                     0                    26    52
+58                           Daubechies                db            27     db27     27       True         True      asymmetric                     0                    27    54
+59                           Daubechies                db            28     db28     28       True         True      asymmetric                     0                    28    56
+60                           Daubechies                db            29     db29     29       True         True      asymmetric                     0                    29    58
+61                           Daubechies                db            30     db30     30       True         True      asymmetric                     0                    30    60
+62                           Daubechies                db            31     db31     31       True         True      asymmetric                     0                    31    62
+63                           Daubechies                db            32     db32     32       True         True      asymmetric                     0                    32    64
+64                           Daubechies                db            33     db33     33       True         True      asymmetric                     0                    33    66
+65                           Daubechies                db            34     db34     34       True         True      asymmetric                     0                    34    68
+66                           Daubechies                db            35     db35     35       True         True      asymmetric                     0                    35    70
+67                           Daubechies                db            36     db36     36       True         True      asymmetric                     0                    36    72
+68                           Daubechies                db            37     db37     37       True         True      asymmetric                     0                    37    74
+69                           Daubechies                db            38     db38     38       True         True      asymmetric                     0                    38    76
+70   Discrete Meyer (FIR Approximation)              dmey             0     dmey      0       True         True       symmetric                  None                  None    62
+71                                 Haar              haar             0     haar      0       True         True      asymmetric                     0                     1     2
+72                 Reverse biorthogonal              rbio            11  rbio1.1     11      False         True       symmetric                     1                     1     2
+73                 Reverse biorthogonal              rbio            13  rbio1.3     13      False         True       symmetric                     3                     1     6
+74                 Reverse biorthogonal              rbio            15  rbio1.5     15      False         True       symmetric                     5                     1    10
+75                 Reverse biorthogonal              rbio            22  rbio2.2     22      False         True       symmetric                     2                     2     6
+76                 Reverse biorthogonal              rbio            24  rbio2.4     24      False         True       symmetric                     4                     2    10
+77                 Reverse biorthogonal              rbio            26  rbio2.6     26      False         True       symmetric                     6                     2    14
+78                 Reverse biorthogonal              rbio            28  rbio2.8     28      False         True       symmetric                     8                     2    18
+79                 Reverse biorthogonal              rbio            31  rbio3.1     31      False         True       symmetric                     1                     3     4
+80                 Reverse biorthogonal              rbio            33  rbio3.3     33      False         True       symmetric                     3                     3     8
+81                 Reverse biorthogonal              rbio            35  rbio3.5     35      False         True       symmetric                     5                     3    12
+82                 Reverse biorthogonal              rbio            37  rbio3.7     37      False         True       symmetric                     7                     3    16
+83                 Reverse biorthogonal              rbio            39  rbio3.9     39      False         True       symmetric                     9                     3    20
+84                 Reverse biorthogonal              rbio            44  rbio4.4     44      False         True       symmetric                     4                     4    10
+85                 Reverse biorthogonal              rbio            55  rbio5.5     55      False         True       symmetric                     5                     5    12
+86                 Reverse biorthogonal              rbio            68  rbio6.8     68      False         True       symmetric                     8                     6    18
+87                              Symlets               sym             2     sym2      2       True         True  near symmetric                     0                     2     4
+88                              Symlets               sym             3     sym3      3       True         True  near symmetric                     0                     3     6
+89                              Symlets               sym             4     sym4      4       True         True  near symmetric                     0                     4     8
+90                              Symlets               sym             5     sym5      5       True         True  near symmetric                     0                     5    10
+91                              Symlets               sym             6     sym6      6       True         True  near symmetric                     0                     6    12
+92                              Symlets               sym             7     sym7      7       True         True  near symmetric                     0                     7    14
+93                              Symlets               sym             8     sym8      8       True         True  near symmetric                     0                     8    16
+94                              Symlets               sym             9     sym9      9       True         True  near symmetric                     0                     9    18
+95                              Symlets               sym            10    sym10     10       True         True  near symmetric                     0                    10    20
+96                              Symlets               sym            11    sym11     11       True         True  near symmetric                     0                    11    22
+97                              Symlets               sym            12    sym12     12       True         True  near symmetric                     0                    12    24
+98                              Symlets               sym            13    sym13     13       True         True  near symmetric                     0                    13    26
+99                              Symlets               sym            14    sym14     14       True         True  near symmetric                     0                    14    28
+100                             Symlets               sym            15    sym15     15       True         True  near symmetric                     0                    15    30
+101                             Symlets               sym            16    sym16     16       True         True  near symmetric                     0                    16    32
+102                             Symlets               sym            17    sym17     17       True         True  near symmetric                     0                    17    34
+103                             Symlets               sym            18    sym18     18       True         True  near symmetric                     0                    18    36
+104                             Symlets               sym            19    sym19     19       True         True  near symmetric                     0                    19    38
+105                             Symlets               sym            20    sym20     20       True         True  near symmetric                     0                    20    40

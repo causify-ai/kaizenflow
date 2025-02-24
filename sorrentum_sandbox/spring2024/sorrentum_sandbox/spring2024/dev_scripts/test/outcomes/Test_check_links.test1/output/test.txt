@@ -1,0 +1,44 @@
+
+A high-level description of KaizenFlow is
+[KaizenFlow White Paper](/papers/DataFlow_stream_computing_framework/DataFlow_stream_computing_framework.pdf)
+
+- General intro to `DataPull`
+  - [/docs/datapull/ck.datapull.explanation.md](/docs/datapull/ck.datapull.explanation.md)
+
+- Inspect RawData
+  - [/im_v2/common/notebooks/Master_raw_data_gallery.ipynb](/im_v2/common/notebooks/Master_raw_data_gallery.ipynb)
+  - [/im_v2/common/notebooks/Master_raw_data_gallery.ipynb](/im_v2/common/notebooks/Master_raw_data_gallery.ipynb)
+  - `.im_v2/common/data/client/im_raw_data_client.py`
+
+- Convert data types
+  - `[/im_v2/common/data/transform/convert_csv_to_pq.py](/im_v2/common/data/transform/convert_csv_to_pq.py)`
+
+- How to QA data
+  - [/im_v2/ccxt/data/qa/notebooks/data_qa_bid_ask.ipynb](/im_v2/ccxt/data/qa/notebooks/data_qa_bid_ask.ipynb)
+
+- Save PnL and trades
+  - [/dataflow/model/notebooks/Master_save_pnl_and_trades.ipynb](/dataflow/model/notebooks/Master_save_pnl_and_trades.ipynb)
+  - ck.export_alpha_data.explanation.md
+
+- A list of all the generic notebooks:
+  - [/docs/dataflow/ck.master_notebooks.reference.md](/docs/dataflow/ck.master_notebooks.reference.md)
+
+- Example: [/docs/datapull/ck.create_airflow_dag.tutorial.md](/docs/datapull/ck.create_airflow_dag.tutorial.md)
+
+- notebook:
+  [Master_PnL_real_time_observer](/oms/notebooks/Master_PnL_real_time_observer.ipynb)
+
+To access the UI, visit [AirFlow UI](http://172.30.2.44:8090/home).
+
+    - ../../../../amp/helpers:/app/helpers
+      deleted: .github/workflows/build_image.yml.DISABLED
+
+<img src="figs/diataxis/diataxis_summary.png">
+
+- Here is a command for the run, log file path:
+  <img src="figs/monitor_system/image1.png" style="" />
+
+<img src="docs/datapull/figs/datapull/data_format.png">
+
+<img src="../../defi/papers/sorrentum_figs/image14.png">{width="6.854779090113736in"
+height="1.2303444881889765in"}

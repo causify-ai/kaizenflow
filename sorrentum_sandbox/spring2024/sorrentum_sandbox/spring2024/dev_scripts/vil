@@ -1,0 +1,3 @@
+#!/bin/bash -xe
+#perl -ne 'print $_ if /^\S+:\d+: \S+/' ./linter_warnings.txt
+vim -c "cfile ./linter_warnings.txt"

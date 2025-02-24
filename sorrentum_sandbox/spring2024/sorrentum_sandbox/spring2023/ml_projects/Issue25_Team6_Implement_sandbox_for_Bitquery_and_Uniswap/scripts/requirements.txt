@@ -1,0 +1,12 @@
+install
+redis
+requests
+pandas
+numpy
+matplotlib
+seaborn
+notebook
+jupyter
+apache-airflow[postgres]
+psycopg2-binary
+python-dotenv

@@ -1,0 +1,28 @@
+{
+    "dataset_signature":
+        "download_mode.downloading_entity.action_tag.data_format.data_type.asset_type.universe.vendor.exchange_id.version",
+    "token_separator_character": ".",
+    "allowed_values": {
+        "download_mode": ["bulk", "periodic_daily", "periodic_10min", "realtime"],
+        "downloading_entity": ["airflow", "manual"],
+        "action_tag": [
+            "downloaded_all",
+            "downloaded_1sec",
+            "resampled_1min",
+            "downloaded_1min",
+            "downloaded_250ms",
+            "downloaded_200ms",
+            "archived_1sec",
+            "archived_1min",
+            "archived_250ms",
+            "archived_200ms"
+        ],
+        "data_format": ["parquet", "csv", "postgres"],
+        "data_type": ["ohlcv", "bid_ask", "trades"],
+        "asset_type": ["futures", "spot"],
+        "universe": [],
+        "vendor": ["ccxt", "crypto_chassis", "binance"],
+        "exchange_id": ["binance", "binanceus", "okx", "kraken", "cryptocom"],
+        "version": ["v1_0_0", "v2_0_0"]
+    }
+}

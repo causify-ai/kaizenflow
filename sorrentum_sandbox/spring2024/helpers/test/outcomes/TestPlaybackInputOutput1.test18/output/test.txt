@@ -1,0 +1,17 @@
+# Test created for helpers.test.test_playback.get_result_assert_equal_none.
+
+import helpers.hpandas as hpandas
+import helpers.hunit_test as hunitest
+import jsonpickle
+import pandas as pd
+import core.config as cconfi
+
+
+class TestGetResultAssertEqualNone(hunitest.TestCase):
+    def test1(self) -> None:
+        # Call function to test.
+        act = get_result_assert_equal_none()
+        # Define expected output.
+        exp = "Some string."
+        # Compare actual and expected output.
+        self.assertEqual(act, exp)

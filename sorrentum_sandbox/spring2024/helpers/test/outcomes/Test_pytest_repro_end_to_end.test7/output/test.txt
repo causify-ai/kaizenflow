@@ -1,0 +1,399 @@
+HH:MM:SS - INFO  hdbg.py init_logger:1015                               > cmd='/venv/bin/invoke pytest_repro --file-name=$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test7/input/log.txt --show-stacktrace --script-name $GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test7/tmp.scratch/tmp.pytest_repro.sh'
+## pytest_repro:
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                   Reading file_name='$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test7/input/log.txt'
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                   Reading failed tests from file '$GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test7/input/log.txt'
+HH:MM:SS - INFO  lib_tasks_pytest.py pytest_repro:{LINE_NUM}                  Found 3 failed pytest 'tests' target(s); to reproduce run:
+pytest dataflow/system/example1/test/test_example1_forecast_system.py::Test_Example1_ForecastSystem_FitPredict::test_fit_over_backtest_period1
+pytest dataflow/system/example1/test/test_example1_forecast_system.py::Test_Example1_ForecastSystem_FitPredict::test_fit_over_period1
+pytest helpers/test/test_lib_tasks.py::TestDryRunTasks1::test_git_clean
+
+# TestDryRunTasks1.test_git_clean
+Traceback (most recent call last):
+  File "$GIT_ROOT/helpers/test/test_lib_tasks.py", line 189, in test_git_clean
+    self.dry_run(target)
+  File "$GIT_ROOT/helpers/test/test_lib_tasks.py", line 170, in dry_run
+    self.check_string(act)
+  File "$GIT_ROOT/helpers/hunit_test.py", line 1266, in check_string
+    is_equal = assert_equal(
+  File "$GIT_ROOT/helpers/hunit_test.py", line 881, in assert_equal
+    diff_files(
+  File "$GIT_ROOT/helpers/hunit_test.py", line 586, in diff_files
+    raise RuntimeError(msg_as_str)
+RuntimeError:
+--------------------------------------------------------------------------------
+ACTUAL vs EXPECTED: TestDryRunTasks1.test_git_clean
+--------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4541928Z
+report_memory_usage=False report_cpu_usage=False                          (
+## git_clean: dry_run=False                                               (
+                                                                          >  git clean -fd >/dev/null 2>&1
+                                                                          >  git submodule foreach 'git clean -fd >/dev/null 2>&1'
+                                                                          >  git clean -fd
+                                                                          >  git submodule foreach 'git clean -fd'
+find . -name '*\.pyc' -o -name '*\.pyo' -o -name '.coverage' -o -name '.i (
+Diff with:
+> vimdiff helpers/test/outcomes/TestDryRunTasks1.test_git_clean/tmp.actual.txt helpers/test/outcomes/TestDryRunTasks1.test_git_clean/tmp.expected.txt
+or running:
+> ./tmp_diff.sh
+--------------------------------------------------------------------------------
+EXPECTED VARIABLE: TestDryRunTasks1.test_git_clean
+--------------------------------------------------------------------------------
+exp = r"""report_memory_usage=False report_cpu_usage=False
+## git_clean: dry_run=False
+find . -name '*\.pyc' -o -name '*\.pyo' -o -name '.coverage' -o -name '.ipynb_checkpoints' -o -name '.mypy_cache' -o -name '.pytest_cache' -o -name '__pycache__' -o -name 'cfile' -o -name 'tmp.*' -o -name '*.tmp' | sort | xargs rm -rf
+"""
+
+# Test_Example1_ForecastSystem_FitPredict.test_fit_over_backtest_period1
+Traceback (most recent call last):
+  File "$GIT_ROOT/dataflow/system/example1/test/test_example1_forecast_system.py", line 50, in test_fit_over_backtest_period1
+    self._test_fit_over_backtest_period1(system, output_col_name)
+  File "$GIT_ROOT/dataflow/system/dtfsys.py", line 114, in _test_fit_over_backtest_period1
+    self.check_string(actual, fuzzy_match=True, purify_text=True)
+  File "$GIT_ROOT/helpers/hunit_test.py", line 1266, in check_string
+    is_equal = assert_equal(
+  File "$GIT_ROOT/helpers/hunit_test.py", line 881, in assert_equal
+    diff_files(
+  File "$GIT_ROOT/helpers/hunit_test.py", line 586, in diff_files
+    raise RuntimeError(msg_as_str)
+RuntimeError:
+--------------------------------------------------------------------------------
+FUZZY ACTUAL vs EXPECTED: Test_Example1_ForecastSystem_FitPredict.test_fit_over_backtest_period1
+--------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4649436Z
+system_config                                                             (
+dag_config:                                                               (
+filter_ath:                                                               (
+col_mode: replace_all                                                     (
+transformer_kwargs:                                                       (
+start_time: 09:30:00                                                      (
+end_time: 16:00:00                                                        (
+resample:                                                                 (
+in_col_groups: [('close',), ('volume',), ('feature1',)]                   (
+out_col_group: ()                                                         (
+transformer_kwargs:                                                       (
+rule: 5T                                                                  (
+resampling_groups: [({'close': 'close'}, 'last', {}), ({'close': 'twap',  (
+vwap_groups: [('close', 'volume', 'vwap')]                                (
+reindex_like_input: False                                                 (
+join_output_with_input: False                                             (
+compute_ret_0:                                                            (
+in_col_groups: [('close',), ('vwap',), ('twap',)]                         (
+out_col_group: ()                                                         (
+transformer_kwargs:                                                       (
+mode: log_rets                                                            (
+col_mapping:                                                              (
+close: close.ret_0                                                        (
+vwap: vwap.ret_0                                                          (
+twap: twap.ret_0                                                          (
+compute_vol:                                                              (
+in_col_group: ('vwap.ret_0',)                                             (
+out_col_group: ('vwap.ret_0.vol',)                                        (
+drop_nans: True                                                           (
+permitted_exceptions: (<class 'ValueError'>,)                             (
+adjust_rets:                                                              (
+in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]                     (
+out_col_group: ()                                                         (
+transformer_kwargs:                                                       (
+term1_col: vwap.ret_0                                                     (
+term2_col: vwap.ret_0.vol                                                 (
+out_col: vwap.ret_0.vol_adj                                               (
+term2_delay: 2                                                            (
+operation: div                                                            (
+drop_nans: True                                                           (
+compress_rets:                                                            (
+in_col_groups: [('vwap.ret_0.vol_adj',)]                                  (
+out_col_group: ()                                                         (
+col_mapping:                                                              (
+vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c                                  (
+dag_builder_object: nid_prefix=                                           (
+dag_builder_class: Example1_DagBuilder                                    <
+system_class: Example1_ForecastSystem                                     <
+dag_config_config:                                                        (
+resample:                                                                 (
+transformer_kwargs:                                                       (
+rule: 1T                                                                  (
+dag_runner_object: <bound method Example1_ForecastSystem.get_dag_runner o (
+market_data_config:                                                       (
+asset_id_col_name: asset_id                                               (
+asset_ids: [1467591036, 3303714233]                                       (
+backtest_config:                                                          (
+universe_str: example1_v1-top2                                            (
+trading_period_str: 1T                                                    (
+time_interval_str: Jan2000                                                (
+start_timestamp_with_lookback: 2000-01-01 00:00:00+00:00                  (
+end_timestamp: 2000-01-31 00:00:00+00:00                                  (
+market_object: <market_data.im_client_market_data.ImClientMarketData obje (
+dag_object: name=None                                                     (
+mode=strict                                                               (
+nodes=[('filter_ath', {'stage': <dataflow.core.nodes.transformers.ColumnT (
+edges=[('filter_ath', 'resample', {'df_in': 'df_out'}), ('resample', 'com (
+vwap.ret_0.vol_adj.c                                                      (
+1467591036 3303714233                                                     (
+end_ts                                                                    (
+2000-01-01 10:00:00-05:00 -0.98 -0.98                                     (
+2000-01-01 10:05:00-05:00 0.98 0.98                                       (
+2000-01-01 10:10:00-05:00 -0.98 -0.98                                     (
+Diff with:
+> vimdiff dataflow/system/example1/test/outcomes/Test_Example1_ForecastSystem_FitPredict.test_fit_over_backtest_period1/tmp.actual.txt dataflow/system/example1/test/outcomes/Test_Example1_ForecastSystem_FitPredict.test_fit_over_backtest_period1/tmp.expected.txt
+or running:
+> ./tmp_diff.sh
+--------------------------------------------------------------------------------
+EXPECTED VARIABLE: Test_Example1_ForecastSystem_FitPredict.test_fit_over_backtest_period1
+--------------------------------------------------------------------------------
+exp = r"""################################################################################
+system_config
+################################################################################
+dag_config:
+  filter_ath:
+    col_mode: replace_all
+    transformer_kwargs:
+      start_time: 09:30:00
+      end_time: 16:00:00
+  resample:
+    in_col_groups: [('close',), ('volume',), ('feature1',)]
+    out_col_group: ()
+    transformer_kwargs:
+      rule: 5T
+      resampling_groups: [({'close': 'close'}, 'last', {}), ({'close': 'twap', 'feature1': 'feature1'}, 'mean', {})]
+      vwap_groups: [('close', 'volume', 'vwap')]
+    reindex_like_input: False
+    join_output_with_input: False
+  compute_ret_0:
+    in_col_groups: [('close',), ('vwap',), ('twap',)]
+    out_col_group: ()
+    transformer_kwargs:
+      mode: log_rets
+    col_mapping:
+      close: close.ret_0
+      vwap: vwap.ret_0
+      twap: twap.ret_0
+  compute_vol:
+    in_col_group: ('vwap.ret_0',)
+    out_col_group: ('vwap.ret_0.vol',)
+    drop_nans: True
+    permitted_exceptions: (<class 'ValueError'>,)
+  adjust_rets:
+    in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]
+    out_col_group: ()
+    transformer_kwargs:
+      term1_col: vwap.ret_0
+      term2_col: vwap.ret_0.vol
+      out_col: vwap.ret_0.vol_adj
+      term2_delay: 2
+      operation: div
+    drop_nans: True
+  compress_rets:
+    in_col_groups: [('vwap.ret_0.vol_adj',)]
+    out_col_group: ()
+    col_mapping:
+      vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c
+dag_builder_object: nid_prefix=
+dag_builder_class: Example1_DagBuilder
+system_class: Example1_ForecastSystem
+dag_config_config:
+  resample:
+    transformer_kwargs:
+      rule: 1T
+dag_runner_object: <bound method Example1_ForecastSystem.get_dag_runner of <dataflow.system.example1.example1_forecast_system.Example1_ForecastSystem object>>
+market_data_config:
+  asset_id_col_name: asset_id
+  asset_ids: [1467591036, 3303714233]
+backtest_config:
+  universe_str: example1_v1-top2
+  trading_period_str: 1T
+  time_interval_str: Jan2000
+  start_timestamp_with_lookback: 2000-01-01 00:00:00+00:00
+  end_timestamp: 2000-01-31 00:00:00+00:00
+market_object: <market_data.im_client_market_data.ImClientMarketData object>
+dag_object: name=None
+mode=strict
+nodes=[('filter_ath', {'stage': <dataflow.core.nodes.transformers.ColumnTransformer object at 0x>}), ('resample', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compute_ret_0', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compute_vol', {'stage': <dataflow.core.nodes.transformers.SeriesToSeriesTransformer object at 0x>}), ('adjust_rets', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compress_rets', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('read_data', {'stage': <dataflow.system.source_nodes.HistoricalDataSource object>})]
+edges=[('filter_ath', 'resample', {'df_in': 'df_out'}), ('resample', 'compute_ret_0', {'df_in': 'df_out'}), ('compute_ret_0', 'compute_vol', {'df_in': 'df_out'}), ('compute_vol', 'adjust_rets', {'df_in': 'df_out'}), ('adjust_rets', 'compress_rets', {'df_in': 'df_out'}), ('read_data', 'filter_ath', {'df_in': 'df_out'})]
+################################################################################
+vwap.ret_0.vol_adj.c
+################################################################################
+                           1467591036  3303714233
+end_ts
+2000-01-01 10:00:00-05:00       -0.98       -0.98
+2000-01-01 10:05:00-05:00        0.98        0.98
+2000-01-01 10:10:00-05:00       -0.98       -0.98
+"""
+
+# Test_Example1_ForecastSystem_FitPredict.test_fit_over_period1
+Traceback (most recent call last):
+  File "$GIT_ROOT/dataflow/system/example1/test/test_example1_forecast_system.py", line 57, in test_fit_over_period1
+    self._test_fit_over_period1(
+  File "$GIT_ROOT/dataflow/system/dtfsys.py", line 137, in _test_fit_over_period1
+    self.check_string(actual, fuzzy_match=True, purify_text=True)
+  File "$GIT_ROOT/helpers/hunit_test.py", line 1266, in check_string
+    is_equal = assert_equal(
+  File "$GIT_ROOT/helpers/hunit_test.py", line 881, in assert_equal
+    diff_files(
+  File "$GIT_ROOT/helpers/hunit_test.py", line 586, in diff_files
+    raise RuntimeError(msg_as_str)
+RuntimeError:
+--------------------------------------------------------------------------------
+FUZZY ACTUAL vs EXPECTED: Test_Example1_ForecastSystem_FitPredict.test_fit_over_period1
+--------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4748547Z
+system_config                                                             (
+dag_config:                                                               (
+filter_ath:                                                               (
+col_mode: replace_all                                                     (
+transformer_kwargs:                                                       (
+start_time: 09:30:00                                                      (
+end_time: 16:00:00                                                        (
+resample:                                                                 (
+in_col_groups: [('close',), ('volume',), ('feature1',)]                   (
+out_col_group: ()                                                         (
+transformer_kwargs:                                                       (
+rule: 5T                                                                  (
+resampling_groups: [({'close': 'close'}, 'last', {}), ({'close': 'twap',  (
+vwap_groups: [('close', 'volume', 'vwap')]                                (
+reindex_like_input: False                                                 (
+join_output_with_input: False                                             (
+compute_ret_0:                                                            (
+in_col_groups: [('close',), ('vwap',), ('twap',)]                         (
+out_col_group: ()                                                         (
+transformer_kwargs:                                                       (
+mode: log_rets                                                            (
+col_mapping:                                                              (
+close: close.ret_0                                                        (
+vwap: vwap.ret_0                                                          (
+twap: twap.ret_0                                                          (
+compute_vol:                                                              (
+in_col_group: ('vwap.ret_0',)                                             (
+out_col_group: ('vwap.ret_0.vol',)                                        (
+drop_nans: True                                                           (
+permitted_exceptions: (<class 'ValueError'>,)                             (
+adjust_rets:                                                              (
+in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]                     (
+out_col_group: ()                                                         (
+transformer_kwargs:                                                       (
+term1_col: vwap.ret_0                                                     (
+term2_col: vwap.ret_0.vol                                                 (
+out_col: vwap.ret_0.vol_adj                                               (
+term2_delay: 2                                                            (
+operation: div                                                            (
+drop_nans: True                                                           (
+compress_rets:                                                            (
+in_col_groups: [('vwap.ret_0.vol_adj',)]                                  (
+out_col_group: ()                                                         (
+col_mapping:                                                              (
+vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c                                  (
+dag_builder_object: nid_prefix=                                           (
+dag_builder_class: Example1_DagBuilder                                    <
+system_class: Example1_ForecastSystem                                     <
+dag_config_config:                                                        (
+resample:                                                                 (
+transformer_kwargs:                                                       (
+rule: 1T                                                                  (
+dag_runner_object: <bound method Example1_ForecastSystem.get_dag_runner o (
+market_data_config:                                                       (
+asset_id_col_name: asset_id                                               (
+asset_ids: [1467591036, 3303714233]                                       (
+backtest_config:                                                          (
+universe_str: example1_v1-top2                                            (
+trading_period_str: 1T                                                    (
+time_interval_str: Jan2000                                                (
+start_timestamp_with_lookback: 2000-01-01 00:00:00+00:00                  (
+end_timestamp: 2000-01-31 00:00:00+00:00                                  (
+market_object: <market_data.im_client_market_data.ImClientMarketData obje (
+dag_object: name=None                                                     (
+mode=strict                                                               (
+nodes=[('filter_ath', {'stage': <dataflow.core.nodes.transformers.ColumnT (
+edges=[('filter_ath', 'resample', {'df_in': 'df_out'}), ('resample', 'com (
+vwap.ret_0.vol_adj.c                                                      (
+1467591036 3303714233                                                     (
+end_ts                                                                    (
+2000-01-01 10:00:00-05:00 -0.98 -0.98                                     (
+2000-01-01 10:05:00-05:00 0.98 0.98                                       (
+2000-01-01 10:10:00-05:00 -0.98 -0.98                                     (
+Diff with:
+> vimdiff dataflow/system/example1/test/outcomes/Test_Example1_ForecastSystem_FitPredict.test_fit_over_period1/tmp.actual.txt dataflow/system/example1/test/outcomes/Test_Example1_ForecastSystem_FitPredict.test_fit_over_period1/tmp.expected.txt
+or running:
+> ./tmp_diff.sh
+--------------------------------------------------------------------------------
+EXPECTED VARIABLE: Test_Example1_ForecastSystem_FitPredict.test_fit_over_period1
+--------------------------------------------------------------------------------
+exp = r"""################################################################################
+system_config
+################################################################################
+dag_config:
+  filter_ath:
+    col_mode: replace_all
+    transformer_kwargs:
+      start_time: 09:30:00
+      end_time: 16:00:00
+  resample:
+    in_col_groups: [('close',), ('volume',), ('feature1',)]
+    out_col_group: ()
+    transformer_kwargs:
+      rule: 5T
+      resampling_groups: [({'close': 'close'}, 'last', {}), ({'close': 'twap', 'feature1': 'feature1'}, 'mean', {})]
+      vwap_groups: [('close', 'volume', 'vwap')]
+    reindex_like_input: False
+    join_output_with_input: False
+  compute_ret_0:
+    in_col_groups: [('close',), ('vwap',), ('twap',)]
+    out_col_group: ()
+    transformer_kwargs:
+      mode: log_rets
+    col_mapping:
+      close: close.ret_0
+      vwap: vwap.ret_0
+      twap: twap.ret_0
+  compute_vol:
+    in_col_group: ('vwap.ret_0',)
+    out_col_group: ('vwap.ret_0.vol',)
+    drop_nans: True
+    permitted_exceptions: (<class 'ValueError'>,)
+  adjust_rets:
+    in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]
+    out_col_group: ()
+    transformer_kwargs:
+      term1_col: vwap.ret_0
+      term2_col: vwap.ret_0.vol
+      out_col: vwap.ret_0.vol_adj
+      term2_delay: 2
+      operation: div
+    drop_nans: True
+  compress_rets:
+    in_col_groups: [('vwap.ret_0.vol_adj',)]
+    out_col_group: ()
+    col_mapping:
+      vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c
+dag_builder_object: nid_prefix=
+dag_builder_class: Example1_DagBuilder
+system_class: Example1_ForecastSystem
+dag_config_config:
+  resample:
+    transformer_kwargs:
+      rule: 1T
+dag_runner_object: <bound method Example1_ForecastSystem.get_dag_runner of <dataflow.system.example1.example1_forecast_system.Example1_ForecastSystem object>>
+market_data_config:
+  asset_id_col_name: asset_id
+  asset_ids: [1467591036, 3303714233]
+backtest_config:
+  universe_str: example1_v1-top2
+  trading_period_str: 1T
+  time_interval_str: Jan2000
+  start_timestamp_with_lookback: 2000-01-01 00:00:00+00:00
+  end_timestamp: 2000-01-31 00:00:00+00:00
+market_object: <market_data.im_client_market_data.ImClientMarketData object>
+dag_object: name=None
+mode=strict
+nodes=[('filter_ath', {'stage': <dataflow.core.nodes.transformers.ColumnTransformer object at 0x>}), ('resample', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compute_ret_0', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compute_vol', {'stage': <dataflow.core.nodes.transformers.SeriesToSeriesTransformer object at 0x>}), ('adjust_rets', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compress_rets', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('read_data', {'stage': <dataflow.system.source_nodes.HistoricalDataSource object>})]
+edges=[('filter_ath', 'resample', {'df_in': 'df_out'}), ('resample', 'compute_ret_0', {'df_in': 'df_out'}), ('compute_ret_0', 'compute_vol', {'df_in': 'df_out'}), ('compute_vol', 'adjust_rets', {'df_in': 'df_out'}), ('adjust_rets', 'compress_rets', {'df_in': 'df_out'}), ('read_data', 'filter_ath', {'df_in': 'df_out'})]
+################################################################################
+vwap.ret_0.vol_adj.c
+################################################################################
+                           1467591036  3303714233
+end_ts
+2000-01-01 10:00:00-05:00       -0.98       -0.98
+2000-01-01 10:05:00-05:00        0.98        0.98
+2000-01-01 10:10:00-05:00       -0.98       -0.98
+"""
+
+# To run the tests:
+> $GIT_ROOT/helpers/test/outcomes/Test_pytest_repro_end_to_end.test7/tmp.scratch/tmp.pytest_repro.sh

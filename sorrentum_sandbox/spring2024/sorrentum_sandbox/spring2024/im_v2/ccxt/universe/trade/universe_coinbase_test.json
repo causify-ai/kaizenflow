@@ -1,0 +1,13 @@
+{
+    "CCXT": {
+      "coinbasepro": [
+        "BTC_USD",
+        "BTC_GBP",
+        "BTC_EUR",
+        "LINK_USD",
+        "BAT_USDC",
+        "LINK_USDC",
+        "ETH_BTC"
+      ]
+    }
+  }

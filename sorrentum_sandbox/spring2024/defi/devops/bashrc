@@ -1,0 +1,317 @@
+#echo "~/.bash_rc"
+
+# #############################################################################
+# Alias
+# #############################################################################
+
+alias python=python3
+alias cp="cp -i"
+alias df="df --si -h"
+alias ff="find . -name \"%1\""
+alias g="grep"
+alias grep="grep --color=always"
+alias h="history"
+alias i="invoke"
+alias kga='kill -9 $(jobs -p); clear; clear'
+alias kg="kill %1; fg; clear; clear"
+# To use smart grepping tool ack.
+alias ll="ls -l -h"
+alias perltidy='perltidy -i=2 -nolq -nolc -cti=2 -nsfs -pt=2 -bbt=2 -nwls="+ - / * . " -nwrs="+ - / * . " -csc -nbl -lp -vt=2  -wbb "<< >> -> && ||" -wba="% + - * / x != == >= <= =~ !~ < >  | & >= < = **= += *= &= <<= &&= -= /= |= >>= ||= .= %= ^= x=" -nbbc -bbb -bbs'
+alias rm="rm -i"
+alias w="which"
+# grep/find stuff
+alias vip='vim -c "source ~/.vimrc_priv"'
+
+alias sp="echo 'source ~/.profile'; source ~/.profile"
+
+#alias cie="which conda; conda info --envs"
+
+# Alphamatic config.
+export QUANDL_API_KEY="zxTmybVfQtYqMfmhKUcb"
+export SRC_DIR="$HOME/src"
+
+# #############################################################################
+# Bash keybinding
+# #############################################################################
+
+# Use vi keybindings.
+set -o vi
+# Workaround env var expansion bug in bash.
+#shopt -s direxpand
+
+# Use also some emacs keybindings that are hardwired in my brain.
+#bind '"\C-a": beginning-of-line'
+#bind '"\C-e": end-of-line'
+#bind '"\C-k": kill-line'
+#bind '"\C-r": reverse-search-history'
+#bind '"\C-d": delete-char'
+
+# Ask CTRL-D + CTRL-D to exit the shell.
+export IGNOREEOF=1
+
+bind '"\e[A"':history-search-backward
+bind '"\e[B"':history-search-forward
+bind Space:magic-space
+
+# Append bash history.
+shopt -s histappend
+shopt -s cmdhist
+#export PROMPT_COMMAND='history -a'
+export HISTCONTROL="erasedups:ignoreboth"
+export HISTFILESIZE=500000
+export HISTSIZE=100000
+export HISTIGNORE="&:ls:[bf]g:exit"
+
+export LS_COLORS="no=00:fi=00:di=01;36:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=01;32:*.cmd=01;32:*.exe=01;32:*.com=01;32:*.btm=01;32:*.bat=01;32:*.sh=01;32:*.csh=01;32:*.tar=01;31:*.tgz=01;31:*.svgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.lzma=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.bz2=01;31:*.tbz2=01;31:*.bz=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.rar=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.svg=01;35:"
+
+# #############################################################################
+# Env Vars
+# #############################################################################
+
+export PATH=./:$HOME/scripts:$PATH
+export PATH="$(echo $PATH | perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, scalar <>))')"
+
+export PYTHONPATH=$HOME/src/dotted_files:$PYTHONPATH
+export PYTHONPATH="$(echo $PYTHONPATH | perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, scalar <>))')"
+
+export HOME_IP=73.92.230.126
+# Disable python pyc.
+export PYTHONDONTWRITEBYTECODE=x
+
+# Set the bell off
+#xset b off
+#set bell-style none
+
+OS_NAME=$(uname)
+SERVER_NAME=$(uname -n)
+
+# Set CLICOLOR if you want Ansi Colors in iTerm2 
+export CLICOLOR=1
+# Set colors to match iTerm2 Terminal Colors
+export TERM=xterm-256color
+
+# These are set in `dev_scripts/setenv_amp.sh`.
+#export AM_ECR_BASE_PATH="665840871993.dkr.ecr.us-east-1.amazonaws.com"
+#export AM_S3_BUCKET="alphamatic-data"
+
+export IP_US=3.209.10.219
+export IP_EU=13.53.135.255
+
+if [[ $OS_NAME == "Darwin" ]]; then
+
+  # ###########################################################################
+  # Mac
+  # ###########################################################################
+
+  if [[ $SERVER_NAME == "gpmac.lan" || $SERVER_NAME == "gpmac.local" || $SERVER_NAME == "gpmac.fios-router.home" || $SERVER_NAME == "giacintos-mbp.lan" || $SERVER_NAME == "gpmaclocal.local" ]]; then 
+      export VIM_="/usr/bin/vi"
+      # Disable history.
+      #unset HISTFILE
+  
+      export AM_GDRIVE_PATH="/Users/saggese/GoogleDriveAlphamatic"
+
+    else
+      echo "System '$SERVER_NAME' ($OS_NAME) not recognized"
+    fi;
+  
+    alias du='du -d 1 -h'
+    alias ls='ls -G'
+    #alias ls='ls --color'
+    alias mv='/bin/mv -i'
+    #alias ctags="/usr/local/Cellar/ctags/5.8/bin/ctags"
+  
+    export DIFF_PRG="vimdiff"
+    # Latex
+    export PATH=/Library/TeX/Distributions/.DefaultTeX/Contents/Programs/texbin:$PATH
+    # Misc
+    export PATH=/Applications/Graphviz/Graphviz.app/Contents/MacOS/:$PATH
+    export PATH=/Applications/Vim.app/Contents/MacOS/:$PATH
+    export PATH=/Users/saggese/Applications/pypy-2.3-osx64/bin/:$PATH
+    #export PATH=$HOME/sys_files/scripts/mac/:$PATH
+    #export PATH=$HOME/scripts:$HOME/sys_files/scripts:$PATH
+    #
+    #export PATH=/usr/local/Cellar/ctags/5.8/bin:$PATH
+    export PATH=/Users/saggese/src/git_gp1/scripts:~/src/dotted_files/scripts:$PATH
+  
+#    # >>> conda initialize >>>
+#    # !! Contents within this block are managed by 'conda init' !!
+#    __conda_setup="$('//anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+#    if [ $? -eq 0 ]; then
+#        eval "$__conda_setup"
+#    else
+#        if [ -f "//anaconda3/etc/profile.d/conda.sh" ]; then
+#            . "//anaconda3/etc/profile.d/conda.sh"
+#        else
+#            export PATH="//anaconda3/bin:$PATH"
+#        fi
+#    fi
+#    unset __conda_setup
+#    # <<< conda initialize <<<
+#  
+#    # PartTask486: This is a workaround to get tmux to pick up the right python.
+#    export PATH="//anaconda3/bin:$PATH"
+
+    alias vi="$VIM_"
+    alias vim="$VIM_"
+    alias vimdiff="$VIM_ -d"
+
+    # Use python3 from homebrew.
+    #alias python='python3'
+    #export PATH=/usr/local/opt/python/libexec/bin:$PATH
+    #export PATH=/Users/saggese/opt/anaconda3/bin:$PATH
+  
+  elif [[ $OS_NAME == "Linux" ]]; then
+  
+    # #############################################################################
+    # Linux
+    # #############################################################################
+  
+    alias ls='ls --color=auto'
+  
+    export PATH=$PATH:":/usr/NX/bin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/sbin:/sbin"
+    export MANPATH=/usr/man:/usr/share/man:/usr/X11R6/man:/usr/local/man:/usr/local/share/man
+    export LD_LIBRARY_PATH=
+  
+    export P1_DEV_SERVER="18.190.25.141"
+    export P1_JENKINS_SERVER="3.14.143.113"
+    #
+    export P1_OLD_DEV_SERVER="104.248.187.204"
+  
+    export VIM_="/usr/bin/vim"
+    export DIFF_PRG="vimdiff"
+  
+    alias vi="$VIM_ -X"
+    alias vim="$VIM_ -X"
+    alias vimdiff="$VIM_ -d -X"
+    #alias vimdiff="$VIM_ -d -c "MyDiff"'
+
+  else
+
+    echo "OS $OS_NAME not recognized"
+fi;
+
+# #############################################################################
+# Common config
+# #############################################################################
+
+export SVN_EDITOR=$VIM_
+export VIEWER=$VIM_
+
+# Editor for GDB
+export EDITOR=$VIM_
+
+#export MANPAGER="col -b | vim -c 'set ft=man nomod nolist' -"
+#export MANPAGER="/bin/sh -c \"col -b | view -c 'set ft=man nomod nolist' -\""
+# Use vim as man pager.
+#export MANPAGER="col -b | vim -MR - "
+
+umask 0022
+# 100 GB
+#ulimit -v 100000000
+
+# #############################################################################
+# Prompt pimping
+# #############################################################################
+
+red='\[\033[0;31m\]'
+yellow='\[\033[0;33m\]'
+green='\[\033[0;32m\]'
+white='\[\033[0;0m\]'  # No Color
+cyan='\[\033[1;36m\]'
+purple='\[\033[1;35m\]'
+# export PS1='[\w]$ '
+
+function promptFunc() {
+  RET_VAL=$(echo $?)
+  if [[ -z $PROMPT_COLOR ]]; then
+    PROMPT_COLOR=$white
+  fi;
+  PS1_="\n${cyan}\u@\H"
+  # Ret val.
+  if [[ $RET_VAL != 0 ]]; then
+      PS1_="${PS1_} ${red}==> RC: $RET_VAL <==${white}"
+  fi
+  # Conda.
+  #if [[ $CONDA_PROMPT_MODIFIER != "" ]]; then
+  if [[ $VIRTUAL_ENV != "" ]]; then
+      VENV=$(basename ${VIRTUAL_ENV})
+      PS1_="${PS1_} ${yellow}venv:($VENV)${white}"
+  elif [[ $CONDA_DEFAULT_ENV != "" ]]; then
+      PS1_="${PS1_} ${yellow}conda:(${CONDA_DEFAULT_ENV})${white}"
+  fi
+  # Git branch.
+  IS_GIT_BRANCH=$(git rev-parse --git-dir 2>&1 >/dev/null; return $?)
+  if [[ $IS_GIT_BRANCH == "" ]]; then
+    #GIT_BRANCH=$(git branch | perl -ne 'print $1 if /\s*\*\s*(.*)/')
+    GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    GIT_ROOT=$(git rev-parse --show-toplevel)
+    #echo "GIT_BRANCH=$GIT_BRANCH"
+    if [[ $GIT_BRANCH != "" ]]; then
+        PS1_="${PS1_} ${green}branch:'${GIT_BRANCH}'${white}"
+    fi
+  fi
+  #
+  PS1_="${PS1_} ${purple}\w\n${PROMPT_COLOR}>"
+  export PS1="${PS1_} "
+}
+
+PROMPT_COMMAND=promptFunc
+
+red() {
+  export PROMPT_COLOR="$red"
+}
+
+white() {
+  export PROMPT_COLOR="$white"
+}
+
+green() {
+  export PROMPT_COLOR="$green"
+}
+
+yellow() {
+  export PROMPT_COLOR="$yellow"
+}
+
+# #############################################################################
+# Invoke
+# #############################################################################
+
+# From `invoke --print-completion-script bash`
+
+# Invoke tab-completion script to be sourced with Bash shell.
+# Known to work on Bash 3.x, untested on 4.x.
+
+_complete_invoke() {
+    local candidates
+
+    # COMP_WORDS contains the entire command string up til now (including
+    # program name).
+    # We hand it to Invoke so it can figure out the current context: spit back
+    # core options, task names, the current task's options, or some combo.
+    candidates=`invoke --complete -- ${COMP_WORDS[*]}`
+
+    # `compgen -W` takes list of valid options & a partial word & spits back
+    # possible matches. Necessary for any partial word completions (vs
+    # completions performed when no partial words are present).
+    #
+    # $2 is the current word or token being tabbed on, either empty string or a
+    # partial word, and thus wants to be compgen'd to arrive at some subset of
+    # our candidate list which actually matches.
+    #
+    # COMPREPLY is the list of valid completions handed back to `complete`.
+    COMPREPLY=( $(compgen -W "${candidates}" -- $2) )
+}
+
+
+# Tell shell builtin to use the above for completing our invocations.
+# * -F: use given function name to generate completions.
+# * -o default: when function generates no results, use filenames.
+# * positional args: program names to complete for.
+complete -F _complete_invoke -o default invoke inv i
+
+# vim: set ft=sh :
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

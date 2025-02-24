@@ -1,0 +1,6 @@
+sqlalchemy
+psycopg2-binary
+pandas
+requests
+tqdm
+#Test

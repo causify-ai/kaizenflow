@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+# """
+# Search in .py and .ipynb files.
+# """
+
+source helpers.sh
+
+parse_jack_cmd_opts "$@"
+
+cmd="find $dir \( -name '*.py' -o -name '*.ipynb' \) -print0 | xargs -0 ack $ACK_OPTS '$regex'"
+execute_with_verbose $cmd

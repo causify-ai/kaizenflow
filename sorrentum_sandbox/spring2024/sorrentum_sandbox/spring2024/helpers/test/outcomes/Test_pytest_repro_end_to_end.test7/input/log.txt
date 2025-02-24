@@ -1,0 +1,396 @@
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4532280Z core/event_study/test/test_core.py::TestUnwrapLocalTimeseries::test_minutely1 (0.03 s) [32mPASSED[0m[31m [100%][0m
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4532780Z
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4533026Z =================================== FAILURES ===================================
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4533724Z [31m[1m_______________________ TestDryRunTasks1.test_git_clean ________________________[0m
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4534485Z Traceback (most recent call last):
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4535021Z   File "/app/helpers/test/test_lib_tasks.py", line 189, in test_git_clean
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4535516Z     self.dry_run(target)
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4535998Z   File "/app/helpers/test/test_lib_tasks.py", line 170, in dry_run
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4536460Z     self.check_string(act)
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4536939Z   File "/app/helpers/hunit_test.py", line 1266, in check_string
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4537409Z     is_equal = assert_equal(
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4537889Z   File "/app/helpers/hunit_test.py", line 881, in assert_equal
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4538319Z     diff_files(
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4538746Z   File "/app/helpers/hunit_test.py", line 586, in diff_files
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4539220Z     raise RuntimeError(msg_as_str)
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4539617Z RuntimeError:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4540266Z --------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4540856Z ACTUAL vs EXPECTED: TestDryRunTasks1.test_git_clean
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4541568Z --------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4541928Z
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4542194Z report_memory_usage=False report_cpu_usage=False                          (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4542753Z ## git_clean: dry_run=False                                               (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4543426Z                                                                           >  git clean -fd >/dev/null 2>&1
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4544154Z                                                                           >  git submodule foreach 'git clean -fd >/dev/null 2>&1'
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4544817Z                                                                           >  git clean -fd
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4545492Z                                                                           >  git submodule foreach 'git clean -fd'
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4546194Z find . -name '*\.pyc' -o -name '*\.pyo' -o -name '.coverage' -o -name '.i (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4546664Z Diff with:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4547307Z > vimdiff helpers/test/outcomes/TestDryRunTasks1.test_git_clean/tmp.actual.txt helpers/test/outcomes/TestDryRunTasks1.test_git_clean/tmp.expected.txt
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4547931Z or running:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4548273Z > ./tmp_diff.sh
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4548887Z --------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4549484Z EXPECTED VARIABLE: TestDryRunTasks1.test_git_clean
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4550166Z --------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4550742Z exp = r"""report_memory_usage=False report_cpu_usage=False
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4551201Z ## git_clean: dry_run=False
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4552300Z find . -name '*\.pyc' -o -name '*\.pyo' -o -name '.coverage' -o -name '.ipynb_checkpoints' -o -name '.mypy_cache' -o -name '.pytest_cache' -o -name '__pycache__' -o -name 'cfile' -o -name 'tmp.*' -o -name '*.tmp' | sort | xargs rm -rf
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4553032Z """
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4637180Z [31m[1m____ Test_Example1_ForecastSystem_FitPredict.test_fit_over_backtest_period1 ____[0m
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4638716Z Traceback (most recent call last):
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4641551Z   File "/app/dataflow/system/example1/test/test_example1_forecast_system.py", line 50, in test_fit_over_backtest_period1
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4642218Z     self._test_fit_over_backtest_period1(system, output_col_name)
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4642836Z   File "/app/dataflow/system/dtfsys.py", line 114, in _test_fit_over_backtest_period1
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4643452Z     self.check_string(actual, fuzzy_match=True, purify_text=True)
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4644017Z   File "/app/helpers/hunit_test.py", line 1266, in check_string
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4644483Z     is_equal = assert_equal(
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4644949Z   File "/app/helpers/hunit_test.py", line 881, in assert_equal
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4645544Z     diff_files(
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4645997Z   File "/app/helpers/hunit_test.py", line 586, in diff_files
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4646473Z     raise RuntimeError(msg_as_str)
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4646868Z RuntimeError:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4647564Z --------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4648290Z FUZZY ACTUAL vs EXPECTED: Test_Example1_ForecastSystem_FitPredict.test_fit_over_backtest_period1
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4649091Z --------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4649436Z
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4649668Z system_config                                                             (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4650153Z dag_config:                                                               (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4650634Z filter_ath:                                                               (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4651136Z col_mode: replace_all                                                     (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4651652Z transformer_kwargs:                                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4652148Z start_time: 09:30:00                                                      (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4652605Z end_time: 16:00:00                                                        (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4653072Z resample:                                                                 (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4653690Z in_col_groups: [('close',), ('volume',), ('feature1',)]                   (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4654208Z out_col_group: ()                                                         (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4654696Z transformer_kwargs:                                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4655175Z rule: 5T                                                                  (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4655784Z resampling_groups: [({'close': 'close'}, 'last', {}), ({'close': 'twap',  (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4656444Z vwap_groups: [('close', 'volume', 'vwap')]                                (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4656971Z reindex_like_input: False                                                 (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4657465Z join_output_with_input: False                                             (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4657953Z compute_ret_0:                                                            (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4658550Z in_col_groups: [('close',), ('vwap',), ('twap',)]                         (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4659057Z out_col_group: ()                                                         (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4659540Z transformer_kwargs:                                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4660015Z mode: log_rets                                                            (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4660489Z col_mapping:                                                              (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4660968Z close: close.ret_0                                                        (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4661457Z vwap: vwap.ret_0                                                          (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4661945Z twap: twap.ret_0                                                          (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4662415Z compute_vol:                                                              (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4663124Z in_col_group: ('vwap.ret_0',)                                             (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4663731Z out_col_group: ('vwap.ret_0.vol',)                                        (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4664238Z drop_nans: True                                                           (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4664863Z permitted_exceptions: (<class 'ValueError'>,)                             (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4665372Z adjust_rets:                                                              (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4665979Z in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]                     (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4666481Z out_col_group: ()                                                         (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4666971Z transformer_kwargs:                                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4667587Z term1_col: vwap.ret_0                                                     (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4668076Z term2_col: vwap.ret_0.vol                                                 (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4668576Z out_col: vwap.ret_0.vol_adj                                               (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4669067Z term2_delay: 2                                                            (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4669552Z operation: div                                                            (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4670017Z drop_nans: True                                                           (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4670500Z compress_rets:                                                            (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4671111Z in_col_groups: [('vwap.ret_0.vol_adj',)]                                  (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4671611Z out_col_group: ()                                                         (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4672094Z col_mapping:                                                              (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4672591Z vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c                                  (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4673126Z dag_builder_object: nid_prefix=                                           (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4673669Z dag_builder_class: Example1_DagBuilder                                    <
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4674415Z system_class: Example1_ForecastSystem                                     <
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4674950Z dag_config_config:                                                        (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4675420Z resample:                                                                 (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4675903Z transformer_kwargs:                                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4676387Z rule: 1T                                                                  (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4676933Z dag_runner_object: <bound method Example1_ForecastSystem.get_dag_runner o (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4677515Z market_data_config:                                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4678009Z asset_id_col_name: asset_id                                               (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4678508Z asset_ids: [1467591036, 3303714233]                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4679000Z backtest_config:                                                          (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4679626Z universe_str: example1_v1-top2                                            (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4680126Z trading_period_str: 1T                                                    (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4680621Z time_interval_str: Jan2000                                                (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4681236Z start_timestamp_with_lookback: 2000-01-01 00:00:00+00:00                  (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4681860Z end_timestamp: 2000-01-31 00:00:00+00:00                                  (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4682438Z market_object: <market_data.im_client_market_data.ImClientMarketData obje (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4683016Z dag_object: name=None                                                     (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4683511Z mode=strict                                                               (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4684303Z nodes=[('filter_ath', {'stage': <dataflow.core.nodes.transformers.ColumnT (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4685030Z edges=[('filter_ath', 'resample', {'df_in': 'df_out'}), ('resample', 'com (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4685569Z vwap.ret_0.vol_adj.c                                                      (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4686030Z 1467591036 3303714233                                                     (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4686489Z end_ts                                                                    (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4687096Z 2000-01-01 10:00:00-05:00 -0.98 -0.98                                     (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4687666Z 2000-01-01 10:05:00-05:00 0.98 0.98                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4688234Z 2000-01-01 10:10:00-05:00 -0.98 -0.98                                     (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4693852Z Diff with:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4694916Z > vimdiff dataflow/system/example1/test/outcomes/Test_Example1_ForecastSystem_FitPredict.test_fit_over_backtest_period1/tmp.actual.txt dataflow/system/example1/test/outcomes/Test_Example1_ForecastSystem_FitPredict.test_fit_over_backtest_period1/tmp.expected.txt
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4695757Z or running:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4696094Z > ./tmp_diff.sh
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4696806Z --------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4697507Z EXPECTED VARIABLE: Test_Example1_ForecastSystem_FitPredict.test_fit_over_backtest_period1
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4698303Z --------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4698867Z exp = r"""################################################################################
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4699274Z system_config
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4699701Z ################################################################################
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4700106Z dag_config:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4700449Z   filter_ath:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4700810Z     col_mode: replace_all
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4701206Z     transformer_kwargs:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4701589Z       start_time: 09:30:00
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4701975Z       end_time: 16:00:00
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4702320Z   resample:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4702851Z     in_col_groups: [('close',), ('volume',), ('feature1',)]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4703292Z     out_col_group: ()
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4703670Z     transformer_kwargs:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4704018Z       rule: 5T
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4704700Z       resampling_groups: [({'close': 'close'}, 'last', {}), ({'close': 'twap', 'feature1': 'feature1'}, 'mean', {})]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4705360Z       vwap_groups: [('close', 'volume', 'vwap')]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4705811Z     reindex_like_input: False
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4706221Z     join_output_with_input: False
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4707219Z   compute_ret_0:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4707770Z     in_col_groups: [('close',), ('vwap',), ('twap',)]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4708195Z     out_col_group: ()
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4708558Z     transformer_kwargs:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4708947Z       mode: log_rets
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4709311Z     col_mapping:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4709685Z       close: close.ret_0
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4710049Z       vwap: vwap.ret_0
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4710416Z       twap: twap.ret_0
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4710775Z   compute_vol:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4711241Z     in_col_group: ('vwap.ret_0',)
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4711723Z     out_col_group: ('vwap.ret_0.vol',)
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4712125Z     drop_nans: True
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4712643Z     permitted_exceptions: (<class 'ValueError'>,)
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4713077Z   adjust_rets:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4713595Z     in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4714124Z     out_col_group: ()
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4714543Z     transformer_kwargs:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4714941Z       term1_col: vwap.ret_0
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4715350Z       term2_col: vwap.ret_0.vol
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4715752Z       out_col: vwap.ret_0.vol_adj
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4716142Z       term2_delay: 2
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4716723Z       operation: div
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4717096Z     drop_nans: True
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4717445Z   compress_rets:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4717947Z     in_col_groups: [('vwap.ret_0.vol_adj',)]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4718433Z     out_col_group: ()
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4718799Z     col_mapping:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4719194Z       vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4719637Z dag_builder_object: nid_prefix=
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4720674Z dag_builder_class: Example1_DagBuilder
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4721179Z system_class: Example1_ForecastSystem
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4721575Z dag_config_config:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4721934Z   resample:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4722300Z     transformer_kwargs:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4722662Z       rule: 1T
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4723350Z dag_runner_object: <bound method Example1_ForecastSystem.get_dag_runner of <dataflow.system.example1.example1_forecast_system.Example1_ForecastSystem object>>
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4724172Z market_data_config:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4724575Z   asset_id_col_name: asset_id
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4724989Z   asset_ids: [1467591036, 3303714233]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4725381Z backtest_config:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4725884Z   universe_str: example1_v1-top2
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4726310Z   trading_period_str: 1T
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4726712Z   time_interval_str: Jan2000
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4727275Z   start_timestamp_with_lookback: 2000-01-01 00:00:00+00:00
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4727822Z   end_timestamp: 2000-01-31 00:00:00+00:00
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4728377Z market_object: <market_data.im_client_market_data.ImClientMarketData object>
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4728897Z dag_object: name=None
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4729261Z mode=strict
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4732047Z nodes=[('filter_ath', {'stage': <dataflow.core.nodes.transformers.ColumnTransformer object at 0x>}), ('resample', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compute_ret_0', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compute_vol', {'stage': <dataflow.core.nodes.transformers.SeriesToSeriesTransformer object at 0x>}), ('adjust_rets', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compress_rets', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('read_data', {'stage': <dataflow.system.source_nodes.HistoricalDataSource object>})]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4734910Z edges=[('filter_ath', 'resample', {'df_in': 'df_out'}), ('resample', 'compute_ret_0', {'df_in': 'df_out'}), ('compute_ret_0', 'compute_vol', {'df_in': 'df_out'}), ('compute_vol', 'adjust_rets', {'df_in': 'df_out'}), ('adjust_rets', 'compress_rets', {'df_in': 'df_out'}), ('read_data', 'filter_ath', {'df_in': 'df_out'})]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4735787Z ################################################################################
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4736220Z vwap.ret_0.vol_adj.c
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4736654Z ################################################################################
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4737097Z                            1467591036  3303714233
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4737459Z end_ts
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4737924Z 2000-01-01 10:00:00-05:00       -0.98       -0.98
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4738406Z 2000-01-01 10:05:00-05:00        0.98        0.98
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4738892Z 2000-01-01 10:10:00-05:00       -0.98       -0.98
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4739261Z """
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4739878Z [31m[1m________ Test_Example1_ForecastSystem_FitPredict.test_fit_over_period1 _________[0m
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4740430Z Traceback (most recent call last):
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4741028Z   File "/app/dataflow/system/example1/test/test_example1_forecast_system.py", line 57, in test_fit_over_period1
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4741597Z     self._test_fit_over_period1(
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4742128Z   File "/app/dataflow/system/dtfsys.py", line 137, in _test_fit_over_period1
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4742734Z     self.check_string(actual, fuzzy_match=True, purify_text=True)
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4743389Z   File "/app/helpers/hunit_test.py", line 1266, in check_string
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4743841Z     is_equal = assert_equal(
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4744328Z   File "/app/helpers/hunit_test.py", line 881, in assert_equal
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4744767Z     diff_files(
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4745216Z   File "/app/helpers/hunit_test.py", line 586, in diff_files
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4745672Z     raise RuntimeError(msg_as_str)
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4746068Z RuntimeError:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4746708Z --------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4747409Z FUZZY ACTUAL vs EXPECTED: Test_Example1_ForecastSystem_FitPredict.test_fit_over_period1
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4748182Z --------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4748547Z
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4748848Z system_config                                                             (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4749340Z dag_config:                                                               (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4749833Z filter_ath:                                                               (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4750343Z col_mode: replace_all                                                     (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4750846Z transformer_kwargs:                                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4751336Z start_time: 09:30:00                                                      (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4751805Z end_time: 16:00:00                                                        (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4752323Z resample:                                                                 (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4752956Z in_col_groups: [('close',), ('volume',), ('feature1',)]                   (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4753459Z out_col_group: ()                                                         (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4754106Z transformer_kwargs:                                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4754581Z rule: 5T                                                                  (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4755213Z resampling_groups: [({'close': 'close'}, 'last', {}), ({'close': 'twap',  (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4755868Z vwap_groups: [('close', 'volume', 'vwap')]                                (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4756379Z reindex_like_input: False                                                 (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4756884Z join_output_with_input: False                                             (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4757379Z compute_ret_0:                                                            (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4757975Z in_col_groups: [('close',), ('vwap',), ('twap',)]                         (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4758480Z out_col_group: ()                                                         (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4758952Z transformer_kwargs:                                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4759435Z mode: log_rets                                                            (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4759916Z col_mapping:                                                              (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4760412Z close: close.ret_0                                                        (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4786435Z vwap: vwap.ret_0                                                          (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4787169Z twap: twap.ret_0                                                          (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4787693Z compute_vol:                                                              (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4788439Z in_col_group: ('vwap.ret_0',)                                             (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4789095Z out_col_group: ('vwap.ret_0.vol',)                                        (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4789615Z drop_nans: True                                                           (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4790296Z permitted_exceptions: (<class 'ValueError'>,)                             (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4790847Z adjust_rets:                                                              (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4791745Z in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]                     (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4792292Z out_col_group: ()                                                         (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4792798Z transformer_kwargs:                                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4793324Z term1_col: vwap.ret_0                                                     (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4794102Z term2_col: vwap.ret_0.vol                                                 (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4794647Z out_col: vwap.ret_0.vol_adj                                               (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4795177Z term2_delay: 2                                                            (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4795669Z operation: div                                                            (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4796310Z drop_nans: True                                                           (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4796825Z compress_rets:                                                            (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4797500Z in_col_groups: [('vwap.ret_0.vol_adj',)]                                  (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4798031Z out_col_group: ()                                                         (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4798529Z col_mapping:                                                              (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4799069Z vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c                                  (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4799632Z dag_builder_object: nid_prefix=                                           (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4800220Z dag_builder_class: Example1_DagBuilder                                    <
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4800794Z system_class: Example1_ForecastSystem                                     <
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4801362Z dag_config_config:                                                        (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4801873Z resample:                                                                 (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4802385Z transformer_kwargs:                                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4802893Z rule: 1T                                                                  (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4803458Z dag_runner_object: <bound method Example1_ForecastSystem.get_dag_runner o (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4804059Z market_data_config:                                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4804600Z asset_id_col_name: asset_id                                               (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4805123Z asset_ids: [1467591036, 3303714233]                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4805643Z backtest_config:                                                          (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4806272Z universe_str: example1_v1-top2                                            (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4806814Z trading_period_str: 1T                                                    (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4807441Z time_interval_str: Jan2000                                                (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4808143Z start_timestamp_with_lookback: 2000-01-01 00:00:00+00:00                  (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4808810Z end_timestamp: 2000-01-31 00:00:00+00:00                                  (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4809454Z market_object: <market_data.im_client_market_data.ImClientMarketData obje (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4810068Z dag_object: name=None                                                     (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4810595Z mode=strict                                                               (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4811298Z nodes=[('filter_ath', {'stage': <dataflow.core.nodes.transformers.ColumnT (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4812062Z edges=[('filter_ath', 'resample', {'df_in': 'df_out'}), ('resample', 'com (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4812615Z vwap.ret_0.vol_adj.c                                                      (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4813111Z 1467591036 3303714233                                                     (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4813585Z end_ts                                                                    (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4814314Z 2000-01-01 10:00:00-05:00 -0.98 -0.98                                     (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4814919Z 2000-01-01 10:05:00-05:00 0.98 0.98                                       (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4815545Z 2000-01-01 10:10:00-05:00 -0.98 -0.98                                     (
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4815963Z Diff with:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4816876Z > vimdiff dataflow/system/example1/test/outcomes/Test_Example1_ForecastSystem_FitPredict.test_fit_over_period1/tmp.actual.txt dataflow/system/example1/test/outcomes/Test_Example1_ForecastSystem_FitPredict.test_fit_over_period1/tmp.expected.txt
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4817745Z or running:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4818089Z > ./tmp_diff.sh
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4818751Z --------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4819543Z EXPECTED VARIABLE: Test_Example1_ForecastSystem_FitPredict.test_fit_over_period1
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4820358Z --------------------------------------------------------------------------------
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4820978Z exp = r"""################################################################################
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4821394Z system_config
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4821833Z ################################################################################
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4822241Z dag_config:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4822588Z   filter_ath:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4822959Z     col_mode: replace_all
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4823370Z     transformer_kwargs:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4823780Z       start_time: 09:30:00
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4824182Z       end_time: 16:00:00
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4824541Z   resample:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4825093Z     in_col_groups: [('close',), ('volume',), ('feature1',)]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4825551Z     out_col_group: ()
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4825951Z     transformer_kwargs:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4826312Z       rule: 5T
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4827017Z       resampling_groups: [({'close': 'close'}, 'last', {}), ({'close': 'twap', 'feature1': 'feature1'}, 'mean', {})]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4827800Z       vwap_groups: [('close', 'volume', 'vwap')]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4828262Z     reindex_like_input: False
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4828701Z     join_output_with_input: False
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4829101Z   compute_ret_0:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4829632Z     in_col_groups: [('close',), ('vwap',), ('twap',)]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4830079Z     out_col_group: ()
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4830488Z     transformer_kwargs:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4830867Z       mode: log_rets
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4831247Z     col_mapping:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4831634Z       close: close.ret_0
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4832038Z       vwap: vwap.ret_0
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4832422Z       twap: twap.ret_0
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4832798Z   compute_vol:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4833272Z     in_col_group: ('vwap.ret_0',)
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4833972Z     out_col_group: ('vwap.ret_0.vol',)
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4834393Z     drop_nans: True
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4834954Z     permitted_exceptions: (<class 'ValueError'>,)
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4835410Z   adjust_rets:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4835964Z     in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4836403Z     out_col_group: ()
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4836795Z     transformer_kwargs:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4837206Z       term1_col: vwap.ret_0
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4837629Z       term2_col: vwap.ret_0.vol
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4838047Z       out_col: vwap.ret_0.vol_adj
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4838451Z       term2_delay: 2
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4838829Z       operation: div
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4839211Z     drop_nans: True
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4839571Z   compress_rets:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4840090Z     in_col_groups: [('vwap.ret_0.vol_adj',)]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4840527Z     out_col_group: ()
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4840906Z     col_mapping:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4841320Z       vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4841792Z dag_builder_object: nid_prefix=
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4842257Z dag_builder_class: Example1_DagBuilder
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4842739Z system_class: Example1_ForecastSystem
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4843303Z dag_config_config:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4843654Z   resample:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4844032Z     transformer_kwargs:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4844412Z       rule: 1T
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4845150Z dag_runner_object: <bound method Example1_ForecastSystem.get_dag_runner of <dataflow.system.example1.example1_forecast_system.Example1_ForecastSystem object>>
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4845882Z market_data_config:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4846282Z   asset_id_col_name: asset_id
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4846700Z   asset_ids: [1467591036, 3303714233]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4847096Z backtest_config:
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4847559Z   universe_str: example1_v1-top2
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4847978Z   trading_period_str: 1T
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4848377Z   time_interval_str: Jan2000
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4848941Z   start_timestamp_with_lookback: 2000-01-01 00:00:00+00:00
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4849581Z   end_timestamp: 2000-01-31 00:00:00+00:00
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4850153Z market_object: <market_data.im_client_market_data.ImClientMarketData object>
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4850683Z dag_object: name=None
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4851051Z mode=strict
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4853864Z nodes=[('filter_ath', {'stage': <dataflow.core.nodes.transformers.ColumnTransformer object at 0x>}), ('resample', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compute_ret_0', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compute_vol', {'stage': <dataflow.core.nodes.transformers.SeriesToSeriesTransformer object at 0x>}), ('adjust_rets', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compress_rets', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('read_data', {'stage': <dataflow.system.source_nodes.HistoricalDataSource object>})]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4856657Z edges=[('filter_ath', 'resample', {'df_in': 'df_out'}), ('resample', 'compute_ret_0', {'df_in': 'df_out'}), ('compute_ret_0', 'compute_vol', {'df_in': 'df_out'}), ('compute_vol', 'adjust_rets', {'df_in': 'df_out'}), ('adjust_rets', 'compress_rets', {'df_in': 'df_out'}), ('read_data', 'filter_ath', {'df_in': 'df_out'})]
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4857531Z ################################################################################
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4857948Z vwap.ret_0.vol_adj.c
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4858372Z ################################################################################
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4858854Z                            1467591036  3303714233
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4859226Z end_ts
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4859697Z 2000-01-01 10:00:00-05:00       -0.98       -0.98
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4860188Z 2000-01-01 10:05:00-05:00        0.98        0.98
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4860695Z 2000-01-01 10:10:00-05:00       -0.98       -0.98
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4861053Z """
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4862316Z ============================= slowest 3 durations ==============================
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4866438Z 26.87s setup    oms/test/test_broker.py::TestDatabaseBroker1::test1
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4867269Z 6.46s setup    im_v2/ccxt/data/extract/test/test_compare_realtime_and_historical_data.py::TestCompareRealtimeAndHistoricalData1::test_parser
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4868189Z 6.24s setup    im_v2/talos/data/client/test/test_talos_clients.py::TestTalosSqlRealTimeImClient1::test_build_numerical_to_string_id_mapping
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4868892Z =========================== short test summary info ============================
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4956618Z FAILED helpers/test/test_lib_tasks.py::TestDryRunTasks1::test_git_clean - Run...
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4957400Z FAILED dataflow/system/example1/test/test_example1_forecast_system.py::Test_Example1_ForecastSystem_FitPredict::test_fit_over_backtest_period1
+Run_fast_tests	Run fast tests	2022-07-10T12:40:40.4958274Z FAILED dataflow/system/example1/test/test_example1_forecast_system.py::Test_Example1_ForecastSystem_FitPredict::test_fit_over_period1

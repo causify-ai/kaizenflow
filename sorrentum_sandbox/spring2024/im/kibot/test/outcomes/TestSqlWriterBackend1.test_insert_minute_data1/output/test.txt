@@ -1,0 +1,2 @@
+ trade_symbol_id            datetime  open  high  low  close  volume
+              30 2021-02-10 13:50:00  10.0  15.0  9.0   12.5    1000

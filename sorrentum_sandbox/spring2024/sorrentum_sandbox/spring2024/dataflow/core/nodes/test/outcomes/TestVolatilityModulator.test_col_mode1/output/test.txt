@@ -1,0 +1,10 @@
+################################################################################
+config
+################################################################################
+signal_cols: ['ret_0']
+volatility_col: vol.shift_-2_hat
+signal_steps_ahead: 0
+volatility_steps_ahead: 2
+mode: demodulate
+col_rename_func: <function TestVolatilityModulator.test_col_mode1.<locals>.<lambda>>
+col_mode: merge_all

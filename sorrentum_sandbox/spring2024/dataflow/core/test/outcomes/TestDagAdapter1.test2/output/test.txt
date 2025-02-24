@@ -1,0 +1,22 @@
+################################################################################
+dag_builder
+################################################################################
+nid_prefix=
+################################################################################
+dag_adapter
+################################################################################
+dag_builder=
+  nid_prefix=
+overriding_config=
+  load_prices: {'func': <function _get_data>}
+nodes_to_insert=
+  ('load_prices', <class 'dataflow.core.nodes.sources.FunctionDataSource'>)
+nodes_to_append=
+
+################################################################################
+final dag
+################################################################################
+name=None
+mode=strict
+nodes=[('rets/filter_weekends', {'stage': <dataflow.core.nodes.transformers.ColumnTransformer object at 0x>}), ('rets/filter_ath', {'stage': <dataflow.core.nodes.transformers.ColumnTransformer object at 0x>}), ('rets/resample', {'stage': <dataflow.core.nodes.transformers.FunctionWrapper object at 0x>}), ('rets/compute_ret_0', {'stage': <dataflow.core.nodes.transformers.ColumnTransformer object at 0x>}), ('rets/model_volatility', {'stage': <dataflow.core.nodes.volatility_models.VolatilityModel object at 0x>}), ('rets/clip', {'stage': <dataflow.core.nodes.transformers.ColumnTransformer object at 0x>}), ('load_prices', {'stage': <dataflow.core.nodes.sources.FunctionDataSource object at 0x>})]
+edges=[('rets/filter_weekends', 'rets/filter_ath', {'df_in': 'df_out'}), ('rets/filter_ath', 'rets/resample', {'df_in': 'df_out'}), ('rets/resample', 'rets/compute_ret_0', {'df_in': 'df_out'}), ('rets/compute_ret_0', 'rets/model_volatility', {'df_in': 'df_out'}), ('rets/model_volatility', 'rets/clip', {'df_in': 'df_out'}), ('load_prices', 'rets/filter_weekends', {'df_in': 'df_out'})]

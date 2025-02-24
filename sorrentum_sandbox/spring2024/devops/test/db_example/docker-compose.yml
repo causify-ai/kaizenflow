@@ -1,0 +1,23 @@
+version: '3.5'
+services:
+ # Docker container running Postgres DB.
+ oms_postgres:
+   image: postgres:13
+   restart: "no"
+   environment:
+     # - POSTGRES_DB=${POSTGRES_DB}
+     - POSTGRES_USER=postgres
+     - POSTGRES_PASSWORD=topsecret
+ psql_client:
+    image: postgres:13
+    restart: "no"
+    environment:
+      - PGPASSWORD=topsecret
+    command: psql -h oms_postgres -U postgres oms_postgres -c "SELECT version();"
+    depends_on:
+      - oms_postgres
+volumes:
+ oms_postgres_data: {}
+networks:
+ default:
+   name: oms_postgres_network

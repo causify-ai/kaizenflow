@@ -1,0 +1,4 @@
+(009150, KSE, Futures, continuous, KRW)
+(CT, NYBOT, Futures, continuous, USD)
+(NA, PURE, stocks, None, CAD)
+(YXI, CBOE, stocks, None, USD)

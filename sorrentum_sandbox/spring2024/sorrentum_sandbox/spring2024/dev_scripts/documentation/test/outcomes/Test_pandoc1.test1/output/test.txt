@@ -1,0 +1,641 @@
+% See
+% - https://github.com/Wandmalfarbe/pandoc-latex-template
+% - https://github.com/Wandmalfarbe/pandoc-latex-template/blob/master/eisvogel.tex
+% for a better template?
+%
+% User contributed templates
+% https://github.com/jgm/pandoc/wiki/User-contributed-templates
+% https://github.com/adityam/pandoc-templates/blob/master/README.markdown
+
+\documentclass[]{article}
+\usepackage{lmodern}
+
+% For underline
+%\usepackage{ulem}
+\usepackage{amsfonts}
+% This creates problems.
+%\usepackage{dot2texi}
+\usepackage{tikz}
+\usepackage[pdf]{graphviz}
+\usetikzlibrary{shapes,arrows}
+\usepackage{musicography}
+
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\PassOptionsToPackage{hyphens}{url} % url is loaded by hyperref
+\usepackage[unicode=true]{hyperref}
+\hypersetup{
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\date{}
+
+% =============================================================================
+% =============================================================================
+
+\usepackage{cancel}
+
+\input{latex_abbrevs.sty}
+
+%\usepackage{bookmark}
+
+% =============================================================================
+% =============================================================================
+
+\begin{document}
+
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+
+\let\emph\textit
+\let\uline\underline
+\let\ul\underline
+
+\hypertarget{style-guide-references}{%
+\section{Style guide references}\label{style-guide-references}}
+
+\begin{itemize}
+\tightlist
+\item
+  We care about at consistency rather than arguing about which approach
+  is better
+
+  \begin{itemize}
+  \tightlist
+  \item
+    E.g., see ``tab vs space'' flame-war from the 90s
+  \end{itemize}
+\item
+  Unless explicitly noted we prefer to follow the style guide below
+\item
+  As a rule of thumb we default to Google style unless Python community
+  (in the form of PEP) or tools we rely favor another style
+\end{itemize}
+
+\hypertarget{reference}{%
+\subsection{Reference}\label{reference}}
+
+\begin{itemize}
+\tightlist
+\item
+  Google Python Style Guide (GPSG)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{https://google.github.io/styleguide/pyguide.html}
+  \end{itemize}
+\item
+  Commenting style
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{http://www.sphinx-doc.org/en/master/}
+  \item
+    \texttt{https://thomas-cokelaer.info/tutorials/sphinx/docstring\_python.html}
+  \end{itemize}
+\item
+  Code convention PEP8
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{https://www.python.org/dev/peps/pep-0008/}
+  \end{itemize}
+\item
+  Documentation best practices
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{https://github.com/google/styleguide/blob/gh-pages/docguide/best\_practices.md}
+  \end{itemize}
+\item
+  Philosophical stuff
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{https://github.com/google/styleguide/blob/gh-pages/docguide/philosophy.md}
+  \end{itemize}
+\item
+  Unix rules (although a bit cryptic sometimes)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{https://en.wikipedia.org/wiki/Unix\_philosophy\#Eric\_Raymond\%E2\%80\%99s\_17\_Unix\_Rules}
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{comments}{%
+\section{Comments}\label{comments}}
+
+\hypertarget{docstring-conventions}{%
+\subsection{Docstring conventions}\label{docstring-conventions}}
+
+\begin{itemize}
+\tightlist
+\item
+  Code needs to be properly commented
+\item
+  We follow python standard
+  \href{https://www.python.org/dev/peps/pep-0257/}{PEP257} for
+  commenting
+
+  \begin{itemize}
+  \tightlist
+  \item
+    PEP257 standardizes what and how comments should be expressed (e.g.,
+    use a triple quotes for commenting a function), but it does not
+    specify what markup syntax should be used to describe comments
+  \end{itemize}
+\item
+  Different conventions have been developed for documenting interfaces
+
+  \begin{itemize}
+  \tightlist
+  \item
+    reST
+  \item
+    Google (which is cross-language, e.g., C++, python, \ldots)
+  \item
+    epytext
+  \item
+    numpydoc
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{rest-style}{%
+\subsection{reST style}\label{rest-style}}
+
+\begin{itemize}
+\tightlist
+\item
+  reST (aka re-Structured Text) style is:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    the most widely supported in the python commpunity
+  \item
+    supported by all doc generation tools (e.g., epydoc, sphinx)
+  \item
+    default in pycharm
+  \item
+    default in pyment
+  \item
+    supported by pydocstyle (which does not support Google style as
+    explained
+    \href{https://github.com/PyCQA/pydocstyle/issues/275}{here})
+  \end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{"""}
+\CommentTok{This is a reST style.}
+
+\CommentTok{:param param1: this is a first param}
+\CommentTok{:type param1: str}
+\CommentTok{:param param2: this is a second param}
+\CommentTok{:type param2: int}
+\CommentTok{:returns: this is a description of what is returned}
+\CommentTok{:rtype: bool}
+\CommentTok{:raises keyError: raises an exception}
+\CommentTok{"""}
+\end{Highlighting}
+\end{Shaded}
+\end{itemize}
+
+\hypertarget{descriptive-vs-imperative-style}{%
+\subsection{Descriptive vs imperative
+style}\label{descriptive-vs-imperative-style}}
+
+\begin{itemize}
+\item
+  GPSG suggests to use descriptive style of comments, e.g., ``This
+  function does this and that'', instead than imperative style ``Do this
+  and that''
+\item
+  \href{https://www.python.org/dev/peps/pep-0257/}{PEP-257}
+
+\begin{verbatim}
+```
+The docstring is a phrase ending in a period. It prescribes the function or
+method's effect as a command ("Do this", "Return that"), not as a description;
+e.g. don't write "Returns the pathname ...".
+```
+\end{verbatim}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    pylint and other python QA tools favor an imperative style
+  \item
+    Since we prefer to rely on automatic checks, we decided to use an
+    imperative style of comments
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{alternate-parameter-description-and-type}{%
+\subsubsection{Alternate parameter description and
+type}\label{alternate-parameter-description-and-type}}
+
+\begin{itemize}
+\item
+  We prefer to alternate param description and its type so the docstring
+  below, although good, does not follow our convention *Bad**
+
+\begin{verbatim}
+```python
+:param data: CB data
+:param metrics: CB metrics
+:param fill_na_w_zero: If True, fill NaN values with zeros.
+
+:type data: pd.DataFrame
+:type metrics: list of str
+:type fill_na_w_zero: bool
+
+:returns data_merged: Data with two metrics added together.
+:rtype data_merged: pd.DataFrame
+```
+\end{verbatim}
+\item
+  The code should be changed into: \textbf{Good}
+
+\begin{verbatim}
+```python
+:param data: CB data
+:type data: pd.DataFrame
+:param metrics: CB metrics
+:type metrics: list of str
+:param fill_na_w_zero: If True, fill NaN values with zeros.
+:type fill_na_w_zero: bool
+
+:returns data_merged: Data with two metrics added together.
+:rtype data_merged: pd.DataFrame
+```
+\end{verbatim}
+\item
+  We pick lowercase after \texttt{:param\ XYZ:\ ...} unless the first
+  word is a proper noun or type
+\item
+  Examples are \href{https://stackoverflow.com/questions/3898572}{here}
+\end{itemize}
+
+\hypertarget{avoid-empty-lines-in-code}{%
+\subsubsection{Avoid empty lines in
+code}\label{avoid-empty-lines-in-code}}
+
+\begin{itemize}
+\item
+  If you feel that you need an empty line in the code, it probably means
+  that a specific chunk of code is a logical piece of code performing a
+  cohesive function.
+
+\begin{verbatim}
+```python
+...
+end_y = end_dt.year
+# Generate list of file paths for ParquetDataset.
+paths = list()
+...
+```
+\end{verbatim}
+\item
+  Instead of putting an empty line, you should put a comment describing
+  at high level what the code does.
+
+\begin{verbatim}
+```python
+...
+end_y = end_dt.year
+# Generate list of file paths for ParquetDataset.
+paths = list()
+...
+```
+\end{verbatim}
+\item
+  If you don't want to add just use an empty comment.
+
+\begin{verbatim}
+```python
+...
+end_y = end_dt.year
+#
+paths = list()
+...
+```
+\end{verbatim}
+\item
+  The problem with empty lines is that they are visually confusing since
+  one empty line is used also to separate functions. For this reason we
+  suggest to use an empty comment.
+\end{itemize}
+
+\hypertarget{avoid-distracting-comments}{%
+\subsubsection{Avoid distracting
+comments}\label{avoid-distracting-comments}}
+
+\begin{itemize}
+\tightlist
+\item
+  Use comments to explain the high level logic / goal of a piece of code
+  and not the details
+
+  \begin{itemize}
+  \item
+    E.g., do not comment things that are obvious, e.g.,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Print results.}
+\NormalTok{log.info(}\StringTok{"Results are }\SpecialCharTok{\%s}\StringTok{"}\NormalTok{, ...)}
+\end{Highlighting}
+\end{Shaded}
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{if-you-find-a-bug-obsolete-docstring-in-the-code}{%
+\subsubsection{If you find a bug, obsolete docstring in the
+code}\label{if-you-find-a-bug-obsolete-docstring-in-the-code}}
+
+\begin{itemize}
+\tightlist
+\item
+  The process is:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    do a \texttt{git\ blame} to find who wrote the code
+  \item
+    if it's an easy bug, you can fix it and ask for a review to the
+    author
+  \item
+    you can file a comment on Upsource
+  \item
+    you can file a bug on Github with
+
+    \begin{itemize}
+    \tightlist
+    \item
+      clear info on the problem
+    \item
+      how to reproduce it, ideally a unit test
+    \item
+      stacktrace
+    \item
+      you can use the tag ``BUG: \ldots{}''
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{logging}{%
+\section{Logging}\label{logging}}
+
+\hypertarget{always-use-logging-instead-of-prints}{%
+\subsection{Always use logging instead of
+prints}\label{always-use-logging-instead-of-prints}}
+
+\begin{itemize}
+\tightlist
+\item
+  Always use logging and never \texttt{print()} to report debug, info,
+  warning
+\end{itemize}
+
+\hypertarget{our-logging-idiom}{%
+\subsection{Our logging idiom}\label{our-logging-idiom}}
+
+\begin{verbatim}
+```python
+import helpers.dbg as dbg
+
+_LOG = logging.getLogger(__name__)
+
+dbg.init_logger(verbosity=logging.DEBUG)
+
+_LOG.debug("I am a debug function about %s", a)
+```
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  In this way one can decide how much debug info are needed (see Unix
+  rule of silence)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    E.g., when there is a bug one can run with \texttt{-v\ DEBUG} and
+    see what's happening right before the bug
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{logging-level}{%
+\subsection{Logging level}\label{logging-level}}
+
+\begin{itemize}
+\tightlist
+\item
+  Use \texttt{\_LOG.info} when you want to communicate to the final
+  user, e.g.,
+
+  \begin{itemize}
+  \tightlist
+  \item
+    when the script is started
+  \item
+    where the script is saving its results
+  \item
+    a progress bar indicating the amount of work completed
+  \end{itemize}
+\item
+  Information related to the internal behavior of code should go at the
+  DEBUG level
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Do not pollute the output with information a regular user does not
+    care about.
+  \end{itemize}
+\item
+  Make sure the script prints when the work is terminated, e.g.,
+  ``DONE'' or ``Results written in \ldots{}''
+
+  \begin{itemize}
+  \tightlist
+  \item
+    This is useful to indicate that the script did not die in the
+    middle: sometimes this happens silently and it is reported only from
+    the OS return code
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{use-positional-args-when-logging}{%
+\subsection{Use positional args when
+logging}\label{use-positional-args-when-logging}}
+
+\begin{itemize}
+\item
+  Instead of doing this: \textbf{Bad}
+
+\begin{verbatim}
+```python
+_LOG.debug('cmd=%s %s %s' % (cmd1, cmd2, cmd3))
+_LOG.debug('cmd=%s %s %s'.format(cmd1, cmd2, cmd3))
+_LOG.debug('cmd={cmd1} {cmd2} {cmd3}')
+\end{verbatim}
+
+  do this \textbf{Good} ```
+
+  \_LOG.debug(`cmd=\%s \%s \%s', cmd1, cmd2, cmd3)
+
+\begin{verbatim}
+```
+\end{verbatim}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The two statements are equivalent from the functional point of view
+  \item
+    The reason is that in the second case the string is not built unless
+    the logging is actually performed, which limits time overhead from
+    logging
+  \end{itemize}
+
+  \hypertarget{report-warnings}{%
+  \subsection{Report warnings}\label{report-warnings}}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    If there is a something that is suspicious but you don't feel like
+    it's worthwhile to assert, report a warning with: ```
+  \end{itemize}
+\end{itemize}
+
+\_LOG.warning(\ldots)
+
+\begin{verbatim}
+```
+
+- If you know that if there is a warning then there are going to be many many warnings
+    - print the first warning
+    - send the rest to warnings.log
+    - at the end of the run, reports "there are warnings in warnings.log"
+
+# Assertion
+
+## Use positional args when asserting
+- `dassert_*` is modeled after logging so for the same reasons one should use
+  positional args
+    **Bad**
+    ```
+
+  dbg.dassert_eq(a, 1, "No info for %s" % method)
+
+    ```
+    **Good**
+    ```
+
+  dbg.dassert_eq(a, 1, "No info for %s", method)
+
+    ```
+\end{verbatim}
+
+\end{document}

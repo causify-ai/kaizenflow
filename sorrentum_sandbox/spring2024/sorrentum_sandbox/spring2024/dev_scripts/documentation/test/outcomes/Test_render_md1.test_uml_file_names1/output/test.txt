@@ -1,0 +1,3 @@
+/a/b/c/d/plantuml-images
+plantuml-images/e.8.png
+e.8.puml

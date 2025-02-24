@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+# """
+# > git pull --autostash
+# """
+
+source helpers.sh
+
+execute "git pull --autostash"

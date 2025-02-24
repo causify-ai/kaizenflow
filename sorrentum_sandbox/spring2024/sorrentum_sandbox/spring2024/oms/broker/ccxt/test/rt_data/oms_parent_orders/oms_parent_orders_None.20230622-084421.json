@@ -1,0 +1,250 @@
+[
+    {
+        "py/reduce": [
+            {
+                "py/type": "collections.OrderedDict"
+            },
+            {
+                "py/tuple": []
+            },
+            null,
+            null,
+            {
+                "py/tuple": [
+                    {
+                        "py/tuple": [
+                            "order_id",
+                            0
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "creation_timestamp",
+                            {
+                                "py/reduce": [
+                                    {
+                                        "py/function": "pandas._libs.tslibs.timestamps._unpickle_timestamp"
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            1687423461852271000,
+                                            null,
+                                            {
+                                                "py/reduce": [
+                                                    {
+                                                        "py/function": "pytz._p"
+                                                    },
+                                                    {
+                                                        "py/tuple": [
+                                                            "America/New_York",
+                                                            -14400,
+                                                            3600,
+                                                            "EDT"
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            10
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "asset_id",
+                            3065029174
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "type_",
+                            "price@twap"
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "start_timestamp",
+                            {
+                                "py/id": 2
+                            }
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "end_timestamp",
+                            {
+                                "py/reduce": [
+                                    {
+                                        "py/function": "pandas._libs.tslibs.timestamps._unpickle_timestamp"
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            1687423761852271000,
+                                            null,
+                                            {
+                                                "py/id": 3
+                                            },
+                                            10
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "curr_num_shares",
+                            0.0
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "diff_num_shares",
+                            -900.0
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "tz",
+                            {
+                                "py/reduce": [
+                                    {
+                                        "py/function": "pytz._p"
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            "America/New_York",
+                                            -18000,
+                                            0,
+                                            "EST"
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "extra_params",
+                            {}
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "py/reduce": [
+            {
+                "py/type": "collections.OrderedDict"
+            },
+            {
+                "py/tuple": []
+            },
+            null,
+            null,
+            {
+                "py/tuple": [
+                    {
+                        "py/tuple": [
+                            "order_id",
+                            1
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "creation_timestamp",
+                            {
+                                "py/reduce": [
+                                    {
+                                        "py/function": "pandas._libs.tslibs.timestamps._unpickle_timestamp"
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            1687423461852754000,
+                                            null,
+                                            {
+                                                "py/id": 3
+                                            },
+                                            10
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "asset_id",
+                            6051632686
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "type_",
+                            "limit"
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "start_timestamp",
+                            {
+                                "py/id": 8
+                            }
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "end_timestamp",
+                            {
+                                "py/reduce": [
+                                    {
+                                        "py/function": "pandas._libs.tslibs.timestamps._unpickle_timestamp"
+                                    },
+                                    {
+                                        "py/tuple": [
+                                            1687423761852754000,
+                                            null,
+                                            {
+                                                "py/id": 3
+                                            },
+                                            10
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "curr_num_shares",
+                            0.0
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "diff_num_shares",
+                            33.0
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "tz",
+                            {
+                                "py/id": 5
+                            }
+                        ]
+                    },
+                    {
+                        "py/tuple": [
+                            "extra_params",
+                            {}
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

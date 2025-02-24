@@ -1,0 +1,77 @@
+[
+  {
+    "name": "Blocked",
+    "color": "#5319e7",
+    "description": "Blocked"
+  },
+  {
+    "name": "Blocking",
+    "color": "#000000",
+    "description": "Blocking"
+  },
+  {
+    "name": "Epic",
+    "color": "#3E4B9E",
+    "description": "Epic"
+  },
+  {
+    "name": "In progress",
+    "color": "#00BB00",
+    "description": "TODO(gp): To remove at some point"
+  },
+  {
+    "name": "P0",
+    "color": "#FF0000",
+    "description": "High priority"
+  },
+  {
+    "name": "P1",
+    "color": "#FF8800",
+    "description": "Medium priority"
+  },
+  {
+    "name": "P2",
+    "color": "#888800",
+    "description": "Low priority"
+  },
+  {
+    "name": "Paused",
+    "color": "#fbca04",
+    "description": "After some work was done on this bug, it was paused"
+  },
+  {
+    "name": "To close",
+    "color": "#5319e7",
+    "description": "Issue is ready to be closed"
+  },
+  {
+    "name": "Umbrella",
+    "color": "#b7330b",
+    "description": "TODO(gp): To remove at some point"
+  },
+  {
+    "name": "Permanent",
+    "color": "#b7330b",
+        "description": "Routine ongoing tasks, which cannot be closed"
+   },
+  {
+    "name": "Wontfix",
+    "color": "#eeeeee",
+    "description": "We will not fix this bug"
+  },
+  {
+    "name": "Unclear",
+    "color": "#eeeeee",
+    "description": "Issue is unclear or invalid"
+  },
+  {
+    "name": "Discussion",
+    "color": "#ff7619",
+    "description": "For discussion"
+  },
+  {
+    "name": "Question",
+    "color": "#ff7619",
+    "description": "Question"
+  }
+]

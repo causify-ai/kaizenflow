@@ -1,0 +1,13 @@
+                                         arma(2,2)
+n_rows                                          40
+frac_zero                                    0.125
+frac_nan                                     0.125
+frac_inf                                      0.15
+frac_constant                             0.102564
+num_finite_samples                              29
+num_finite_samples_inv                    0.034483
+num_finite_samples_inv_dyadic_scale             -5
+num_finite_samples_sqrt                   5.385165
+num_finite_samples_sqrt_inv               0.185695
+num_finite_samples_sqrt_inv_dyadic_scale        -3
+num_unique_values                               25

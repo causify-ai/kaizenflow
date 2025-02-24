@@ -1,0 +1,12 @@
+Listed: 43 symbols and 4 gigabytes
+Delisted: 3 symbols and 204 megabytes
+List last updated on: 8/31/2020
+
+Listed:
+
+#	Symbol	StartDate	Size(MB)	Description	Exchange	Industry	Sector
+1	AA	4/27/2007	68	"Alcoa Corporation"	NYSE	"Aluminum"	"Basic Industries"
+
+Delisted:
+
+1	XOM	12/1/1999	102	"Exxon Mobil Corporation"	NYSE	"Integrated oil Companies"	"Energy"

@@ -1,0 +1,81 @@
+v8
+- 2024-04-04
+- Removing delisted symbols ANT_USDT, DGB_USDT and CTK_USDT
+
+v8.2
+- 2024-03-05
+- Coins from v8 with `bid_vol_to_half_spread > 10` and `half_spread <=1` excluding BTC, ETH and v8.1 coins
+- Partitioning performed at CmTask7334, see http://172.30.2.44/notebooks/CmTask7334_Partition_v8_universe.20240304-124626.html
+
+v8.1
+- 2024-02-23
+- Coins from v8 with `bid_vol_to_half_spread_bucket=(25, 250]` and `half_spread_bucket=(0.05, 0.5]`
+- Partitioning performed at CmTask7334, see http://172.30.2.44/notebooks/CmTask7334_Partition_v8_universe.20240304-124626.html
+
+v8.0
+- 2023-01-29
+- Expand binance futures universe to all available symbols
+- Same coins as for binance in the `download` universe v8.0
+
+v7.5
+- 2024-01-29
+- Only `binance::BTC_USDT` and `binance::ETH_USDT`
+- See CmTask6980
+
+v7.4
+- 2023-11-10
+- Copy of v7.1 but without CRV_USDT
+
+v7.3
+- 2022-09-01
+- Copy of v7.2 with only USDT currency pairs
+
+v7.2
+- 2022-09-01
+- Copy of v7 that is used when running in the binance testnet
+- A few coins were removed because they do not exist in the testnet, namely:
+    - `binance::BAKE_USDT`, `binance::CRV_USDT`, `binance::CTK_USDT`, `binance::DYDX_USDT`
+
+v7.1
+- 2022-09-01
+- Copy of v7 with only USDT currency pairs
+
+v7
+- 2022-07-14
+- Only `binance` futures
+- Same coins as in `binance` in the `download` universe `top30_20220706`
+- `binance::ADA_USDT` was removed due to CmTask2375
+
+v6
+- 2022-06-27
+- Only `binance` futures
+- Same coins as in `binance` in the `download` universe `v5`
+- `binance::ADA_USDT` was removed due to CmTask2216
+
+coinbase_test
+- 2022-06-15
+- Same as `coinbase_test` in the `download` universe
+
+v5
+- 2022-05-25
+- Same as `v5` in the `download` universe
+
+v4
+- 2022-04-23
+- Same as `v4` in the `download` universe
+
+small
+- 2021-11-07
+- Same as `small` in the `download` universe
+
+v3
+- 2021-11-04
+- Kucoin was removed due to bad quality
+
+v2
+- 2021-11-03
+- Same as `v2` in the `download` universe
+
+v1
+- 2021-09-25
+- Same as `v1` in the `download` universe

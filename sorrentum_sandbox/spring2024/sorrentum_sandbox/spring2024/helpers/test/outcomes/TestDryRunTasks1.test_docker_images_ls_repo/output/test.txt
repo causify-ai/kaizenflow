@@ -1,0 +1,4 @@
+## docker_images_ls_repo:
+## docker_login:
+eval $(aws ecr get-login --profile am --no-include-email --region us-east-1)
+docker image ls 665840871993.dkr.ecr.us-east-1.amazonaws.com

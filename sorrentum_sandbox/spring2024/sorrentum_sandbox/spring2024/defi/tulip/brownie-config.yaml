@@ -1,0 +1,8 @@
+dotenv: .env
+project_structure:
+    build: build
+    contracts: contracts
+    interfaces: interfaces
+    reports: reports
+    scripts: scripts
+    tests: test

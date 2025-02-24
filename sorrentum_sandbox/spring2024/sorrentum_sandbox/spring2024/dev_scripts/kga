@@ -1,0 +1,25 @@
+#!/bin/bash -xe
+# Kill all the stopped jobs.
+# From https://serverfault.com/questions/240155/how-can-i-kill-all-stopped-jobs
+JOBS=$(jobs -ps)
+if [[ ! -z $JOBS ]]; then
+    echo "JOBS=$JOBS"
+    kill -s 9 $JOBS
+fi;
+clear
+clear
+#
+JOBS=$(jobs -ps)
+if [[ ! -z $JOBS ]]; then
+    echo "JOBS=$JOBS"
+    kill -s 9 $JOBS
+    clear
+    clear
+fi;
+#
+reset
+reset
+#
+clear
+#
+jobs -ps

@@ -1,0 +1,3 @@
+report_memory_usage=False report_cpu_usage=False
+## git_clean: dry_run=False
+find . -name '*\.pyc' -o -name '*\.pyo' -o -name '.coverage' -o -name '.ipynb_checkpoints' -o -name '.mypy_cache' -o -name '.pytest_cache' -o -name '__pycache__' -o -name 'cfile' -o -name 'tmp.*' -o -name '*.tmp' | sort | xargs rm -rf

@@ -1,0 +1,22 @@
+v5
+- 2022-10-19
+- Expanded to get the best intersection with CCXT universe `v7`
+
+v4
+- 2022-07-12
+- Only `binance` futures
+- Same coins as in `binance` in the `download` universe `top30_20220706`
+
+v3
+- 2022-06-27
+- Only `binance` futures
+- Same coins as in `binance` in the `download` universe `v2`
+
+v2
+- 2022-05-20
+- Same as `v2` in the `download` universe
+- `coinbase::DOGE` was removed due to bad quality CmTask #2052
+
+v1
+- 2022-05-10
+- Same as `v1` in the `download` universe

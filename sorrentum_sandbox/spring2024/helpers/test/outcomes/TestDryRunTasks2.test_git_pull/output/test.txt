@@ -1,0 +1,2 @@
+call('git pull --autostash')
+call("git submodule foreach 'git pull --autostash'")

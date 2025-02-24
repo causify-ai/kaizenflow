@@ -1,0 +1,21 @@
+boto3
+botocore
+bs4
+flaky
+flaky
+fsspec
+ib_insync==0.9.65  # To use IB controller.
+joblib
+lxml
+matplotlib
+pandas
+psycopg2-binary
+pytest
+pytest
+pytest-cov
+pytest-instafail
+pytest-xdist
+pytest-xdist
+requests
+s3fs
+tqdm

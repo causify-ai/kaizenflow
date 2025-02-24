@@ -1,0 +1,3 @@
+call('git fetch origin master:master')
+call("git submodule foreach 'git fetch origin master:master'")
+call('git merge master')

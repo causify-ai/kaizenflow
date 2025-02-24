@@ -1,0 +1,97 @@
+version: '3'
+
+services:
+#  # TODO(*): move to the right place. Also move targets from the makefile
+#  app:
+#    image: ${IMAGE}
+#    restart: "no"
+#    depends_on:
+#      - im_postgres_local
+#    volumes:
+#      - ../../../:/app
+#      - ~/.aws:/root/.aws
+#    env_file:
+#      - ../env/local/im_postgres_config.env
+#    working_dir: /app
+#    entrypoint: /app/im/devops/docker_build/entrypoints/entrypoint_deploy.sh
+
+#  im_postgres_local:
+#    image: postgres:13
+#    restart: "no"
+#    volumes:
+#      - im_postgres_data_local:/var/lib/postgresql/data
+#    ports:
+#      - 5432:5432
+#    env_file:
+#      - ../env/local/im_postgres_config.env
+
+  # ###########################################################################
+  # Airflow
+  # ###########################################################################
+ 
+  # It seems that Airflow needs this name.
+  # TODO(*): Check if that's true. Otherwise call it airflow-redis.
+  redis_local:
+      image: docker.io/bitnami/redis:6.0-debian-10
+      env_file:
+        - ../env/local/airflow.env
+      volumes:
+      - redis_data_local:/bitnami/redis/data
+
+  # It seems that Airflow needs this name.
+  # TODO(*): Check if that's true. Otherwise call it ariflow-postgresql.
+  postgresql:
+    image: docker.io/bitnami/postgresql:10-debian-10
+    volumes:
+      - postgresql_data_local:/bitnami/postgresql
+    env_file:
+      - ../env/local/airflow_postgres.env
+
+  airflow-scheduler:
+    image: docker.io/bitnami/airflow-scheduler:2-debian-10
+    user: root
+    env_file:
+      - ../env/local/airflow.env
+    volumes:
+      - airflow_scheduler_data_local:/bitnami
+      - ../dags:/opt/bitnami/airflow/dags
+
+  airflow:
+    image: docker.io/bitnami/airflow:2-debian-10
+    user: root
+    ports:
+      - '8080:8080'
+    env_file:
+      - ../env/local/airflow.env
+    volumes:
+      - airflow_data_local:/bitnami
+      # TODO(gp): Understand if this is really needed. Intermittently, the
+      # destination is a dir creating the container not to work.
+      #- ../airflow_configs/requirements.txt:/bitnami/python/requirements.txt
+      - ../dags:/opt/bitnami/airflow/dags
+    depends_on:
+      - postgresql
+
+  airflow-worker-db-loader:
+    image: ${WORKER_IMAGE}
+    env_file:
+      - ../env/local/airflow.env
+      - ../env/local/worker_config.env
+      - ../env/local/worker_db_loader.env
+      - ../env/local/im_postgres_config.env
+    volumes:
+      - airflow_worker_db-loader_data_local:/bitnami
+      - airflow_worker_db-loader_logs_local:/opt/bitnami/airflow/logs
+      - ../dags:/opt/bitnami/airflow/dags
+      - ../../../:/app
+      - ~/.aws:/root/.aws
+
+
+volumes:
+  #im_postgres_data_local: {}
+  redis_data_local: {}
+  postgresql_data_local: {}
+  airflow_scheduler_data_local: {}
+  airflow_data_local: {}
+  airflow_worker_db-loader_data_local: {}
+  airflow_worker_db-loader_logs_local: {}

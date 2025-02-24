@@ -1,0 +1,187 @@
+# SystemConfigList at 0x
+  # Mock2_NonTime_ForecastSystem at 0x
+    dag_config:
+      filter_weekends:
+        in_col_groups: [('close',), ('high',), ('low',), ('open',), ('volume',)]
+        out_col_group: ()
+        join_output_with_input: False
+      filter_ath:
+        in_col_groups: [('close',), ('high',), ('low',), ('open',), ('volume',)]
+        out_col_group: ()
+        transformer_kwargs:
+          start_time: 09:30:00
+          end_time: 16:00:00
+        join_output_with_input: False
+      resample:
+        in_col_groups: [('open',), ('high',), ('low',), ('close',), ('volume',)]
+        out_col_group: ()
+        transformer_kwargs:
+          rule: 5T
+          resampling_groups: [({'close': 'close'}, 'last', {}), ({'high': 'high'}, 'max', {}), ({'low': 'low'}, 'min', {}), ({'open': 'open'}, 'first', {}), ({'volume': 'volume'}, 'sum', {'min_count': 1}), ({'close': 'twap'}, 'mean', {})]
+          vwap_groups: [('close', 'volume', 'vwap')]
+        reindex_like_input: False
+        join_output_with_input: False
+      compute_ret_0:
+        in_col_groups: [('close',), ('vwap',), ('twap',)]
+        out_col_group: ()
+        transformer_kwargs:
+          mode: pct_change
+        col_mapping:
+          close: close.ret_0
+          vwap: vwap.ret_0
+          twap: twap.ret_0
+      compute_vol:
+        in_col_groups: [('vwap.ret_0',)]
+        out_col_group: ()
+        transformer_kwargs:
+          tau: 32
+        col_mapping:
+          vwap.ret_0: vwap.ret_0.vol
+      adjust_rets:
+        in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]
+        out_col_group: ()
+        transformer_kwargs:
+          term1_col: vwap.ret_0
+          term2_col: vwap.ret_0.vol
+          out_col: vwap.ret_0.vol_adj
+          term2_delay: 2
+          operation: div
+        drop_nans: True
+      clip:
+        in_col_groups: [('vwap.ret_0.vol_adj',)]
+        out_col_group: ()
+        col_mapping:
+          vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c
+    dag_builder_object: nid_prefix=
+    dag_builder_class: Mock2_DagBuilder
+    system_class: Mock2_NonTime_ForecastSystem
+    system_log_dir: ./system_log_dir
+    backtest_config:
+      universe_str: bloomberg_v1-top1
+      trading_period_str: 5T
+      time_interval_str: 2023-08-10_2023-08-31
+      freq_as_pd_str: M
+      lookback_as_pd_str: 1D
+    market_data_config:
+      im_client_ctor: <class 'im_v2.common.data.client.historical_pq_clients.HistoricalPqByCurrencyPairTileClient'>
+      im_client_config:
+        vendor: bloomberg
+        universe_version: v1
+        root_dir: s3://cryptokaizen-unit-test/v3/bulk
+        partition_mode: by_year_month
+        dataset: ohlcv
+        contract_type: spot
+        data_snapshot:
+        download_mode: manual
+        downloading_entity:
+        aws_profile: ck
+        resample_1min: False
+        version: v1_0_0
+        download_universe_version: v1
+        tag: resampled_1min
+      asset_ids: [1343146433]
+      asset_id_col_name: asset_id
+    research_forecast_evaluator_from_prices:
+      style: cross_sectional
+      init:
+        price_col: vwap
+        volatility_col: vwap.ret_0.vol
+        prediction_col: vwap.ret_0.vol_adj.c
+      kwargs:
+        target_gmv: 100000.0
+        liquidate_at_end_of_day: False
+  # SystemConfigList at 0x
+    # 1/1
+      dag_config:
+        filter_weekends:
+          in_col_groups: [('close',), ('high',), ('low',), ('open',), ('volume',)]
+          out_col_group: ()
+          join_output_with_input: False
+        filter_ath:
+          in_col_groups: [('close',), ('high',), ('low',), ('open',), ('volume',)]
+          out_col_group: ()
+          transformer_kwargs:
+            start_time: 09:30:00
+            end_time: 16:00:00
+          join_output_with_input: False
+        resample:
+          in_col_groups: [('open',), ('high',), ('low',), ('close',), ('volume',)]
+          out_col_group: ()
+          transformer_kwargs:
+            rule: 5T
+            resampling_groups: [({'close': 'close'}, 'last', {}), ({'high': 'high'}, 'max', {}), ({'low': 'low'}, 'min', {}), ({'open': 'open'}, 'first', {}), ({'volume': 'volume'}, 'sum', {'min_count': 1}), ({'close': 'twap'}, 'mean', {})]
+            vwap_groups: [('close', 'volume', 'vwap')]
+          reindex_like_input: False
+          join_output_with_input: False
+        compute_ret_0:
+          in_col_groups: [('close',), ('vwap',), ('twap',)]
+          out_col_group: ()
+          transformer_kwargs:
+            mode: pct_change
+          col_mapping:
+            close: close.ret_0
+            vwap: vwap.ret_0
+            twap: twap.ret_0
+        compute_vol:
+          in_col_groups: [('vwap.ret_0',)]
+          out_col_group: ()
+          transformer_kwargs:
+            tau: 32
+          col_mapping:
+            vwap.ret_0: vwap.ret_0.vol
+        adjust_rets:
+          in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]
+          out_col_group: ()
+          transformer_kwargs:
+            term1_col: vwap.ret_0
+            term2_col: vwap.ret_0.vol
+            out_col: vwap.ret_0.vol_adj
+            term2_delay: 2
+            operation: div
+          drop_nans: True
+        clip:
+          in_col_groups: [('vwap.ret_0.vol_adj',)]
+          out_col_group: ()
+          col_mapping:
+            vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c
+      dag_builder_object: nid_prefix=
+      dag_builder_class: Mock2_DagBuilder
+      system_class: Mock2_NonTime_ForecastSystem
+      system_log_dir: ./system_log_dir
+      backtest_config:
+        universe_str: bloomberg_v1-top1
+        trading_period_str: 5T
+        time_interval_str: 2023-08-10_2023-08-31
+        freq_as_pd_str: M
+        lookback_as_pd_str: 1D
+        start_timestamp_with_lookback: 2023-07-31 00:00:00+00:00
+        start_timestamp: 2023-08-01 00:00:00+00:00
+        end_timestamp: 2023-08-31 23:59:59+00:00
+      market_data_config:
+        im_client_ctor: <class 'im_v2.common.data.client.historical_pq_clients.HistoricalPqByCurrencyPairTileClient'>
+        im_client_config:
+          vendor: bloomberg
+          universe_version: v1
+          root_dir: s3://cryptokaizen-unit-test/v3/bulk
+          partition_mode: by_year_month
+          dataset: ohlcv
+          contract_type: spot
+          data_snapshot:
+          download_mode: manual
+          downloading_entity:
+          aws_profile: ck
+          resample_1min: False
+          version: v1_0_0
+          download_universe_version: v1
+          tag: resampled_1min
+        asset_ids: [1343146433]
+        asset_id_col_name: asset_id
+      research_forecast_evaluator_from_prices:
+        style: cross_sectional
+        init:
+          price_col: vwap
+          volatility_col: vwap.ret_0.vol
+          prediction_col: vwap.ret_0.vol_adj.c
+        kwargs:
+          target_gmv: 100000.0
+          liquidate_at_end_of_day: False

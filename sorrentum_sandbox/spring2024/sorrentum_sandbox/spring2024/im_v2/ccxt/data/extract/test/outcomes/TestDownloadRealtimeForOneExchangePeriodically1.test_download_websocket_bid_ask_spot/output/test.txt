@@ -1,0 +1,3 @@
+Empty DataFrame
+Columns: [id, timestamp, bid_size, bid_price, ask_size, ask_price, currency_pair, exchange_id, level, end_download_timestamp, knowledge_timestamp]
+Index: []

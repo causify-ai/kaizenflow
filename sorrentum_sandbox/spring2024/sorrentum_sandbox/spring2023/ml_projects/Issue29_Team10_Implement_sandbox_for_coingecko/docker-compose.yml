@@ -1,0 +1,77 @@
+version: '3.8'
+services:
+  postgres:
+    # Use prebuilt image.
+    image: postgres:14.0
+    container_name: postgres_cont
+    environment:
+      # Pass env vars to control credentials.
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      # We reuse the Airflow DB also for client data.
+      # TODO(gp): Ideally we should separate infra from application.
+      - POSTGRES_DB=airflow
+      - POSTGRES_PORT=5432
+    volumes:
+      # Map volume backing the DB to a local dir.
+      - airflow-database-data:/var/lib/postgresql/data/
+    ports:
+      # Access PostgreSQL from outside the container on port 5532.
+      - "5532:5432"
+
+  # Airflow.
+
+  airflow:
+    image: sorrentum/sorrentum:latest
+    container_name: airflow_cont
+    env_file:
+      - .env
+    restart: always
+    command: webserver
+    depends_on:
+      - postgres
+    ports:
+      - "8091:8080"
+    user: "${AIRFLOW_UID}:0"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./log_volume:/opt/airflow/log
+      - ./plugins:/opt/airflow/plugins 
+      - ../..:/cmamp
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  airflow-scheduler:
+    # Let's force to use a pre-built image.
+    # build: .
+    image: sorrentum/sorrentum:latest
+    container_name: airflow_scheduler_cont
+    env_file:
+      - .env
+    user: "${AIRFLOW_UID}:0"
+    restart: always
+    command: scheduler
+    depends_on:
+      - postgres
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./log_volume:/opt/airflow/log
+      - ./plugins:/opt/airflow/plugins 
+      - ../..:/cmamp
+    environment:
+      # TODO(Juraj): this is a quick hack to get through
+      # `hserver._dassert_setup_consistency()`.
+      - CK_IN_PROD_CMAMP_CONTAINER=True
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  python:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+    command:
+      tail -f /dev/null
+volumes:
+  airflow-database-data: {}

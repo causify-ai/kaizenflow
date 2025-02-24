@@ -1,0 +1,4 @@
+report_memory_usage=False report_cpu_usage=False
+## git_pull:
+git pull --autostash
+git submodule foreach 'git pull --autostash'

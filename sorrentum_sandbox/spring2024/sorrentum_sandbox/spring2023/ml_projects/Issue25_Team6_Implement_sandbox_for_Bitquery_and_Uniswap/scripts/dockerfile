@@ -1,0 +1,105 @@
+FROM ubuntu:20.04 AS BUILDER
+ENV DEBIAN_FRONTEND noninteractive
+
+# Update apt-get and install necessary packages
+RUN apt-get update -y \
+    && apt-get install -y \
+        gcc \
+        python3-dev \
+        python3-pip \
+        python3-dev \
+        postgresql \
+        postgresql-contrib \
+        libpq-dev \
+        vim \
+        curl \
+        wget \
+        gnupg2 \
+        sudo \
+        apt-transport-https \
+        build-essential \
+        libssl-dev \
+        libffi-dev \
+        python3-setuptools \
+        python3-wheel \
+        python3-venv \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install requirements.
+COPY requirements.txt .
+RUN pip3 install -r requirements.txt
+
+# Data directory for jupyter notebook
+
+RUN mkdir /data
+RUN mkdir /data/postgresql_data
+RUN mkdir /data/airflow
+RUN sudo chmod -R u=rwx '/data'
+RUN sudo chmod -R 0700 '/data'
+
+COPY scripts /data/
+# # Set environment variables
+# ENV AIRFLOW_HOME /data/airflow
+# ENV PYTHONPATH "${PYTHONPATH}:${AIRFLOW_HOME}"
+
+RUN sudo chmod -R u=rwx '/data/airflow'
+RUN sudo chmod -R 0700 '/data/airflow'
+
+# Expose Jupyter Airflow and Postgres ports
+EXPOSE 8888 8080 5432
+
+# USER postgres
+
+# RUN /etc/init.d/postgresql start && \
+#     psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" && \
+#     createdb -O docker db && \
+#     createdb -O docker airflow
+
+
+# USER root
+
+# # Create a new Postgres database and user for airflow
+# RUN service postgresql start && \
+#     sudo -u postgres psql -c "CREATE DATABASE airflow;" && \
+#     sudo -u postgres psql -c "CREATE DATABASE db;" && \
+#     sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE airflow TO postgres;" && \
+#     sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE db TO postgres;" && \
+#     service postgresql stop
+# Set up Airflow environment variables
+# ENV AIRFLOW_HOME=/root/airflow
+# ENV AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@localhost/airflow
+
+RUN mkdir -p /etc/postgresql/13/main/
+
+RUN sudo chmod -R u=rwx '/etc/postgresql/13/main'
+RUN sudo chmod -R 0700 '/etc/postgresql/13/main'
+# save
+RUN echo "host all all 0.0.0.0/0 trust" >> /etc/postgresql/13/main/pg_hba.conf
+RUN echo "listen_addresses='*'" >> /etc/postgresql/13/main/postgresql.conf
+
+USER postgres
+
+
+RUN /etc/init.d/postgresql start && \
+    psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" && \
+    createdb -O docker db && \
+    createdb -O docker airflow
+
+
+USER root
+
+
+# Initialize Airflow metadata database and create admin user
+RUN airflow db init
+RUN airflow users create --username airflow --password airflow --firstname air --lastname flow --role Admin --email fakemail@nowhere.com
+
+# start services
+# CMD service postgresql start &&\
+# airflow scheduler & \
+# airflow webserver -p 8080 & \
+# jupyter-notebook --port=8888 --allow-root --no-browser --ip=0.0.0.0 --NotebookApp.notebook_dir='/data' --NotebookApp.token=''
+
+CMD airflow scheduler & \
+airflow webserver -p 8080 & \
+jupyter-notebook --port=8888 --allow-root --no-browser --ip=0.0.0.0 --NotebookApp.notebook_dir='/data' --NotebookApp.token=''

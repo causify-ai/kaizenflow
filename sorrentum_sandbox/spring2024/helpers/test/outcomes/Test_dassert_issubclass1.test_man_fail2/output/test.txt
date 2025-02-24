@@ -1,0 +1,5 @@
+
+################################################################################
+* Failed assertion *
+Instance '<helpers.test.test_dbg._Man object at 0x>' of class '_Man' is not a subclass of '<class 'int'>'
+################################################################################

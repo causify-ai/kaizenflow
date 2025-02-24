@@ -1,0 +1,29 @@
+19:44:16 - [36mINFO [0m kaiko.py __init__:169              19:44:16 - [36mINFO [0m kaiko.py __init__:169              
+
+Initiated data object
+KaikoData setup with
+- URL
+	 https://us.market-api.kaiko.io/v1/data/trades.latest/exchanges/cbse/spot/eth-usd/trades,
+- Required parameters:
+	{'commodity': 'trades', 'data_version': 'latest', 'exchange': 'cbse', 'instrument_class': 'spot', 'instrument': 'eth-usd'},
+- Optional parameters:
+	{'page_size': 100000, 'start_time': '2023-03-01T00:00:00.000Z', 'end_time': '2023-03-01T01:00:00.000Z'}
+
+19:44:17 - [36mINFO [0m kaiko.py __init__:169              19:44:17 - [36mINFO [0m kaiko.py __init__:169              
+
+Initiated data object
+KaikoData setup with
+- URL
+	 https://us.market-api.kaiko.io/v1/data/trades.latest/exchanges/cbse/spot/btc-usd/trades,
+- Required parameters:
+	{'commodity': 'trades', 'data_version': 'latest', 'exchange': 'cbse', 'instrument_class': 'spot', 'instrument': 'btc-usd'},
+- Optional parameters:
+	{'page_size': 100000, 'start_time': '2023-03-01T00:00:00.000Z', 'end_time': '2023-03-01T01:00:00.000Z'}
+
+19:44:18 - [36mINFO [0m download_kaiko.py download:51                          19:44:18 - [36mINFO [0m download_kaiko.py download:51                          Downloaded data: 
+	                       timestamp     trade_id    price    amount  taker_side_sell currency_pair
+0 2023-03-01 00:00:00.295000064  429089835.0  1605.59  0.051726              0.0       eth-usd
+1 2023-03-01 00:00:00.295000064  429089836.0  1605.60  1.245640              0.0       eth-usd
+2 2023-03-01 00:00:00.295000064  429089837.0  1605.62  0.080871              0.0       eth-usd
+3 2023-03-01 00:00:00.295000064  429089838.0  1605.62  0.000953              0.0       eth-usd
+4 2023-03-01 00:00:00.855000064  429089839.0  1605.58  0.031282              1.0       eth-usd

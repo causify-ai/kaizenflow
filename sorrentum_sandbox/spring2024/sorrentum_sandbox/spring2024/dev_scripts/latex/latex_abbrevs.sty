@@ -1,0 +1,356 @@
+% From https://tex.stackexchange.com/questions/75667/change-colour-on-chapter-section-headings-lyx
+\usepackage{xcolor}
+%\usepackage{sectsty}
+%\chapterfont{\color{blue}}
+%\sectionfont{\color{red}}
+%\subsectionfont{\color{purple}}
+%\subsubsectionfont{\color{blue}}
+
+% From https://tex.stackexchange.com/questions/1455/how-to-set-the-font-for-a-section-title-and-chapter-etc
+%\usepackage{titlesec}
+%\titleformat{\chapter}[display]
+%  {\normalfont\sffamily\huge\bfseries\color{blue}}
+%  {\chaptertitlename\ \thechapter}{20pt}{\Huge}
+%\titleformat{\section}
+%  {\normalfont\sffamily\Large\bfseries\color{cyan}}
+%  {\thesection}{1em}{}
+
+% Work-around for too deeply nested error.
+\usepackage{enumitem}
+\setlistdepth{9}
+\setlist[itemize,1]{label=\textbullet}
+\setlist[itemize,2]{label=\textendash}
+\setlist[itemize,3]{label=\textasteriskcentered}
+\setlist[itemize,4]{label=\textperiodcentered}
+\setlist[itemize,5]{label=\textbullet}
+\setlist[itemize,6]{label=\textbullet}
+\setlist[itemize,7]{label=\textbullet}
+\setlist[itemize,8]{label=\textbullet}
+\setlist[itemize,9]{label=\textbullet}
+\renewlist{itemize}{itemize}{9}
+
+% #############################################################################
+% Vector / matrix notation
+% #############################################################################
+
+% \vec is already defined so we use \vv
+
+% Use bold.
+%\newcommand{\vv}[1]{\boldsymbol{#1}}
+%\newcommand{\mat}[1]{\boldsymbol{#1}}
+
+% Use underline.
+% From https://latex.org/forum/viewtopic.php?t=17798
+% ulem doesn't work well in math mode.
+%\newcommand{\vv}[1]{\boldsymbol{\uline{#1}}}
+%\newcommand{\mat}[1]{\boldsymbol{\uuline{#1}}}
+\newcommand{\vv}[1]{\boldsymbol{\underline{#1}}}
+\newcommand{\mat}[1]{\boldsymbol{\underline{\underline{#1}}}}
+
+% TODO(saggese): Remove this and use \quad.
+\newcommand{\eqspace}{\hspace{10 mm}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+% NOTE: These shortcuts are not only to make the latex code easier but also to
+% make easy to find out what the standard representation is.
+% In general we prefer to put \vv{} and \mat{} at outermost.
+
+% #############################################################################
+% Newshortcuts for matrices and vectors.
+% #############################################################################
+
+% - v* for vectors, e.g., va, vb, ..., vmu, vA, vGamma
+% - m* for matrices, e.g., mA, ..., mSigma
+
+% Vector.
+\newcommand{\vA}{\vv{A}}
+\newcommand{\vB}{\vv{B}}
+\newcommand{\vC}{\vv{C}}
+\newcommand{\vD}{\vv{D}}
+\newcommand{\vDelta}{\vv{\Delta}}
+\newcommand{\vE}{\vv{E}}
+\newcommand{\vF}{\vv{F}}
+\newcommand{\vG}{\vv{G}}
+\newcommand{\vGamma}{\vv{\Gamma}}
+\newcommand{\vH}{\vv{H}}
+\newcommand{\vI}{\vv{I}}
+\newcommand{\vJ}{\vv{J}}
+\newcommand{\vK}{\vv{K}}
+\newcommand{\vL}{\vv{L}}
+\newcommand{\vLambda}{\vv{\Lambda}}
+\newcommand{\vM}{\vv{M}}
+\newcommand{\vN}{\vv{N}}
+\newcommand{\vO}{\vv{O}}
+\newcommand{\vOmega}{\vv{\Omega}}
+\newcommand{\vP}{\vv{P}}
+\newcommand{\vPhi}{\vv{\Phi}}
+\newcommand{\vPi}{\vv{\Pi}}
+\newcommand{\vPsi}{\vv{\Psi}}
+\newcommand{\vQ}{\vv{Q}}
+\newcommand{\vR}{\vv{R}}
+\newcommand{\vS}{\vv{S}}
+\newcommand{\vSigma}{\vv{\Sigma}}
+\newcommand{\vT}{\vv{T}}
+\newcommand{\vU}{\vv{U}}
+\newcommand{\vUpsilon}{\vv{\Upsilon}}
+\newcommand{\vV}{\vv{V}}
+\newcommand{\vW}{\vv{W}}
+\newcommand{\vX}{\vv{X}}
+\newcommand{\vXi}{\vv{\Xi}}
+\newcommand{\vY}{\vv{Y}}
+\newcommand{\vZ}{\vv{Z}}
+\newcommand{\va}{\vv{a}}
+\newcommand{\valpha}{\vv{\alpha}}
+\newcommand{\vb}{\vv{b}}
+\newcommand{\vbeta}{\vv{\beta}}
+\newcommand{\vc}{\vv{c}}
+\newcommand{\vchi}{\vv{\chi}}
+\newcommand{\vd}{\vv{d}}
+\newcommand{\vdelta}{\vv{\delta}}
+\newcommand{\ve}{\vv{e}}
+\newcommand{\vepsilon}{\vv{\epsilon}}
+\newcommand{\veta}{\vv{\eta}}
+\newcommand{\vf}{\vv{f}}
+\newcommand{\vg}{\vv{g}}
+\newcommand{\vgamma}{\vv{\gamma}}
+\newcommand{\vh}{\vv{h}}
+\newcommand{\vi}{\vv{i}}
+\newcommand{\viota}{\vv{\iota}}
+\newcommand{\vj}{\vv{j}}
+\newcommand{\vk}{\vv{k}}
+\newcommand{\vkappa}{\vv{\kappa}}
+\newcommand{\vl}{\vv{l}}
+\newcommand{\vlambda}{\vv{\lambda}}
+\newcommand{\vm}{\vv{m}}
+\newcommand{\vmu}{\vv{\mu}}
+\newcommand{\vn}{\vv{n}}
+\newcommand{\vnu}{\vv{\nu}}
+\newcommand{\vo}{\vv{o}}
+\newcommand{\vomega}{\vv{\omega}}
+\newcommand{\vp}{\vv{p}}
+\newcommand{\vphi}{\vv{\phi}}
+\newcommand{\vpi}{\vv{\pi}}
+\newcommand{\vpsi}{\vv{\psi}}
+\newcommand{\vq}{\vv{q}}
+\newcommand{\vr}{\vv{r}}
+\newcommand{\vrho}{\vv{\rho}}
+\newcommand{\vs}{\vv{s}}
+\newcommand{\vsigma}{\vv{\sigma}}
+\newcommand{\vt}{\vv{t}}
+\newcommand{\vtau}{\vv{\tau}}
+\newcommand{\vtheta}{\vv{\theta}}
+\newcommand{\vu}{\vv{u}}
+\newcommand{\vupsilon}{\vv{\upsilon}}
+\newcommand{\vvarepsilon}{\vv{\varepsilon}}
+\newcommand{\vvarphi}{\vv{\varphi}}
+\newcommand{\vvarrho}{\vv{\varrho}}
+\newcommand{\vvartheta}{\vv{\vartheta}}
+\newcommand{\vvv}{\vv{v}}
+\newcommand{\vw}{\vv{w}}
+\newcommand{\vx}{\vv{x}}
+\newcommand{\vxi}{\vv{\xi}}
+\newcommand{\vy}{\vv{y}}
+\newcommand{\vz}{\vv{z}}
+\newcommand{\vzeta}{\vv{\zeta}}
+
+% Matrix.
+% \mat -> \mm?
+\newcommand{\mA}{\mat{A}}
+\newcommand{\mB}{\mat{B}}
+\newcommand{\mC}{\mat{C}}
+\newcommand{\mD}{\mat{D}}
+\newcommand{\mDelta}{\mat{\Delta}}
+\newcommand{\mE}{\mat{E}}
+\newcommand{\mF}{\mat{F}}
+\newcommand{\mG}{\mat{G}}
+\newcommand{\mGamma}{\mat{\Gamma}}
+\newcommand{\mH}{\mat{H}}
+\newcommand{\mI}{\mat{I}}
+\newcommand{\mJ}{\mat{J}}
+\newcommand{\mK}{\mat{K}}
+\newcommand{\mL}{\mat{L}}
+\newcommand{\mLambda}{\mat{\Lambda}}
+\newcommand{\mM}{\mat{M}}
+\newcommand{\mN}{\mat{N}}
+\newcommand{\mO}{\mat{O}}
+\newcommand{\mOmega}{\mat{\Omega}}
+\newcommand{\mP}{\mat{P}}
+\newcommand{\mPi}{\mat{\Pi}}
+\newcommand{\mPsi}{\mat{\Psi}}
+\newcommand{\mQ}{\mat{Q}}
+\newcommand{\mR}{\mat{R}}
+\newcommand{\mS}{\mat{S}}
+\newcommand{\mSigma}{\mat{\Sigma}}
+\newcommand{\mT}{\mat{T}}
+\newcommand{\mU}{\mat{U}}
+\newcommand{\mUpsilon}{\mat{\Upsilon}}
+\newcommand{\mV}{\mat{V}}
+\newcommand{\mW}{\mat{W}}
+\newcommand{\mX}{\mat{X}}
+\newcommand{\mXi}{\mat{\Xi}}
+\newcommand{\mY}{\mat{Y}}
+\newcommand{\mZ}{\mat{Z}}
+
+% #############################################################################
+% Other shortcuts
+% #############################################################################
+
+% Number fields
+% TODO: use \R, \N, ... and the standard symbols (see
+% http://oeis.org/wiki/List_of_LaTeX_mathematical_symbols)
+\newcommand{\bbB}{\mathbb{B}}
+\newcommand{\bbC}{\mathbb{C}}
+\newcommand{\bbF}{\mathbb{F}}
+\newcommand{\bbL}{\mathbb{L}}
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbQ}{\mathbb{Q}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbS}{\mathbb{S}}
+\newcommand{\bbZ}{\mathbb{Z}}
+
+% Script vars.
+\newcommand{\cala}{\mathcal{a}}
+\newcommand{\calb}{\mathcal{b}}
+\newcommand{\calc}{\mathcal{c}}
+\newcommand{\cald}{\mathcal{d}}
+\newcommand{\cale}{\mathcal{e}}
+\newcommand{\calf}{\mathcal{f}}
+\newcommand{\calg}{\mathcal{g}}
+\newcommand{\calh}{\mathcal{h}}
+\newcommand{\cali}{\mathcal{i}}
+\newcommand{\calj}{\mathcal{j}}
+\newcommand{\calk}{\mathcal{k}}
+\newcommand{\call}{\mathcal{l}}
+\newcommand{\calm}{\mathcal{m}}
+\newcommand{\caln}{\mathcal{n}}
+\newcommand{\calo}{\mathcal{o}}
+\newcommand{\calp}{\mathcal{p}}
+\newcommand{\calq}{\mathcal{q}}
+\newcommand{\calr}{\mathcal{r}}
+\newcommand{\cals}{\mathcal{s}}
+\newcommand{\calt}{\mathcal{t}}
+\newcommand{\calu}{\mathcal{u}}
+\newcommand{\calv}{\mathcal{v}}
+\newcommand{\calw}{\mathcal{w}}
+\newcommand{\calx}{\mathcal{x}}
+\newcommand{\caly}{\mathcal{y}}
+\newcommand{\calz}{\mathcal{z}}
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\calI}{\mathcal{I}}
+\newcommand{\calJ}{\mathcal{J}}
+\newcommand{\calK}{\mathcal{K}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calM}{\mathcal{M}}
+\newcommand{\calN}{\mathcal{N}}
+\newcommand{\calO}{\mathcal{O}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calQ}{\mathcal{Q}}
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calS}{\mathcal{S}}
+\newcommand{\calT}{\mathcal{T}}
+\newcommand{\calU}{\mathcal{U}}
+\newcommand{\calV}{\mathcal{V}}
+\newcommand{\calW}{\mathcal{W}}
+\newcommand{\calX}{\mathcal{X}}
+\newcommand{\calY}{\mathcal{Y}}
+\newcommand{\calZ}{\mathcal{Z}}
+
+% tilde
+% TODO(gp): Expand this.
+\newcommand{\ttau}{\tilde{\tau}}
+% Irregular to avoid conflict.
+\newcommand{\ttt}{\tilde{t}}
+\newcommand{\ty}{\tilde{y}}
+
+% TODO(gp): Expand this.
+\newcommand{\hF}{\widehat{F}}
+\newcommand{\hvF}{\vv{\widehat{F}}}
+\newcommand{\hG}{\widehat{G}}
+\newcommand{\hvG}{\vv{\widehat{G}}}
+\newcommand{\hX}{\widehat{X}}
+\newcommand{\hvX}{\vv{\widehat{X}}}
+
+% Unit vector.
+% Same as the vector name with unit
+% TODO(gp): Merge with above.
+\newcommand{\vvvhat}{\vv{\hat{v}}}
+\newcommand{\uuhat}{\vv{\hat{u}}}
+\newcommand{\xxhat}{\vv{\hat{x}}}
+%
+\newcommand{\tildeAAA}{\mat{\tilde{A}}}
+
+% Basic.
+
+% Define.
+\def\d={\overset{\begin{tiny}d\end{tiny}}{=}}
+%\def\d={\triangleq}
+% Which was defined as.
+\def\dd={\overset{\begin{tiny}d. as\end{tiny}}{=}}
+% TODO: remove this
+\def\diff{\overset{\begin{tiny}d\end{tiny}}{\iff}}
+% TODO: This is already defined, but not clear where
+%\newcommand{\gcd}{\text{gcd}}
+\newcommand{\lcm}{\text{lcm}}
+
+% Mean and variance.
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\VV}{\mathbb{V}}
+\newcommand{\Cov}{\text{Cov}}
+\newcommand{\Corr}{\text{Corr}}
+%\newcommand{\Pr}{\mathbb{P}}
+
+% Distributions.
+% text{} or textsf
+\def\Bernoulli{\textsf{Bernoulli}}
+\def\Beta{\textsf{Beta}}
+\def\Binomial{\textsf{Binomial}}
+\def\Exponential{\textsf{Exponential}}
+\def\LogNormal{\textsf{LogNormal}}
+\def\N{\textsf{N}}
+\def\Poisson{\textsf{Poisson}}
+\def\Uniform{\textsf{Uniform}}
+\def\WN{\textsf{WN}}
+\def\GWN{\textsf{GWN}}
+
+% Linear algebra.
+\def\Col{\textsf{Col}}
+\def\Dim{\textsf{Dim}}
+\def\Re{\textsf{Re}}
+\def\Im{\textsf{Im}}
+\def\Ker{\textsf{Ker}}
+\def\Null{\textsf{Null}}
+\def\Rank{\textsf{Rank}}
+\def\Row{\textsf{Row}}
+\def\Span{\textsf{Span}}
+\def\Det{\textsf{Det}}
+\def\Tr{\textsf{Tr}}
+\def\Diag{\textsf{Diag}}
+\def\sign{\textsf{sign}}
+\def\argmin{\textsf{argmin}}
+\def\argmax{\textsf{argmax}}
+\def\mod{\textsf{ mod }}
+\def\min{\textsf{min}}
+\def\max{\textsf{max}}
+\def\avg{\textsf{avg}}
+
+% Derivative at a point
+% https://tex.stackexchange.com/questions/64176/derivative-at-a-point
+\newcommand{\at}[2][]{#1|_{#2}}
+
+% Logic operators.
+\def\NOT{\textsf{\begin{footnotesize}NOT\end{footnotesize}}}
+\def\OR{\textsf{\begin{footnotesize} OR \end{footnotesize}}}
+\def\AND{\textsf{\begin{footnotesize} AND \end{footnotesize}}}
+\def\XOR{\textsf{\begin{footnotesize} XOR \end{footnotesize}}}
+\def\IFF{\textsf{\begin{footnotesize} IFF \end{footnotesize}}}
+
+% For some reasons new commands can't end with a number.
+%\newcommand{\v0}{\vv{0}}
+%\newcommand{\v1}{\vv{1}}

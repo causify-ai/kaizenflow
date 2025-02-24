@@ -1,0 +1,2114 @@
+\documentclass[11pt, reqno]{amsart}
+\usepackage{amsfonts, amssymb, amscd, amsrefs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{slashed}
+\usepackage{fullpage}
+% Prevent table repositioning.
+\usepackage{float}
+% For textcolor.
+\usepackage{xcolor}
+% For blackboard bold `1`.
+\usepackage{bbold}
+
+% TODO(gp): It aborts with
+% ! Undefined control sequence.
+%<argument> ...on\endcsname \protect \@secnumpunct
+%
+%l.164 \subsection{Breaking the symmetry}
+% https://tex.stackexchange.com/questions/165930/bold-and-italic-subsection-title-with-custom-font-size
+%\usepackage{titlesec}
+%\titleformat{\section}
+%{\normalfont\fontfamily{phv}\fontsize{12}{17}\bfseries}{\thesection}{1em}{}
+%\titleformat{\subsection}
+%{\normalfont\fontfamily{phv}\fontsize{12}{17}\bfseries\itshape}{\thesubsection}{1em}{}
+%\titleformat{\subsection}
+%  {\normalfont\fontsize{12}{17}\sffamily\bfseries\slshape}
+%  {\thesubsection}
+%  {1em}
+%  {}
+
+%\usepackage{titlesec}
+
+%\titleformat*{\section}{\LARGE\bfseries}
+%\titleformat*{\subsection}{\Large\bfseries}
+%\titleformat*{\subsubsection}{\large\bfseries}
+%\titleformat*{\paragraph}{\large\bfseries}
+%\titleformat*{\subparagraph}{\large\bfseries}
+
+% https://ctan.math.washington.edu/tex-archive/macros/latex/required/amscls/doc/amsthdoc.pdf
+\newtheorem{thm}{Theorem}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[subsection]
+\newtheorem{problem}{Problem}[subsection]
+\theoremstyle{remark}
+\newtheorem{exmp}{Example}[subsection]
+\newtheorem{rmk}{Remark}[subsection]
+
+\newcommand{\bidbtc}{\mathrm{bid}_\mathrm{BTC}}
+\newcommand{\askbtc}{\mathrm{ask}_\mathrm{BTC}}
+\newcommand{\bideth}{\mathrm{bid}_\mathrm{ETH}}
+\newcommand{\asketh}{\mathrm{ask}_\mathrm{ETH}}
+
+\newcommand{\bidbase}{\mathrm{bid}_\mathrm{quote\;token}}
+\newcommand{\askbase}{\mathrm{ask}_\mathrm{quote\;token}}
+\newcommand{\bidquote}{\mathrm{bid}_\mathrm{base\;token}}
+\newcommand{\askquote}{\mathrm{ask}_\mathrm{base\;token}}
+% Use teletype for tokens (\texttt{...}), but do not allow italics
+%  (\textnormal{...}).
+\newcommand{\BTC}{\textnormal{\texttt{wBTC}}}
+\newcommand{\ETH}{\textnormal{\texttt{ETH}}}
+\newcommand{\DAI}{\textnormal{\texttt{DAI}}}
+\newcommand{\USDC}{\textnormal{\texttt{USDC}}}
+\newcommand{\USDT}{\textnormal{\texttt{USDT}}}
+\newcommand{\tA}{\textnormal{\texttt{A}}}
+\newcommand{\tB}{\textnormal{\texttt{B}}}
+% Use non-italic teletype for order attributes in order notation.
+\newcommand{\timestamp}{\textnormal{\texttt{timestamp}}}
+\newcommand{\action}{\textnormal{\texttt{action}}}
+\newcommand{\quantity}{\textnormal{\texttt{quantity}}}
+\newcommand{\basetoken}{\textnormal{\texttt{base\_token}}}
+\newcommand{\limitprice}{\textnormal{\texttt{limit\_price}}}
+\newcommand{\quotetoken}{\textnormal{\texttt{quote\_token}}}
+\newcommand{\depositaddress}{\textnormal{\texttt{deposit\_address}}}
+%
+\newcommand{\buy}{\textnormal{\texttt{buy}}}
+\newcommand{\sell}{\textnormal{\texttt{sell}}}
+\newcommand{\nan}{\textnormal{\texttt{nan}}}
+%
+\newcommand{\midpoint}{\mathrm{midpoint}}
+% Table icons.
+\newcommand{\trm}{\textcolor{red}{-}}
+\newcommand{\tyo}{\textcolor{yellow}{o}}
+\newcommand{\tgp}{\textcolor{green}{+}}
+
+% Use this if using `\contrib[]{...}`.
+%\makeatletter\let\@wraptoccontribs\wraptoccontribs\makeatother
+% https://tex.stackexchange.com/questions/418547/equal-contribution-using-thanks-with-llncs-class#418563
+\makeatletter
+\newcommand{\printfnsymbol}[1]{%
+  \textsuperscript{\@fnsymbol{#1}}%
+}
+\makeatother
+
+\begin{document}
+
+\title{Tulip: A decentralized protocol for token exchange}
+
+% \author[GP, Paul]{Giacinto Paolo Saggese$^{*}$ and Paul Smith$^{*}$}
+\author{Giacinto Paolo Saggese$^{*}$}
+\author{Paul Smith$^{*}$}
+\thanks{$^{*}$ The authors contributed equally to this work and are listed alphabetically.}
+
+\thanks{With contributions from
+    Danil Iachmenev,
+    Tamara Jordania,
+    Samarth KaPatel,
+    Grigorii Pomazkin,
+    Juraj Smeriga,
+    Daniil Tikhomirov,
+    Nina Trubacheva,
+    and
+    Vladimir Yakovenko,
+}
+
+\date{\today}
+
+\begin{abstract}
+Limit orders are a natural and powerful way to interact with financial markets.
+Creating decentralized exchanges around limit orders poses unique challenges,
+and the dominant decentralized alternatives lack this interface.
+We propose ``Tulip", a protocol for decentralized exchange built around limit
+orders, at whose heart is a novel auction mechanism for price discovery,
+matching and clearing. Besides providing a natural trading interface, Tulip
+promotes welfare maximization, pools liquidity across tokens and time,
+and has the features of high trading efficiency, complete transparency,
+no impermanent loss, no need for intermediary custody, no rent extraction from
+high-frequency traders, censorship resistance, and ease of use. These features
+have immediate application in improving the efficiency of decentralized token
+exchange.
+\end{abstract}
+
+\maketitle
+
+\setcounter{tocdepth}{1}
+\tableofcontents
+
+% TODO(gp): Should we always talk about token swap instead of token exchange,
+% since exchange can refer to (market) exchange? We use both now.
+
+% ###############################################################################
+\section{Introduction}
+
+Tulip is a new financial primitive that enables decentralized token
+exchange using limit orders. It brings together the advantages of trading
+efficiency and ease-of-use of centralized exchanges with the transparency and
+self-custody of decentralized approaches, without the risk of impermanent loss,
+contrary to automatic market maker-based approaches.
+
+% TODO(gp): @paul consider renaming "Welfare maximization" to "Utility maximization"
+% or another better name
+Some of the innovative features of Tulip are:
+\begin{enumerate}
+    \item Support for limit orders:
+          Tulip uses limit orders as a way to express interest in trading. This
+          is the approach that is most natural and in fact used by virtually
+          the entirety of traditional finance, but surprisingly ignored by many
+          decentralized primitives
+    \item Welfare maximization:
+          Tulip maximizes the aggregated welfare by allowing the relaxation of
+          the constraint of a single clearing price, which has been the standard
+          assumption in traditional finance and inherited by decentralized
+          finance
+    \item Liquidity pooling across tokens:
+          Tulip participants are not artificially segregated in separate liquidity
+          pools, but are aggregated in a single optimization problem that
+          handles in a natural way both multi-coin and reverse token exchange
+    \item Liquidity pooling across time:
+          Tulip participants provide liquidity only when they wish to trade, and only
+          in the amount that they wish to trade, instead of artificially
+          separating traders as liquidity providers and liquidity takers as is
+          done in automated market makers protocols
+    \item High trading efficiency:
+          Tulip uses discrete and frequent auctions for price discovery and
+          efficiently matching supply and demand, allowing trading tokens
+          peer-to-peer while minimizing and sharing spread costs
+    \item Complete transparency:
+          Tulip collects on-chain all information for maximum transparency
+          and allows the independent verification of the correctness of any
+          computation moved off-chain for minimizing execution costs due to
+          current limitations of blockchain technology
+    \item No impermanent loss:
+          liquidity providers are not exposed to the risk of impermanent loss
+          (a form of unrealized loss that becomes realized upon withdrawing
+          liquidity), unlike the case with other decentralized exchange protocols
+          based on automated market makers
+    \item No intermediary custody:
+          exchanged tokens always remain under the control of their respective
+          owners, in contrast to centralized exchanges
+    \item No rent extraction from high-frequency traders:
+          in Tulip speed alone does not confer an advantage to traders, as the
+          discrete and frequent auctions prevent predatory tactics such as
+          front-running, limit order scalping, and spoofing, which are known
+          issues seen with continuous limit order books
+    \item Censorship resistance and ease-of-use:
+          the interaction between buyers and sellers occurs through smart
+          contracts and a website front-end
+\end{enumerate}
+
+
+% ===============================================================================
+\subsection{Token swap as a financial primitive}
+Swapping tokens is one of the most important and widely used primitives in
+decentralized finance.
+In March 2023, the average daily trading volume in cryptocurrencies was over
+\$34 Billion USD, after reaching a peak of \$516 Billion USD per day in May 20,
+2021\footnote{https://www.statista.com/statistics/1272903/cryptocurrency-trade-volume}.
+
+% TODO(gp): We should compute these statistics ourselves using spot, futures,
+% etc.
+
+\subsubsection{Token swap on decentralized exchanges}
+Trading volume on decentralized exchanges has been increasing over time and now
+is approaching 20\% of the total traded cryptocurrency
+volume\footnote{https://www.theblock.co/data/decentralized-finance/dex-non-custodial/dex-to-cex-spot-trade-volume}.
+As of March 2023, Uniswap has transacted more than \$1.4 Trillion USD and
+performed more than 139 million trades\footnote{https://uniswap.org/}.
+The move from centralized to decentralized exchanges has been accelerating due
+to recent scandals involving centralized exchanges (e.g., FTX bankruptcy),
+regulatory crackdown, and thanks to end-users' increased embrace of the
+principles of self-custody and decentralization.
+We believe that this trend towards larger trading volumes will only accelerate
+in the future.
+
+% ===============================================================================
+\subsection{Limit orders as an interface to token swap}
+A limit order expresses a commitment to buy or to sell an asset, up to
+a certain quantity, at a price that is as good as or better than the limit price.
+As supply and demand are represented by quantity available at a given price,
+limit orders provide a way for buyers and sellers to participate in price
+discovery and exchange.
+
+We adopt the perspective that limit orders may be thought of as an interface
+to market participation. That is, limit orders provide participants with a
+means to engage with markets. We further promote this interface as one that
+is natural, flexible, and elegant. It is natural in that it expresses
+supply or demand directly in terms of quantity and price, with a clearly
+defined maximum possible exposure in a commitment to trade. The interface is
+flexible because it allows participants to construct personalized supply and
+demand curves by combining multiple limit orders. The elegance follows from the
+simplicity and ease-of-use of the interface.
+
+\subsubsection{Limit orders in traditional finance and DeFi}
+As a consequence of these benefits, limit orders and their aggregation into
+limit order books (LOBs) are ubiquitous in traditional financial markets
+and dominate cryptocurrency trading on centralized exchanges (CEXs).
+Interestingly, however, limit orders currently do not play as prominent a role
+in the realm of decentralized finance. Instead, alternative approaches that
+rely upon automated market makers (AMMs) have taken center stage, and these
+approaches offer a different set of advantages and disadvantages.
+
+% ===============================================================================
+\subsection{How exchanges create value}
+To better understand the comparative advantages and disadvantages of different
+approaches to token exchange (or swap), we step back and consider the purpose and
+functions of exchanges.
+
+\subsubsection{Market participants}
+Exchanges create value by bringing together different types of participants,
+such as investors, traders, hedgers, brokers, arbitrageurs, and market makers.
+Market participants have different goals (e.g., hedging, investing,
+speculating), horizons (from low-latency trading to long-term investment over
+multiple years), risk tolerance, liquidity preferences, and beliefs about
+security values. The opportunity to trade arises from these differences.
+
+\subsubsection{Roles of market exchanges}
+
+Exchanges have several roles:
+\begin{itemize}
+    \item Provide a common meeting ground for market participants to
+          facilitate matching supply and demand
+    \item Establish the rules of the trading process and institutional roles, so
+          that the trading process is structured, monitored, and standardized
+    \item Provide a certain amount of oversight by monitoring and certifying
+          financial statements and governance procedures
+    \item Generate market data for market participants, such as trades and
+          quote changes
+\end{itemize}
+
+Exchanges are compensated for this value creation by collecting transaction
+fees as a small percent of traded volume.
+
+Typically, an exchange requires two components:
+\begin{enumerate}
+    \item Trade matching: participants find a counterparty agreeing on quantity
+          and price of the assets to swap (this includes price discovery)
+    \item Trade settlement (clearing): the assets are actually swapped after
+          finding matching counterparties
+\end{enumerate}
+
+\subsubsection{Exchanges in decentralized finance}
+In decentralized finance, a token swap can be accomplished in different ways,
+e.g., using
+\begin{itemize}
+    \item a centralized exchange (CEX) (e.g., Coinbase, Binance, OkX)
+    \item a decentralized exchange (DEX) (e.g., Uniswap, SushiSwap)
+\end{itemize}
+
+We consider CEXs as a temporary bridge between traditional finance and the
+new vision of decentralized finance and we do not consider them a viable
+long-term solution to the problems that DeFi is poised to address.
+Centralized exchanges are usually organized around different versions of a
+central limit order book (CLOB).
+
+Decentralized exchanges can be organized as:
+\begin{itemize}
+    \item off-chain order books (e.g., 1inch)
+    \item on-chain order books (e.g., SwapSwap, KyberSwap)
+    \item automated market makers (AMM) (e.g., Uniswap)
+\end{itemize}
+
+Off-chain solutions can run into custodial and censorship issues that stand
+in direct conflict with the ethos of decentralization and self-determination.
+Unfortunately, limitations of current blockchain technology restrict
+the amount of computation that can be performed on-chain, although these limits
+are continously being removed by advancements in research and blockchain
+technology (e.g., layer 2 chains, optimistic and zero-knowledge rollups).
+Thus we consider solutions based on self-custody that do not require
+trusting a third party (or that at least allow one to verify its fairness) in
+line with the principles of decentralization.
+
+Off-chain order books are an hybrid version of CEX and DEX where the price
+discovery and trade matching happens off-chain, while the trade settlement is
+performed on-chain.
+
+On-chain order book matching has the advantages of being custodial, since users
+are completely in charge of their funds.
+A major disadvantage of using on-chain limit order books in decentralized
+exchange is cost of computation. Continual submission and cancelation of orders
+incurs costs, as does the ongoing process of matching supply and demand.
+
+% ===============================================================================
+\subsection{The advantages of Tulip}
+
+Tulip retains the key advantages of on-chain decentralized exchange while
+overcoming the issues of cost. Additionally, it includes an implementation
+that preserves the familiar LOB interface but deepens the pool of available
+liquidity in matching supply and demand.
+
+Behind the interface, we propose two smart
+contracts\footnote{https://ethereum.org/en/developers/docs/smart-contracts/}
+for
+ERC-20\footnote{https://ethereum.org/en/developers/docs/standards/tokens/erc-20/}
+token exchange that match supply and demand differently depending upon whether
+there exists an external reference price (TulipCross) or whether the contract
+also performs the role of price discovery (TulipSwap).
+
+\subsubsection{TulipCross}
+TulipCross is a decentralized liquidity pool that crosses buy and sell orders
+with respect to an external reference price, i.e., a price oracle. This allows
+traders to interact directly with each other and share price improvement with
+respect to exchanges, e.g., by trading at bid-ask midpoint.
+
+\subsubsection{TulipSwap}
+TulipSwap performs price discovery by matching supply and demand at regular time
+intervals. In the simplest case, it resembles a Walrasian-style auction
+\cite{Wa}. In cases where liquidity is pooled more broadly, the auction clearing
+mechanism satisfies a collection of inequalities.
+
+
+\subsubsection{Comparison with alternative solutions}\label{comparison_table}
+A comparison between TulipCross and TulipSwap and other solutions for token
+swapping, namely limit-order books (e.g., centralized exchanges such as
+Binance) and automatic market-makers (e.g., Uniswap) is summarized below
+and discussed in detail in Section \ref{comparison_section}.
+
+\begin{samepage}
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{l|c|c|c|c|}
+                                                  & \emph{LOB} & \emph{AMM} & \emph{TulipSwap} & \emph{TulipCross} \\
+            \hline
+            Support for limit orders              & \tgp & \trm & \tgp & \tgp \\
+            \hline
+            Welfare maximization                  & \tyo & \trm & \tgp & \trm \\
+            \hline
+            Liquidity pooling across tokens       & \trm & \tyo & \tgp & \tgp \\
+            \hline
+            Liquidity pooling across time         & \tgp & \trm & \tgp & \tgp \\
+            \hline
+            Trading efficiency                    & \tyo & \trm & \tgp & \tyo \\
+            \hline
+            Transparency                          & \trm & \tgp & \tgp & \tgp \\
+            \hline
+            No impermanent loss                   & \trm & \trm & \tgp & \tgp \\
+            \hline
+            Low custodial risk                    & \trm & \tgp & \tgp & \tgp \\
+            \hline
+            No rent extraction                    & \trm & \trm & \tgp & \tyo \\
+            \hline
+            Censorship resistance and ease of use & \trm & \tgp & \tgp & \trm \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{samepage}
+
+% ###############################################################################
+\section{Matching liquidity}
+Suppose there is a group of $\ETH$ holders and a group of $\BTC$ holders who
+wish to swap tokens at a competitive rate.
+How should the liquidity be pooled? At first glance, it appears that
+there should be a single pool of liquidity. The wrinkle manifests in determining
+how to express a desire to trade. A simple expression of a desire to trade is
+a limit order representing a commitment to trade up to $q$ in quantity of
+a token at a token exchange rate up to $p$. But what if some parties express
+quantity in terms of $\ETH$ and some in terms of $\BTC$, and some parties
+express limit prices in terms of $\ETH$ per $\BTC$, while others express limit
+prices in terms of $\BTC$ per $\ETH$? Under these conditions, setting a single
+clearing price and determining fill prioritization rules raises several
+questions. We shall consider and address these in the sequel, but to begin, we
+discuss a more constrained setting, common in practice.
+
+% ===============================================================================
+\subsection{Conventions in foreign exchange markets}
+To simplify, we follow the practice of foreign exchange (FX) markets,
+which break the symmetric, interchangeable roles of two currencies by
+specifying two non-interchangeable roles:
+\begin{enumerate}
+    \item a \emph{base} currency (for quantity)
+    \item a \emph{quote} currency (for price)
+\end{enumerate}
+The roles are expressed by writing \emph{base currency/quote currency}, e.g.,
+``EUR/USD".
+
+A limit order then consists of a quantity expressed in the units of the base
+currency and a price expressed in terms of the quote currency (per unit or
+suitable multiple of base currency). See, for example, \cite{Cme23} (e.g.,
+footnotes on page 25) for usage of this terminology. See \cite{CmeFx} for how
+this works in practice for Euro FX contracts, where contract units are
+denominated in Euros and price is quoted in U.S. dollars and cents per Euro
+increment.
+
+By breaking the symmetry, one may run a standard limit order book, hold a
+classical Walrasian-style auction, and handle size quantization effects by
+using one of a variety of priority rules based on quantity, price, and time.
+See \cite{BeLaLiVa22} for discussion around priority rule variations and their
+effects on market quality outcomes.
+
+An effect of breaking the symmetry in this way is that either liquidity for a
+pair of currencies may be expressed in only one of the two forms, or liquidity
+for a pair of currencies is split across two separate contracts (with roles of
+base and quote token reversed), each with its own limit order book.
+Using our example, this would mean treating $\BTC/\ETH$ and $\ETH/\BTC$ as
+separate token pairs, even though the union of the underlying parties and
+sources of liquidity are typically the same.
+
+% ===============================================================================
+\subsection{Multi-coin exchange}
+It seems plausible that by retaining the symmetry in the two-token case and
+instead treating a pair of tokens as a single source of liquidity, one may
+devise a more efficient exchange mechanism.
+
+This minor expansion, however, suggests widening even further the universe of
+eligible swaps. For example, if there are three tokens available for exchange,
+one could contemplate many-for-one, one-for-many, or many-for-many token swaps,
+all to be carried out in an atomic fashion, and perhaps with complex
+constraints. A toy case along these lines one may consider is as follows:
+
+\begin{problem}[Triangular liquidity]
+Suppose there are the following three parties:
+\begin{itemize}
+    \item Party A, who holds $\BTC$ and wants $\ETH$
+    \item Party B, who holds $\ETH$ and wants $\DAI$
+    \item Party C, who holds $\DAI$ and wants $\BTC$
+\end{itemize}
+
+In the case above no party can trade with another single party, and yet there
+is a way to collectivily swap tokens that satisfies all parties.
+How should an auction be structured to ``best" facilitate exchange?
+\end{problem}
+While there may be other use cases and even demand for such auctions,
+unfortunately, the problem in general is NP-complete (e.g., \cite{XiStWh05}),
+which is a significant limiting factor in terms of feasibility and
+auction expense.
+
+In the sequel, we propose practical exchange mechanisms valid for any collection
+of standard limit orders (all base/quote token limit orders may be pooled and
+cleared in a single optimization).
+
+% ###############################################################################
+\section{Limit orders}
+In the previous section, we discussed the notions of base currency and
+quote currency from foreign exchange. Here we extend them to tokens.
+
+% ===============================================================================
+\subsection{Base/quote tokens}
+A token (ordered) pair consists of a \emph{base token} and a
+\emph{quote token}. The shorthand notation for expressing the pair is
+\emph{base token/quote token} (e.g., ``$\BTC/\ETH$"), and as such indicates the
+respective roles of the tokens.
+
+By convention, \emph{quantity} to exchange is expressed in terms of the base
+token, and \emph{price} is a token exchange rate expressed in terms of the
+quote token per unit of base token (or multiple thereof).
+
+A party who places a ``buy" order must have the quote token ($\ETH$) in custody,
+i.e., in its wallet. A party who places a ``sell" order must have the base
+token ($\BTC$) in custody.
+
+\begin{exmp}[base/quote tokens]
+In the pair $\BTC/\ETH$, $\BTC$ is the base token and $\ETH$
+is the quote token. Interest to trade is expressed in terms of orders
+with $\BTC$ as base token and $\ETH$ as quote token, as follows:
+\begin{itemize}
+    \item A ``buy" order represents a commitment to purchase the base token
+          $\BTC$ and pay with the quote token $\ETH$
+    \item A ``sell" order represents a commitment to sell the base token
+          $\BTC$ and receive the quote token $\ETH$
+    \item Quantity $q$ is in terms of the base token (``buy/sell a certain
+          amount of $\BTC$")
+    \item Limit price is in terms of the quote token (``buy/sell $\BTC$ with a
+          limit price of $p$ $\ETH$ per $\BTC$")
+\end{itemize}
+\end{exmp}
+
+% ===============================================================================
+\subsection{Price properties}
+If prices of base and quote tokens are expressed in terms of a common currency
+(e.g., USD) then it holds that:
+\[
+    p_{quote\_per\_base} = \frac{p_{quote}}{p_{base}},
+\]
+where the numeraire plays the role of a quote token for both $p_{quote}$ and
+$p_{base}$ and is implicit.
+
+Of course, it holds that
+\[
+    p_{quote\_per\_base} =
+    \frac{1}{p_{base\_per\_quote}}.
+\]
+
+Note that in the following we use both notations of price of a token relative to
+another token, and price of a token with respect to a common numeraire, depending
+on which notation is simpler.
+The two representations are equivalent aside from a multiplicative constant, and
+it is always possible to convert one into the other.
+
+Centralized exchanges typically present token prices with a USD-based stablecoin
+as the quote token, so that, in effect, the US dollar is the numeraire.
+
+% ===============================================================================
+% TODO(gp): Consider adding source_address as way to identify the user.
+\subsection{Order attributes and notation}
+We introduce the following tuple notation for a general limit order
+(valid for both TulipCross and TulipSwap).
+\begin{defn}[Limit order]
+A TulipCross or TulipSwap limit order is represented by a tuple of the form
+\begin{align*}
+( & \timestamp,       \\
+  & \action,          \\
+  & \quantity,        \\
+  & \basetoken,       \\
+  & \limitprice,      \\
+  & \quotetoken,      \\
+  & \depositaddress )
+\end{align*}
+\end{defn}
+
+The quantities are arranged to make the order simple to read in natural
+language:
+``At timestamp $\timestamp$ create an order to $\action$ up to a number
+$\quantity$ $\basetoken$ tokens for a limit price of $\limitprice$ with respect
+to the token $\quotetoken$ and deposit the resulting tokens at
+$\depositaddress$."
+
+We have previously discussed the roles of \action, \quantity, \basetoken,
+\limitprice, and \quotetoken.
+The roles of $\timestamp$ include determining eligibility in a swap and can
+extend to influencing order fill priority.
+The $\depositaddress$ attribute mirrors standard functionality
+available in traditional finance, e.g., in purchasing T-Bills on
+TreasuryDirect\footnote{https://www.treasurydirect.gov}. This feature
+facilitates account management through the use of multiple wallets. For
+example, a miner may have a supply of $\BTC$ collected and held in one wallet
+which it would like to systematically diversify into $\ETH$ and perhaps other
+tokens. In specifying a deposit address, it may use a separate wallet to collect
+incoming $\ETH$.
+
+\begin{exmp}[Limit order notation]
+The order
+\begin{center}
+(\textnormal{\texttt{1678660406}},
+\buy,
+\textnormal{\texttt{3.2}},
+\ETH,
+\textnormal{\texttt{4.0}},
+\BTC,
+\textnormal{\texttt{0xdeadc0de}})
+\end{center}
+corresponds to the natural language description:
+``At timestamp Mon Mar 13 2023 02:33:25 GMT+0000, the user commits to buy up to
+3.2 units of $\ETH$ in exchange for $\BTC$ up to a $\limitprice$ of 4.0
+$\BTC$ per $\ETH$ with proceeds deposited at \textnormal{\texttt{0xdeadc0de}}".
+\end{exmp}
+
+\subsubsection{Order shorthand notation}
+In the sequel, when clear from the context we may:
+\begin{itemize}
+\item omit $\timestamp$ and $\depositaddress$ when not relevant to the
+      discussion
+\item omit the (infinite) $\limitprice$ for market orders
+\end{itemize}
+
+\subsubsection{Extracting attributes from an order}
+A limit order can also be represented as a tuple in the following way
+\[
+    o = (a, q, \pi, p, \tau)
+\]
+where
+\begin{itemize}
+    \item $a$ is the desired action ($\buy$ or $\sell$)
+    \item $\pi$ is the base token
+    \item $\tau$ is the quote token
+    \item $q$ is the maximum quantity desired in the exchange of the base token
+          $\pi$
+    %\item $q_{\pi}$ or $q_{base}$ is a variable indicating the quantity of the
+    %      base token potentially exchanged
+    %\item $q_{\tau}$ or $q_{quote}$ is the corresponding quantity of the quote
+    %      token $\tau$ exchanged resulting from the actual execution of the
+    %      order
+    \item $p$ is the limit price in terms of quote token $\tau$ per base token
+          $\pi$
+    %\item $p_{\pi}$ (or $p_{base}$) is the variable price of the base token with
+    %      respect to a common numeraire
+    %\item $p_{\tau}$ (or $p_{quote}$) is the variable price of the base token
+    %         with respect to a common numeraire resulting from the actual execution
+    %      of the order.
+\end{itemize}
+Additionally, for each $o$, let $a_\pi$ and $a_\tau$ belong to
+$\{-1, +1\}$, with sign determined by order $o$'s action $a$ in the following
+way: if $a$ (the action) of $o$ is to buy, then set $a_\pi = -1$ (the buy
+order is taking liquidity of the base token), and if it is to sell, then
+set $a_\pi = 1$. We always have $a_\tau = -a_\pi$, and if the action
+of $a$ is to sell rather than to buy, then its signs are reversed with
+respect to the buy action.
+
+This compact notation is more convenient for expressing and analyzing
+constraints imposed by limit orders.
+
+% ===============================================================================
+\subsection{Building a supply/demand curve with limit orders}
+
+A market participant may express a personalized supply or demand curve with
+limit orders.
+
+Suppose price $p$ may vary in discrete price increments (the case in practice),
+and let $Q_+(p)$ denote the (total) quantity market participant Alice desires
+at price $p$ (or better).  We make the mild (and rational) assumption that
+$Q_+(p)$ is monotonically decreasing in $p$: as price $p$ goes up, Alice desires
+to buy less in total quantity.
+
+To translate Alice's demand into a set of limit orders, first assume that there
+is a maximum price that Alice is willing to pay, $p_M$ (if no such upper limit
+exists, we may first assume that Alice executes market orders until such a
+price exists). Assume also that there is a maximum quantity $Q_M$ that Alice
+demands, and that price is always positive. Then, there exists a partitioning
+of prices $(p_j, p_{j + 1}]$ and positive (cumulative) quantities $Q_j$ such
+that
+\[
+    Q_+(p) = \sum_{j = 0}^n Q_j \cdot \mathbb{1}_{(p_j, p_{j + 1}]}(p),
+\]
+where $\mathbb{1}$ denotes the indicator function. We allow $p_{j + 1} = p_j$.
+This representation simply expresses the fact that $Q_+(p)$ only changes at
+discrete price points (we have assumed price is discrete).
+
+To convert $Q_+(p)$ into a set of limit orders, we begin with the highest price
+with demand, $p_{n + 1}$, and create the buy limit order $o_n$ with limit price
+$p_{n + 1}$ and quantity $Q_n$. Next, we create buy limit order $o_{n - 1}$ with
+limit price $p_n$ and quantity $Q_{n - 1} - Q_n$. Generically, limit order
+$o_k$ is a buy limit order with limit price $p_{k + 1}$:
+\[
+    p(o_k) = p_{k + 1}
+\]
+and quantity $Q_k - Q_{k + 1}$:
+\[
+    q(o_k) = Q_k - Q_{k + 1}
+\]
+Because the quantities $Q_j$ represent cumulative quantity at price
+$p_{j + 1}$ or better, and are monotonically decreasing, each $q(o_k) > 0$.
+
+Note that the case for expressing a supply curve is analogous, and sell limit
+orders are used instead. The preceding discussion has a continuous analogue,
+though in practice minimal tick increments mean that the setting is discrete.
+The key assumption, almost always satisfied in practice, is that cumulative
+supply and demand are monotonic in price.
+
+% ===============================================================================
+\subsection{Order clearing quantity and exchange rate}
+In Tulip, orders are collected from users during a finite period of time,
+after which tokens are redistributed among users according to their limit
+orders.
+
+Effective prices for the tokens are determined based on the available limit
+orders, constraints defining different swap problems, and an optimization
+criterion designed to maximize the welfare of the participants in the swap.
+At the same time, orders are matched in (generically) many-to-many relationships.
+
+Swaps between base/quote token pairs can occur
+\begin{itemize}
+  \item at a single exchange rate, i.e., the
+clearing (or equilibrium) price is the same for all executed orders; or
+  \item at different exchange rates for different orders
+\end{itemize}
+A limit order's price constraint may not be violated in an execution for that
+order.
+
+In constrast, quantity exchanged is always specific to each order. Each
+order's constraint on quantity exchanged cannot be violated, and that order
+may participate in exchange only if its effective price respects its limit
+order price.
+
+\subsubsection{Attributes of an executed order}
+When an order $o$ is executed, quantity exchanged (of both base and quote
+tokens) is observable, and, in the event of an execution, an effective
+price for that order is observable from the amount of base and quote token
+exchanged. Moreover, in some exchange mechanisms, there is a unique global
+clearing price for any pair of tokens exchanged, and this also becomes
+observable.
+
+We qualify these observed values with a star superscript on the
+corresponding limit order value.
+
+Recalling that an order may be represented as the tuple
+\[
+    o = (a, q, \pi, p, \tau),
+\]
+we let
+\begin{itemize}
+    \item $q_\pi^*$ be the quantity of the base token $\pi$ exchanged in the
+          execution of order $o$
+    \item $q_\tau^*$ be the quantity of the quote token $\tau$ exchanged in
+          the execution of order $o$
+      \item $p^*$ be the effective price for the order, given by
+          $q_\tau^* / q_\pi^*$, in the event that $q_\pi^*$ is positive
+          (otherwise it is undefined)
+	%\item $p_\pi^*$ denote the realized price of the base token with respect
+    %      to a common numeraire. Note that the price can
+    %      be specific to each order (i.e., $p_\pi^*(o)$) or equal across the orders
+    %      (i.e., $p_\pi^*)$, depending on constraints imposed on the exchange problem
+    %\item $p_{\pi\_per\_\tau}^*$ (or $p_{quote\_per\_base}^*$ denote the actual exchange
+    %      rate between the quote and base tokens for the swap $o$
+    \item $p_{quote\_per\_base}^*$ denote the unique exchange rate between the
+          quote and base tokens for all the swaps (if it exists)
+    \item $p_{quote\_per\_base}^*$ denotes the unique exchange rate between the
+          quote and base tokens for all the swaps (if it exists)
+\end{itemize}
+By convention, we require that
+\[
+    q_\pi^* \geq 0, \quad q_\tau^* \geq 0.
+\]
+
+% ===============================================================================
+\subsection{Execution of orders}
+Next we introduce some examples of market order and limit order behavior when
+a clearing exchange rate has been set.
+In particular, consider a swap for the tokens $\ETH$, $\BTC$ and assume that
+the exchange rate between $\ETH$ and $\BTC$ is fixed at 0.2 (i.e.,
+0.2 $\BTC$ can be exchanged for 1 $\ETH$ and vice versa).
+
+\begin{exmp}[Market order notation and clearing]
+The following market orders omit $\timestamp$, $\limitprice$, and
+$\depositaddress$ in favor of emphasizing the amounts of token exchanged:
+\begin{itemize}
+    \item An order \texttt{(\buy, 1.0, $\ETH$, $\BTC$)} means buying 1
+          $\ETH$ in exchange for 0.2 $\BTC$
+    \item An order \texttt{(\sell, 1.0, $\ETH$, $\BTC$)} means selling 1 $\ETH$
+          and receiving 0.2 $\BTC$
+    \item An order \texttt{(\buy, 1.0, $\BTC$, $\ETH$)} means buying 1 $\BTC$,
+          paying with 5 $\ETH$
+    \item An order \texttt{(\sell, 1.0, $\BTC$, $\ETH$)} means selling 
+          1 $\BTC$ in return for 5 $\ETH$
+\end{itemize}
+\end{exmp}
+Next we consider the behavior of limit orders under the same prevailing exchange
+rate and we assume that there is sufficient supply of tokens to fully fill the
+orders.
+
+\begin{exmp}[Executable buy limit order]
+A limit order
+\[
+    \texttt{(\buy, 1.0, $\ETH$, 0.5, $\BTC$)}
+\]
+means
+``buy up to 1 $\ETH$ in exchange for $\BTC$ at a rate up to 0.5 $\BTC$ per $\ETH$."
+In this case, since the price of one $\ETH$ is equal to 0.2 $\BTC$, the order
+can be executed at the prevailing market rate.
+\end{exmp}
+
+\begin{exmp}[Non-executable buy limit order]
+On the other hand, a limit order
+\[
+    \texttt{(\buy, 1.0, $\ETH$, 0.1, $\BTC$)}
+\]
+requires that the rate of $\BTC$ per $\ETH$ be lower than the current market
+rate, and so the limit price prevents a token swap from being carried out.
+\end{exmp}
+
+\begin{exmp}[Non-executable sell limit order]
+A limit order
+\[
+    \texttt{(\sell, 1.0, $\ETH$, 0.5, $\BTC$)}
+\]
+means
+``sell up to 1 unit of $\ETH$ in exchange for $\BTC$ at a rate down to 0.5 $\BTC$ per $\ETH$."
+Since the current rate of $\BTC$ per $\ETH$ is 0.2, which is below the limit
+price of 0.5, the order cannot be executed.
+\end{exmp}
+
+
+% ###############################################################################
+\section{Constraints}
+
+Throughout this section, let $\{o_i\}_{i=1}^n$ denote a collection of $n$ limit
+orders, each of the form
+\[
+    o_i = (a_i, q_i, \pi_i, p_i, \tau_i),
+\]
+where the quote token $\pi_i$ is implicit in the quantity $q_i$ and
+the quote token $\tau_i$ and base token $\pi_i$ are implicit in the limit price
+$p_i$ and in the action $a_i$.
+
+Recall that for each order $o_i$, $q_{i, \pi}^*$ denotes the realized amount of
+base token exchanged, and $q_{i, \tau}^*$ denotes the realized amount of quote
+token exchanged. Both values are always well defined and nonnegative.
+
+\subsection{Limit order constraints always respected}
+
+Each limit order constraint on quantity exchanged is straightforward:
+\begin{equation}\label{limit_order_quantity_constraint}
+    q_{i, \pi}^* \leq q_i.
+\end{equation}
+
+The limit order price constraint inequality direction depends upon whether the
+action is to buy or to sell.
+The effective transaction price (in the event that positive tokens are
+exchanged) is represented by $q_{i, \tau}^* / q_{i, \pi}^*$. If the action is to
+buy (base token), then $p_i$ represents an upper bound, and the opposite is true
+if the action is to sell:
+\begin{equation}\label{limit_order_price_constraint}
+    \begin{cases}
+        q_{i, \tau}^* \leq q_{i, \pi}^* p_i, & a_{i, \tau} = 1 \\
+        q_{i, \tau}^* \geq q_{i, \pi}^* p_i, & a_{i, \tau} = -1 \\
+    \end{cases}
+\end{equation}
+Here we have multiplied through by $q_{i, \pi}^*$, with the result being that
+the inequality also holds in the event that $q_{i, \pi}^*$ or $q_{i, \tau}^*$ is
+zero.
+
+% All the constraints that are common
+
+% Constraint for limit orders
+
+% ===============================================================================
+\subsection{Supply and demand always match}
+All of the exchange mechanisms that we consider must match quantity supplied
+with quantity consumed in a swap. That is, the exchange neither injects nor
+removes token from the swap. To formally express this, we introduce the
+following notation.
+
+Let $T$ denote the intersection of the union of all base tokens and the union
+of all quote tokens:
+\[
+    T :=
+    \left( \bigcup_{i=1}^n \pi_i \right)
+    \bigcap
+    \left( \bigcup_{i=1}^n \tau_i \right)
+\]
+The set of tokens $T$ is the set of tokens eligible for swapping.
+
+For each token $u \in T$, define the indicator function
+$\mathcal{T}: T \to \{0, 1\}$ via
+\[
+    \mathcal{T}_u(v) =
+    \begin{cases}
+        1 \text{ if } v = u \\
+        0 \text{ if } v \neq u
+    \end{cases}
+\]
+Then, for each $u \in T$, the following conservation law must hold:
+\begin{equation}\label{token_conservation_law}
+    \sum_i \mathcal{T}_u(\pi_i) \cdot a_{i, \pi} q_{i, \pi}^*
+    + \mathcal{T}_u(\tau_i) \cdot a_{i, \tau} q_{i, \tau}^*
+    = 0
+\end{equation}
+Note that this translates into one equality per token participating in the
+swap. These equalities express the notion that each filled order must have,
+across the collection of orders, suitable counterparties. In other words,
+for each token, the total amount bought must equal the total amount sold.
+
+% ===============================================================================
+\subsection{Unique clearing price per token pair}
+
+In the TulipCross case, a single exchange rate per exchanged token pair
+prevails, as a reference price serves this function.
+One may make the case that this is a desirable property for token swap more
+generally. That is, for participants trading the same token pair, no
+participant gets a price that is any better or any worse than what any other
+participant gets.
+
+Suppose that the effective exchange rate for an order involving tokens
+$\nu \in T$ and $\eta \in T$ is the same for all filled orders. In other words,
+the clearing exchange rate is unique for all participants.
+Then, for all $i, j$ whose respective orders $o_i, o_j$ both involve tokens
+$\nu$, $\eta$, we have
+\[
+    q_{i, \pi}^* q_{j, \tau}^* - q_{i, \tau}^* q_{j, \pi}^* = 0
+\]
+when the tokens $\nu$ and $\eta$ play identical base/quote roles in $o_i$,
+$o_j$, and
+\[
+    q_{i, \pi}^* q_{j, \pi}^* - q_{i, \tau}^* q_{j, \tau}^* = 0
+\]
+if they play opposite roles.
+
+We rewrite this as
+\begin{equation}
+    \begin{cases}
+        q_{i, \pi}^* q_{j, \tau}^* - q_{i, \tau}^* q_{j, \pi}^* = 0, & \forall i, j \in \{1, \ldots, n\}: \pi_i = \pi_j \land \tau_i = \tau_j \\
+        q_{i, \pi}^* q_{j, \pi}^* - q_{i, \tau}^* q_{j, \tau}^* = 0, & \forall i, j \in \{1, \ldots, n\}: \pi_i = \tau_j \land \tau_i = \pi_j \\
+    \end{cases}
+\label{unique_price_constraint}
+\end{equation}
+
+The unique clearing price constraint prevents the problem from falling in the
+domain of linear programming (to be discussed in the sequel).
+
+% ===============================================================================
+\subsection{No arbitrage constraint}
+In TulipCross, multi-currency arbitrages may or may not exist in the reference
+prices. In practice, one would expect such opportunities in the reference
+prices to be fleeting or small, since otherwise arbitrageurs would exploit
+them until market pressures eliminated the opportunities. Note, though, that
+it is not the exchange mechanism itself that minimizes arbitrage opportunities;
+rather, it is the active participation of arbitrageurs.
+
+In the case of multi-token TulipSwap, and in the case where we impose unique
+clearing prices (per token pair), we have the flexibility to impose the
+additional constraint of no-arbitrage in the realized prices. One the one hand,
+this property is appealing in terms of fairness. On the other hand, any such
+arbitrages are not exploitable in practice (the swap is atomic), and in any
+case, the additional constraints are nonlinear in terms of how they constrain
+the problem and nonlinear in terms of their growth in the number of distinct
+tokens. We present how such constraints may be expressed, if desired.
+
+Let $\Gamma$ denote the directed graph whose vertices $V$ are given by the set
+of elements $T$, and whose directed edges $E$ are given by
+\[
+    E = \bigcup_{\substack{i \in \{1, \ldots, n\} \\ \pi_i, \tau_i \in T}}
+    \left( (\pi_i, \tau_i) \cup (\tau_i, \pi_i) \right)
+\]
+Each edge $(b, a) \in E$ we give the weight $w_{a, b}$, corresponding to a log
+exchange rate. Note that $w_{a, b}$ and $w_{b, a}$ are distinct.
+
+Let $C$ denote the collection of all simple cycles of $\Gamma$.
+For an simple cycle $\gamma \in C$, consecutively enumerate the vertices
+(with starting place arbitrary) by $c_j$ for $j = 1, \ldots, |\gamma|$.
+Let $c_0 := c_{|\gamma|}$ for notational convenience. Then
+the \emph{no arbitrage} constraints state that, for each $\gamma \in C$, we have
+\[
+    \sum_{j = 0}^{|\gamma|} w_{j, j + 1} = 0
+\]
+In the case of a two-token cycle, this constraint reduces to ensuring that
+there is a unique exchange rate between the pair of tokens (changing the roles
+of the base and quote tokens in limit orders inverts the exchange rate).
+For an efficient algorithm for finding all elementary cycles, see \cite{Jo75}
+as well as \cite{MaDe76} for a comparison of various algorithms.
+
+% ===============================================================================
+\subsection{Maximization criteria in a token swap}
+
+In a Walrasian auction, a single clearing price is chosen so that, at that
+price, aggregate supply meets aggregate demand (with priority rules used in
+the discrete setting to handle discretization effects). This may be framed
+as a max-min problem (see \cite{BoBoDoGo18}[\S 1.1.1]).
+
+We propose maximizing the total quantity of token swapped, which is a simple
+linear constraint. That is, the objective to maximize is
+\begin{equation}\label{objective_function}
+\sum_{i = 1}^n q_{i, \pi}^* + q_{i, \tau}^*
+\end{equation}
+
+\subsubsection{Invariance under token redenomination}
+Note that any feasible solution that satisfies the constraints is invariant
+under the change of scale of a token, e.g., if the unit of measurement of
+quantity of a token changes, and if the limit orders are updated accordingly
+with the unit change, then any solution to the original problem remains a
+solution to the rescaled problem.
+
+What remains to show is that the optimal solution to the original problem
+transforms into the optimal solution to the rescaled problem (even though
+the optimal values of the objective \eqref{objective_function} are generally
+different).
+For this, we may take a feasible solution to the original problem and map
+it to its corresponding feasible solution in the rescaled problem. The
+only part of the objective function that changes is the contribution of
+the rescaled token, which is rescaled linearly. The property of being
+a local maximum is preserved by this transformation (which can be seen by
+considering partial derivatives), and since any local
+maximum is a global maximum (due to convexity), the transformed solution
+is the optimal solution to the transformed problem.
+
+\subsubsection{Is a single clearing price needed?}
+
+Maximizing token swapped subject to the basic limit order and token
+conservation constraints does not necessarily lead to unique clearing prices
+for each token pair. In fact, adding the additional constraints associated
+with a unique clearing price would reduce the total volume exchanged. We
+argue that by not imposing a single clearing price, more of each participant's
+supply or demand curve may be satisfied. As an added benefit, the swap
+problem to solve is a linear program rather than an optimization problem with
+nonlinear constraints.
+
+% TODO(gp): Explain.
+
+% ===============================================================================
+\subsection{Alternative expression of limit order constraints}
+Limit orders alternatively may be translated into inequalities involving
+quantity of tokens exchanged and token exchange rates. This formulation may be
+more intuitive in cases where a unique token clearing price should prevail.
+
+\subsubsection{Inequalities for buy order}
+An order of the form $o_i =$ \texttt{(\buy, q, \tA, p, \tB)} means
+``buy $q$ units of token $\tA$ in exchange for token $\tB$ with a limit price
+up to $p$ $\tB$ per unit of $\tA$",
+and it corresponds to the following constraint on realized quantity exchanged
+and clearing exchange rate:
+\begin{equation*}
+    (p_{\tB\_per\_\tA}^* \leq p(o_i)) \land
+    (0 \le q_\tA^*(o_i) \leq q(o_i)) \lor
+    (q_\tA^*(o_i) = 0)
+\end{equation*}
+The constraint on the quantity exchanged is conditioned on the corresponding
+price's satisfying the desired limit price constraint: if the desired limit price
+constraint is not met, the swap cannot be carried out and the exchanged quantity
+is 0.
+
+% TODO(gp): Personally although less Latex-fancy this renders better IMO.
+%\subsubsection{Example of inequalities for buy order}
+\begin{exmp}[Inequalities for buy order]
+An order of the form $o_1 = \texttt{(\buy, 2, \tA, 3, \tB)}$ means
+``buy 2 units of token $\tA$ in exchange for token $\tB$ with a limit price up
+to 3 $\tB$ per unit of $\tA$",
+and it corresponds to the following constraint on realized quantity exchanged
+and clearing exchange rate:
+\begin{equation*}
+    (p_{\tB\_per\_\tA}^* \leq 3) \land
+    (0 \le q_\tA^*(o_1) \leq 2) \lor
+    (q_\tA^*(o_1) = 0)
+\end{equation*}
+\end{exmp}
+
+\begin{exmp}[Inequality for buy market order]
+A market order (i.e., without a limit price) has no constraint on exchange rate
+and thus is reduced to
+\[
+    0 \le q_\tA^*(o_1) \le q(o_i)
+\]
+\end{exmp}
+
+\subsubsection{Inequalities for sell order}
+An order of the form $o_i = \texttt{(\sell, q, \tA, p, \tB)}$ means
+``sell $q$ units of token $\tA$ in exchange for token $\tB$ with a limit price
+of at least $p$ $\tB$ per unit of $\tA$",
+and it corresponds to the following constraint on realized quantity exchanged
+and clearing exchange rate:
+\begin{equation*}
+    (p_{\tB\_per\_\tA}^* \geq p(o_i) \land
+    (0 \le q_\tA^*(o_i) \leq q(o_i)) \lor
+    (q_\tA^*(o_i) = 0)
+\end{equation*}
+
+\begin{exmp}[Inequalities for sell order]
+In the same way, an order like $o_2 = \texttt{(sell, 3, \tA, 2, \tB)}$ means
+``sell 3 units of token $\tA$ in exchange for token $\tB$ with a limit price of
+at least 2 $\tB$ per unit of $\tA$", which corresponds to
+\begin{equation*}
+    (p_{\tB\_per\_\tA}^*(o_2) \geq 2) \land
+    (0 \le q_\tA^*(o_2) \leq 2) \lor
+    (q_\tA^*(o_2) = 0)
+\end{equation*}
+\end{exmp}
+
+% ===============================================================================
+\subsection{Order normalization}
+When the exchange rate between two tokens is known, then it is possible to
+convert buy/sell orders for both $\tA$ and $\tB$ tokens into buy/sell orders
+where all orders have token $\tB$ as the base token, according to the
+transformation below.
+
+Let
+\[
+    o_1 = (\buy, q, \tA, p_{\tB\_per\_\tA}, \tB).
+\]
+Suppose that $p^*_{\tB\_per\_\tA}$ is fixed and known. Then the order
+\[
+    o_2 = (\sell, q^\prime, \tB, 1 / p_{\tB\_per\_\tA}, \tA)
+\]
+may be handled in order crossing in the same way that $o_1$ may be
+provided that
+\[
+    q^\prime = q \cdot p^*_{\tB\_per\_\tA}
+\]
+
+% TODO(gp): flesh out the examples
+%p_A / p_B = c <-> q_A = c * q_B <-> q_A units of A can be exchanged with (const * q_B) units of B
+%E.g., ETH / wBTC = 0.5 <-> 1 ETH = 0.5 wBTC <-> 2 ETH = 1 wBTC
+%So 3 ETH can be exchanged with 1.5 wBTC
+%
+%q^*(o_1) = (buy, q_A, A, lp_B, B) = "buy at most q_A units of A, where the price for A is at most lp_B"
+%q^*(o_1) <= q_A
+%p_A / p_B <= lp_B
+%
+%(sell, q_B, B, lp_A, A) = "sell at most q_B units of B, where the price for B is at least lp_A"
+%q^*(o_2) <= q_B
+%p_B / p_A >= lp_A
+%
+%Since p_A / p_B <= lp_B <-> p_B / p_A >= 1 / lp_B and q_A = c * q_B, the first order o_2 = (sell, q_B, B, lp_A, A) is equivalent to (buy, c * q_B, A, 1 / lp_B, B).
+
+% \subsubsection{Example of order equivalence}
+%Example of order equivalence. Assume that Alice wants to buy 5 wBTC with ETH. The exchange rate ETH / wBTC is 0.1 (or equivalently 1 ETH corresponds to 10 wBTC). With her order, Alice wants to receive 5 wBTC in exchange for 0.5 ETH. Alice would be satisfied also with an order of selling 0.5 ETH against wBTC.
+%
+%q_BTC < 4
+%p_ETH / p_BTC < 3
+%
+%q_BTC = 0 if (p_ETH / p_BTC >= 3) else q_BTC < 4
+
+% ###############################################################################
+
+\section{Formulation and solution of TulipSwap and TulipCross problems}
+The general problem of determining the token equilibrium prices and the
+allocation among the swap participants can be formulated in terms of the
+inequalities on quantities and prices corresponding to the orders and on the
+need that the total quantity exchanged of each token be preserved across the
+swaps, i.e., the quantity bought for each token is equal to the quantity sold.
+
+\subsection{Problem formulations}
+
+\begin{problem}[TulipSwap token exchange]\label{problem_tulipswap}
+Let $\{o_i\}_{i = 1}^n$ be a collection of limit orders, with associated
+constraints given by \eqref{limit_order_quantity_constraint},
+\eqref{limit_order_price_constraint}, and \eqref{token_conservation_law}.
+The TulipSwap problem is to find nonnegative quantities
+$q_{i, \pi}^*, q_{i, \tau}^*$, $i = 1, \ldots, n$, that satisfy the constraints
+\eqref{limit_order_quantity_constraint},
+\eqref{limit_order_price_constraint}, and \eqref{token_conservation_law},
+such that the objective function \eqref{objective_function} is maximized.
+\end{problem}
+
+\begin{problem}[TulipCross token exchange]\label{problem_tulipcross}
+Let $\{o_i\}_{i = 1}^n$ and associated constraints be as in Problem
+\ref{problem_tulipswap}.
+Let $\{p_i^*\}$ denote a collection of reference prices, such that
+each $p_i^*$ only depends upon the base token $\pi_i$ and quote
+token $\tau_i$ of order $o_i$.
+Introduce the reference price constraint
+\begin{equation}\label{reference_price_constraint}
+    a_{i, \tau} q_{i, \tau}^* = q_{i, \pi}^* p_i^*, \quad i \in \{1, \ldots, n\}
+\end{equation}
+The TulipCross problem is to find nonnegative quantities
+$q_{i, \pi}^*, q_{i, \tau}^*$, $i = 1, \ldots, n$, that satisfy the constraints
+\eqref{limit_order_quantity_constraint},
+\eqref{limit_order_price_constraint}, \eqref{token_conservation_law},
+and
+\eqref{reference_price_constraint}
+such that the objective function \eqref{objective_function} is maximized.
+\end{problem}
+For non-compatible limit orders, the only quantities that satisfy both the
+limit order inequality \eqref{limit_order_price_constraint} and the reference
+price equality \eqref{reference_price_constraint} are given by
+\[
+    q_{i, \tau}^* = q_{i, \pi}^* = 0
+\]
+
+\begin{problem}[TulipSwap token exchange with unique clearing prices]
+\label{problem_tulipswap_with_unique_prices}
+Let $\{o_i\}_{i = 1}^n$ and associated constraints be as in Problem
+\ref{problem_tulipswap}.
+The TulipSwap problem with unique clearing prices is to find nonnegative
+quantities $q_{i, \pi}^*, q_{i, \tau}^*$, $i = 1, \ldots, n$, that satisfy the
+constraints \eqref{limit_order_quantity_constraint},
+\eqref{limit_order_price_constraint}, and \eqref{token_conservation_law},
+\eqref{unique_price_constraint}
+such that the objective function \eqref{objective_function} is maximized.
+\end{problem}
+
+% ===============================================================================
+
+\subsection{Problem solutions}
+
+\subsubsection{TulipSwap as a linear program}
+
+Let $x$ denote the vector with structure
+\[
+    x =
+    \begin{bmatrix}
+        q_{1, \pi}^*, q_{2, \tau}^*, \ldots, q_{n, \pi}^*, q_{n, \tau}^*
+    \end{bmatrix}^T
+\]
+Next we introduce the following matrices.
+
+Let $Q$ be the matrix whose $i$-th row is $n$-dimensional, with a ``1" in the
+column $2i - 1$ and zeros elsewhere, and let $q$ denote the vector
+\[
+    x =
+    \begin{bmatrix}
+        q_1, \ldots, q_n
+    \end{bmatrix}^T
+\]
+Then the limit order quantity constraint
+\eqref{limit_order_quantity_constraint}
+is expressed in matrix form via
+\[
+    Q x \leq q.
+\]
+
+Let $P$ be the matrix whose $i$-th row is $n$-dimensional with entry
+$-p_i$ in the $2i - 1$ column, $a_{i, \tau}$ in the $2i$ column, and zeros
+elsewhere. Then the limit order price constraint
+\eqref{limit_order_price_constraint}
+may be expressed as
+\[
+    P x \leq 0.
+\]
+
+For \eqref{token_conservation_law}, we introduce a matrix $R$, which expresses
+the equality constraint (which could be expressed as two inequality constraints
+in canonical form) such that it becomes
+\[
+    R x = 0.
+\]
+We leave the definition of $R$ implicit, though this can be formalized as was
+done for $P$ and $Q$.
+
+Then Problem \ref{problem_tulipswap} may be expressed as the problem of maximizing
+\[
+    \mathbb{1}^T x
+\]
+subject to the inequality constraints
+\[
+    \begin{bmatrix} Q & P & -I \end{bmatrix} x \leq
+    \begin{bmatrix} q & 0 & 0 \end{bmatrix}
+\]
+and the equality constraint
+\[
+    R x = 0.
+\]
+Note that this problem falls in domain of linear programming and may be solved
+via standard simplex or interior point methods.
+
+The problem is polynomial-time in the ideal setting of infinite divisibility.
+Discretization (and renormalization) move the problem to the domain of
+integer programming, which is NP-complete.
+In our setting, where the typical exchanged value is much larger than the
+discretization grid, obtaining a linear programming solution
+(i.e., solving the linear programming relaxation) and
+discretizing after-the-fact may be acceptable in practice.
+
+\subsubsection{TulipCross as a linear program with additional constraints}
+
+We proceed as in the case of TulipSwap, but add the additional equality
+constraint \eqref{reference_price_constraint}, which may similarly
+may be expressed in matrix form.
+
+As in the case of TulipSwap, TulipCross is a linear program, and so may be solved
+efficiently.
+
+\subsubsection{TulipSwap with unique clearing prices}
+
+Problem \ref{problem_tulipswap_with_unique_prices} differs from
+Problem \ref{problem_tulipswap} in that constraints
+\eqref{unique_price_constraint} must hold. These constraints are quadratic
+rather than linear in $x$, which means that Problem
+\ref{problem_tulipswap_with_unique_prices} falls outside of the domain of
+linear programming.
+
+Due to the fact that the constraint matrix is not positive definite and
+the fact that the matrix expresses a constraint rather than part of an
+objective function, it does not appear that the problem admits a
+quadratic programming formulation.
+
+% \subsubsection{TulipCross problem as simplified TulipSwap problem}
+% In the TulipCross set-up, the price of the tokens involved in the swap is
+% determined by an external oracle.
+% This allows simplifying the general problem by applying the equivalence
+% principle between orders and removing the non-linearity from the set of
+% inequalities above.
+%
+% In the case of each order $o_i$, the boolean condition $c_i$ (which compares
+% the actual price $p^*$ and the limit order price $p(o_i)$) is either verified
+% or not (the solution does not need to consider both branches):
+% \begin{equation*}
+%     \begin{cases}
+%         0 \le q_{base}^*(o_i) \le q_{base}^* & \text{ if } c_i       \\
+%         q_{base}^*(o_i) = 0                & \text{ if } \lnot c_i \\
+%     \end{cases}.
+% \end{equation*}
+% TODO: Comment on quote token amount exchanged. Verify supply meets demand.
+%
+% The problem then becomes a set of linear inequalities (in fact, if $\lnot c_i$
+% prevails, then order $o_i$ is effectively removed from problem) that can be
+% solved with various efficient methods (e.g., simplex-method).
+
+% TODO(gp): check
+%
+% \subsubsection{Limit price in terms of quantities}
+% Assume that a buy order is:
+% \[
+%     o = (\buy q, \pi, p, \tau)
+% \]
+%
+% corresponds to the natural language description:
+% ``the user $A$ commits to buy up to $q$ units of the token $\pi$ in exchange
+% for token $\tau$ up to a limit price of $p$ $\tau$ for a single token
+% $\pi$".
+%
+% Assume that this exchange actually takes place between the user $A$ and a user
+% $B$ (without loss of generality with respect to $B$ being an aggregate of
+% multiple users).
+%
+% Assume that the prices of the tokens $\pi$ and $\tau$ are both expressed with
+% respect to a common numeraire, $p_{\pi}$ and $p_{\tau}$
+%
+% Consider the flows between A and B of both tokens and value:
+%
+% A gives to B:
+% - $q^*_{\tau}$ tokens $\tau$
+% - $q_{\pi} p_{\pi}$ in value with respect to the numeraire
+%
+% A receives from B
+% - $q^*_{\pi}$ tokens $\pi$
+% - $q_{\tau} p_{\tau}$ in value with respect to the numeraire
+%
+% - From the limit order constraint we know that
+%   $$p_{\pi} \le p p_{\tau}$$
+%   $$\frac{p_{\pi}}{p_{\tau}} \le p$$
+%
+% \subsubsection{Example of limit price in terms of quantities}
+% Assume that an order is:
+% \[
+%   (\buy, \textnormal{\texttt{3.2}}, \ETH, \textnormal{\texttt{4.0}}, \BTC)
+% \]
+%
+% corresponds to the natural language description:
+% ``the user commits to buy up to 3.2 units of $\ETH$ in exchange for $\BTC$ up
+% to a $\limitprice$ of 4.0 $\BTC$ per $\ETH$"
+%
+% The limit price means that 1 $\ETH$ is worth at most 4 $\BTC$
+
+% ###############################################################################
+\section{TulipCross order matching with two tokens}
+
+In this section, we consider a simplified version of Problem
+\ref{problem_tulipcross}. In particular, we only allow two tokens in the pool
+of liquidity, and we use order normalization to transform orders so that
+there is a unique base token and unique quote token across all orders.
+
+% ===============================================================================
+\subsection{TulipCross reference clearing prices}
+TulipCross relies on a \emph{price oracle} for determining the effective
+token exchange rate in a cross. The price oracle may come from a lit
+exchange, centralized or decentralized, or even on-chain automated market
+makers such as Uniswap (\cite[\S 2.2]{AdZiRo20}).
+
+\subsection{Source of reference price}
+The case of using an automated market maker as a price oracle is relatively
+straightforward, provided there is an automated market maker trading the
+target currency pair with sufficient liquidity.
+
+To use an exchange as a price reference, we must consider some additional
+steps. First, exchanges typically use a dollar stablecoin (e.g., $\USDC$,
+$\USDT$) as the quote currency and all other currencies as base currencies. Our
+example of $\BTC/\ETH$ would be considered a cross pair in the world of
+traditional finance. Because most cross pairs are not traded directly on
+exchanges, we must derive a clearing price from pairs involving stablecoins.
+
+\subsubsection{Last price as reference price}
+% TODO(gp): Expand
+One can use as reference price for TulipCross the last executed price on an
+exchange or AMM.
+
+\subsubsection{Exchange bid-ask midpoint reference price}
+Let $\bidbtc, \askbtc$ be stablecoin-denominated top-of-book bid-ask prices
+for $\BTC$ (e.g., expressed in $\USDC$), and $\bideth, \asketh$ be the analogous
+prices for $\ETH$. Then, a commitment to buy one $\BTC$ and pay $\ETH$ would
+clear at a midpoint price of
+\[
+    \BTC/\ETH_{\midpoint} = \frac{\bidbtc + \askbtc}{\bideth + \asketh}
+\]
+expressed in $\BTC$ per $\ETH$. Note that if the dollar price of BTH is significantly
+more than the dollar price of ETH, then this price implies paying many
+multiples of ETH for BTC (as is the case at the time of this writing).
+
+In general, TulipCross may use the following reference price for a base/quote
+token pair, where the bids and asks come from a lit exchange and are expressed
+in terms of stablecoin prices:
+\begin{equation}
+    \frac{\bidbase + \askbase}{\bidquote + \askquote}
+\end{equation}
+
+\subsubsection{Averaging reference prices}
+When using either an on-chain price oracle or an exchange as a price oracle,
+it is possible to perform a time or volume weighted average of prices (namely
+TWAP and VWAP) so as to avoid extreme price variations and to mitigate the risk
+and effects of any market manipulation attempts. We note, though, that
+averaging schemes may introduce triangular arbitrages in the reference prices
+that may not exist point-in-time.
+
+% ===============================================================================
+\subsection{Order crossing}
+At regular time intervals, order submissions are cut off and reference prices
+are determined. An element of randomness is used to determine order cutoff
+times and reference price cutoff times in order to
+mitigate manipulative behaviors.
+
+An order is eligible for matching if its timestamp is within the cutoff window
+and if the external reference price does not exceed its limit price.
+
+Except on occasions where eligible buy/sell volume is perfectly matched, not
+all orders can be fully crossed. There are also discretization effects to
+consider arising from discrete order sizes and a discrete price grid
+\cite{BoBoDoGo18}[\S 3.2.1].
+See \cite{BeLaLiVa22} for a discussion of the trade-offs surrounding
+different prioritization rule choices. See \cite{MsAts} for the
+prioritization rules used by one of Morgan Stanley's equity liquidity pools.
+
+\subsubsection{Priority rules}
+TulipCross prioritizes fills according to:
+\begin{itemize}
+    \item Volume (higher volume comes first in priority)
+    \item Price (higher limit price breaks volume ties)
+    \item Timestamp (earlier timestamp breaks ties in volume and price)
+\end{itemize}
+If, in the unlikely scenario that all three of these parameters perfectly
+agree, a certain priority is not guaranteed.
+
+\subsubsection{Matching algorithm}
+The mechanism for matching eligible buy and sell orders consists of two
+priority queues, one for eligible buy orders and one for eligible sell orders.
+Priority is determined according to the volume/price/timestamp priority rules
+introduced above. Top-of-queue orders are compared, and the lesser of the two
+volumes is fully filled. Once an order is fully filled at the established
+reference price, it is removed from the priority queue. The procedure continues
+until one of the two priority queues is empty.
+
+\subsubsection{Computational complexity}
+Let $n$ denote the sum (or max) of the number of eligible buy and sell orders.
+Priority queue construction occurs in $O(n)$ time, each order removal costs
+$O(\log n)$, and order removal occurs $O(n)$ many times. So, the computational
+time complexity of the task is $O(n \log n)$. Memory requirements are $O(n)$.
+
+
+% ###############################################################################
+%\section{Fees and tokenomics}
+%Tulip charges a fee on each transaction based on the exchanged tokens.
+%E.g., a transaction requiring
+
+% ###############################################################################
+\section{Implementation details}
+
+% ===============================================================================
+\subsection{TulipCross and TulipSwap Architecture}
+Tulip addresses cost issues primarily in two ways: (1) discretizing time; and
+(2) scaling with layer 2 solutions. By addressing these issues, we combine the
+novel advantages of decentralized exchange with the utility and ease-of-use of
+the familiar interface of limit orders.
+
+% ===============================================================================
+\subsection{Off-chain computation}
+Currently TLP offloads some computations to external oracles, due to current
+computational limitation of blockchains. We do not believe that this is detrimental
+to the security and decentralization level of TLP as long as these computations
+are provably correct.
+
+For instance, although the solution of the TulipSwap problem \ref{problem_tulipswap}
+is polynomial in the number of constraints (or NP-complete in the fully discretized case),
+verifying that one solution is correct only requires time linear in the number of
+constraints.
+
+For this reason, TulipSwap stores on-chain the result of the TulipSwap optimization
+in order to allow independent verification that the off-chain system is not
+malicious or compromised.
+
+% ===============================================================================
+\subsection{Ensuring a timely solution}
+TulipSwap avoids the case where solving the optimization problem becomes
+intractable by performing a swap when a maximum number of orders and/or
+currency pairs is reached.
+
+% ===============================================================================
+% \subsection{Performing the swap}
+
+% ###############################################################################
+\section{A comparison of token swapping solutions}
+\label{comparison_section}
+
+In this section, we expand upon the summary table introduced in \ref{comparison_table}.
+
+% TODO(gp): Reorg, maybe from best to worst? TulipSwap, LOB, TulipCross, AMM
+
+% ===============================================================================
+\subsection{TulipSwap}
+
+\begin{itemize}
+
+    \item Support for limit orders: Yes
+          \begin{itemize}
+              \item TulipSwap supports limit orders natively
+          \end{itemize}
+    \item Welfare maximization: Yes
+          \begin{itemize}
+              \item The TulipSwap optimization problem allows exchanging tokens with multiple
+                    clearing prices to maximize the aggregated welfare of the participants
+          \end{itemize}
+    \item Liquidity pooling across tokens: High
+          \begin{itemize}
+              \item The TulipSwap optimization problem allows exchanging tokens simultaneously across
+                    all participants independently of their base and quote tokens
+          \end{itemize}
+    \item Liquidity pooling across time: High
+          \begin{itemize}
+              \item In TulipSwap there is no difference between the roles of
+                    liquidity providers and liquidity takers, so that takers and makers
+                    can trade against each other directly and efficiently
+          \end{itemize}
+    \item Trading efficiency: High
+          \begin{itemize}
+              \item TulipSwap relies on periodic auctions, and it has been argued
+                    in previous literature that for small enough intervals (e.g.,
+                    seconds) periodic auctions result in the same quality as
+                    continuous matching \cite{BuCrSh15}
+          \end{itemize}
+    \item Transparency: Yes
+          \begin{itemize}
+              \item Price discovery, matching, and clearing are either done
+                    completely on-chain or with additional off-chain computations that are
+                    independently verifiable. Thus TulipCross guarantees the requirements
+                    for a fully transparent solution.
+          \end{itemize}
+    \item Impermanent loss: No
+          \begin{itemize}
+              \item There is no impermanent loss, since liquidity is not locked inside
+                    the contract (contrary to the case for AMMs)
+          \end{itemize}
+    \item Custodial risk: No
+          \begin{itemize}
+              \item Private keys and funds are always under the control of the users
+          \end{itemize}
+    \item Rent extracted by high-frequency traders: Low
+          \begin{itemize}
+              \item Discrete and frequent auctions minimize predatory
+                    behaviors from HFT behavior \cite{BuCrSh15}
+          \end{itemize}
+    \item Censorship resistance: Yes
+          \begin{itemize}
+              \item The application runs on-chain and even if the web front-end is attacked
+                    or disabled. The off-chain computation can be made robust using similar
+                    approaches to distributed oracles, or even ported on-chain if gas prices
+                    are not an issue (e.g., using layer 2 solutions).
+          \end{itemize}
+\end{itemize}
+
+% ===============================================================================
+\subsection{TulipCross}
+
+\begin{itemize}
+    \item Support for limit orders: Yes
+          \begin{itemize}
+              \item TulipCross supports limit orders natively
+          \end{itemize}
+    \item Welfare maximization: No
+          \begin{itemize}
+              \item The TulipCross optimization problem uses prices determined by
+                    a lit exchange and thus there is a single clearing price for all
+                    the swaps. This does not allow achieving maximal welfare for
+                    the traders involved in the swap.
+          \end{itemize}
+    \item Liquidity pooling across tokens: High
+          \begin{itemize}
+              \item TulipCross has the same behavior as TulipSwap from this point of view
+          \end{itemize}
+    \item Liquidity pooling across time: High
+          \begin{itemize}
+              \item TulipCross has the same behavior as TulipSwap from this point of view
+          \end{itemize}
+    \item Trading efficiency: Medium
+          \begin{itemize}
+              \item The trading efficiency in matching trades is the same as the
+                    lit exchange on which price discovery is performed (e.g., a
+                    centralized exchange)
+          \end{itemize}
+    \item Transparency: Yes
+          \begin{itemize}
+              \item TulipCross has the same behavior as TulipSwap from this point of view
+          \end{itemize}
+    \item Impermanent loss: No
+          \begin{itemize}
+              \item TulipCross has the same behavior as TulipSwap from this point of view
+          \end{itemize}
+    \item Custodial risk: No
+          \begin{itemize}
+              \item TulipCross has the same behavior as TulipSwap from this point of view
+          \end{itemize}
+    \item Rent extracted by high-frequency traders: Medium
+          \begin{itemize}
+              \item TulipCross behaves as a dark pool of liquidity and thus it can be susceptible
+                    to predatory behaviors, although mitigated by the discrete auction mechanism
+                    \cite{BuCrSh15}
+          \end{itemize}
+    \item Censorship resistance: No
+          \begin{itemize}
+              \item TulipCross behaves as a dark pool of liquidity and thus it can be susceptible
+                    to censorship resistance in the same way as the lit exchange on which
+                    price discovery is carried out
+          \end{itemize}
+\end{itemize}
+
+% ===============================================================================
+\subsection{Limit Order Book (LOB)}
+
+\begin{itemize}
+    \item Support for limit orders: Yes
+          \begin{itemize}
+              \item Limit orders are naturally handled by a limit order book
+          \end{itemize}
+    \item Welfare maximization: Medium
+          \begin{itemize}
+              \item The presence of priority rules in the continuous matching
+                    might artificially reduce the achieved welfare of the participants
+          \end{itemize}
+    \item Liquidity pooling across tokens: Low
+          \begin{itemize}
+              \item LOBs only allow exchanging one type of token with another,
+                    artificially separating liquidity across different LOBs.
+                    Traders are thus forced to perform multiple trades when the
+                    desired token pair is not available, resulting in increased
+                    slippage and costs
+          \end{itemize}
+    \item Liquidity pooling across time: High
+          \begin{itemize}
+              \item LOBs let liquidity providers and takers trade against each other
+          \end{itemize}
+    \item Trading efficiency: Medium
+          \begin{itemize}
+              \item Although the continuous matching can be argued to be an efficient
+                    trading mechanism, it also enables predatory behaviors that reduce
+                    its efficiency from the point of view of non-HFT traders
+          \end{itemize}
+    \item Transparency: No
+          \begin{itemize}
+              \item The need to cancel and reprice orders, induced by continuous
+                    time, makes an LOB difficult if not impossible to run on a blockchain.
+                    Any solution that can not run on-chain does not guarantee transparency
+                    as required by decentralized finance.
+          \end{itemize}
+    \item Impermanent loss: No
+          \begin{itemize}
+              \item There is no impermanent loss, since liquidity is not locked inside
+                    the contract, contrary to the case for AMMs
+          \end{itemize}
+    \item Custodial risk: Yes
+          \begin{itemize}
+              \item For the same reasons described when reasoning about transparency,
+                    limit order books are run as centralized exchanges, which requires
+                    traders to delegate the ownership of tokens to centralized exchanges
+          \end{itemize}
+    \item Rent extracted by high-frequency traders: High
+          \begin{itemize}
+              \item Since time is treated as a continuous quantity, traders can
+                    gain advantages from faster connections and computation, allowing
+                    predatory behaviors from high-frequency traders
+                    \cite{BuCrSh15}
+          \end{itemize}
+    \item Censorship resistance: No
+          \begin{itemize}
+              \item For the same reasons described when reasoning about transparency,
+                    limit order books are run as centralized exchanges, which requires
+
+          \end{itemize}
+\end{itemize}
+
+% ===============================================================================
+\subsection{Automatic Market Makers (AMM)}
+
+\begin{itemize}
+    \item Support for limit orders: No
+          \begin{itemize}
+              \item Uniswap V3 does not support limit orders directly, but only in terms of
+                    maximum slippage
+          \end{itemize}
+    \item Welfare maximization: Small
+          \begin{itemize}
+              \item In AMMs, price needs to be corrected by an arbitrageur,
+                    impacting the quality of the provided liquidity
+          \end{itemize}
+    \item Liquidity pooling across tokens: Medium
+          \begin{itemize}
+              \item Tokens are segregated in different liquidity pools, despite
+                    the role of base and quote tokens being interchangeable.
+                    Thus a swap between a generic token pair might require multiple
+                    swaps and fees
+          \end{itemize}
+    \item Liquidity pooling across time: Low
+          \begin{itemize}
+              \item Liquidity providers and takers interact with AMMs at different times
+                    and on different time scales
+          \end{itemize}
+    \item Trading efficiency: Low
+          \begin{itemize}
+              \item The matching is done between one liquidity taker at a time against
+                    liquidity providers, instead of letting traders interact directly
+          \end{itemize}
+    \item Transparency: Yes
+          \begin{itemize}
+              \item The implementation of an AMM can be done entirely on-chain and thus
+                    it guarantees transparency as required by decentralized finance
+          \end{itemize}
+    \item Impermanent loss: No
+          \begin{itemize}
+              \item AMMs are affected by impermanent loss, because liquidity
+                    providers and liquidity takers are in general different users
+                    operating at different time scales
+          \end{itemize}
+    \item Custodial risk: No
+          \begin{itemize}
+              \item Tokens are always under the control of their respective owners
+          \end{itemize}
+    \item Rent extracted by high-frequency traders: High
+          \begin{itemize}
+              \item In AMM price needs to be corrected by arbitrageurs in order
+                    to maintain alignment with large CEXs, where the price
+                    discovery happens, continuously creating arbitrage opportunities
+          \end{itemize}
+    \item Censoriship resistance: Yes
+          \begin{itemize}
+              \item The implementation of an AMM can be done entirely on-chain and thus
+                    it is robust to censorship
+          \end{itemize}
+\end{itemize}
+
+
+% ===============================================================================
+\subsubsection{Additional comments on AMMs}
+
+Some of the benefits of AMMs are:
+\begin{itemize}
+    \item conceptual simplicity
+    \item low computational requirements
+    \item ability to provide liquidity even for illiquid markets
+    \item ability to function without a reference price
+\end{itemize}
+
+Some of the drawbacks of AMMs are:
+\begin{itemize}
+    \item a rarely used building block used mainly in prediction markets rather than
+          in mainstream finance. In fact only recently papers have started analyzing
+          the financial return / risk profile of AMMs \cite{MiMoRoZh22}
+    \item liquidity providers are forced to trade at worse-than-market prices
+    \item price needs to be corrected by an arbitrageur, impacting the quality of
+          the provided liquidity
+    \item artificially separates liquidity providers from traders, preventing traders
+          from providing liquidity to each other in the way well-functioning
+          markets do
+\end{itemize}
+
+Some critiques and counterpoints can be made to the benefits of AMMs listed above.
+\begin{itemize}
+    \item \textbf{Conceptual simplicity}.
+          Although this is a favorable point for users
+          without experience in finance, the evolution of finance practices favors the
+          use of limit orders, as explained in the introduction.
+    \item \textbf{Low computational requirements}.
+          This is not necessarily a strict
+          requirement any more due to progress in off-chain computation and
+          improved scalability in blockchain technology (such as layer 2
+          blockchains). We do not believe that an inefficient solution (from
+          the point of view of exchanged value) should be preferred only
+          because of implementation simplicity.
+    \item \textbf{Ability to function even for illiquid markets}.
+          Although this is a valid advantage for many markets (e.g., prediction markets),
+          the vast majority of crypto coins are extremely liquid and do not require
+          sacrificing trading quality.
+    \item \textbf{Ability to function without a reference price}.
+          This feature was certainly appealing to initial researchers (e.g., \cite{Bu17})
+          in search of a fully-decentralized solution to the problem
+          of token exchange. In reality, the fact that price discovery unquestionably
+          happens on current CEXs has turned AMMs into arbitrage generation machines
+          (AGMs), where 80\% of the trading volume is due to arbitrageurs keeping AMM
+          prices in sync with the predominant price.
+\end{itemize}
+
+One problem AMMs address is that they provide a way for token holders to
+extract yield from their holdings. While this a useful function, new
+mechanisms are needed so that LPs may be compensated with revenues to
+offset the cost of their adverse selection, as quantified and characterized
+by \cite{MiMoRoZh22}.
+
+% One of the problems with current state of DeFi is that users look for
+% applications to use their crypto coins, waiting for mainsteam adoption of
+% crypto in every day payment.
+% Also a current trend is for crypto holders to find yield to benefit from
+% holding crypto. AMMs satisfied the need for ways to extract yields from holding
+% coins.
+
+% % ===============================================================================
+% \subsection{CPMM as an LOB}
+% TODO(Paul): Replace with a reference to the derivation in \cite{Yo20}, and
+% focus on the difference in stylized facts between the LOB a CPMM implies
+% versus the LOBs seen in LOB-based markets. Note that some conventions here
+% vs the paper are slightly different.
+%
+% Here we reinterpret a constant product market maker as a limit order order book
+% that a market participant may transact against (e.g., hit a bid or lift an
+% offer). In a traditional limit order book, one expects frequent limit order
+% cancellation and submission in response to market activity.
+%
+% Let $\tA$ and $\tB$ be two tokens in a CPMM and suppose that the available
+% supply of $\tA$ and $\tB$ in the pool at time $t_0$ are, respectively,
+% $a_0$ and $b_0$. We set $k = a_0 b_0$. Though neither token $\tA$ nor token
+% $\tB$ enjoys a distinguished role, for the purposes of this discussion we
+% designate token $\tA$ the base token and token $\tB$ the quote token
+% (due to the symmetry, the subsequent analysis continues to hold with the roles
+% reversed). From this perspective, we think of placing orders to either buy or
+% sell token $\tA$, with price quoted in token $\tB$ per unit of $\tA$.
+%
+% \subsubsection{Buy order}
+% Suppose we wish to place an order to buy $\delta a$ of token $\tA$. This
+% corresponds to removing an amount of $\delta a$ from the pool, which must
+% be compensated for by adding (paying) some amount $\delta b$ to the pool.
+% The constant product constraint ensures
+% \[
+%     a_0 b_0 = (a_0 - \delta a) (b_0 + \delta b)
+% \]
+% which upon rearrangement leads to
+% \[
+%     \delta b = b_0 \frac{\delta a}{a_0 - \delta a}
+% \]
+% The effective cost of buying $\delta a$ units of $\tA$ is given by
+% \[
+%     \frac{\delta b}{\delta a} = \frac{b_0}{a_0 - \delta a}
+% \]
+% If we make the substitution $b_0 = k / a_0$, this becomes
+% \[
+%     \frac{\delta b}{\delta a} = \frac{k}{a_0(a_0 - \delta a)}
+% \]
+% In the idealized setting of infinite divisibility of tokens, the
+% instantaneous price of buying $\tA$ at point $(a_0, b_0)$ is
+% \[
+%     \frac{b_0}{a_0} = \frac{k}{a_0^2}
+% \]
+% For convenience, define $p_0$ as this price:
+% \[
+%     p_0 := \frac{b_0}{a_0} = \frac{k}{a_0^2}
+% \]
+% Note that as more of token $\tA$ is purchased (more $\tA$ is withdrawn from
+% the pool), the price of token $\tA$ in the pool (in terms of the quote token)
+% goes up, as expected.
+%
+% \subsubsection{Supply liquidity}
+% TODO(Paul): Here we use $p$ as effective price of transacting quantity $q$.
+% Using cumulative quantity up to a given (max) price $p$ (as in \cite{Yo20}) is
+% more natural for some analyses.
+%
+% Rephrasing, suppose $q$ denotes quantity of token $\tA$ that we wish to
+% purchase. If the current state of the market is $a_0, b_0$, then the price $p$
+% of purchasing quantity $q$ is
+% \[
+%     p(a_0, b_0, q) = \frac{k}{a_0 (a_0 - q)}
+% \]
+% For brevity, we drop the functional dependence. Reexpressing in
+% terms of quantity, we have
+% \[
+%     q = a_0 - \frac{k}{a_0 p} = a_0 \left(1 - \frac{p_0}{p}\right)
+% \]
+% which expresses cumulative quantity $q$ available at average price $p$.
+%
+% \subsubsection{Slippage and post-trade state}
+% Measure slippage as the relative difference between effective buy price and
+% market price $p_0$. We calculate
+% \[
+%     \frac{p - p_0}{p_0} = \frac{a_0}{a_0 - q} - 1 = \frac{q}{a_0 - q}
+% \]
+% Note that this only depends upon amount of $\tA$ in the pool and the purchase
+% quantity. TODO(Paul): find and cite the earliest references for this.
+% Note that this is approximately linear in $q$ for large $a_0$ (in other
+% words, market impact is approximately linear when there is sufficient
+% depth). Note that this is independent of volatility and turnover.
+%
+% When a buy transaction takes places, the market price changes from
+% \[
+%     p_0 = \frac{b_0}{a_0}
+% \]
+% to
+% \[
+%     p_1 = \frac{b_0 + \delta b}{a_0 - \delta a}.
+% \]
+% Note that this is greater than the effective purchase price of
+% \[
+%     \frac{b_0}{a_0 - \delta a},
+% \]
+% which is analogous to what happens when multiple levels of a limit order book
+% are cleared (the new best offer is greater than the effective price of the buy
+% order that cleared multiple levels of offers).
+%
+% Following a transaction, marginal quantity readjusts given the new position
+% $(a_1, b_1)$ of the book.
+
+% ###############################################################################
+\bibliography{Tulipbib}
+\bibliographystyle{amsplain}
+
+\begin{thebibliography}{10}
+
+    \bib{Ad18}{article}{
+        author={Adams, Hayden},
+        title={Uniswap Whitepaper},
+        date={2018},
+        eprint={https://hackmd.io/s/HJ9jLsfTz},
+    }
+
+    \bib{AdZiRo20}{article}{
+        author={Adams, Hayden},
+        author={Zinsmeister, Noah},
+        author={Robinson, Dan},
+        title={Uniswap v2 Core},
+        date={March 2020},
+        eprint={https://uniswap.org/whitepaper.pdf},
+    }
+
+    \bib{AdZiSaKeRo21}{article}{
+        author={Adams, Hayden},
+        author={Zinsmeister, Noah},
+        author={Salem, Moody},
+        author={Keefer, River},
+        author={Robinson, Dan},
+        title={Uniswap v3 Core},
+        date={March 2021},
+        eprint={https://uniswap.org/whitepaper-v3.pdf},
+    }
+
+    \bib{BeLaLiVa22}{article}{
+        author={Bernales, Alejandro},
+        author={Ladley, Daniel},
+        author={Litos, Evangelos},
+        author={Valenzuela, Marcela},
+        title={Alternative Execution Priority Rules in Dark Pools},
+        date={July 22, 2022},
+        eprint={https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4169352},
+    }
+
+    \bib{BoBoDoGo18}{book}{
+        author={Bouchaud, Jean-Philippe},
+        author={Bonart, Julius},
+        author={Donier, Jonathan},
+        author={Gould, Martin},
+        title={Trades, Quotes and Prices: Financial Markets Under the Microscope},
+        date={2018},
+        publisher={Cambridge University Press},
+        doi={https://doi.org/10.1017/9781316659335},
+    }
+
+    \bib{BuCrSh15}{article}{
+        author={Budish, Eric B.},
+        author={Cramton, Peter },
+        author={Shim, John J.},
+        title={The High-Frequency Trading Arms Race: Frequent Batch Auctions as a Market Design Response},
+        date={2015},
+    }
+
+    \bib{Bu17}{article}{
+        author={Buterin, Vitalik},
+        title={Let's run on-chain decentralized exchanges the way we run prediction markets},
+        date={2017},
+        eprint={https://www.reddit.com/r/ethereum/comments/55m04x/lets_run_onchain_decentralized_exchanges_the_way}
+    }
+
+    \bib{Cme23}{article}{
+        author={CME Group},
+        title={2023 FX Product Guide},
+        edition={22nd},
+        eprint={https://www.cmegroup.com/trading/fx/files/fx-product-guide-2023-us.pdf},
+    }
+
+    \bib{CmeFx}{article}{
+        author={CME Group},
+        title={Euro FX Futures - Contract Specs},
+        eprint={https://www.cmegroup.com/markets/fx/g10/euro-fx.contractSpecs.html},
+    }
+
+    \bib{Ha03}{article}{
+        author={Hanson, Robin},
+        title={Combinatorial Information Market Design},
+        journal={Information Systems Frontiers},
+        date={2003},
+        volume={5},
+        pages={107-119},
+        eprint={https://doi.org/10.1023/A:1022058209073},
+    }
+
+    \bib{IyJoMo16}{article}{
+        author={Iyer, Krishnamurthy},
+        author={Johari, Ramesh},
+        author={Moallemi, Ciamac C.},
+        title={Welfare Analysis of Dark Pools},
+        date={2016},
+        eprint={https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2040959},
+    }
+
+    \bib{Jo75}{article}{
+        author={Johnson, Donald B.},
+        title={Finding all the Elementary Circuits of a Directed Graph},
+        journal={SIAM Journal on Computing},
+        date={1975},
+        volume={4},
+        number={1},
+        pages={77-84},
+    }
+
+    \bib{MaPa17}{article}{
+        author={Malinova, Katya},
+        author={Park, Andreas},
+        title={Market Design with Blockchain Technology},
+        eprint={https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2785626},
+    }
+
+    \bib{MaDe76}{article}{
+        author={Mateti, Prabhaker},
+        author={Narsingh, Deo},
+        title={On Algorithms for Enumerating All Circuits of a Graph},
+        journal={SIAM Journal on Computing},
+        date={1976},
+        volume={5},
+        number={1},
+        pages={90-99},
+        eprint={https://doi.org/10.1137/0205007}
+    }
+
+    \bib{MiMoRo23}{article}{
+        author={Milionis, Jason},
+        author={Moallemi, Ciamac C.},
+        author={Roughgarden, Tim},
+        title={Complexity-Approximation Trade-offs in Exchange Mechanisms: AMMs vs. LOBs},
+        date={2023},
+        eprint={https://arxiv.org/abs/2302.11652},
+    }
+
+    \bib{MiMoRoZh22}{article}{
+        author={Milionis, Jason},
+        author={Moallemi, Ciamac C.},
+        author={Roughgarden, Tim},
+        author={Zhang, Anthony Lee},
+        title={Automated Market Making and Loss-Versus-Rebalancing},
+        date={2022},
+        eprint={https://doi.org/10.48550/arXiv.2208.06046},
+    }
+
+    \bib{Ms}{article}{
+        author={Morgan Stanley},
+        title={Morgan Stanley Dark Pools},
+        eprint={https://www.morganstanley.com/disclosures/morgan-stanley-dark-pools},
+    }
+
+    \bib{MsAts}{article}{
+        author={Morgan Stanley},
+        title={MS Pool ATS-N Filings},
+        eprint={https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&filenum=013-00117}
+    }
+
+    \bib{Pa22a}{article}{
+        author={Park, Andreas},
+        title={Conceptual Flaws of Decentralized Automated Market Making},
+        date={2022},
+        eprint={https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3805750},
+    }
+
+    \bib{Pa22b}{article}{
+        author={Park, Andreas},
+        title={A 2022 Primer for Crypto-Trading},
+        date={2022},
+        eprint={https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4148717},
+    }
+
+    \bib{Wa}{article}{
+        title={Walrasian auction},
+        eprint={https://en.wikipedia.org/wiki/Walrasian_auction},
+    }
+
+    \bib{XiStWh05}{article}{
+        author={Xia, Mu},
+        author={Stallaert, Jan},
+        author={Whinston, Andrew B.},
+        title={Solving the combinatorial double auction problem},
+        journal={Journal of Operation Research},
+        date={2005},
+        pages={239-251},
+        volume={164},
+        eprint={https://www.sciencedirect.com/science/article/abs/pii/S0377221703008981},
+    }
+
+% Include reference in follow-up analysis.
+%     \bib{Yo20}{article}{
+%         author={Young, Jamie E.},
+%         title={On Equivalence of Automated Market Maker and Limit Order Book Systems},
+%         date={October 2020},
+%         eprint={https://professorjey.com/assets/papers/AMM_Order_Book_Equivalence_DRAFT_2020_10_16.pdf},
+%     }
+
+    %    \bib{}{article}{
+    %      author={,},
+    %      title={},
+    %      date={},
+    %    }
+
+\end{thebibliography}
+
+\end{document}

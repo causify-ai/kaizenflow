@@ -1,0 +1,7 @@
+min index=2010-06-29 09:01:00-04:00
+max index=2010-06-29 16:59:00-04:00
+num unique index=479
+df.shape=(479, 3)
+igids=[13684]
+found igids=1
+requested igids=1

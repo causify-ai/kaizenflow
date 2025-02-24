@@ -1,0 +1,147 @@
+[
+  {
+    "name": "1 hour",
+    "color": "#e99695",
+    "description": "Something that can be fixed quickly, if you have 1 hr of spare time"
+  },
+  {
+    "name": "Background",
+    "color": "#1d76db",
+    "description": "Issues to work on when blocked on primary tasks"
+  },
+  {
+    "name": "Blocked",
+    "color": "#5319e7",
+    "description": "Blocked"
+  },
+  {
+    "name": "Blocking",
+    "color": "#000000",
+    "description": "Blocking"
+  },
+  {
+    "name": "Bug",
+    "color": "#ee0701",
+    "description": "Bug that needs to be fixed"
+  },
+  {
+    "name": "Cleanup",
+    "color": "#e99695",
+    "description": "Tasks related to improving, refactoring, reorganizing code"
+  },
+  {
+    "name": "Design",
+    "color": "#fef2c0",
+    "description": "Design a new or re-design an old software component"
+  },
+  {
+    "name": "Discussion",
+    "color": "#ff7619",
+    "description": "For discussion"
+  },
+  {
+    "name": "Duplicated",
+    "color": "#eeeeee",
+    "description": "This issue is a duplicate of another"
+  },
+  {
+    "name": "Enhancement",
+    "color": "#bcf5db",
+    "description": "Request an improvement to an existing features"
+  },
+  {
+    "name": "Epic",
+    "color": "#3E4B9E",
+    "description": "Epic"
+  },
+  {
+    "name": "Feature",
+    "color": "#bcf5db",
+    "description": "Implement a new feature"
+  },
+  {
+    "name": "In progress",
+    "color": "#00BB00",
+    "description": "TODO(gp): To remove at some point"
+  },
+  {
+    "name": "P0",
+    "color": "#FF0000",
+    "description": "High priority"
+  },
+  {
+    "name": "P1",
+    "color": "#FF8800",
+    "description": "Medium priority"
+  },
+  {
+    "name": "P2",
+    "color": "#888800",
+    "description": "Low priority"
+  },
+  {
+    "name": "PR_GP_approved",
+    "color": "#ff0000",
+    "description": ""
+  },
+  {
+    "name": "PR_Paul_approved",
+    "color": "#40d169",
+    "description": ""
+  },
+  {
+    "name": "PR_changes_required",
+    "color": "#fff3b5",
+    "description": "The review is back to the author for being approved"
+  },
+  {
+    "name": "PR_to_review",
+    "color": "#1c508c",
+    "description": ""
+  },
+  {
+    "name": "Paused",
+    "color": "#fbca04",
+    "description": "After some work was done on this bug, it was paused"
+  },
+  {
+    "name": "Permanent",
+    "color": "#b7330b",
+    "description": "Routine ongoing tasks, which cannot be closed"
+  },
+  {
+    "name": "Question",
+    "color": "#ff7619",
+    "description": "Question"
+  },
+  {
+    "name": "To close",
+    "color": "#5319e7",
+    "description": "Issue is ready to be closed"
+  },
+  {
+    "name": "To review",
+    "color": "#cc317c",
+    "description": "Issue is ready to be reviewed"
+  },
+  {
+    "name": "Umbrella",
+    "color": "#b7330b",
+    "description": "TODO(gp): To remove at some point"
+  },
+  {
+    "name": "Unclear",
+    "color": "#eeeeee",
+    "description": "Issue is unclear or invalid"
+  },
+  {
+    "name": "Won't fix",
+    "color": "#eeeeee",
+    "description": "We will not fix this bug"
+  },
+  {
+    "name": "Wontfix",
+    "color": "#eeeeee",
+    "description": "We will not fix this bug"
+  }
+]

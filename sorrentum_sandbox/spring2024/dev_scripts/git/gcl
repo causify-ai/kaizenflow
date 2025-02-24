@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+# """
+# Clean the client making a backup:
+# > gsp.py
+# > git clean -fd
+# """
+
+source helpers.sh
+
+# Make a backup.
+execute "gsp.py"
+execute "git clean -fd"

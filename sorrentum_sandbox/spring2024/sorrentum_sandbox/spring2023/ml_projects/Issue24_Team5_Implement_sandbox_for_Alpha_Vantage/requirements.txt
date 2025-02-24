@@ -1,0 +1,16 @@
+dask[complete]
+numpy==1.24.3
+pandas==2.0.1
+matplotlib==3.7.1
+seaborn==0.12.2
+requests==2.28.2
+ipython==8.11.0
+tornado==6.1
+pymongo==4.3.3
+python-dotenv==1.0.0
+scikit-learn==1.2.1
+jupyterlab==3.6.3
+jupyter-client==7.3.4
+jupyter==1.0.0
+jupyter-contrib-core==0.4.2
+yapf==0.32.0

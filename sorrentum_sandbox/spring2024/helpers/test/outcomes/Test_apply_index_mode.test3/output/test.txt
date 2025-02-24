@@ -1,0 +1,9 @@
+
+################################################################################
+* Failed assertion *
+cond=False
+df1.index.difference(df2.index)=
+Index([1, 4], dtype='int64')
+df2.index.difference(df1.index)=
+Index([5, 6], dtype='int64')
+################################################################################

@@ -1,0 +1,2540 @@
+\documentclass[11pt, reqno]{amsart}
+\usepackage{amsfonts, amssymb, amscd, amsrefs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{slashed}
+\usepackage{fullpage}
+% Prevent table repositioning.
+\usepackage{float}
+% For textcolor.
+\usepackage{xcolor}
+% For blackboard bold `1`.
+\usepackage{bbold}
+\usepackage{tikz}
+\usepackage[pdf]{graphviz}
+%
+% https://tex.stackexchange.com/questions/83882/how-to-highlight-python-syntax-in-latex-listings-lstinputlistings-command
+% https://www.overleaf.com/learn/latex/Code_listing
+\usepackage{listings}
+% Default fixed font does not support boldface
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+  language=Python,
+  basicstyle=\ttm,
+  morekeywords={self},              % Add keywords here
+  keywordstyle=\ttb\color{deepblue},
+  emph={MyClass,__init__},          % Custom highlighting
+  emphstyle=\ttb\color{deepred},    % Custom highlighting style
+  stringstyle=\color{deepgreen},
+  frame=tb,                         % Any extra options here
+  showstringspaces=false
+}}
+
+% Python environment.
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files.
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline.
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% end python
+
+% TODO(GP): It aborts with
+% ! Undefined control sequence.
+%<argument> ...on\endcsname \protect \@secnumpunct
+%
+%l.164 \subsection{Breaking the symmetry}
+% https://tex.stackexchange.com/questions/165930/bold-and-italic-subsection-title-with-custom-font-size
+%\usepackage{titlesec}
+%\titleformat{\section}
+%{\normalfont\fontfamily{phv}\fontsize{12}{17}\bfseries}{\thesection}{1em}{}
+%\titleformat{\subsection}
+%{\normalfont\fontfamily{phv}\fontsize{12}{17}\bfseries\itshape}{\thesubsection}{1em}{}
+%\titleformat{\subsection}
+%  {\normalfont\fontsize{12}{17}\sffamily\bfseries\slshape}
+%  {\thesubsection}
+%  {1em}
+%  {}
+
+%\usepackage{titlesec}
+
+%\titleformat*{\section}{\LARGE\bfseries}
+%\titleformat*{\subsection}{\Large\bfseries}
+%\titleformat*{\subsubsection}{\large\bfseries}
+%\titleformat*{\paragraph}{\large\bfseries}
+%\titleformat*{\subparagraph}{\large\bfseries}
+
+% https://ctan.math.washington.edu/tex-archive/macros/latex/required/amscls/doc/amsthdoc.pdf
+\newtheorem{thm}{Theorem}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[subsection]
+\newtheorem{problem}{Problem}[subsection]
+\theoremstyle{remark}
+\newtheorem{exmp}{Example}[subsection]
+\newtheorem{rmk}{Remark}[subsection]
+
+% Use teletype for tokens (\texttt{...}), but do not allow italics
+%  (\textnormal{...}).
+\newcommand{\USDT}{\textnormal{\texttt{USDT}}}
+\newcommand{\tA}{\textnormal{\texttt{A}}}
+\newcommand{\tB}{\textnormal{\texttt{B}}}
+%
+\newcommand{\nan}{\textnormal{\texttt{nan}}}
+\newcommand{\NaN}{\textnormal{\texttt{NaN}}}
+% Dataframe.
+\newcommand{\df}{\mathbf{df}}
+%
+% Table icons.
+\newcommand{\trm}{\textcolor{red}{-}}
+\newcommand{\tyo}{\textcolor{yellow}{o}}
+\newcommand{\tgp}{\textcolor{green}{+}}
+
+% Use this if using `\contrib[]{...}`.
+%\makeatletter\let\@wraptoccontribs\wraptoccontribs\makeatother
+% https://tex.stackexchange.com/questions/418547/equal-contribution-using-thanks-with-llncs-class#418563
+\makeatletter
+\newcommand{\printfnsymbol}[1]{%
+  \textsuperscript{\@fnsymbol{#1}}%
+}
+\makeatother
+
+\begin{document}
+
+\title{KaizenFlow: a framework for high-performance machine learning stream computing}
+
+\author{Giacinto Paolo Saggese$^{*}$}
+\author{Paul Smith$^{*}$}
+\thanks{$^{*}$ Authors listed alphabetically.}
+
+\thanks{With contributions from
+  Shayan Ghasemnezhad,
+  Danil Iachmenev,
+  Tamara Jordania,
+  Sonaal Kant,
+  Samarth KaPatel,
+  Grigorii Pomazkin,
+  Sameep Pote,
+  Juraj Smeriga,
+  Daniil Tikhomirov,
+  Nina Trubacheva,
+  and
+  Vladimir Yakovenko,
+}
+
+\date{\today}
+
+\begin{abstract}
+  This is draft v0.2.
+\end{abstract}
+
+\maketitle
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+% ###############################################################################
+\section{Introduction}
+
+KaizenFlow is a framework to build, test, and deploy high-performance streaming
+computing systems based on machine learning and artificial intelligence.
+
+The goal of KaizenFlow is to increase the productivity of data scientists by
+empowering them to design and deploy systems with minimal or no
+intervention from data engineers and devops support.
+
+Guiding desiderata in the design of KaizenFlow include:
+\begin{enumerate}
+  \item Support rapid and flexible prototyping with the standard
+        Python/Jupyter/data science tools
+  \item Process both batch and streaming data in exactly the same way
+  \item Avoid software rewrites in going from prototype to production
+  \item Make it easy to replay stream events in testing and debugging
+  \item Specify system parameters through config
+  \item Scale gracefully to large data sets and dense compute
+\end{enumerate}
+
+These design principles are embodied in the many design features of KaizenFlow,
+which include:
+\begin{enumerate}
+  \item \textbf{Computation as a direct acyclic graph}.
+        KaizenFlow represents models as direct acyclic graphs (DAG), which is
+        a natural form for dataflow and reactive models typically found in
+        real-time systems. Procedural statements are also allowed inside
+        nodes.
+  \item \textbf{Time series processing}.
+        All KaizenFlow components (such as data store, compute engine,
+        deployment) handle time series processing in a native way.
+        Each time series can be univariate or multivariate (e.g., panel data)
+        represented in a data frame format.
+  \item \textbf{Support for both batch and streaming modes}.
+        The framework allows running a model both in batch and streaming mode,
+        without any change in the model representation.
+        The same compute graph can be executed feeding data in one shot or in
+        chunks (as in historical/batch mode), or as data is generated (as in
+        streaming mode).
+        KaizenFlow guarantees that the model execution is the same
+        independently on how data is fed, as long as the model is strictly
+        causal. Testing frameworks are provided to compare batch/streaming
+        results so that any causality issues may be detected early in the
+        development process.
+  \item \textbf{Precise handling of time}.
+        All components automatically track the knowledge time of when the data
+        is available at both their input and output. This allows one to easily
+        catch future peeking bugs, where a system is non-causal and uses data
+        available in the future.
+  \item \textbf{Observability and debuggability}.
+        Because of the ability to capture and replay the execution of any
+        subset of nodes, it is possible to easily observe and debug the
+        behavior of a complex system.
+  \item \textbf{Incremental computation and caching}.
+        Because the dependencies between nodes are explicitly tracked by
+        KaizenFlow, only nodes that see a change of inputs or in the
+        implementation code need to be recomputed, while the redundant
+        computation can be automatically cached.
+  \item \textbf{Maximum parallelism}.
+        Because the computation is expressed as a DAG, the KaizenFlow
+        execution scheduler can extract the maximum amount of parallelism and
+        execute multiple nodes in parallel in a distributed fashion,
+        minimizing latency and maximizing throughput of a computation.
+  \item \textbf{Configured through a hierarchical configuration}.
+        Each parameter in a KaizenFlow system is controlled by a
+        corresponding value in a configuration.
+        In other words, the config space is homeomorphic with the space of
+        KaizenFlow systems: each config corresponds to a unique KaizenFlow
+        system, and vice versa, each KaizenFlow sytem is completely
+        represented by a Config.
+        A configuration is represented as a nested dictionary following the
+        same structure of the DAG to make it easy to navigate its structure
+        This makes it easy to create an ensemble of DAGs sweeping a multitude
+        of parameters to explore the design space.
+  \item \textbf{Tiling}.
+        KaizenFlow's framework allows streaming data with different tiling
+        styles (e.g., across times, across features, and both), to minimize
+        the amount of working memory needed for a given computation, increasing
+        the chances of caching computation.
+  \item \textbf{Support for train/prediction mode}.
+        A DAG can be run in `fit' mode to learn some parameters, which are
+        stored by the relevant DAG nodes, and then run in `predict` mode
+        to use the learned parameters to make predictions.
+        This mimics the Sklearn semantic.
+        There is no limitation to the number of evaluation phases that can be
+        created (e.g., train, validation, prediction, save state, load state).
+        Many different learning styles are supported from different types of
+        runners (e.g., in-sample-only, in-sample vs out-of-sample,
+        rolling learning, cross-validation).
+  \item \textbf{Model serialization}.
+        A fit DAG can be serialized to disk and then materialized for
+        prediction in production.
+  \item \textbf{Automatic vectorization}.
+        KaizenFlow DAG nodes can apply a computation to a cross-section of
+        features relying on numpy and Pandas vectorization.
+  \item \textbf{Deployment and monitoring}.
+        A KaizenFlow system can be deployed as a Docker container.
+        Even the development system is run as a Docker container, supporting
+        the development and testing of systems on both cloud (e.g., AWS) and
+        local desktop. Airflow is used to schedule and monitor long-running
+        KaizenFlow systems.
+  \item \textbf{Python and Jupyter friendly}.
+        The framework is completely implemented in high-performance Python.
+        It supports natively `asyncio' to overlap computation and I/O. The
+        same DAG can be run in a Jupyter notebook for research and
+        experimentation or in a production script, without any change in
+        code.
+  \item \textbf{Python data science stack support}.
+        Data science libraries (such as Pandas, numpy, scipy, sklearn) are
+        supported natively to describe computation. The framework comes with
+        a library of pre-built nodes for many ML/AI applications.
+\end{enumerate}
+
+% ================================================================================
+\subsection{The fallacy of finite data in data science}
+
+Data scientists read a set of files as input, build a model, and produce a new
+set of output files from the input files and the model.
+The big assumption by data scientists is that the input is bounded, i.e., of a
+known and finite size. In reality most of data is unbounded because it arrives
+gradually over time.
+Users produce data yesterday and today, and will produce more data tomorrow.
+The data is never complete.
+
+Data scientists deal with this problem splitting artificially the data in chunks
+and then applying their modeling and transformactions to these data chunks.
+
+The problem with this approach:
+- micro-batching
+- future peeking
+
+Rewrite model.
+
+In this case the model
+
+% ================================================================================
+\subsection{Definition of stream computing}
+
+In the computer science literature, several terms (such as event/data stream
+processing, graph computing, dataflow computing, reactive computing) are used
+to describe what in this paper we refer succintly to as ``stream computing".
+
+By stream processing we refer to a programming paradigm where streams of data
+(e.g., time series or dataframes) are the objects of computation.
+A series of operations (aka kernel functions) are applied to each element in
+the stream.
+
+Stream computing represents a paradigm shift from traditional batch processing
+and imperative languages, emphasizing real-time data handling, adaptability,
+and parallel processing, making it highly effective for modern data-intensive
+applications.
+
+% ================================================================================
+\subsection{Core principles of stream computing}
+
+The core principles of stream computing are:
+
+\begin{enumerate}
+  \item \textbf{Node-based architecture}.
+        In stream and dataflow programming, the code is structured as a network of
+        nodes. Each node represents a computational operation or a data processing
+        function. Nodes are connected by edges that represent data streams.
+
+  \item \textbf{Data-driven and reactive execution}.
+        Execution in dataflow languages is data-driven, meaning that a node will
+        process data as soon as it becomes available. Unlike imperative languages
+        where the order of operations is predefined, in dataflow languages, the
+        flow of data determines the order of execution.
+
+  \item \textbf{Automatic parallelism}.
+        The Dataflow programming paradigm naturally lends itself to parallel
+        execution. Since nodes operate independently, they can process different
+        data elements simultaneously, exploiting concurrent processing
+        capabilities of modern hardware.
+
+  \item \textbf{Continuous data streams}.
+        Streams represent a continuous flow of data rather than discrete batches. Nodes
+        in the network continuously receive, process, and output data, making them
+        ideal for real-time data processing.
+
+  \item \textbf{State management}.
+        Nodes can be stateful or stateless. Stateful nodes retain information about
+        previously processed data, enabling complex operations like windowing,
+        aggregation, or pattern detection over time.
+
+  \item \textbf{Compute intensity}.
+        Stream processing is characterized by a high number of arithmetic
+        operations per I/O and memory reference (e.g., it can be 50:1), since
+        the same kernel is applied to all records and a number of records can be
+        processed simultaneously. Furthermore, data is produced once and read only
+        a few times.
+
+  \item \textbf{Dynamic adaptability}.
+        The dataflow model can dynamically adapt to changes in the data stream
+        (like fluctuations in volume or velocity), ensuring efficient processing
+        under varying conditions.
+
+  \item \textbf{Scalability}.
+        The model scales well horizontally, meaning one can add more nodes (or
+        resources) to handle increased data loads without major architectural
+        changes.
+
+  \item \textbf{Event-driven processing}.
+        Many dataflow languages support event-driven models where specific events
+        in the data stream can trigger particular computational pathways or nodes.
+\end{enumerate}
+
+% ================================================================================
+\subsection{Applications of stream computing}
+
+Stream computing is a natural solution in a wide range of industries and
+scenarios, as described below.
+
+\begin{enumerate}
+  \item Generic machine learning:
+        \begin{itemize}
+          \item Graph-based computations are ubiquitous in modern deep learning.
+        \end{itemize}
+
+  \item Financial Services
+        \begin{itemize}
+          \item Trading: Analyzing market data in real-time to make automated trading
+                decisions.
+          \item Fraud Detection: Monitoring transactions as they happen to detect and
+                prevent fraudulent activities.
+          \item Risk Management: Real-time assessment of financial risks based on
+                current market conditions and ongoing transactions.
+        \end{itemize}
+
+  \item Internet of Things (IoT):
+        \begin{itemize}
+          \item Smart Homes: Processing data from various home devices for automation
+                and monitoring.
+          \item Industrial IoT: Real-time monitoring and control of industrial
+                equipment and processes.
+          \item Smart Cities: Integrating data from traffic, public services, and
+                environmental sensors to optimize urban management.
+        \end{itemize}
+
+  \item Telecommunications:
+        \begin{itemize}
+          \item Network Monitoring and Optimization: Analyzing traffic patterns to
+                optimize network performance and detect anomalies.
+          \item Customer Experience Management: Real-time analysis of customer data to
+                improve service and personalize offerings.
+        \end{itemize}
+
+  \item Healthcare:
+        \begin{itemize}
+          \item Remote Patient Monitoring: Continuous monitoring of patient vitals for
+                timely medical intervention.
+          \item Real-Time Health Data Analysis: Analyzing data streams from medical
+                devices for immediate clinical insights.
+        \end{itemize}
+
+  \item Retail and E-Commerce:
+        \begin{itemize}
+          \item Personalized Recommendations: Real-time analysis of customer behavior
+                to offer personalized product recommendations.
+          \item Supply Chain Optimization: Streamlining logistics and inventory
+                management based on real-time data.
+        \end{itemize}
+
+  \item Media and Entertainment:
+        \begin{itemize}
+          \item Content Optimization: Real-time analysis of viewer preferences and
+                behavior for content recommendations.
+          \item Live Event Analytics: Monitoring and analyzing data from live events
+                for audience engagement and operational efficiency.
+        \end{itemize}
+
+  \item Transportation and Logistics:
+        \begin{itemize}
+          \item Fleet Management: Tracking and managing vehicles in real time for
+                optimal routing and scheduling.
+          \item Predictive Maintenance: Analyzing data from transportation systems to
+                predict and prevent equipment failures.
+        \end{itemize}
+
+  \item Energy and Utilities:
+        \begin{itemize}
+          \item Smart Grid Management: Balancing supply and demand in real-time and
+                identifying grid anomalies.
+          \item Renewable Energy Optimization: Optimizing the output of renewable
+                energy sources by analyzing environmental data streams.
+        \end{itemize}
+
+  \item Cybersecurity:
+        \begin{itemize}
+          \item Intrusion Detection Systems: Real-time monitoring of network traffic
+                to detect and respond to cyber threats.
+          \item Threat Intelligence: Analyzing global cyber threat data streams for
+                proactive security measures.
+        \end{itemize}
+
+  \item Environmental Monitoring:
+        \begin{itemize}
+          \item Climate and Weather Analysis: Processing data from environmental
+                sensors for weather prediction and climate research.
+          \item Pollution Monitoring: Real-time tracking of air and water quality.
+        \end{itemize}
+
+  \item Gaming:
+        \begin{itemize}
+          \item In-Game Analytics: Real-time analysis of player behavior for game
+                optimization and personalized experiences.
+        \end{itemize}
+
+  \item Social Media Analytics:
+        \begin{itemize}
+          \item Trend Analysis: Monitoring social media streams to identify and
+                analyze trending topics and sentiments.
+        \end{itemize}
+
+  \item Emergency Response:
+        \begin{itemize}
+          \item Disaster Monitoring and Management: Real-time data analysis for
+                effective response during natural or man-made disasters.
+        \end{itemize}
+\end{enumerate}
+
+% ###############################################################################
+\section{Configuration layer}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Desirable properties of a configuration layer}
+Configuring complex systems is not a trivial task. Challenges include
+internal self-consistency, maintaining specified relationships across
+configuration components, potential topological dependencies, and ease of
+adaptability across environments (e.g., production and testing).
+KaizenFlow uses the
+follow design principles for its configuration mechanisms. Some desirable
+properties for a configuration layer configuration to have are to be
+
+\begin{itemize}
+  \item human-readable and as self-explanatory as possible
+  \item version controllable, so that it can be tracked and reproduced
+  \item corresponds to a unique system
+  \item able to describe every system
+  \item modular: a system composed of other systems should be described by the
+        composition of the corresponding configurations
+  \item executable: a configuration can be executed to generate the
+        corresponding system
+  \item declarative: the user describes how the system should look and
+        other systems can build it
+\end{itemize}
+
+% --------------------------------------------------------------------------------
+\subsubsection{KaizenFlow configuration layer}
+All components in KaizenFlow are configured through a hierarchical data structure
+called a \verb|Config|.
+
+A \verb|Config|, together with a builder function, completely characterizes a
+KaizenFlow system. In other words, the builders represent the connectivity
+between components (which components need to be instantiated and how they need
+to be connected), while the \verb|Config| represents the actual parameters needed to
+configure the components.
+
+The builder function recursively creates and connects components using other
+builders, up to leaf objects, which are directly instantiated.
+The \verb|Config| sets parameters in each object that can be accessed and
+controlled by the user.
+
+The structure of a concrete Config follows the same organization of the
+components inside the KaizenFlow system.
+In our implementation parameters for each
+
+% --------------------------------------------------------------------------------
+\subsubsection{Example of KaizenFlow configuration layer}
+Consider a system called \verb|baz| that contains a component belonging to class
+\verb|a|, which in turn includes a component \verb|b|.
+
+\begin{lstlisting}[language=Python, caption=Python example]
+class B:
+
+  def __init__(self, param1: List[str], param2: int):
+    ...
+
+
+class FoobarA(AbstractA):
+
+  def __init__(self, val1: int, val2: str, b: B):
+    ...
+
+
+def build_baz_v1(config: Config) -> AbstractA:
+  """
+  Build a System composed of a class derived from `AbstractA` and a class `B`.
+  """
+  # Build 'b'.
+  b_obj = B(**config["a"]["b_ctor"])
+  # Build 'a'.
+  if config["a"]["type"] == "a_foobar":
+    a_obj = FoobarA(**config["a"]["a_ctor"], b_obj)
+  else:
+    raise ValueError("Invalid a.type='%s'" % config["a"]["type"])
+  return a_obj
+
+
+config: Config = {
+  "a": {
+    {
+      "type": "a_foobar",
+      "a_ctor": {
+        "val1": 42,
+        "val2": "hello",
+        "b_ctor": {
+          "param1": ["foo", "bar"],
+          "param2": -1,
+        }
+      }
+    }
+  }
+\end{lstlisting}
+
+This will build a system like:
+% TODO(Samarth): Plot the system.
+
+% ###############################################################################
+\section{DataPull}
+
+% ================================================================================
+\subsection{Data in the real-world}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Large variety of data}
+
+Data comes in an extremely large variety and with different characteristics,
+for instance:
+
+\begin{itemize}
+  \item Different time semantics, e.g.,
+        \begin{itemize}
+          \item Intervals of data can be \verb|[a, b)| or \verb|(a, b]|
+          \item A data bar can be marked at the beginning or at the end of the
+                corresponding interval, e.g., \verb|a| or \verb|b|
+        \end{itemize}
+
+  \item Structured (e.g., market data) vs unstructured (e.g., alternative
+        data)
+        \begin{itemize}
+          \item Structured data refers to data that is organized in a
+                well-defined and predictable format, in tabular nature, where
+                data is organized into rows and columns, and each data
+                element has a clear data type and schema. Examples
+                of structured data include customer names, addresses, purchase
+                dates, and product prices.
+          \item Unstructured data is data that lacks a specific and organized
+                format. Examples are text, images, audio, video, social media
+                posts, and more, and it often requires specialized tools and
+                techniques, such as natural language processing or machine
+                learning, to extract meaningful information from it.
+
+          \item Historical vs real-time
+                \begin{itemize}
+                  \item The same data can be collected and delivered in batch for a large
+                        period of time for research purposes, and then in real-time for
+                        production
+                  \item In theory, historical and real-time data for the same source
+                        should match exactly, this is not always the case, since the
+                        historical data can be acquired from different providers or can be
+                        lightly post-process to remove some artifacts
+                \end{itemize}
+
+          \item Data can be comprised of multiple data sets
+                \begin{itemize}
+                  \item E.g., in finance there are multiple asset classes (e.g., equities,
+                        futures, crypto)
+                  \item E.g., in e-commerce, there are customer information, their
+                        purchase history, current open order data, marketing data, customer
+                        support data
+                \end{itemize}
+
+          \item The same data can be delivered at different time resolutions
+                \begin{itemize}
+                  \item E.g., in finance different data is provided for order book
+                        data, trades, minute OHLCV bars, daily bars
+                \end{itemize}
+
+          \item Different vendors can provide data for the same data source
+                \begin{itemize}
+                  \item E.g., Kibot, Binance, CryptoDataDownload provide data for the
+                        Binance exchange
+                  \item One would expect data from different providers for the same
+                        data source to match, yet this is rarely the case due to
+                        several reasons, such as different ways of collecting the data,
+                        different quality of collection methods
+                \end{itemize}
+
+          \item Data and metadata
+                \begin{itemize}
+                  \item E.g., in e-commerce product inventory can contain product
+                        information (e.g., id, name, category, price, quantity in stock)
+                        and metadata (e.g., data source, date created, last date modified,
+                        schema)
+                  \item Some vendors provide metadata associated with data, others don't
+                \end{itemize}
+        \end{itemize}
+\end{itemize}
+
+% ================================================================================
+\subsection{DataPull at high-level}
+
+% --------------------------------------------------------------------------------
+\subsubsection{DataPull design principles}
+The principles that inspire the design of \verb|DataPull| are the following.
+
+\begin{itemize}
+  \item Handle data with the same semantics across different sources and types
+        of data
+  \item Data needs to be versionable
+  \item Quality assurance on data needs to be performed as early as possible in
+        the system
+  \item Historical data needs to be compared and reconciled with real-time data
+        on a continuous basis to ensure data sanity
+  \item Annotate knowledge timestamps to track when the data was available
+        at different parts of the processing pipeline
+  \item Abstract storage formats (e.g., Parquet, CSV, databases) and data modes
+        (e.g., historical vs real-time) so that clients are not affected by
+        these changes
+  \item Capture and store data exactly as-is without any change, not even to
+        fix obvious issues
+  \item Post processing (e.g., remove malformed data, deduplicate data) needs
+        to be easy to perform on the fly while serving data
+\end{itemize}
+
+% --------------------------------------------------------------------------------
+\subsubsection{ETtL approach}
+\verb|DataPull| employs a variation of the ETL approach, called EtLT (i.e.,
+extract, lightly transform, load, transform) for downloading both data and
+metadata.
+
+Data is extracted from an external data source, lightly transformed, and
+then saved into permanent storage.
+
+The light transform should be kept non-destructive (e.g., reshaping the data)
+since we want to capture the data as-is to be able to collect data as close as
+possible to what comes from the wire.
+
+Downstream data pipelines read the
+data with a client interface, standardized in terms of timing semantic
+and format of the data.
+
+In general there are separate pipelines for data and metadata for the
+same data source.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Extract stage}
+
+The goal is to acquire raw data from an external source and archive it into a
+permanent storage backend (e.g., file-system and / or database). The data can
+be either historical or real-time. `DataPull` typically doesn't process the
+data at all, but rather we prefer to save the data raw as it comes from the
+wire.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Transform stage}
+
+Typically, `DataPull` prefers to load the data in the
+backend with minor or no transformation. Specifically we allow changing the
+representation of
+the data / format (e.g., removing some totally useless redundancy, compressing
+the data, transforming from strings to datetimes). We don't allow changing the
+semantics or filter columns. This is done dynamically in the `client` stage
+
+% --------------------------------------------------------------------------------
+\subsubsection{Load stage}
+
+The load stage simply saves the data into one of the supported backends.
+
+Typically, we prefer to save:
+\begin{itemize}
+  \item Historical data into Parquet format since it supports more naturally the
+        access patterns needed for long simulations
+  \item Real-time data into a database since this makes it easy to append and retrieve
+        data in real-time. Often we want to also append real-time data to Parquet
+\end{itemize}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Client stage}
+
+The client stage allows downstream pipelines to access data from the backend
+storage.
+
+The access pattern from a downstream pipeline follows along the line of
+"from the dataset \verb|DATA|
+get the features \verb|XYZ|
+for entities \verb|ABC|
+in the period \verb|(..., ...]|".
+
+We prefer to perform some transformations that are lightweight (e.g., converting
+Unix epochs in timestamps) or still evolving (e.g., understanding the timing
+semantic of the data) within the client stage, rather than in the transform stage,
+so that they can easily be updated and iterated.
+
+The client is implemented in two stages:
+
+The first stage called \verb|VendorDataReader|
+\begin{itemize}
+  \item This layer is vendor and data set specific
+  \item Handle all the peculiarities in format and semantic of a specific
+        vendor
+\end{itemize}
+
+The second stage is called \verb|DataReader|
+
+\begin{itemize}
+  \item This layer is independent of the vendor
+  \item Implement behaviors that are orthogonal to vendors, such as
+
+        \begin{itemize}
+          \item Streaming/real-time or batch/historical
+          \item Time-stitching of streaming/batch data, i.e.,``overlap'' multiple
+                data sources giving a single view of the data
+
+                \begin{itemize}
+                  \item E.g., the data from the last day comes from a real-time source
+                        while the data before that comes from an historical source
+                \end{itemize}
+          \item Replaying, i.e., serialize the data to disk and read it back,
+                implementing as-of-time semantic based on knowledge time
+
+                \begin{itemize}
+                  \item This behavior is orthogonal to streaming/batch and stitching,
+                        i.e., one can replay any \texttt{MarketData}, including an already
+                        replayed one
+                \end{itemize}
+          \item Data is accessed based on intervals \verb|[start_timestamp, end_timestamp]|
+                using different open/close semantics, but always preventing future peeking
+          \item Support real-time behaviors, such as knowledge time, wall clock time,
+                and blocking behaviors (e.g., ``is the last data available?'')
+          \item Handles desired timezone for timestamps
+        \end{itemize}
+\end{itemize}
+
+%```mermaid
+%flowchart
+%  Vendor Data --> VendorDataReader --> DataReader --> User
+%```
+
+% --------------------------------------------------------------------------------
+\subsubsection{Supported storage backend}
+
+\verb|DataPull| supports multiple storage backends:
+
+\begin{itemize}
+  \item database (e.g., Postgres, MongoDB)
+  \item local filesystem
+  \item remote backends (e.g., AWS S3 bucket)
+\end{itemize}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Supported data format}
+
+Data can be saved on filesystems in different formats (e.g., CSV, JSON,
+Parquet).
+
+\textbf{Data formats}. The main data formats that \verb|DataPull|
+supports are:
+
+\begin{itemize}
+  \item CSV
+        \begin{itemize}
+
+          \item Pros
+                \begin{itemize}
+                  \item Easy to inspect
+                  \item Easy to load / save
+                  \item Everybody understands it
+                \end{itemize}
+
+          \item Cons
+                \begin{itemize}
+                  \item Data can't be easily sliced by asset ids / by time
+                  \item Large footprint (non-binary), although it can be compressed on the
+                        fly (e.g., \verb|.csv.gz|)
+                \end{itemize}
+        \end{itemize}
+
+  \item Parquet
+        \begin{itemize}
+
+          \item Pros
+                \begin{itemize}
+                  \item Compressed
+                  \item AWS friendly
+                  \item Data can be easily sliced by asset ids and time
+                \end{itemize}
+
+          \item Cons
+                \begin{itemize}
+                  \item Not easy to inspect
+
+                        \begin{itemize}
+                          \item Solution: use wrapper to convert to CSV
+                        \end{itemize}
+                  \item Difficult to append
+
+                        \begin{itemize}
+                          \item Solution: use chunking + defragmentation
+                        \end{itemize}
+                  \item Cumbersome for real-time data
+                \end{itemize}
+        \end{itemize}
+
+  \item Database
+        \begin{itemize}
+
+          \item Pros
+                \begin{itemize}
+                  \item Easy to inspect
+                  \item Support any access pattern
+                  \item Friendly for real-time data
+                \end{itemize}
+
+          \item Cons
+                \begin{itemize}
+                  \item Need devops to manage database instance
+                  \item Difficult to track lineage and version
+                \end{itemize}
+        \end{itemize}
+\end{itemize}
+
+Unfortunately there is not an obvious best solution, so \verb|DataPull|
+supports multiple representations and converting data between them.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Adapters}
+
+- Adapters to different data sources
+% from ?
+
+% ================================================================================
+\subsection{DataPull data format}
+% from datapull.explanation.md
+
+We use the following invariants when storing data during data on-boarding and
+processing:
+
+\begin{itemize}
+  \item Data quantities are associated either to intervals \verb|[a, b)|
+        (e.g., ``the price return over the interval \verb|[a, b)|'')
+        or to a single point in time (e.g., ``the close price at 9am UTC'')
+  \item Every piece of data is labeled with the end of the sampling interval
+        since that is a better lower bound for the knowledge time
+        (e.g., for a quantity computed in an interval
+        \verb|[06:40:00, 06:41:00)|, the event timestamp is \verb|06:41:00|),
+        or with the point in time.
+  \item Timestamps are always time-zone aware, typically using UTC timezone
+  \item Every piece of data has a knowledge timestamp (aka ``as-of-date'')
+        which represent when a component in \verb|KaizenFlow| was made aware of it
+        according to a wall-clock:
+        \begin{itemize}
+          \item In general multiple timestamps associated with different events
+                can be tracked (e.g., \verb|start_download_timestamp| to track
+                when the download of data started and \verb|end_download_timestamp|
+                when the download was actually completed)
+          \item No component or system should depend on data available strictly
+                before the knowledge timestamp
+        \end{itemize}
+  \item Data is versioned: every time we modify the schema or the semantics of
+        the data, the version of the data should be bumped up using semantic
+        versioning and a changelog should be updated to track the changes
+\end{itemize}
+
+% ================================================================================
+\subsection{Data layout}
+
+\verb|DataPull| keeps data bundled together by execution run instead of by data
+element.
+
+E.g., assume we run a flow called \verb|XYZ_sanity_check| every day
+and the flow generates three pieces of data, one file \verb|output.txt| and two
+directories \verb|logs|, \verb|temp_data|.
+
+\verb|DataPull| organizes the data in a directory structure like:
+
+\begin{verbatim}
+- XYZ_sanity_check/
+  - run.{date}/
+    - output.txt
+    - logs/
+    - temp_data/
+  - run.{date}.manual/
+    - output.txt
+    - logs/
+    - temp_data/
+\end{verbatim}
+
+which we consider superior to the alternative data layout below:
+
+\begin{verbatim}
+- XYZ_sanity_check/
+  - output.{date}/
+    - output.txt
+  - logs.{date}/
+  - temp_data.{date}/
+    ...
+\end{verbatim}
+
+The reasons why the first data layout is superior are:
+
+\begin{enumerate}
+  \item It's easier to delete a single run by deleting a single dir instead of
+        deleting multiple files
+  \item It allows the format of the data to evolve over time without having to
+        change the schema of the data retroactively
+  \item It allows scripts post-processing the data to point to a directory
+        with a specific run and work out of the box
+  \item it's easier to move the data for a single run from one dir (e.g.,
+        locally) to another (e.g., a central location) in one command
+  \item there is redundancy and visual noise, e.g., the same data is
+        everywhere
+\end{enumerate}
+
+We can tag directory by a run mode (e.g., \verb|manual| vs \verb|scheduled|) by
+adding the proper suffix to a date-dir.
+
+% ================================================================================
+\subsection{Data/timing semantic}
+% from datapull.explanation.md
+
+\subsubsection{Data set naming scheme}\label{data-set-naming-scheme}
+
+Each data set is stored in a data lake with a path and name that
+describe its metadata according to the following signature:
+
+\begin{verbatim}
+dataset_signature={download_mode}.{downloading_entity}.{action_tag}.{data_format}.{data_type}.{asset_type}.{universe}.{vendor}.{exchange_id}.{version\[-snapshot\]}.{extension}
+\end{verbatim}
+
+TODO(gp): @juraj add a \{backend\} = s3, postgres, mongo, local\_file
+
+The signature schema might be dependent on the backend
+
+E.g.,
+
+\begin{verbatim}
+bulk/airflow/downloaded_1min/csv/ohlcv/futures/universe_v1_0/ccxt/binance/v1_0-20220210/BTC_USD.csv.gz
+\end{verbatim}
+
+We use \verb|-| to separate pieces of the same attribute (e.g.,
+version and snapshot) and \verb|_| as replacements of a space
+character.
+
+The organization of files in directories should reflect the naming
+scheme. We always use one directory per attribute for files (e.g.,
+\verb|bulk.airflow.csv/...| or \verb|bulk/airflow/csv/...|). When
+the metadata is used not to identify a file in the filesystem (e.g., for
+a script or as a tag) then we use \verb|.| as separators between the
+attributes.
+
+\subsubsection{Data set attributes}\label{data-set-attributes}
+
+There are several ``attributes'' of a data set:
+
+\begin{itemize}
+  \item \verb|download_mode|: the type of downloading mode
+
+        \begin{itemize}
+          \item \verb|bulk|
+
+                \begin{itemize}
+                  \item Aka ``one-shot'', ``one-off'', and improperly ``historical''
+                  \item Data downloaded in bulk mode, as one-off documented operations
+                  \item Sometimes it's referred to as ``historical'', since one downloads
+                        the historical data in bulk before the real-time flow is deployed
+                \end{itemize}
+
+          \item \verb|periodic|
+                \begin{itemize}
+                  \item Aka ``scheduled'', ``streaming'', ``continuous'', and improperly
+                        ``real-time''
+                  \item Data is captured regularly and continuously
+                  \item Sometimes it's referred as to ``real-time'' since one capture this
+                        data
+                  \item It can contain information about the frequency of downloading
+                        (e.g., \verb|periodic-5mins|, \verb|periodic-EOD|) if it needs
+                        to be identified with respect to others
+                \end{itemize}
+
+          \item \verb|unit_test|
+                \begin{itemize}
+                  \item Data used for unit test (independently if it was downloaded
+                        automatically or created manually)
+                \end{itemize}
+        \end{itemize}
+
+  \item \verb|downloading_entity|: different data depending on whom
+        downloaded it, e.g.,
+
+        \begin{itemize}
+          \item \verb|airflow|: data was downloaded as part of the automatic flow
+          \item \verb|manual|: data download was triggered manually (e.g., running
+                the download script)
+        \end{itemize}
+  \item \verb|action_tag|: information about the downloading, e.g.,
+        \verb|downloaded_1min| or \verb|downloaded_EOD|
+  \item \verb|data_format|: the format of the data, e.g.,
+
+        \begin{itemize}
+          \item \verb|csv| (always csv.gz, there is no reason for not compressing
+                the data)
+          \item \verb|parquet|
+        \end{itemize}
+  \item \verb|data_type|: what type of data is stored, e.g.,
+
+        \begin{itemize}
+          \item \verb|ohlcv|, \verb|bid_ask|, \verb|market_depth| (aka
+                \verb|order_book|), \verb|bid_ask_market_data| (if it
+                includes both), \verb|trades|
+        \end{itemize}
+  \item \verb|asset_type|: what is the asset class
+
+        \begin{itemize}
+          \item E.g., futures, spot, options
+        \end{itemize}
+  \item \verb|universe|: the name of the universe containing the possible
+        assets
+
+        \begin{itemize}
+          \item Typically, the universe can have further characteristics and it can
+                be also versioned
+          \item E.g., \verb|universe_v1_7|
+        \end{itemize}
+  \item \verb|vendor|: the source that provided the data
+
+        \begin{itemize}
+          \item Aka ``provider''
+          \item E.g., \verb|ccxt|, \verb|crypto_chassis|,
+                \verb|cryptodata_download|, \verb|kaiko|,
+          \item Data can also be downloaded directly from an exchange (e.g.,
+                \verb|coinbase|, \verb|binance|)
+        \end{itemize}
+  \item \verb|exchange_id|: which exchange the data refers to
+
+        \begin{itemize}
+          \item E.g., \verb|binance|
+        \end{itemize}
+  \item \verb|version|: any data set needs to have a version
+
+        \begin{itemize}
+          \item Version is represented as major, minor, patch according to semantic
+                versioning in the format \verb|v{a}_{b}_{c}| (e.g.,
+                \verb|v1_0_0|)
+          \item If the schema of the data is changed the major version is increased
+          \item If a bug is fixed in the downloader that improves the semantic of
+                the data, but it's not a backward incompatible change, the minor
+                version is increased
+          \item The same version can also include an optional \verb|snapshot|
+                which refers to the date when the data was downloaded (e.g., a
+                specific date \verb|20220210| to represent when the day on which
+                the historical data was downloaded, i.e., the data was the
+                historical data as-of 2022-02-10)
+          \item Note that \verb|snapshot| and \verb|version| have an overlapping
+                but not identical meaning. \verb|snapshot| represents when the
+                data was downloaded, while \verb|version| refers to the evolution
+                of the semantic of the data and of the downloader. E.g., the same
+                data source can be downloaded manually on different days with the
+                same downloader (and thus with the same version).
+        \end{itemize}
+  \item \verb|asset_type|: which cryptocurrency the data refers to:
+
+        \begin{itemize}
+          \item Typically, there is one file per asset (e.g.,
+                \verb|BTC_USDT.csv.gz|)
+          \item Certain data formats can organize the data in a more complex way
+
+                \begin{itemize}
+                  \item E.g., Parquet files save the data in a directory structure
+                        \verb|{asset}_{year}_{month\}_data.parquet|
+                \end{itemize}
+        \end{itemize}
+\end{itemize}
+
+It is possible that a single data set covers multiple values of a
+specific attribute
+
+\begin{itemize}
+  \item E.g., a data set storing data for both futures and spot, can have
+        \verb|asset_type=futures_spot|
+\end{itemize}
+
+Not all the cross-products are possible, e.g.
+
+\begin{itemize}
+  \item there is no data set with \verb|download_mode=periodic| scheduled
+        by Airflow and \verb|downloading_entity=manual|
+\end{itemize}
+
+We organize the schema in terms of access patterns for the modeling and
+analysis stage
+
+\begin{itemize}
+  \item E.g., \verb|snapshot| comes before \verb|vendor| since in
+        different snapshots we can have different universes
+  \item E.g., snapshot -\textgreater{} dataset -\textgreater{} vendor
+        -\textgreater{} exchange -\textgreater{} coin
+  \item A universe is just a mapping of a tag (e.g., v5) to a set of
+        directories
+\end{itemize}
+
+Each data set has multiple columns.
+
+% ================================================================================
+\subsection{KaizenFlow time series databases}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Time series databaes}
+Data stores supporting stream computing are specialized databases
+optimized for storing and serving time series data—data points indexed in time
+order. Time series data consists of sequences of values or events
+collected at regular or irregular intervals over time. These databases are
+designed to handle the unique challenges posed by time series data, including
+large volumes of data and real-time processing.
+
+Some key aspects of time series databases:
+
+\subsubsection{Time-indexed data time as a primary key} In time series
+databases, time is the primary axis, meaning that data is organized based
+on timestamps. The data usually consists of sequences of measurements taken
+over time, such as sensor data, stock market data, or server metrics.
+
+\subsubsection{High-performance write and read efficient data ingestion}
+Time series are optimized for fast writes, as time series data often involves
+high-frequency data collection (e.g., IoT sensors, financial tick data).
+
+\subsubsection{Optimized query performance}
+Time series databases are also optimized for time-based queries, such as
+aggregations over time intervals or retrieving data points within a specific
+time range.
+
+% --------------------------------------------------------------------------------
+\subsubsection{KaizenFlow DB}
+
+- knowledge time
+- different views of the data spliced together (e.g., historical and real-time)
+
+% This section is about the properties for time series/temporal databases.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Software architecture}
+
+% ImClient, MarketData
+
+% ###############################################################################
+\section{DataFlow}
+
+% ================================================================================
+\subsection{Computation as graphs}
+% from docs/dataflow/computation_as_graphs.explanation.md
+
+% --------------------------------------------------------------------------------
+\subsubsection{DataFlow framework}
+DataFlow is a computing framework to build and test AI and machine learning
+models that can run:
+\begin{itemize}
+  \item with no changes in batch vs streaming mode
+  \item in different modes, which trade off timing accuracy and speed (timed,
+        non-timed, replayed simulation, and real-time execution)
+\end{itemize}
+
+The working principle underlying DataFlow is to run a model in terms of time
+slices of data so that both batch/historical and streaming/real-time semantics
+can be accommodated without any change in the model description.
+
+Some of the advantages of the DataFlow approach are:
+\begin{itemize}
+  \item Adapt a procedural description of a model to a reactive/streaming semantic
+  \item Tiling to fit in memory
+  \item Cached computation
+  \item A clear timing semantic which includes support for knowledge time and
+        detection of future peeking
+  \item Ability to replay and debug model executions
+\end{itemize}
+
+A DAG Node has:
+\begin{itemize}
+  \item several inputs
+  \item several outputs
+  \item a unique node id (aka \verb|nid|)
+  \item a (optional) state
+\end{itemize}
+
+Inputs and outputs to a DAG Node are dataframes, represented in the current
+implementation as \verb|Pandas| dataframes.
+DAG node uses the inputs to compute the output (e.g., using \verb|Pandas| and
+\verb|Sklearn| libraries).
+A DAG node can execute in multiple ``phases'', referred to through the
+corresponding methods called on the DAG (e.g., \verb|fit|, \verb|predict|,
+\verb|save_state|, \verb|load_state|).
+
+A DAG node stores an output value for each output and method name.
+
+TODO(Samarth): circle with inputs and outputs
+
+% --------------------------------------------------------------------------------
+\subsubsection{DAG node examples}
+Examples of operations that may be performed by nodes include:
+
+\begin{itemize}
+  \item Loading data (e.g., market or alternative data)
+  \item Resampling data bars (e.g., OHLCV data, tick data in finance)
+  \item Computing rolling average (e.g., TWAP/VWAP, volatility of returns)
+  \item Adjusting returns by volatility
+  \item Applying EMAs (or other filters) to signals
+  \item Performing per-feature operations, each requiring multiple features
+  \item Performing cross-sectional operations (e.g., factor residualization,
+        Gaussian ranking)
+  \item Learning/applying a machine learning model (e.g., using sklearn)
+  \item Applying custom (user-written) functions to data
+\end{itemize}
+
+Further examples include nodes that maintain relevant trading state, or
+that interact with an external environment:
+
+\begin{itemize}
+  \item Updating and processing current positions
+  \item Performing portfolio optimization
+  \item Generating trading orders
+  \item Submitting orders to an API
+\end{itemize}
+
+% --------------------------------------------------------------------------------
+\subsubsection{DataFlow model}
+A DataFlow model (aka \verb|DAG|) is a direct acyclic graph composed of
+DataFlow nodes
+
+It allows one to connect, query the structure, \ldots{}
+
+Running a method on a DAG means running that method on all its nodes in
+topological order, propagating values through the DAG nodes.
+
+TODO(Paul, Samarth): Add picture.
+
+% --------------------------------------------------------------------------------
+\subsubsection{DagConfig}
+A \verb|Dag| can be built by assembling Nodes using a function representing the
+connectivity of the nodes and parameters contained in a \verb|Config| (e.g.,
+through a call to a builder \verb|DagBuilder.get_dag(config)|).
+
+A DagConfig is hierarchical and contains one subconfig per DAG node. It should
+only include \verb|Dag| node configuration parameters, and not information
+about \verb|Dag| connectivity, which is specified in the \verb|Dag| builder
+part.
+
+% --------------------------------------------------------------------------------
+\subsection{Dataframe as unit of computation}
+The basic unit of computation of each node is a ``dataframe''. Each node
+takes multiple dataframes through its inputs, and emits one or more
+dataframes as outputs.
+
+In mathematical terms, a dataframe can be described as a two-dimensional
+labeled data structure, similar to a matrix but with more flexible features.
+
+A dataframe $df$ can be represented as:
+
+$$
+  \df = \left[ \begin{array}{cccc}
+      a_{11} & a_{12} & \cdots & a_{1n} \\
+      a_{21} & a_{22} & \cdots & a_{2n} \\
+      \vdots & \vdots & \ddots & \vdots \\
+      a_{m1} & a_{m2} & \cdots & a_{mn} \\
+    \end{array} \right]
+$$
+
+where:
+\begin{itemize}
+  \item $m$ is the number of rows (observations).
+  \item $n$ is the number of columns (variables).
+  \item $a_{ij}$ represents the element of the Dataframe in the $i$-th row
+        and $j$-th column.
+\end{itemize}
+
+Some characteristics of dataframes are:
+\begin{enumerate}
+  \item Labeled axes:
+        \begin{itemize}
+          \item Rows and columns are labeled, typically with strings, but labels can
+                be of any hashable type.
+          \item Rows are often referred to as indices and columns as column headers.
+        \end{itemize}
+  \item Heterogeneous data types:
+        \begin{itemize}
+          \item Each column $j$ can have a distinct data type, denoted as
+                $dtype_j$
+          \item Common data types include integers, floats, strings, and datetime
+                objects.
+        \end{itemize}
+  \item Mutable size:
+        \begin{itemize}
+          \item Rows and columns can be added or removed, meaning the size of
+                $df$ is mutable.
+          \item This adds to the flexibility as compared to traditional matrices.
+        \end{itemize}
+  \item Alignment and operations:
+        \begin{itemize}
+          \item Dataframes support alignment and arithmetic operations along rows
+                and columns.
+          \item Operations are often element-wise but can be customized with
+                aggregation functions.
+        \end{itemize}
+  \item Missing Data Handling:
+        \begin{itemize}
+          \item Dataframes can contain missing data, denoted as $\NaN$ or a
+                similar placeholder.
+          \item They provide tools to handle, fill, or remove missing data.
+        \end{itemize}
+  \item Multidimensionality:
+        \begin{itemize}
+          \item Tensor-like objects are supported through row or column
+                ``multi-indices".
+          \item If time is the primary key, then multi-index columns can be used
+                to support panel or higher-dimensional data at each timestamp.
+        \end{itemize}
+\end{enumerate}
+
+% ================================================================================
+\subsection{DAG execution}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Simulation kernel}
+
+A computation graph is a directed graph where nodes represent operations or
+variables, and edges represent dependencies between these operations.
+
+For example, in a computation graph for a mathematical expression, nodes would
+represent operations like addition or multiplication, while edges would
+indicate the order (and grouping) of operations.
+
+The KaizenFlow simulation kernel schedules nodes according to their
+dependencies.
+
+% --------------------------------------------------------------------------------
+\subsection{Details about simulation kernel}
+
+The most general case of simulation consists of multiple nested loops:
+
+\begin{enumerate}
+  \item \textbf{Multiple DAG computation}. The general workload contains multiple
+        DAG computations, each one inferred through a \verb|Config| belonging to
+        a list of \verb|Config|s describing the entire workload to execute.
+        \begin{itemize}
+          \item In this set-up each DAG computation is independent, although
+                some pieces of computations can be common across the workload.
+                KaizenFlow will compute and then cache the common computations
+                automatically as part of the framework execution
+        \end{itemize}
+
+  \item \textbf{Learning pattern}. For each DAG computation, multiple train/predict loops represent
+        different machine learning patterns (e.g., in-sample vs out-of-sample,
+        cross-validation, rolling window)
+        \begin{itemize}
+          \item This loop accommodates the need for nodes with state to be
+                driven to learn parameters and hyperparameters and then use the
+                learned state to predict on unseen data (i.e., out-of-sample)
+        \end{itemize}
+  \item \textbf{Temporal tiling}. Each DAG computation runs over a tile
+        representing an interval of time
+        \begin{itemize}
+          \item As explained in section XYZ, KaizenFlow partition the time
+                dimension in multiple tiles
+          \item Temporal tiles might overlap to accommodate the amount of
+                memory needed by each node (see XYZ), thus each timestamp will be
+                covered by at least one tile. In the case of DAG nodes with no
+                memory, then time is partitioned in non-overlapping tiles.
+          \item The tiling pattern over time does not affect the result as long
+                as the system is properly designed (see XYZ)
+        \end{itemize}
+  \item \textbf{Spatial tiling}. Each temporal slice can be computed in terms
+        of multiple sections across the horizontal dimension of the dataframe
+        inputs, as explained in section XYZ.
+
+        \begin{itemize}
+          \item This is constrained by nodes that compute features
+                cross-sectionally, which require the entire space slice to be
+                computed at once
+        \end{itemize}
+  \item \textbf{Single DAG computation}. Finally a topological sorting
+        based on the specific DAG connectivity is performed in order to execute
+        nodes in the proper order. Each node executes over temporal and spatial tiles.
+\end{enumerate}
+
+TODO(gp): Add picture showing the various loops
+
+Note that it is possible to represent all the computations from the above loops
+in a single ``scheduling graph'' and use this graph to schedule executions in a
+global fashion.
+
+Parallelization across CPUs comes naturally from the previous approach,
+since computations that are independent in the scheduling graph can be
+executed in parallel, as described in Section XYZ.
+
+Incremental and cached computation is built-in in the scheduling
+algorithm since it's possible to memoize the output by checking for a
+hash of all the inputs and of the code in each node, as described in Section XYZ.
+
+Even though each single DAG computation is required to have no loops, a System
+(see XYZ) can have components introducing loops in the computation
+(e.g., a Portfolio component in a trading system, where a DAG computes
+forecasts which are acted upon based on the available funds). In this
+case, the simulation kernel needs to enforce dependencies in the time
+dimension.
+
+% --------------------------------------------------------------------------------
+\subsection{Nodes ordering for execution}
+
+TODO(gp, Paul): Extend this to the multiple loop.
+
+Topological sorting is a linear ordering of the vertices of a directed
+graph such that for every directed edge from vertex u to vertex v, u
+comes before v in the ordering. This sorting is only possible if the
+graph has no directed cycles, i.e., it must be a Directed Acyclic Graph
+(DAG).
+
+\begin{lstlisting}[language=Python]
+def topological_sort(graph):
+    visited = set()
+    post_order = []
+
+    def dfs(node):
+        if node in visited:
+            return
+        visited.add(node)
+        for neighbor in graph.get(node, []):
+            dfs(neighbor)
+        post_order.append(node)
+
+    for node in graph:
+        dfs(node)
+
+    return post_order[::-1]  # Reverse the post-order to get the topological order
+\end{lstlisting}
+
+% --------------------------------------------------------------------------------
+\subsection{Heuristics for splitting code in nodes}
+
+There are degrees of freedom in splitting the work between various nodes
+of a graph E.g., the same DataFlow computation can be described with
+several nodes or with a single node containing all the code
+
+The trade-off is often between several metrics:
+
+\begin{itemize}
+  \item Observability
+
+        \begin{itemize}
+          \item More nodes make it easier to:
+
+                \begin{itemize}
+                  \item observe and debug intermediate the result of complex computation
+                  \item profile graph executions to understand performance bottlenecks
+                \end{itemize}
+        \end{itemize}
+  \item latency/throughput
+
+        \begin{itemize}
+          \item More nodes:
+
+                \begin{itemize}
+                  \item allows for better caching of computation
+                  \item allows for smaller incremental computation when only one part of
+                        the inputs change
+                  \item prevents optimizations performed across nodes
+                  \item incurs in more simulation kernel overhead for scheduling
+                  \item allows more parallelism between nodes being extracted
+                        and exploited
+                \end{itemize}
+        \end{itemize}
+  \item memory consumption
+
+        \begin{itemize}
+          \item More nodes:
+
+                \begin{itemize}
+                  \item allows one to partition the computation in smaller
+                        chunks requiring less working memory
+                \end{itemize}
+        \end{itemize}
+\end{itemize}
+
+A possible heuristic is to start with smaller nodes, where each node
+has a clear function, and then merge nodes if this is shown to improve
+performance
+
+%\begin{tikzpicture}
+%
+%  \def \n {5}
+%  \def \radius {3cm}
+%  \def \margin {8} % margin in angles, depends on the radius
+%
+%  \foreach \s in {1,...,\n}
+%  {
+%  \node[draw, circle] at ({360/\n * (\s - 1)}:\radius) {$\s$};
+%  \draw[->, >=latex] ({360/\n * (\s - 1)+\margin}:\radius)
+%  arc ({360/\n * (\s - 1)+\margin}:{360/\n * (\s)-\margin}:\radius);
+%  }
+%\end{tikzpicture}
+%
+%
+%\definecolor{c1a1a1a}{RGB}{26,26,26}
+%\def \globalscale {1.000000}
+%\begin{tikzpicture}[y=1cm, x=1cm, yscale=\globalscale,xscale=\globalscale, every node/.append style={scale=\globalscale}, inner sep=0pt, outer sep=0pt]
+%  \path[line width=0.0265cm] (1.5692, 26.5331) rectangle (4.736, 24.3363);
+%  \path[draw=c1a1a1a,even odd rule,line width=0.0365cm] (3.3951, 26.419) rectangle (7.3893, 23.9939);
+%  \path[draw=c1a1a1a,even odd rule,line width=0.0365cm] (7.6776, 26.4673) rectangle (12.4688, 24.0429);
+%\end{tikzpicture}
+%
+%
+%\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt
+%
+%\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%  %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+%
+%  %Shape: Rectangle [id:dp08954756900345329]
+%  \draw   (100,109) -- (170,109) -- (170,149) -- (100,149) -- cycle ;
+%  %Shape: Rectangle [id:dp39153509095750505]
+%  \draw   (202,108) -- (272,108) -- (272,148) -- (202,148) -- cycle ;
+%\end{tikzpicture}
+%
+%\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt
+%
+%\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%  %uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+%
+%  %Shape: Circle [id:dp6063710096356814]
+%  \draw  [line width=1.5]  (100,144) .. controls (100,130.19) and (111.19,119) .. (125,119) .. controls (138.81,119) and (150,130.19) .. (150,144) .. controls (150,157.81) and (138.81,169) .. (125,169) .. controls (111.19,169) and (100,157.81) .. (100,144) -- cycle ;
+%  %Straight Lines [id:da5691059006793302]
+%  \draw    (100,103) -- (108.14,120.19) ;
+%  \draw [shift={(109,122)}, rotate = 244.65] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%  %Straight Lines [id:da584136245408913]
+%  \draw    (144,101) -- (137.69,118.12) ;
+%  \draw [shift={(137,120)}, rotate = 290.22] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%  %Straight Lines [id:da5185654683072161]
+%  \draw    (116,168) -- (109.69,185.12) ;
+%  \draw [shift={(109,187)}, rotate = 290.22] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%  %Straight Lines [id:da9737739663255534]
+%  \draw    (137,167) -- (145.14,184.19) ;
+%  \draw [shift={(146,186)}, rotate = 244.65] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%
+%  % Text Node
+%  \draw (115,100) node [anchor=north west][inner sep=0.75pt]   [align=left] {...};
+%  % Text Node
+%  \draw (106,135) node [anchor=north west][inner sep=0.75pt]   [align=left] {Node};
+%  % Text Node
+%  \draw (122,171) node [anchor=north west][inner sep=0.75pt]   [align=left] {...};
+%  % Text Node
+%  \draw (100,81) node [anchor=north west][inner sep=0.75pt]   [align=left] {Inputs};
+%  % Text Node
+%  \draw (101,196) node [anchor=north west][inner sep=0.75pt]   [align=left] {Outputs};
+%\end{tikzpicture}
+%
+%
+%
+%\digraph{abc}{
+%  rankdir=LR;
+%  a -> b -> c;
+%}
+
+% ================================================================================
+\subsection{DataFlow data format}
+% from docs/dataflow/dataflow_data_format.explanation.md
+
+As explained in XYZ, raw data from \verb|DataPull| is stored in a
+``long format'', where the data is conditioned on the asset (e.g.,
+\verb|full_symbol|), e.g.,
+
+\begin{verbatim}
+                             full_symbol        open    high    low     close ...
+timestamp
+2021-09-01 00:00:00+00:00   binance::ADA_USDT   2.768   2.770   2.762   2.762
+2021-09-01 00:00:00+00:00   binance::AVAX_USDT  39.510  39.540  39.300 39.320
+2021-09-01 00:00:00+00:00   binance::ADA_USDT   2.763   2.765   2.761   2.764
+\end{verbatim}
+
+\verb|DataFlow| represents data through multi-index dataframes, where:
+
+\begin{itemize}
+  \item the index is a full timestamp
+  \item the outermost column index is the ``feature''
+  \item the innermost column index is the asset, e.g.,
+\end{itemize}
+
+\begin{verbatim}
+                                                            close           high
+                           binance::ADA_USDT   binance::AVAX_USDT            ...
+timestamp
+2021-09-01 00:00:00+00:00              2.762                39.32
+2021-09-01 00:00:00+00:00              2.764                39.19
+\end{verbatim}
+
+The reason for this convention is that typically features are computed
+in a uni-variate fashion (e.g., asset by asset), and DataFlow can
+vectorize computation over the assets by expressing operations in terms
+of the features. E.g., we can express a feature as
+
+\begin{lstlisting}[language=Python]
+df["close", "open"].max() - df["high"]).shift(2)
+\end{lstlisting}
+
+A user can work with DataFlow at 4 levels of abstraction:
+
+\begin{enumerate}
+
+  \item Pandas long-format (non multi-index) dataframes and for-loops
+        \begin{itemize}
+          \item We can do a group-by or filter by \verb|full_symbol|
+          \item Apply the transformation on each resulting dataframe
+          \item Merge the data back into a single dataframe with the long-format
+        \end{itemize}
+
+  \item Pandas multiindex dataframes
+        \begin{itemize}
+          \item The data is in the DataFlow native format
+          \item We can apply the transformation in a vectorized way
+          \item This approach is best for performance and with compatibility with
+                DataFlow point of view
+          \item An alternative approach is to express multi-index transformations in
+                terms of approach 1 (i.e., single asset transformations and then
+                concatenation). This approach is functionally equivalent to a
+                multi-index transformation, but typically slow and memory
+                inefficient
+        \end{itemize}
+
+  \item DataFlow nodes
+        \begin{itemize}
+          \item A DataFlow node implements certain transformations on dataframes
+                according to the DataFlow convention and interfaces
+          \item Nodes operate on the multi-index representation by typically calling
+                functions from level 2 above
+        \end{itemize}
+
+  \item DAG
+        \begin{itemize}
+          \item A series of transformations in terms of DataFlow nodes
+        \end{itemize}
+\end{enumerate}
+
+%An example ./amp/dataflow/notebooks/gallery_dataflow_example.ipynb
+%TODO(gp): Fix this reference.
+
+% ================================================================================
+\subsection{KaizenFlow System}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Motivation}
+
+While KaizenFlow requires a DAG should not have cycles, general computing
+systems might need to reuse the state from computation performed on past data.
+E.g., in a trading system, there is often a Forecast component that can be
+modeled as a DAG with no cycles and a Portfolio object that uses the forecasts
+to compute the desired allocation of capital across different positions based on
+the previous positions.
+
+KaizenFlow supports this need by assembling multiple DAGs into a complete
+\verb|System| that allows cycles.
+
+The assumption is that DAGs are computationally expensive, while other components mainly execute light procedural computation that requires interaction with external
+objects such as databases, filesystems, sockets.
+
+TODO(gp): Add picture
+
+TODO(gp): Explain that System are derived from other Python objects.
+
+% ================================================================================
+\subsection{Timing semantic and clocks}
+% from all.timing_semantic_and_clocks.md
+
+% ================================================================================
+\subsection{Batch and streaming mode using tiling}
+% from all.batch_and_streaming_mode_using_tiling.explanation.md
+
+% --------------------------------------------------------------------------------
+\subsubsection{The property of tilability}
+
+The working principle of a DataFlow computation is that nodes should be
+able to compute their outputs from their inputs without a dependency on
+how the inputs are partitioned along the dataframe axes of the inputs
+(e.g., the time and the feature axes). When this property is valid we
+call a computation ``tilable''.
+
+A slightly more formal definition is that a computation $f()$ is
+tilable if: \[f(dfX \cup dfY) = f(dfX) \cup f(dfY)\] where:
+
+\begin{itemize}
+  \item $dfX$ and $dfY$ represent input data frames (which can optionally)
+        overlap
+  \item $\cup$ is an operation of concat along consecutive
+  \item $f()$ is a node operation
+\end{itemize}
+
+TODO(gp): In reality the property requires that feeding data, computing,
+and then filtering is invariant, like
+
+f(A, B)
+
+\[\forall t1 \le t2, t3 \le t4: \exists T:
+  f(A[t1 - T:t2] \cup A[t3 - T:t4])[t1:t4]
+  = f(A[t1 - T:t2])[t1:t4] \cup f(A[t3 - T:t4])[t1:t4]
+\]
+
+This property resembles linearity in the sense that a transformation
+$f()$ is invariant over the partitioning of the data.
+
+A sufficient condition for a DAG computation to be tileable, is for all
+the DAG nodes to be tileable. The opposite is not necessarily true, and
+no interest in general, since we are interested in finding ways to
+describe the computation so that it is tileable.
+
+A node that has no memory, e.g., whose computation
+
+Nodes can have ``memory'', where the output for a given tile depends on
+previous tile. E.g., a rolling average has memory since samples with
+different timestamps are combined together to obtain the results. A node
+with finite memory is always tileable, while nodes with infinite memory
+are not necessarily tileable. If the computation can be expressed in a
+recursive form across axes (e.g., an exponentially weighted moving
+average for adjacent intervals of times), then it can be made tileable
+by adding auxiliary state to store the partial amount of computatin.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Temporal tiling}
+
+In most computations there is a special axis that represents time and
+moves only from past to future. The data along other axes represent
+(potentially independent) features.
+
+This is an easy requirement to enforce if the computation has no memory,
+e.g., in the following example of Python code using Pandas
+
+\begin{verbatim}
+df1 =
+                      a         b
+2023-01-01 08:00:00   10        20
+2023-01-01 08:30:00   10        20
+2023-01-01 09:00:00   10        20
+2023-01-01 09:30:00   10        20
+
+df2 =
+                      a         b
+2023-01-01 08:00:00   10        20
+2023-01-01 08:30:00   10        20
+2023-01-01 09:00:00   10        20
+2023-01-01 09:30:00   10        20
+\end{verbatim}
+
+\begin{lstlisting}[language=Python]
+dfo = df1 + df2
+\end{lstlisting}
+
+DataFlow can partition df1 and df2 in different slices obtaining the
+same result, e.g.,
+
+\begin{verbatim}
+df1_0 =
+                      a         b
+2023-01-01 08:00:00   10        20
+2023-01-01 08:30:00   10        20
+
+df2_0 =
+                      a         b
+2023-01-01 08:00:00   10        20
+2023-01-01 08:30:00   10        20
+\end{verbatim}
+
+\begin{lstlisting}[language=Python]
+dfo_0 = df1_0 + df2_0
+\end{lstlisting}
+
+\begin{verbatim}
+df1_1 =
+                      a         b
+2023-01-01 09:00:00   10        20
+2023-01-01 09:30:00   10        20
+
+df2_1 =
+                      a         b
+2023-01-01 09:00:00   10        20
+2023-01-01 09:30:00   10        20
+\end{verbatim}
+
+\begin{lstlisting}[language=Python]
+dfo_1 = df1_1 + df2_1
+dfo = pd.concat([dfo_1, dfo_2])
+\end{lstlisting}
+
+Consider the case of a computation that relies on past values
+
+\begin{lstlisting}[language=Python]
+dfo = df1.diff()
+\end{lstlisting}
+
+This computation to be invariant to slicing needs to be fed with a
+certain amount of previous data
+
+\begin{verbatim}
+df1_0 =
+                      a         b
+2023-01-01 08:00:00   10        20
+2023-01-01 08:30:00   10        20
+\end{verbatim}
+
+\begin{lstlisting}[language=Python]
+dfo_0 = df1_0.diff()
+dfo_0 = dfo_0["2023-01-01 08:00:00":"2023-01-01 08:30:00"]
+\end{lstlisting}
+
+\begin{verbatim}
+df1_1 =
+                      a         b
+2023-01-01 08:30:00   10        20
+2023-01-01 09:00:00   10        20
+2023-01-01 09:30:00   10        20
+\end{verbatim}
+
+\begin{lstlisting}[language=Python]
+dfo_1 = df1_1.diff()
+dfo_1 = dfo_1["2023-01-01 09:00:00":"2023-01-01 09:30:00"]
+dfo = pd.concat([dfo_1, dfo_2])
+\end{lstlisting}
+
+In general as long as the computation doesn't have infinite memory
+(e.g., an exponentially weighted moving average)
+
+This is possible by giving each nodes data that has enough history
+
+Many interesting computations with infinite memory (e.g., EMA) can also
+be decomposed in tiles with using some algebraic manipulations -
+TODO(gp): Add an example of EMA expressed in terms of previous
+
+Given the finite nature of real-world computing (e.g., in terms of
+finite approximation of real numbers, and bounded computation) any
+infinite memory computation is approximated to a finite memory one. Thus
+the tiling approach described above is general, within any desired level
+of approximation.
+
+The amount of history is function of a node
+
+% --------------------------------------------------------------------------------
+\subsubsection{Cross-sectional tiling}
+
+\begin{itemize}
+  \item The same principle can be applied to tiling computation
+        cross-sectionally
+  \item Computation that needs part of a cross-section need to be tiled
+        properly to be correct
+  \item TODO(gp): Make an example
+\end{itemize}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Temporal and cross-sectional tiling}
+
+\begin{itemize}
+  \item These two styles of tiling can be composed
+  \item The tiling doesn't even have to be regular, as long as the constraints
+        for a correct computation are correct
+\end{itemize}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Detecting incorrect tiled computations}
+
+\begin{itemize}
+  \item One can use the tiling invariance of a computation to verify that it
+        is correct
+  \item E.g., if computing a DAG gives different results for different tiled,
+        then the amount of history to each node is not correct
+\end{itemize}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Benefits of tiled computation}
+
+\begin{itemize}
+  \item Another benefit of tiled computation is that future peeking (i.e., a
+        fault in a computation that requires data not yet available at the
+        computation time) can be detected by streaming the data with the same
+        timing as the real-time data would do
+\end{itemize}
+
+A benefit of the tiling is that the compute frame can apply any tile
+safe transformation without altering the computation, e.g.,
+
+\begin{itemize}
+  \item vectorization across data frames
+  \item coalescing of compute nodes
+  \item coalescing or splitting of tiles
+  \item parallelization of tiles and nodes across different CPUs
+  \item select the size of a tile so that the computation fits in memory
+\end{itemize}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Batch vs streaming}
+
+Once a computation can be tiled, the same computation can be performed
+in batch mode (e.g., the entire data set is processed at once) or in
+streaming mode (e.g., the data is presented to the DAG as it becomes
+available) yielding the same result
+
+This allows a system to be designed only once and be run in batch (fast)
+and real-time (accurate timing but slow) mode without any change
+
+In general the more data is fed to the system at once, the more likely
+is to being able to increase performance through parallelization and
+vectorization, and reducing the overhead of the simulation kernel (e.g.,
+assembling/splitting data tiles, bookkeeping), at the cost of a larger
+footprint for the working memory
+
+In general the smaller the chunks of data are fed to the system (with
+the extreme condition of feeding data with the same timing as in a
+real-time set-up), the more unlikely is a fault in the design it is
+(e.g., future peeking, incorrect history amount for a node)
+
+Between these two extremes is also possible to chunk the data at
+different resolutions, e.g., feeding one day worth of data at the time,
+striking different balances between speed, memory consumption, and
+guarantee of correctness
+
+% ================================================================================
+\subsection{Vectorization}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Vectorization}
+Vectorization is a technique for enhancing the performance of computations by
+simultaneously processing multiple data elements with a single instruction,
+leveraging the capabilities of modern processors (e.g., SIMD (Single
+Instruction, Multiple Data) units).
+
+% --------------------------------------------------------------------------------
+\subsubsection{Vectorization in KaizenFlow}
+Given the DataFlow format, where features are organized in a hierarchical
+structure, KaizenFlow allows one to apply an operation to be applied across the
+cross-section of a dataframe.
+In this way KaizenFlow exploits Pandas and NumPy data manipulation and
+numerical computing capabilities, which are in turns built on top of low-level
+libraries written in languages like C and Fortran. These languages provide
+efficient implementations of vectorized operations, thus bypassing the slower
+execution speed of Python loops.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Example of vectorized node in KaizenFlow}
+
+TODO
+
+% ================================================================================
+\subsection{Incremental, cached, and parallel execution}
+
+% --------------------------------------------------------------------------------
+\subsubsection{DataFlow and functional programming}
+
+The DataFlow computation model shares many similarity with functional
+programming:
+
+\begin{itemize}
+  \item Data immutability: data in dataframe columns is typically added or
+        replaced. A node in a DataFlow graph cannot alter data in the nodes
+        earlier in the graph.
+  \item Pure functions: the output of a node depends only on its input values
+        and it does not cause observable side effects, such as modifying a global
+        state or changing the value of its inputs
+  \item Lack of global state: nodes do not rely on data outside their scope,
+        especially global state
+\end{itemize}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Incremental computation}
+
+Only parts of a compute graph that see a change of inputs need to be recomputed.
+
+Incremental computation is an approach where the result of a computation is
+updated in response to changes in its inputs, rather than recalculating
+everything from scratch
+
+% --------------------------------------------------------------------------------
+\subsubsection{Caching}
+
+Because of the "functional" style (no side effects) of data flow, the output of
+a node is determinstic and function only of its inputs and code.
+
+Thus the computation can be cached across runs. E.g., if many DAG simulations
+share the first part of simulation, then that part will be automatically cached
+and reused, without needing to be recomputed multiple times.
+
+TODO(gp): Explain the algo in more detail.
+TODO(gp): Add a picture.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Parallel execution}
+
+Parallel and distributed execution in KaizenFlow is supported at two different
+levels:
+\begin{itemize}
+  \item Across runs:
+        given a list of \verb|Config|, each describing a different system, each
+        simulation can be in parallel because they are completely independent.
+  \item Intra runs:
+        each DataFlow graph can be run exploiting the fact that nodes
+\end{itemize}
+
+In the current implementation for intra-run parallelism Kaizen flow relies on
+\verb|Dask|
+For across-run parallelism KaizenFlow relies on \verb|joblib| or \verb|Dask|
+
+Dask extends the capabilities of the Python ecosystem by providing an efficient
+way to perform parallel and distributed computing.
+
+Dask supports various forms of parallelism, including multi-threading,
+multi-processing, and distributed computing. This allows it to leverage
+multiple cores and machines for computation.
+
+When working in a distributed environment, Dask distributes data and
+computation across multiple nodes in a cluster, managing communication and
+synchronization between nodes. It also provides resilience by re-computing lost
+data if a node fails.
+
+% ================================================================================
+\subsection{Train and predict}
+% from all.train_and_predict_phases.explanation.md
+
+%- Nodes can be stateless or statefull
+%- Load/save the state
+%- Different types of cross-validation, rolling, in-sample, in-sample/oos
+
+% --------------------------------------------------------------------------------
+\subsubsection{Stateful nodes}
+
+A DAG node is stateful if it uses data to learn parameters (e.g., linear
+regression coefficients, weights in a neural network, support vectors in a SVM)
+during the \verb|fit| stage, that are then used in a successive
+\verb|predict| stage.
+
+The state is stored inside the implementation of the node.
+
+The state of stateful DAG node varies during a single simulation.
+
+TODO: Add snippet of code showing stateful node.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Stateless nodes}
+A DAG node is stateless if the output is not dependent on previous \verb|fit|
+stages. In other words the output of the node is only function of the current
+inputs and of the node code, but not from inputs from previous tiles of inputs.
+
+A stateless DAG node emits the same output independently from the current and
+previous \verb|fit| vs \verb|predict| phases.
+
+A stateless DAG node has no state that needs to be stored across a simulation.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Loading and saving node state}
+
+Each stateful node needs to allow saving and loading its state on demand of the
+framework.
+
+A stateless node should emit an empty state when saving and assert in case a
+non-empty state is presented during a load phase.
+
+KaizenFlow simulation kernel orchestrate loading and saving nodes for an entire
+DAG to serialize and deserialize a DAG to disk.
+
+TODO(gp): Add an example of data layout
+
+KaizenFlow allows one to load the state of a DAG for further analysis. E.g., one
+might want to see how weights of a linear model evolve over time in a rolling
+window simulation.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Different types of learning}
+
+TODO(gp): Improve.
+
+Cross-validation is a statistical method used to estimate the skill of machine
+learning models. It is primarily used to assess how the results of a
+statistical analysis will generalize to an independent data set. In the context
+of time series data, where the temporal order of data points is important,
+special forms of cross-validation, like in-sample and rolling-window
+cross-validation, are used. Here's a brief explanation of these methods:
+
+In-Sample Cross-Validation:
+
+In this method, the entire dataset is used for both training and testing. The
+model is trained on a certain portion of the data (the training set) and then
+tested on the remaining data (the test set). One common approach is to split
+the data chronologically. For example, the model might be trained on the first
+80% of the dataset (in chronological order) and tested on the remaining 20%.
+In-sample cross-validation is useful for time series data because it respects
+the chronological order of observations. Rolling-Window (or Walk-Forward)
+Cross-Validation:
+
+This method is more sophisticated and particularly suited for time series data.
+In rolling-window cross-validation, the model is trained on a fixed-size window
+of data and then makes predictions for the subsequent time period.
+After each training and testing phase, the window is "rolled" forward, which
+means that the model is retrained on a new window of data including the most
+recent observations.
+For example, if you have monthly data for 10 years, you might train the model
+on the first year of data and test it on the next month. Then, you roll the
+window forward by one month (so the training data now starts from month 2 and
+goes up to month 13) and test on the 14th month. This process continues until
+you have tested the model on all available data.
+This method is especially useful for evaluating the model's performance over
+time and for datasets where the relationship between input and output variables
+changes.
+Both methods have their advantages and are chosen based on the specific
+characteristics of the dataset and the research or business problem. In-sample
+cross-validation is simpler and can be a good choice when the dataset is not
+very large, while rolling-window cross-validation is more robust for evaluating
+time-series models as it mimics the real-world scenario of training a model on
+past data and predicting future events.
+
+% ================================================================================
+\subsection{Observability and debuggability}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Running a DAG partially}
+KaizenFlow allows one to run nodes and DAGs in a notebook during design, analysis,
+and debugging phases, and in a Python script during simulation and production
+phases.
+
+It is possible to run a DAG up to a certain node to iterate on its design and debug.
+
+TODO: Add example
+
+% --------------------------------------------------------------------------------
+\subsubsection{Replaying a DAG}
+
+Each DAG node can:
+
+\begin{itemize}
+  \item capture the stream of data presented to it during either a simulation
+        and real-time execution
+  \item serialize the inputs and the outputs, together with the knowledge
+        timestamps
+  \item play back the outputs
+\end{itemize}
+
+KaizenFlow allows one to describe a cut in a DAG and capture the inputs and
+outputs at that interface. In this way it is possible to debug a DAG
+replacing all the components before a given cut with a synthetic one
+replaying the observed behavior together with the exact timing in terms
+of knowledge timestamps.
+
+This allows one to easily:
+
+\begin{itemize}
+  \item capture failures in production and replay them in simulation for
+        debugging
+  \item write unit tests using observed data traces
+\end{itemize}
+
+KaizenFlow allows each node to automatically save all the inputs and
+outputs to disk to allow replay and analysis of the behavior with high
+fidelity.
+
+% ================================================================================
+\subsection{Profiling DataFlow execution}
+% TODO(Grisha)
+
+%- Information about each node execution time, memory footprint, basic stats
+%about inputs and outputs
+%- Notebooks that allow you to compute some stats
+%- Maybe add a box plot to give an idea
+
+% ================================================================================
+\subsection{DataFlow and the Python data stack}
+%- Describe how other libraries can be integrated in DataFlow
+%- E.g., sklearn, gluonts, statsmodel, Pandas, numpy
+%
+%- Show how a sklearn node can be used
+
+% ###############################################################################
+\section{ML Ops}
+
+% ###############################################################################
+\section{Application of KaizenFlow to quant finance}
+
+% Specifics of how we use KaizenFlow for finance
+
+% ###############################################################################
+\section{Comparison to other computing framework}
+
+% ================================================================================
+\subsection{Comparison principles}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Static vs Dynamic}
+Static Nature: TensorFlow uses a static computational graph, meaning the graph
+is defined before it is run.
+
+Dynamic Nature: Unlike some other frameworks that use static computational
+graphs, PyTorch operates on a dynamic (or "eager") computational graph. This
+means the graph is built on-the-fly as operations are executed. This property
+is known as the "define-by-run" paradigm.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Fundamental data structure}
+Tensors: The fundamental data structure in PyTorch is the Tensor, which is
+similar to NumPy arrays but with additional capabilities to operate on GPUs for
+accelerated computing.
+
+Events
+
+Dataframes
+
+% --------------------------------------------------------------------------------
+\subsubsection{Unified support for batch and streaming}
+This allows developers to build data processing pipelines that can handle both
+batch and stream data processing in a unified manner. This means you can write
+your data processing logic once and run it on different processing engines
+without major code changes.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Python support}
+Integration with NumPy, Pandas
+
+Users can extend its functionalities using Python’s features, and it allows for
+the integration of other Python libraries.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Native time series support}
+Knowledge time
+
+% --------------------------------------------------------------------------------
+\subsubsection{Processing engine agnostic}
+Provides a portable API that can run on
+multiple processing engines, making it vendor-agnostic. This portability allows
+organizations to switch between processing engines without rewriting their data
+processing code.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Windowing and event time processing}
+supports windowing and event time processing for handling data that arrives out
+of order in stream processing scenarios. This is crucial for real-time
+analytics and aggregations.
+
+% --------------------------------------------------------------------------------
+\subsubsection{Support for dense computation}
+
+% --------------------------------------------------------------------------------
+\subsubsection{Scalability and fault tolerance}
+Scalability: designed to scale horizontally, allowing it to handle
+large volumes of data by distributing the processing across multiple machines
+or clusters.
+
+Fault Tolerance: The framework provides built-in mechanisms for handling
+failures and ensuring data correctness during processing.
+
+% ================================================================================
+\subsection{Pytorch}
+PyTorch is an open-source machine learning library. It is widely used for deep
+learning applications and is known for its ease of use, flexibility, and
+dynamic computational graph.
+
+Fundamental data structure: tensors
+
+% ================================================================================
+\subsection{TensorFlow}
+Fundamental data structure: tensors
+
+% ================================================================================
+\subsection{Dask}
+Fundamental data structure: dataframe, array, sets
+
+% ================================================================================
+\subsection{Apache Spark}
+
+See \cite{ZhChFrShSt10}, \cite{ShMoAlNa19}. The motivations behind Spark are
+different from ours. In particular, efficiently handling MapReduce-like
+workloads (see \cite{DeGh08}) while reusing distributed data sets were key
+design concerns.
+
+% ================================================================================
+\subsection{Apache Flink}
+
+% ================================================================================
+\subsection{Apache Beam}
+
+Apache Beam is an open-source, unified batch and stream processing framework
+that provides a way to create data processing pipelines. It was originally
+developed by Google as the Dataflow Model and later open-sourced as Apache
+Beam.
+
+- Static vs Dynamic: ?
+- Fundamental data structure: events
+- Unified support for batch and streaming: yes
+- Python support: Yes
+- Python data stack support: No
+- Native time series support: No
+- Processing engine agnostic: Yes
+- Windowing and event time processing: Yes
+- Support for dense computation: No
+- Scalability and fault tolerance: Yes
+
+See \cite{Aketal13}, \cite{Aketal15}.
+
+% ================================================================================
+\subsection{Apache Storm}
+
+Apache Storm is an open-source, real-time stream processing framework designed
+for processing and analyzing continuous data streams. It was originally
+developed by Twitter and later open-sourced as part of the Apache Software
+Foundation.
+
+% ================================================================================
+\subsection{Spark Streaming}
+
+% ================================================================================
+\subsection{Apache Samza}
+
+% ================================================================================
+\subsection{Kafka Streams}
+
+% ================================================================================
+\subsection{Azure Stream Analytics}
+
+% ###############################################################################
+\bibliography{KaizenFlowBib}
+\bibliographystyle{amsplain}
+
+\begin{thebibliography}{10}
+
+  \bib{Kleppmann17}{book}{
+    title={Designing data-intensive applications: The big ideas behind reliable, scalable, and maintainable systems},
+    author={Kleppmann, Martin},
+    year={2017},
+    publisher={" O'Reilly Media, Inc."}
+  }
+
+
+  \bib{Aketal13}{article}{
+    author={Akidau, Tyler},
+    author={Balikov, Alex},
+    author={Bekiro\u{g}lu, Kaya},
+    author={Chernyak, Slava},
+    author={Haberman, Josh},
+    author={Lax, Reuven},
+    author={McVeety, Sam},
+    author={Mills, Daniel},
+    author={Nordstrom, Paul},
+    author={Whittle, Sam},
+    title={MillWheel: Fault-Tolerant Stream Processing at Internet Scale},
+    year={2013},
+    publisher={VLDB Endowment},
+    volume={6},
+    number={11},
+    url={https://doi.org/10.14778/2536222.2536229},
+    doi={10.14778/2536222.2536229},
+    month={aug},
+    pages={1033-1044},
+    numpages={12},
+  }
+
+  \bib{Aketal15}{article}{
+  author={Akidau, Tyler},
+  author={Bradshaw, Robert},
+  author={Chambers, Craig},
+  author={Chernyak, Slava},
+  author={Fern\'{a}ndez-Moctezuma, Rafael J.},
+  author={Lax, Reuven},
+  author={McVeety, Sam},
+  author={Mills, Daniel},
+  author={Perry, Frances},
+  author={Schmidt, Eric},
+  author={Whittle, Sam},
+  title={The Dataflow Model: A Practical Approach to Balancing Correctness, Latency, and Cost in Massive-Scale, Unbounded, out-of-Order Data Processing},
+  year={2015},
+  publisher={VLDB Endowment},
+  volume={8},
+  number={12},
+  doi={10.14778/2824032.2824076},
+  month={Aug},
+  pages={1792-1803},
+  }
+
+  \bib{CaEwHaKaMaTz15}{article}{
+    author={Carbone, Paris},
+    author={Ewen, Stephan},
+    author={Haridi, Seif},
+    author={Katsifodimos, Asterios},
+    author={Markl, Volker},
+    author={Tzoumas, Kostas},
+    title={Apache Flink: Stream and Batch Processing in a Single Engine},
+    year={2015},
+    journal={IEEE Data Engineering Bulletin},
+    volume={38},
+    month={1},
+  }
+
+  \bib{DeGh08}{article}{
+    author={Dean, Jeffrey},
+    author={Ghemawat, Sanjay},
+    title={MapReduce: Simplified Data Processing on Large Clusters},
+    year={2008},
+    address={New York, NY, USA},
+    volume={51},
+    number={1},
+    url={https://doi.org/10.1145/1327452.1327492},
+    doi={10.1145/1327452.1327492},
+    publisher={Association for Computing Machinery},
+    journal={Commun. ACM},
+    month={jan},
+    pages={107–113},
+  }
+
+  \bib{Mc10}{article}{
+  author={McKinney, Wes},
+  title={Data Structures for Statistical Computing in Python},
+  booktitle={Proceedings of the 9th Python in Science Conference},
+  pages={56-61},
+  year={2010},
+  editor={St\'efan van der Walt and Jarrod Millman}
+  doi={10.25080/Majora-92bf1922-00a}
+  }
+
+  \bib{ShMoAlNa19}{article}{
+    author={Shaikh, Eman},
+    author={Mohiuddin, Iman},
+    author={Alufaisan, Yasmeen},
+    author={Nahvi, Irum},
+    title={Apache Spark: A Big Data Processing Engine},
+    year={2019},
+    pages={1-6},
+    doi={10.1109/MENACOMM46666.2019.8988541},
+  }
+
+  \bib{ZhChFrShSt10}{article}{
+    author={Zaharia, Matei},
+    author={Chowdhury, Mosharaf},
+    author={Franklin, Michael J.},
+    author={Shenker, Scott},
+    author={Stoica, Ion},
+    title={Spark: Cluster Computing with Working Sets},
+    year={2010},
+    publisher={USENIX Association},
+    address={USA},
+    pages={10},
+    doi={10.5555/1863103.1863113}
+  }
+
+  % J. Dean and S. Ghemawat. MapReduce: Simplified Data Processing on Large Clusters. In Proc. of the Sixth Symposium on Operating System Design and Implementation (OSDI), 2004.
+  %[1] D. J. Abadi et al. Aurora: A New Model and Architecture for Data Stream Management. The VLDB Journal, 12(2):120–139, Aug. 2003.
+  %[2] T. Akidau et al. MillWheel: Fault-Tolerant Stream Processing at Internet Scale. In Proc. of the 39th Int. Conf. on Very Large Data Bases (VLDB), 2013.
+  %[3] A. Alexandrov et al. The Stratosphere Platform for Big Data Analytics. The VLDB Journal, 23(6):939–964, 2014.
+  %[4] Apache. Apache Hadoop. http://hadoop.apache.org, 2012.
+  %[5] Apache. Apache Storm. http://storm.apache.org, 2013.
+  %[6] Apache. Apache Flink. http://flink.apache.org/, 2014.
+  %[7] Apache. Apache Samza. http://samza.apache.org, 2014.
+
+  %    \bib{}{article}{
+  %      author={,},
+  %      title={},
+  %      date={},
+  %    }
+
+\end{thebibliography}
+
+\end{document}

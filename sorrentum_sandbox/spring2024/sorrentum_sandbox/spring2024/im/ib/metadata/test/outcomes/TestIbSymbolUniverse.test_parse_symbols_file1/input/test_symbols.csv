@@ -1,0 +1,14 @@
+market	product	s_title	ib_symbol	symbol	currency	url
+CBOE C2 (CBOE2)	Options	CALLON PETROLEUM CO	CPE	CPE	USD	https://ndcdyn.interactivebrokers.com/en/index.php?f=2222&exch=cboe2&showcategories=OPTGRP&p=&cc=&limit=100&page=8
+Chicago Board Options Exchange (CBOE)	Options	RESMED INC	RMD	RMD	USD	https://ndcdyn.interactivebrokers.com/en/index.php?f=2222&exch=cboe&showcategories=OPTGRP&p=&cc=&limit=100&page=32
+ICE Futures U.S. (NYBOT)	Futures	Cotton No. 2	CT	CT	USD	https://ndcdyn.interactivebrokers.com/en/index.php?f=2222&exch=nybot&showcategories=FUTGRP
+Korea Stock Exchange (KSE)	Futures	SAMSUNG ELECTRO-MECHANICS CO	009150	123	KRW	https://ndcdyn.interactivebrokers.com/en/index.php?f=2222&exch=kse&showcategories=FUTGRP
+NYSE National	Stocks	AF ACQUISITION CORP	AFAQU	AFAQU	USD	https://ndcdyn.interactivebrokers.com/en/index.php?f=2222&exch=nysenat&showcategories=STK&p=&cc=&limit=100&page=2
+Chicago Board Options Exchange (CBOE)	Stocks	PROSHARES SHORT FTSE CHINA 50	YXI	YXI	USD	https://ndcdyn.interactivebrokers.com/en/index.php?f=2222&exch=cboe&showcategories=STK&p=&cc=&limit=100&page=40
+Long-Term Stock Exchange (LTSE)	Warrants	ACKRELL SPAC PARTNERS-SUBUNI	ACKIT	ACKIW	USD	https://ndcdyn.interactivebrokers.com/en/index.php?f=2222&exch=ltse&showcategories=WAR
+NYSE National	Warrants	BTRS HOLDINGS INC	BTRS	SMMCW	USD	https://ndcdyn.interactivebrokers.com/en/index.php?f=2222&exch=nysenat&showcategories=WAR
+Knight BondPoint for US Government Securities	Bonds	S 0 06/30/22	S 0 06/30/22	S 0 06/30/22	USD	https://ndcdyn.interactivebrokers.com/en/index.php?f=2222&exch=valubondg&showcategories=BOND&p=&cc=&limit=100&page=4
+Knight BondPoint for US Government Securities	Bonds	T 0 1/4 04/15/23	T 0 1/4 04/15/23	T 0 1/4 04/15/23	USD	https://ndcdyn.interactivebrokers.com/en/index.php?f=2222&exch=valubondg&showcategories=BOND&p=&cc=&limit=100&page=10
+Euronext France (SBF)	Structured Products	ALPHABET INC-CL C	GOOG	GOOG	USD	https://ndcdyn.interactivebrokers.com/en/index.php?f=2222&exch=sbf&showcategories=IOPT&p=&cc=&limit=100&page=4
+Frankfurt Stock Exchange (FWB)	Structured Products	6X Long Index linked to SAP SE	A2NVTL	A2NVTL	EUR	https://ndcdyn.interactivebrokers.com/en/index.php?f=2222&exch=fwb&showcategories=IOPT&p=&cc=&limit=100&page=54
+Canadian Securities Exchange (PURE)	Stocks	NATIONAL BANK OF CANADA	NA	NA	CAD	https://ndcdyn.interactivebrokers.com/en/index.php?f=2222&exch=pure&showcategories=STK&p=&cc=&limit=100&page=27

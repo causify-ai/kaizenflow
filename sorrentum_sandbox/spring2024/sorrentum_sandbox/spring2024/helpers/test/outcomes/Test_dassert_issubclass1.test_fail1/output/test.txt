@@ -1,0 +1,1 @@
+issubclass() arg 2 must be a class or tuple of classes

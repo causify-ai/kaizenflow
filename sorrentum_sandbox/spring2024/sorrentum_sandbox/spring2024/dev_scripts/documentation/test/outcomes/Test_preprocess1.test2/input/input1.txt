@@ -1,0 +1,28 @@
+# #############################################################################
+# 14, Topics in Demand and Supply Analysis (p. 6, 843)
+# #############################################################################
+
+## ############################################################################
+## Introduction
+## ############################################################################
+
+* Economics
+- Economics is the study of:
+    - production
+    - distribution
+    - consumption
+
+- Macroeconomics deals with aggregated economic quantities
+    - E.g., national output and national income
+
+- Microeconomics deals with markets and decision making of individual economic
+  units
+    - E.g., consumers, businesses
+
+- Microeconomics classifies private economic units into:
+    - consumers (aka households)
+        - consumption (= demand for goods and services)
+        - utility maximizing individuals (i.e., maximizing satisfaction from
+          present and future consumption)
+    - businesses (aka companies, firms)
+        - supply of goods and services by profit maximizing firms

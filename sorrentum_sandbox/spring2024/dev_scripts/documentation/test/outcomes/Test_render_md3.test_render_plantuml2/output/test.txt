@@ -1,0 +1,6 @@
+A
+```plantuml
+Alice --> Bob
+```
+![](plantuml-images/out.1.png)
+B

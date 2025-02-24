@@ -1,0 +1,18 @@
+#!/bin/bash -e
+
+# """
+# Print the status of the clients and of the submodules with `git status`.
+# """
+
+source helpers.sh
+
+if [[ -f .gitmodules ]]; then
+    echo "===================== supermodule ====================="
+fi;
+
+execute "git status $*"
+
+if [[ -f .gitmodules ]]; then
+  echo "===================== submodule ====================="
+  execute "git submodule foreach git status $*"
+fi;

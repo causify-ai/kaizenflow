@@ -1,0 +1,7 @@
+                          arma(2,2)
+kpss_stat                  0.078132
+kpss_pval                  0.100000
+kpss_lags                  3.000000
+kpss_critical_values_1%    0.739000
+kpss_critical_values_5%    0.463000
+kpss_critical_values_10%   0.347000

@@ -1,0 +1,9 @@
+#!/bin/bash -e
+
+# """
+# Open with vim all the files modified under git.
+# """
+
+FILES=$(git_files.sh)
+echo "FILES=$FILES"
+vim $FILES

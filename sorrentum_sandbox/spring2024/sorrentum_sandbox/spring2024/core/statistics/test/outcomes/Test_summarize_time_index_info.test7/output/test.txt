@@ -1,0 +1,7 @@
+                             0
+start_time                 NaN
+end_time                   NaN
+n_sampling_points            0
+frequency                 None
+sampling_points_per_year   NaN
+time_span_in_years         NaN

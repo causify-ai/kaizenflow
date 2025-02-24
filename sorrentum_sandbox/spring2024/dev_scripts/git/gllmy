@@ -1,0 +1,17 @@
+#!/bin/bash -e
+
+# """
+# Like gll / git ll but only referring to your commits.
+#
+# # Show my last 5 commits.
+# > gllmy -5
+# """
+
+source dev_scripts/helpers.sh
+
+# From dev_scripts/gll
+GIT_OPTS="--pretty=format:'$GIT_LOG_OPTS'"
+GIT_OPTS+=" --author $(git config user.name)"
+
+CMD="git log --date=local --oneline --date-order $GIT_OPTS $*"
+execute $CMD

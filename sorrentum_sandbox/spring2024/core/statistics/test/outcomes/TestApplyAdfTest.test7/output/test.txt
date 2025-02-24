@@ -1,0 +1,9 @@
+                     arma(2,2)
+stat                 -4.094208
+pval                  0.000990
+used_lag             10.000000
+nobs                 29.000000
+critical_values_1%   -3.679060
+critical_values_5%   -2.967882
+critical_values_10%  -2.623158
+ic_best              78.374054

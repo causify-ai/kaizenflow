@@ -1,0 +1,13 @@
+original shape=(2, 2)
+Head:
+{
+    "0":{
+        "col_1":"421470c7-7797-4a94-b584-eb83ff2de88a",
+        "col_2":1
+    },
+    "1":{
+        "col_1":"22cde381-1782-43dc-8c7a-8712cbdf5ee1",
+        "col_2":2
+    }
+}
+Tail:

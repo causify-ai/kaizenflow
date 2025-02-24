@@ -1,0 +1,8 @@
+################################################################################
+config
+################################################################################
+signal_cols: ['ret_1_hat']
+volatility_col: vol.shift_-2_hat
+signal_steps_ahead: 1
+volatility_steps_ahead: 2
+mode: modulate

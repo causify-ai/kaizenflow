@@ -1,0 +1,52 @@
+# Test created for __main__.plbck_sum.
+
+import helpers.hpandas as hpandas
+import helpers.hunit_test as hunitest
+import jsonpickle
+import pandas as pd
+import core.config as cconfi
+
+
+class TestPlbckSum(hunitest.TestCase):
+    def test1(self) -> None:
+        # Define input variables.
+        a = 0
+        b = 1
+        # Call function to test.
+        act = plbck_sum(a=a, b=b)
+        act = str(act)
+        # Check output.
+        self.check_string(act)
+
+class TestPlbckSum(hunitest.TestCase):
+    def test2(self) -> None:
+        # Define input variables.
+        a = 1
+        b = 2
+        # Call function to test.
+        act = plbck_sum(a=a, b=b)
+        act = str(act)
+        # Check output.
+        self.check_string(act)
+
+class TestPlbckSum(hunitest.TestCase):
+    def test3(self) -> None:
+        # Define input variables.
+        a = 2
+        b = 3
+        # Call function to test.
+        act = plbck_sum(a=a, b=b)
+        act = str(act)
+        # Check output.
+        self.check_string(act)
+
+class TestPlbckSum(hunitest.TestCase):
+    def test4(self) -> None:
+        # Define input variables.
+        a = 3
+        b = 4
+        # Call function to test.
+        act = plbck_sum(a=a, b=b)
+        act = str(act)
+        # Check output.
+        self.check_string(act)

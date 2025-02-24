@@ -1,0 +1,526 @@
+################################################################################
+system_config
+################################################################################
+dag_config:
+  filter_ath:
+    col_mode: replace_all
+    transformer_kwargs:
+      start_time: 09:30:00
+      end_time: 16:00:00
+  resample:
+    in_col_groups: [('close',), ('volume',), ('feature1',)]
+    out_col_group: ()
+    transformer_kwargs:
+      rule: 5T
+      resampling_groups: [({'close': 'close'}, 'last', {}), ({'close': 'twap', 'feature1': 'feature1'}, 'mean', {})]
+      vwap_groups: [('close', 'volume', 'vwap')]
+    reindex_like_input: False
+    join_output_with_input: False
+  compute_ret_0:
+    in_col_groups: [('close',), ('vwap',), ('twap',)]
+    out_col_group: ()
+    transformer_kwargs:
+      mode: log_rets
+    col_mapping:
+      close: close.ret_0
+      vwap: vwap.ret_0
+      twap: twap.ret_0
+  compute_vol:
+    in_col_group: ('vwap.ret_0',)
+    out_col_group: ('vwap.ret_0.vol',)
+    drop_nans: True
+    permitted_exceptions: (<class 'ValueError'>,)
+  adjust_rets:
+    in_col_groups: [('vwap.ret_0',), ('vwap.ret_0.vol',)]
+    out_col_group: ()
+    transformer_kwargs:
+      term1_col: vwap.ret_0
+      term2_col: vwap.ret_0.vol
+      out_col: vwap.ret_0.vol_adj
+      term2_delay: 2
+      operation: div
+    drop_nans: True
+  compress_rets:
+    in_col_groups: [('vwap.ret_0.vol_adj',)]
+    out_col_group: ()
+    col_mapping:
+      vwap.ret_0.vol_adj: vwap.ret_0.vol_adj.c
+dag_builder_object: nid_prefix=
+dag_builder_class: Mock1_DagBuilder
+system_class: Mock1_Time_ForecastSystem_with_DataFramePortfolio
+system_log_dir: $GIT_ROOT/dataflow_amp/system/mock1/test/outcomes/Test_Mock1_Time_ForecastSystem_with_DataFramePortfolio1.test1/tmp.scratch/system_log_dir
+market_data_config:
+  asset_id_col_name: asset_id
+  delay_in_secs: 5
+  replayed_delay_in_mins_or_timestamp: 5
+  asset_ids: [101]
+  data:
+    index=[2000-01-01 09:31:00-05:00, 2000-01-01 10:10:00-05:00]
+    columns=start_datetime,end_datetime,timestamp_db,close,asset_id,volume,feature1
+    shape=(40, 7)
+                                         start_datetime              end_datetime              timestamp_db  close  asset_id  volume  feature1
+    2000-01-01 09:31:00-05:00 2000-01-01 09:30:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:31:00-05:00  101.0       101     100       1.0
+    2000-01-01 09:32:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:32:00-05:00  101.0       101     100       1.0
+    2000-01-01 09:33:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:33:00-05:00 2000-01-01 09:33:00-05:00  101.0       101     100       1.0
+    ...
+    2000-01-01 10:08:00-05:00 2000-01-01 10:07:00-05:00 2000-01-01 10:08:00-05:00 2000-01-01 10:08:00-05:00  100.0       101     100      -1.0
+    2000-01-01 10:09:00-05:00 2000-01-01 10:08:00-05:00 2000-01-01 10:09:00-05:00 2000-01-01 10:09:00-05:00  100.0       101     100      -1.0
+    2000-01-01 10:10:00-05:00 2000-01-01 10:09:00-05:00 2000-01-01 10:10:00-05:00 2000-01-01 10:10:00-05:00  100.0       101     100      -1.0
+  history_lookback: 7 days 00:00:00
+portfolio_config:
+  mark_to_market_col: close
+  pricing_method: twap.5T
+  column_remap:
+    bid: bid
+    ask: ask
+    midpoint: midpoint
+    price: close
+dag_runner_config:
+  bar_duration_in_secs: 300
+  rt_timeout_in_secs_or_time: 2100
+research_forecast_evaluator_from_prices:
+  style: cross_sectional
+  init:
+    price_col: vwap
+    volatility_col: vwap.ret_0.vol
+    prediction_col: feature1
+  kwargs:
+    target_gmv: 100000.0
+    liquidate_at_end_of_day: False
+event_loop_object: <_EventLoop running=False closed=True debug=False>
+market_object: ReplayedMarketData at 0x=(_asset_id_col=asset_id <str>, _asset_ids=[101] <list>, _start_time_col_name=start_datetime <str>, _end_time_col_name=end_datetime <str>, _columns=None <NoneType>, _sleep_in_secs=1.0 <float>, _timezone=America/New_York <str>, _column_remap=None <NoneType>, _filter_data_mode=assert <str>, _max_iterations=120 <int>, _df=pd.df((40, 7) <pandas.core.frame.DataFrame>, _knowledge_datetime_col_name=timestamp_db <str>, _delay_in_secs=5 <int>)
+object.str:
+  market_object:
+    <market_data.replayed_market_data.ReplayedMarketData at 0x>:
+      _asset_id_col='asset_id' <str>
+      _asset_ids='[101]' <list>
+      _start_time_col_name='start_datetime' <str>
+      _end_time_col_name='end_datetime' <str>
+      _columns='None' <NoneType>
+      _sleep_in_secs='1.0' <float>
+      _timezone='America/New_York' <str>
+      _column_remap='None' <NoneType>
+      _filter_data_mode='assert' <str>
+      _max_iterations='120' <int>
+      _df= <pandas.core.frame.DataFrame>
+                                             start_datetime              end_datetime              timestamp_db  close  asset_id  volume  feature1
+        2000-01-01 09:31:00-05:00 2000-01-01 09:30:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:31:00-05:00  101.0       101     100       1.0
+        2000-01-01 09:32:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:32:00-05:00  101.0       101     100       1.0
+        2000-01-01 09:33:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:33:00-05:00 2000-01-01 09:33:00-05:00  101.0       101     100       1.0
+        ...
+        2000-01-01 10:08:00-05:00 2000-01-01 10:07:00-05:00 2000-01-01 10:08:00-05:00 2000-01-01 10:08:00-05:00  100.0       101     100      -1.0
+        2000-01-01 10:09:00-05:00 2000-01-01 10:08:00-05:00 2000-01-01 10:09:00-05:00 2000-01-01 10:09:00-05:00  100.0       101     100      -1.0
+        2000-01-01 10:10:00-05:00 2000-01-01 10:09:00-05:00 2000-01-01 10:10:00-05:00 2000-01-01 10:10:00-05:00  100.0       101     100      -1.0
+      _knowledge_datetime_col_name='timestamp_db' <str>
+      _delay_in_secs='5' <int>
+  portfolio_object:
+    <oms.portfolio.dataframe_portfolio.DataFramePortfolio at 0x>
+      # historical holdings=
+      Empty DataFrame
+      Columns: [-1]
+      Index: []
+      # historical holdings marked to market=
+      Empty DataFrame
+      Columns: [-1]
+      Index: []
+      # historical flows=
+      Empty DataFrame
+      Columns: []
+      Index: []
+      # historical pnl=
+      Empty DataFrame
+      Columns: []
+      Index: []
+      # historical statistics=
+      Empty DataFrame
+      Columns: [pnl]
+      Index: []
+      broker=<oms.broker.dataframe_broker.DataFrameBroker at 0x>
+      market_data=<market_data.replayed_market_data.ReplayedMarketData at 0x>
+      _account=candidate
+      _timestamp_col=end_datetime
+      _get_wall_clock_time=<bound method MarketData.get_wall_clock_time of <market_data.replayed_market_data.ReplayedMarketData at 0x>:
+        _asset_id_col='asset_id' <str>
+        _asset_ids='[101]' <list>
+        _start_time_col_name='start_datetime' <str>
+        _end_time_col_name='end_datetime' <str>
+        _columns='None' <NoneType>
+        _sleep_in_secs='1.0' <float>
+        _timezone='America/New_York' <str>
+        _column_remap='None' <NoneType>
+        _filter_data_mode='assert' <str>
+        _max_iterations='120' <int>
+        _df= <pandas.core.frame.DataFrame>
+                                               start_datetime              end_datetime              timestamp_db  close  asset_id  volume  feature1
+          2000-01-01 09:31:00-05:00 2000-01-01 09:30:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:31:00-05:00  101.0       101     100       1.0
+          2000-01-01 09:32:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:32:00-05:00  101.0       101     100       1.0
+          2000-01-01 09:33:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:33:00-05:00 2000-01-01 09:33:00-05:00  101.0       101     100       1.0
+          ...
+          2000-01-01 10:08:00-05:00 2000-01-01 10:07:00-05:00 2000-01-01 10:08:00-05:00 2000-01-01 10:08:00-05:00  100.0       101     100      -1.0
+          2000-01-01 10:09:00-05:00 2000-01-01 10:08:00-05:00 2000-01-01 10:09:00-05:00 2000-01-01 10:09:00-05:00  100.0       101     100      -1.0
+          2000-01-01 10:10:00-05:00 2000-01-01 10:09:00-05:00 2000-01-01 10:10:00-05:00 2000-01-01 10:10:00-05:00  100.0       101     100      -1.0
+        _knowledge_datetime_col_name='timestamp_db' <str>
+        _delay_in_secs='5' <int>>
+      _asset_id_col=asset_id
+      _mark_to_market_col=close
+      _pricing_type=twap
+      _bar_duration=5T
+      _max_num_bars=100
+  dag_object:
+    <dataflow.core.dag.DAG at 0x>:
+      _nx_dag='DiGraph with 8 nodes and 7 edges' <networkx.classes.digraph.DiGraph>
+      _name='None' <NoneType>
+      _mode='strict' <str>
+      _save_node_io='' <str>
+      _profile_execution='False' <bool>
+      _dst_dir='None' <NoneType>
+      force_free_nodes='False' <bool>
+      nodes=[('filter_ath', {'stage': <dataflow.core.nodes.transformers.ColumnTransformer object at 0x>}), ('resample', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compute_ret_0', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compute_vol', {'stage': <dataflow.core.nodes.transformers.SeriesToSeriesTransformer object at 0x>}), ('adjust_rets', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compress_rets', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('read_data', {'stage': <dataflow.system.source_nodes.RealTimeDataSource object>}), ('process_forecasts', {'stage': <dataflow.system.sink_nodes.ProcessForecastsNode object>})]
+      edges=[('filter_ath', 'resample', {'df_in': 'df_out'}), ('resample', 'compute_ret_0', {'df_in': 'df_out'}), ('compute_ret_0', 'compute_vol', {'df_in': 'df_out'}), ('compute_vol', 'adjust_rets', {'df_in': 'df_out'}), ('adjust_rets', 'compress_rets', {'df_in': 'df_out'}), ('compress_rets', 'process_forecasts', {'df_in': 'df_out'}), ('read_data', 'filter_ath', {'df_in': 'df_out'})]
+      json=
+      {
+          "directed": true,
+          "graph": {},
+          "links": [
+              {
+                  "df_in": "df_out",
+                  "source": "filter_ath",
+                  "target": "resample"
+              },
+              {
+                  "df_in": "df_out",
+                  "source": "resample",
+                  "target": "compute_ret_0"
+              },
+              {
+                  "df_in": "df_out",
+                  "source": "compute_ret_0",
+                  "target": "compute_vol"
+              },
+              {
+                  "df_in": "df_out",
+                  "source": "compute_vol",
+                  "target": "adjust_rets"
+              },
+              {
+                  "df_in": "df_out",
+                  "source": "adjust_rets",
+                  "target": "compress_rets"
+              },
+              {
+                  "df_in": "df_out",
+                  "source": "compress_rets",
+                  "target": "process_forecasts"
+              },
+              {
+                  "df_in": "df_out",
+                  "source": "read_data",
+                  "target": "filter_ath"
+              }
+          ],
+          "multigraph": false,
+          "nodes": [
+              {
+                  "id": "filter_ath",
+                  "stage": "ColumnTransformer"
+              },
+              {
+                  "id": "resample",
+                  "stage": "GroupedColDfToDfTransformer"
+              },
+              {
+                  "id": "compute_ret_0",
+                  "stage": "GroupedColDfToDfTransformer"
+              },
+              {
+                  "id": "compute_vol",
+                  "stage": "SeriesToSeriesTransformer"
+              },
+              {
+                  "id": "adjust_rets",
+                  "stage": "GroupedColDfToDfTransformer"
+              },
+              {
+                  "id": "compress_rets",
+                  "stage": "GroupedColDfToDfTransformer"
+              },
+              {
+                  "id": "read_data",
+                  "stage": "RealTimeDataSource"
+              },
+              {
+                  "id": "process_forecasts",
+                  "stage": "ProcessForecastsNode"
+              }
+          ]
+      }
+  dag_runner_object:
+    <dataflow.system.real_time_dag_runner.RealTimeDagRunner at 0x>:
+      dag= <dataflow.core.dag.DAG>
+        <dataflow.core.dag.DAG at 0x>:
+          _nx_dag='DiGraph with 8 nodes and 7 edges' <networkx.classes.digraph.DiGraph>
+          _name='None' <NoneType>
+          _mode='strict' <str>
+          _save_node_io='' <str>
+          _profile_execution='False' <bool>
+          _dst_dir='None' <NoneType>
+          force_free_nodes='False' <bool>
+          nodes=[('filter_ath', {'stage': <dataflow.core.nodes.transformers.ColumnTransformer object at 0x>}), ('resample', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compute_ret_0', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compute_vol', {'stage': <dataflow.core.nodes.transformers.SeriesToSeriesTransformer object at 0x>}), ('adjust_rets', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('compress_rets', {'stage': <dataflow.core.nodes.transformers.GroupedColDfToDfTransformer object at 0x>}), ('read_data', {'stage': <dataflow.system.source_nodes.RealTimeDataSource object>}), ('process_forecasts', {'stage': <dataflow.system.sink_nodes.ProcessForecastsNode object>})]
+          edges=[('filter_ath', 'resample', {'df_in': 'df_out'}), ('resample', 'compute_ret_0', {'df_in': 'df_out'}), ('compute_ret_0', 'compute_vol', {'df_in': 'df_out'}), ('compute_vol', 'adjust_rets', {'df_in': 'df_out'}), ('adjust_rets', 'compress_rets', {'df_in': 'df_out'}), ('compress_rets', 'process_forecasts', {'df_in': 'df_out'}), ('read_data', 'filter_ath', {'df_in': 'df_out'})]
+          json=
+          {
+              "directed": true,
+              "graph": {},
+              "links": [
+                  {
+                      "df_in": "df_out",
+                      "source": "filter_ath",
+                      "target": "resample"
+                  },
+                  {
+                      "df_in": "df_out",
+                      "source": "resample",
+                      "target": "compute_ret_0"
+                  },
+                  {
+                      "df_in": "df_out",
+                      "source": "compute_ret_0",
+                      "target": "compute_vol"
+                  },
+                  {
+                      "df_in": "df_out",
+                      "source": "compute_vol",
+                      "target": "adjust_rets"
+                  },
+                  {
+                      "df_in": "df_out",
+                      "source": "adjust_rets",
+                      "target": "compress_rets"
+                  },
+                  {
+                      "df_in": "df_out",
+                      "source": "compress_rets",
+                      "target": "process_forecasts"
+                  },
+                  {
+                      "df_in": "df_out",
+                      "source": "read_data",
+                      "target": "filter_ath"
+                  }
+              ],
+              "multigraph": false,
+              "nodes": [
+                  {
+                      "id": "filter_ath",
+                      "stage": "ColumnTransformer"
+                  },
+                  {
+                      "id": "resample",
+                      "stage": "GroupedColDfToDfTransformer"
+                  },
+                  {
+                      "id": "compute_ret_0",
+                      "stage": "GroupedColDfToDfTransformer"
+                  },
+                  {
+                      "id": "compute_vol",
+                      "stage": "SeriesToSeriesTransformer"
+                  },
+                  {
+                      "id": "adjust_rets",
+                      "stage": "GroupedColDfToDfTransformer"
+                  },
+                  {
+                      "id": "compress_rets",
+                      "stage": "GroupedColDfToDfTransformer"
+                  },
+                  {
+                      "id": "read_data",
+                      "stage": "RealTimeDataSource"
+                  },
+                  {
+                      "id": "process_forecasts",
+                      "stage": "ProcessForecastsNode"
+                  }
+              ]
+          }
+      config='' <core.config.config_.Config>
+      _column_to_tags_mapping='None' <NoneType>
+      _result_nid='process_forecasts' <str>
+      _execute_rt_loop_kwargs= <dict>
+        {'get_wall_clock_time': <bound method MarketData.get_wall_clock_time of <market_data.replayed_market_data.ReplayedMarketData at 0x>:
+          _asset_id_col='asset_id' <str>
+          _asset_ids='[101]' <list>
+          _start_time_col_name='start_datetime' <str>
+          _end_time_col_name='end_datetime' <str>
+          _columns='None' <NoneType>
+          _sleep_in_secs='1.0' <float>
+          _timezone='America/New_York' <str>
+          _column_remap='None' <NoneType>
+          _filter_data_mode='assert' <str>
+          _max_iterations='120' <int>
+          _df= <pandas.core.frame.DataFrame>
+                                                 start_datetime              end_datetime              timestamp_db  close  asset_id  volume  feature1
+            2000-01-01 09:31:00-05:00 2000-01-01 09:30:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:31:00-05:00  101.0       101     100       1.0
+            2000-01-01 09:32:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:32:00-05:00  101.0       101     100       1.0
+            2000-01-01 09:33:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:33:00-05:00 2000-01-01 09:33:00-05:00  101.0       101     100       1.0
+            ...
+            2000-01-01 10:08:00-05:00 2000-01-01 10:07:00-05:00 2000-01-01 10:08:00-05:00 2000-01-01 10:08:00-05:00  100.0       101     100      -1.0
+            2000-01-01 10:09:00-05:00 2000-01-01 10:08:00-05:00 2000-01-01 10:09:00-05:00 2000-01-01 10:09:00-05:00  100.0       101     100      -1.0
+            2000-01-01 10:10:00-05:00 2000-01-01 10:09:00-05:00 2000-01-01 10:10:00-05:00 2000-01-01 10:10:00-05:00  100.0       101     100      -1.0
+          _knowledge_datetime_col_name='timestamp_db' <str>
+          _delay_in_secs='5' <int>>,
+         'bar_duration_in_secs': 300,
+         'rt_timeout_in_secs_or_time': 2100}
+      _dst_dir='None' <NoneType>
+      _fit_at_beginning='False' <bool>
+      _wake_up_timestamp='None' <NoneType>
+      _bar_duration_in_secs='300' <int>
+      _set_current_bar_timestamp='True' <bool>
+      _events='[]' <list>
+object.builder_function:
+  market_object: dataflow_amp.system.mock1.mock1_forecast_system._get_market_data
+  portfolio_object: dataflow_amp.system.mock1.mock1_forecast_system._get_portfolio
+  dag_object: dataflow_amp.system.mock1.mock1_forecast_system._get_dag
+  dag_runner_object: dataflow_amp.system.mock1.mock1_forecast_system._get_dag_runner
+portfolio_object:
+  <oms.portfolio.dataframe_portfolio.DataFramePortfolio at 0x>
+    # historical holdings=
+    asset_id                      101      -1
+    2000-01-01 09:35:06-05:00    0.00  1.00e+06
+    2000-01-01 09:40:06-05:00  990.10  9.01e+05
+    2000-01-01 09:45:06-05:00 -998.34  1.10e+06
+    2000-01-01 09:50:06-05:00  991.74  9.03e+05
+    2000-01-01 09:55:06-05:00 -998.34  1.10e+06
+    2000-01-01 10:00:06-05:00  991.74  9.05e+05
+    2000-01-01 10:05:06-05:00 -998.34  1.11e+06
+    # historical holdings marked to market=
+    asset_id                         101      -1
+    2000-01-01 09:35:06-05:00       0.00  1.00e+06
+    2000-01-01 09:40:06-05:00   99174.92  9.01e+05
+    2000-01-01 09:45:06-05:00 -100665.56  1.10e+06
+    2000-01-01 09:50:06-05:00   99338.84  9.03e+05
+    2000-01-01 09:55:06-05:00 -100665.56  1.10e+06
+    2000-01-01 10:00:06-05:00   99338.84  9.05e+05
+    2000-01-01 10:05:06-05:00 -100665.56  1.11e+06
+    # historical flows=
+    asset_id                         101
+    2000-01-01 09:40:06-05:00  -99009.90
+    2000-01-01 09:45:06-05:00  200831.95
+    2000-01-01 09:50:06-05:00 -199007.16
+    2000-01-01 09:55:06-05:00  200997.24
+    2000-01-01 10:00:06-05:00 -199007.16
+    2000-01-01 10:05:06-05:00  200997.24
+    # historical pnl=
+    asset_id                      101
+    2000-01-01 09:35:06-05:00     NaN
+    2000-01-01 09:40:06-05:00  165.02
+    2000-01-01 09:45:06-05:00  991.47
+    2000-01-01 09:50:06-05:00  997.24
+    2000-01-01 09:55:06-05:00  992.84
+    2000-01-01 10:00:06-05:00  997.24
+    2000-01-01 10:05:06-05:00  992.84
+    # historical statistics=
+                                  pnl  gross_volume  net_volume        gmv        nmv      cash  net_wealth  leverage
+    2000-01-01 09:35:06-05:00     NaN          0.00        0.00       0.00       0.00  1.00e+06    1.00e+06       0.0
+    2000-01-01 09:40:06-05:00  165.02      99009.90    99009.90   99174.92   99174.92  9.01e+05    1.00e+06       0.1
+    2000-01-01 09:45:06-05:00  991.47     200831.95  -200831.95  100665.56 -100665.56  1.10e+06    1.00e+06       0.1
+    2000-01-01 09:50:06-05:00  997.24     199007.16   199007.16   99338.84   99338.84  9.03e+05    1.00e+06       0.1
+    2000-01-01 09:55:06-05:00  992.84     200997.24  -200997.24  100665.56 -100665.56  1.10e+06    1.00e+06       0.1
+    2000-01-01 10:00:06-05:00  997.24     199007.16   199007.16   99338.84   99338.84  9.05e+05    1.00e+06       0.1
+    2000-01-01 10:05:06-05:00  992.84     200997.24  -200997.24  100665.56 -100665.56  1.11e+06    1.01e+06       0.1
+process_forecasts_node_dict:
+  prediction_col: feature1
+  volatility_col: vwap.ret_0.vol
+  spread_col: None
+  portfolio:
+    <oms.portfolio.dataframe_portfolio.DataFramePortfolio at 0x>
+      # historical holdings=
+      asset_id                      101      -1
+      2000-01-01 09:35:06-05:00    0.00  1.00e+06
+      2000-01-01 09:40:06-05:00  990.10  9.01e+05
+      2000-01-01 09:45:06-05:00 -998.34  1.10e+06
+      2000-01-01 09:50:06-05:00  991.74  9.03e+05
+      2000-01-01 09:55:06-05:00 -998.34  1.10e+06
+      2000-01-01 10:00:06-05:00  991.74  9.05e+05
+      2000-01-01 10:05:06-05:00 -998.34  1.11e+06
+      # historical holdings marked to market=
+      asset_id                         101      -1
+      2000-01-01 09:35:06-05:00       0.00  1.00e+06
+      2000-01-01 09:40:06-05:00   99174.92  9.01e+05
+      2000-01-01 09:45:06-05:00 -100665.56  1.10e+06
+      2000-01-01 09:50:06-05:00   99338.84  9.03e+05
+      2000-01-01 09:55:06-05:00 -100665.56  1.10e+06
+      2000-01-01 10:00:06-05:00   99338.84  9.05e+05
+      2000-01-01 10:05:06-05:00 -100665.56  1.11e+06
+      # historical flows=
+      asset_id                         101
+      2000-01-01 09:40:06-05:00  -99009.90
+      2000-01-01 09:45:06-05:00  200831.95
+      2000-01-01 09:50:06-05:00 -199007.16
+      2000-01-01 09:55:06-05:00  200997.24
+      2000-01-01 10:00:06-05:00 -199007.16
+      2000-01-01 10:05:06-05:00  200997.24
+      # historical pnl=
+      asset_id                      101
+      2000-01-01 09:35:06-05:00     NaN
+      2000-01-01 09:40:06-05:00  165.02
+      2000-01-01 09:45:06-05:00  991.47
+      2000-01-01 09:50:06-05:00  997.24
+      2000-01-01 09:55:06-05:00  992.84
+      2000-01-01 10:00:06-05:00  997.24
+      2000-01-01 10:05:06-05:00  992.84
+      # historical statistics=
+                                    pnl  gross_volume  net_volume        gmv        nmv      cash  net_wealth  leverage
+      2000-01-01 09:35:06-05:00     NaN          0.00        0.00       0.00       0.00  1.00e+06    1.00e+06       0.0
+      2000-01-01 09:40:06-05:00  165.02      99009.90    99009.90   99174.92   99174.92  9.01e+05    1.00e+06       0.1
+      2000-01-01 09:45:06-05:00  991.47     200831.95  -200831.95  100665.56 -100665.56  1.10e+06    1.00e+06       0.1
+      2000-01-01 09:50:06-05:00  997.24     199007.16   199007.16   99338.84   99338.84  9.03e+05    1.00e+06       0.1
+      2000-01-01 09:55:06-05:00  992.84     200997.24  -200997.24  100665.56 -100665.56  1.10e+06    1.00e+06       0.1
+      2000-01-01 10:00:06-05:00  997.24     199007.16   199007.16   99338.84   99338.84  9.05e+05    1.00e+06       0.1
+      2000-01-01 10:05:06-05:00  992.84     200997.24  -200997.24  100665.56 -100665.56  1.11e+06    1.01e+06       0.1
+  process_forecasts_dict:
+    order_config:
+      order_type: price@twap
+      order_duration_in_mins: 5
+    optimizer_config:
+      backend: pomo
+      asset_class: equities
+      apply_cc_limits: None
+      params:
+        style: cross_sectional
+        kwargs:
+          bulk_frac_to_remove: 0.0
+          bulk_fill_method: zero
+          target_gmv: 100000.0
+    execution_mode: real_time
+    log_dir: None
+    ath_start_time: 09:30:00
+    trading_start_time: 09:30:00
+    ath_end_time: 16:00:00
+    trading_end_time: 15:55:00
+    liquidate_at_trading_end_time: False
+dag_object: DAG at 0x=(_nx_dag=DiGraph with 8 nodes and 7 edges <networkx.classes.digraph.DiGraph>, _name=None <NoneType>, _mode=strict <str>, _save_node_io= <str>, _profile_execution=False <bool>, _dst_dir=None <NoneType>, force_free_nodes=False <bool>)
+dag_runner_object:
+  RealTimeDagRunner at 0x=(dag=DAG at 0x=(_nx_dag=DiGraph with 8 nodes and 7 edges <networkx.classes.digraph.DiGraph>, _name=None <NoneType>, _mode=strict <str>, _save_node_io= <str>, _profile_execution=False <bool>, _dst_dir=None <NoneType>, force_free_nodes=False <bool>) <dataflow.core.dag.DAG>, config= <core.config.config_.Config>, _column_to_tags_mapping=None <NoneType>, _result_nid=process_forecasts <str>, _execute_rt_loop_kwargs={'get_wall_clock_time': <bound method MarketData.get_wall_clock_time of <market_data.replayed_market_data.ReplayedMarketData at 0x>:
+    _asset_id_col='asset_id' <str>
+    _asset_ids='[101]' <list>
+    _start_time_col_name='start_datetime' <str>
+    _end_time_col_name='end_datetime' <str>
+    _columns='None' <NoneType>
+    _sleep_in_secs='1.0' <float>
+    _timezone='America/New_York' <str>
+    _column_remap='None' <NoneType>
+    _filter_data_mode='assert' <str>
+    _max_iterations='120' <int>
+    _df= <pandas.core.frame.DataFrame>
+                                           start_datetime              end_datetime              timestamp_db  close  asset_id  volume  feature1
+      2000-01-01 09:31:00-05:00 2000-01-01 09:30:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:31:00-05:00  101.0       101     100       1.0
+      2000-01-01 09:32:00-05:00 2000-01-01 09:31:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:32:00-05:00  101.0       101     100       1.0
+      2000-01-01 09:33:00-05:00 2000-01-01 09:32:00-05:00 2000-01-01 09:33:00-05:00 2000-01-01 09:33:00-05:00  101.0       101     100       1.0
+      ...
+      2000-01-01 10:08:00-05:00 2000-01-01 10:07:00-05:00 2000-01-01 10:08:00-05:00 2000-01-01 10:08:00-05:00  100.0       101     100      -1.0
+      2000-01-01 10:09:00-05:00 2000-01-01 10:08:00-05:00 2000-01-01 10:09:00-05:00 2000-01-01 10:09:00-05:00  100.0       101     100      -1.0
+      2000-01-01 10:10:00-05:00 2000-01-01 10:09:00-05:00 2000-01-01 10:10:00-05:00 2000-01-01 10:10:00-05:00  100.0       101     100      -1.0
+    _knowledge_datetime_col_name='timestamp_db' <str>
+    _delay_in_secs='5' <int>>, 'bar_duration_in_secs': 300, 'rt_timeout_in_secs_or_time': 2100} <dict>, _dst_dir=None <NoneType>, _fit_at_beginning=False <bool>, _wake_up_timestamp=None <NoneType>, _bar_duration_in_secs=300 <int>, _set_current_bar_timestamp=True <bool>, _events=[Event(num_it=1, current_time=Timestamp('2000-01-01 09:35:00-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=2, current_time=Timestamp('2000-01-01 09:40:00-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=3, current_time=Timestamp('2000-01-01 09:45:00-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=4, current_time=Timestamp('2000-01-01 09:50:00-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=5, current_time=Timestamp('2000-01-01 09:55:00-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=6, current_time=Timestamp('2000-01-01 10:00:00-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York')), Event(num_it=7, current_time=Timestamp('2000-01-01 10:05:00-0500', tz='America/New_York'), wall_clock_time=Timestamp('xxx', tz='America/New_York'))] <list>)

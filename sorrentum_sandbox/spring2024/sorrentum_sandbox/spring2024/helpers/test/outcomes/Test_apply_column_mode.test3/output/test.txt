@@ -1,0 +1,9 @@
+
+################################################################################
+* Failed assertion *
+cond=False
+df1.columns.difference(df2.columns)=
+Index(['B'], dtype='object')
+df2.columns.difference(df1.columns)=
+Index(['C'], dtype='object')
+################################################################################

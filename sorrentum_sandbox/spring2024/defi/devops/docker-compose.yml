@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  ganache:
+    build: .
+    ports:
+      - 8545:8545
+    entrypoint: ["ganache"]

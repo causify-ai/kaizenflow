@@ -1,0 +1,13 @@
+                                              arma(2,2)
+data_n_rows                                          40
+data_frac_zero                                    0.125
+data_frac_nan                                     0.125
+data_frac_inf                                      0.15
+data_frac_constant                             0.102564
+data_num_finite_samples                              29
+data_num_finite_samples_inv                    0.034483
+data_num_finite_samples_inv_dyadic_scale             -5
+data_num_finite_samples_sqrt                   5.385165
+data_num_finite_samples_sqrt_inv               0.185695
+data_num_finite_samples_sqrt_inv_dyadic_scale        -3
+data_num_unique_values                               25

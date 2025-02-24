@@ -1,0 +1,20 @@
+#
+#
+#
+
+# TODO(gp): Unclear what it does
+
+version: '3.1'
+
+services:
+  im-postgres:
+    image: postgres
+    container_name: im-postgres
+    restart: always
+    env_file:
+      - ../env/multistage.postgres.env
+    volumes:
+      - /data:/var/lib/postgresql/data
+      - ../create-multiple-postgresql-databases.sh:/docker-entrypoint-initdb.d/create-multiple-postgresql-databases.sh
+    ports:
+      - "0.0.0.0:5432:5432"

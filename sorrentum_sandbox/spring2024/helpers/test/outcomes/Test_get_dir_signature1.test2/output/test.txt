@@ -1,0 +1,45 @@
+# Dir structure
+$GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input
+$GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input/result_0
+$GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input/result_0/config.txt
+$GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input/result_0/run_notebook.0.log
+$GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input/result_1
+$GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input/result_1/config.txt
+$GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input/result_1/run_notebook.1.log
+# File signatures
+len(file_names)=4
+file_names=$GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input/result_0/config.txt, $GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input/result_0/run_notebook.0.log, $GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input/result_1/config.txt, $GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input/result_1/run_notebook.1.log
+# $GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input/result_0/config.txt
+num_lines=8
+'''
+fail: False
+id: 0
+meta:
+  id: 0
+  config_builder: dev_scripts.test.test_run_notebook.build_configs1()
+  dst_dir: $GIT_ROOT/dev_scripts/test/outcomes/TestRunNotebook1.test1/tmp.scratch
+  experiment_result_dir: $GIT_ROOT/dev_scripts/test/outcomes/TestRunNotebook1.test1/tmp.scratch/result_0
+
+'''
+# $GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input/result_0/run_notebook.0.log
+num_lines=1
+'''
+
+'''
+# $GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input/result_1/config.txt
+num_lines=8
+'''
+fail: False
+id: 1
+meta:
+  id: 1
+  config_builder: dev_scripts.test.test_run_notebook.build_configs1()
+  dst_dir: $GIT_ROOT/dev_scripts/test/outcomes/TestRunNotebook1.test1/tmp.scratch
+  experiment_result_dir: $GIT_ROOT/dev_scripts/test/outcomes/TestRunNotebook1.test1/tmp.scratch/result_1
+
+'''
+# $GIT_ROOT/helpers/test/outcomes/Test_get_dir_signature1.test2/input/result_1/run_notebook.1.log
+num_lines=1
+'''
+
+'''
