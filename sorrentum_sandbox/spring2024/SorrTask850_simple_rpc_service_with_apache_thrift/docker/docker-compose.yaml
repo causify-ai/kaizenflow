@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  thrift-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+      - "9090:9090"
+    volumes:
+      - ./server.ipynb:/app/server.ipynb
+
+  thrift-client:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8889:8888"
+    volumes:
+      - ./client.ipynb:/app/client.ipynb
+    depends_on:
+      - thrift-server
